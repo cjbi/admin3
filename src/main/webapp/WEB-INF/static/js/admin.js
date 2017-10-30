@@ -28,7 +28,7 @@ function initDatatables(ajax, gridTable, ServerParams, initComplete, tableNames)
         'bAutoWidth': true,
         'sort': 'position',
         'deferRender': true,// 延迟渲染
-        'bStateSave': true, // 刷新时保存表格状态
+        'bStateSave': false, // 刷新时保存表格状态
         'iDisplayLength': 15,
         'iDisplayStart': 0,
         'ordering': false,// 全局禁用排序

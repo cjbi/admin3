@@ -26,8 +26,8 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public Page listByPage(Page page) {
         RoleExample example = new RoleExample();
-        example.setOffset(page.getOffset());
-        example.setLimit(page.getLimit());
+        example.setOffset(page.getStart());
+        example.setLimit(page.getLength());
         List<Role> roleList = roleMapper.selectByExample(example);
         long count = roleMapper.countByExample(example);
         roleMapper.countByExample(example);

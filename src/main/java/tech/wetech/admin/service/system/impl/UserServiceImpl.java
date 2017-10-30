@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public Page listByPage(Page page) {
         UserExample example = new UserExample();
-        example.setOffset(page.getOffset());
-        example.setLimit(page.getLimit());
+        example.setOffset(page.getStart());
+        example.setLimit(page.getLength());
         long count = userMapper.countByExample(example);
         List<User> userList = userMapper.selectByExample(example);
         List<UserDto> dtoList = new ArrayList<>();
