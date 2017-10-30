@@ -28,7 +28,7 @@ function initDatatables(ajax, gridTable, ServerParams, initComplete, tableNames)
         'bAutoWidth': true,
         'sort': 'position',
         'deferRender': true,// 延迟渲染
-        'bStateSave': false, // 刷新时保存表格状态
+        'bStateSave': true, // 刷新时保存表格状态
         'iDisplayLength': 15,
         'iDisplayStart': 0,
         'ordering': false,// 全局禁用排序
@@ -223,13 +223,6 @@ rowActive = function () {
             $(this).parent().parent().removeClass('selected');
         }
     });
-};
-
-/**
- * 查询数据
- */
-function reloadDatatables() {
-    $('#example').DataTable().ajax.reload();
 };
 
 /**

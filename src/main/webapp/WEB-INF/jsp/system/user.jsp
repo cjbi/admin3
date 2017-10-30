@@ -51,7 +51,7 @@
         </div>
 
         <div class="am-u-sm-12">
-            <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered am-text-nowrap" width="100%" id="example">
+            <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered am-text-nowrap" width="100%" id="example_user">
                 <thead>
                 <tr>
                     <th><input type="checkbox" id='checkAll'></th>
@@ -167,7 +167,7 @@
                 'data': 'roleNames'
             }
         ];
-        var table = initDatatables(listURL, gridTable);
+        var table = initDatatables(listURL, gridTable,'','','example_user');
 
         /**
          * 新增
