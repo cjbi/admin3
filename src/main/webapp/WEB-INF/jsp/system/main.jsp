@@ -75,6 +75,5 @@
 <script src="<%=request.getContextPath()%>/static/libs/zTree_v3/js/jquery.ztree.all.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/common/common.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/admin.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/common/ext.js"></script>
 </body>
 </html>

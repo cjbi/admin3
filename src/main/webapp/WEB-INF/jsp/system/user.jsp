@@ -167,7 +167,7 @@
                 'data': 'roleNames'
             }
         ];
-        var table = initDatatables(listURL, gridTable,'','','example_user');
+        var table = $.mytables.initDatatables(listURL, gridTable,'example_user');
 
         /**
          * 新增
@@ -182,7 +182,7 @@
                             url: createURL,
                             callback: function (data) {
                                 if (data.success == true) {
-                                    $.closeDialog(index);
+                                    $.mydialog.closeDialog(index);
                                     table.ajax.reload();
                                 }
                             }
@@ -190,7 +190,7 @@
                     }
                 }
             };
-            $('#add-dialog').openDialog(opts);
+            $.mytables.openDialog(opts,$('#add-dialog'));
         }
 
         /**
@@ -207,7 +207,7 @@
                             url: updateURL,
                             callback: function (data) {
                                 if (data.success == true) {
-                                    $.closeDialog(index);
+                                    $.mydialog.closeDialog(index);
                                     table.ajax.reload();
                                 }
                             }
@@ -215,18 +215,18 @@
                     }
                 }
             };
-            $('#edit-dialog').openDialog(opts);
+            $.mytables.openDialog(opts,$('#edit-dialog'));
         }
 
         del = function () {
-            deleteBatch(deleteURL, 'id');
+            $.mytables.deleteBatch(deleteURL, 'id');
         }
 
         /**
          * 重置
          */
         reset = function () {
-            loadContent('#user');
+            $.myadmin.loadContent('#user');
         }
 
         var setting = {

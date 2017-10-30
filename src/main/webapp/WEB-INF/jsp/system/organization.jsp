@@ -224,7 +224,7 @@
         //  rDel删除节点
         $('#rDel').click(function () {
             var id = $('#add-form [name="parentId"]').val();
-            $.confirm('确定要删除 [' + $('#add-form [name="parentName"]').val() + '] 吗？', {
+            $.mydialog.confirm('确定要删除 [' + $('#add-form [name="parentName"]').val() + '] 吗？', {
                 icon: 3,
                 title: '系统提示',
                 yes: function (index, layero) {
@@ -245,7 +245,7 @@
                                 time: '2000',
                                 icon: 6
                             });
-                            loadContent('#organization');
+                            $.myadmin.loadContent('#organization');
 //                            var treeObj = $.fn.zTree.getZTreeObj("tree");
 //                            var nodes = treeObj.getSelectedNodes();
 //                            treeObj.reAsyncChildNodes(null, "refresh");
@@ -272,8 +272,8 @@
                             url: createURL,
                             callback: function (data) {
                                 if (data.success == true) {
-                                    $.closeDialog(index);
-                                    loadContent('#organization');
+                                    $.mydialog.closeDialog(index);
+                                    $.myadmin.loadContent('#organization');
 //                                    var treeObj = $.fn.zTree.getZTreeObj("tree");
 //                                    var nodes = treeObj.getSelectedNodes();
 //                                    treeObj.reAsyncChildNodes(null, "refresh");
@@ -293,7 +293,7 @@
                 $form.submit({
                     url: updateURL,
                     callback: function (data) {
-                        loadContent('#organization');
+                        $.myadmin.loadContent('#organization');
                     }
                 });
             }

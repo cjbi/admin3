@@ -129,7 +129,6 @@
 </div>
 <script type="text/javascript">
     $(function () {
-
         var pathURL = basePath + '/role/',
             listURL = pathURL + 'list',
             createURL = pathURL + 'create',
@@ -154,7 +153,7 @@
                 'data': 'resourceNames'
             }
         ];
-        var table = initDatatables(listURL, gridTable,'','','example_role');
+        var table = $.mytables.initDatatables(listURL,gridTable,'example_role');
 
         /**
          * 新增
@@ -169,7 +168,7 @@
                             url: createURL,
                             callback: function (data) {
                                 if (data.success == true) {
-                                    $.closeDialog(index);
+                                    $.mydialog.closeDialog(index);
                                     table.ajax.reload();
                                 }
                             }
@@ -177,7 +176,7 @@
                     }
                 }
             };
-            $('#add-dialog').openDialog(opts);
+            $.mytables.openDialog(opts,$('#add-dialog'));
         }
 
         /**
@@ -194,7 +193,7 @@
                             url: updateURL,
                             callback: function (data) {
                                 if (data.success == true) {
-                                    $.closeDialog(index);
+                                    $.mydialog.closeDialog(index);
                                     table.ajax.reload();
                                 }
                             }
@@ -202,19 +201,19 @@
                     }
                 }
             };
-            $('#edit-dialog').openDialog(opts);
+            $.mytables.openDialog(opts,$('#edit-dialog'));
         }
 
         del = function () {
-            deleteBatch(deleteURL, 'id');
+            $.mytables.deleteBatch(deleteURL, 'id');
         }
 
         /**
          * 重置
          */
         reset = function () {
-            loadContent('#role');
-        }
+            $.myadmin.loadContent('#role');
+        };
 
         var setting = {
             check: {

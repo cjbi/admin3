@@ -360,8 +360,8 @@
                             url:createURL,
                             callback:function(data) {
                                 if(data.success == true) {
-                                    $.closeDialog(index);
-                                    loadContent('#resource');
+                                    $.mydialog.closeDialog(index);
+                                    $.myadmin.loadContent('#resource');
 //                                    var treeObj = $.fn.zTree.getZTreeObj("tree");
 //                                    var nodes = treeObj.getSelectedNodes();
 //                                    treeObj.reAsyncChildNodes(null, "refresh");
@@ -396,8 +396,8 @@
                             url: updateURL,
                             callback: function (data) {
                                 if (data.success == true) {
-                                    $.closeDialog(index);
-                                    loadContent('#resource');
+                                    $.mydialog.closeDialog(index);
+                                    $.myadmin.loadContent('#resource');
                                 }
                             }
                         });
@@ -410,7 +410,7 @@
         del = function (tId) {
             var treeObj = $.fn.zTree.getZTreeObj("dataTree");
             var node = treeObj.getNodeByTId(tId);
-            $.confirm('确定要删除 [' + node.name + '] 吗？', {
+            $.mydialog.confirm('确定要删除 [' + node.name + '] 吗？', {
                 icon: 3,
                 title: '系统提示',
                 yes: function (index, layero) {
@@ -451,7 +451,7 @@
          * 重置
          */
         reset = function () {
-            loadContent('#resource');
+            $.myadmin.loadContent('#resource');
         }
 
     })
