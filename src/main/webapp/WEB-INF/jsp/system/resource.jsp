@@ -362,9 +362,6 @@
                                 if(data.success == true) {
                                     $.mydialog.closeDialog(index);
                                     $.myadmin.loadContent('#resource');
-//                                    var treeObj = $.fn.zTree.getZTreeObj("tree");
-//                                    var nodes = treeObj.getSelectedNodes();
-//                                    treeObj.reAsyncChildNodes(null, "refresh");
                                 }
                             }
                         });
