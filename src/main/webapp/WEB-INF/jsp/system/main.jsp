@@ -41,14 +41,15 @@
     <jsp:include page="sidebar.jsp"/>
     <%-- sidebar end --%>
     <%-- content start --%>
-    <content id="admin-content">
+     <content id="admin-content">
         <div class="admin-content">
             <div class="admin-content-body">
-                <div class="am-cf am-padding am-padding-bottom-0">
-                    <div class="am-fl am-cf">
-                        <strong class="am-text-primary am-text-lg">仪表盘</strong> /
-                        <small>没有内容</small>
-                    </div>
+                <div class="am-cf am-padding">
+                    <ol class="am-breadcrumb">
+                        <li><a href="#" class="am-icon-home">首页</a></li>
+                        <%--<li><a href="#">用户管理</a></li>--%>
+                        <li class="am-active">没有内容</li>
+                    </ol>
                 </div>
                 ${dom}
             </div>

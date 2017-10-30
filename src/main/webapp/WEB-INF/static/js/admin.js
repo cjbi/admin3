@@ -44,7 +44,7 @@ var tableName = 'example',
                     'ordering': false,// 全局禁用排序
                     'scrollX': false,
                     'ajax': ajax,
-//		表格开启scrollX row会覆盖bProcessing样式，算是个BUG，"am-padding am-padding-horizontal-0"
+                    //		表格开启scrollX row会覆盖bProcessing样式，算是个BUG，"am-padding am-padding-horizontal-0"
                     "dom": '<"am-g am-g-collapse"rt<<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
                     // "dom" : '<"am-g am-g-collapse"<"am-g
                     // am-datatable-hd"<"am-u-sm-6"<"#btnPlugin">><"am-u-sm-4"<"#regexPlugin">><"am-u-sm-2"f>>rt<<"am-datatable-hd
@@ -282,9 +282,17 @@ var tableName = 'example',
 
     /**
      * admin相关方法封装
-     * @type {{loadContent: $.myadmin.loadContent}}
+     * @type {{refresh: jQuery.myadmin.refresh, loadContent: jQuery.myadmin.loadContent}}
      */
     $.myadmin = {
+
+        /**
+         * 如果参数是 false，它就会用 HTTP 头 If-Modified-Since 来检测服务器上的文档是否已改变,否则就绕过缓存刷新页面
+         * @param forceget 是否绕过缓存
+         */
+        refresh: function(forceget) {
+            window.location.reload(forceget);
+        },
         /**
          * 加载content区域
          * @param href #锚点
@@ -486,15 +494,6 @@ var tableName = 'example',
         });
     });
 
-    $.ajaxCheck = function (data) {
-        if (data.result)
-            return true;
-        else {
-            alert(data.msg);
-            return false;
-        }
-    };
-
     // sidebar绑定事件
     $('a[class="am-cf"]').on('click', function (e) {
         var href = $(this).attr('href');
@@ -520,10 +519,6 @@ var tableName = 'example',
 
     // 加载Content
     $.myadmin.loadContent();
-
-    /*
-     * $.ajaxSetup({ cache : true });
-     */
 
     // 加载进度条动画
     $(document).ajaxStart(function() {
