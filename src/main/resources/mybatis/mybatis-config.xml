@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<setting name="cacheEnabled" value="true" /><!-- 全局映射器启用缓存 -->
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
+	<!-- 配置别名 -->
+	<typeAliases>
+		<!--<typeAlias type="tech.wetech.admin.model.system.User" alias="User"/>-->
+		<!--<typeAlias type="tech.wetech.admin.model.system.Role" alias="Role"/>-->
+	</typeAliases>
+
+	<!--<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<property name="helperDialect" value="mysql"/>
+			<property name="reasonable" value="true"/>
+			<property name="supportMethodsArguments" value="true"/>
+			<property name="autoRuntimeDialect" value="true"/>
+		</plugin>
+	</plugins>-->
+
+</configuration>

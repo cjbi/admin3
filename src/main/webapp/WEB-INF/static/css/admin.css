@@ -1,0 +1,638 @@
+/**
+ * admin.css
+ */
+
+
+/*
+ fixed-layout 固定头部和边栏布局
+*/
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+ul {
+  margin-top: 0;
+}
+
+.am-topbar .am-text-ir {
+  display: block;
+  margin-right: 10px;
+  height: 64px;
+  width: 140px;
+  background: url(../i/logo.png) no-repeat left center;
+  -webkit-background-size: 125px 24px;
+  background-size: 125px 24px;
+}
+
+.admin-icon-yellow {
+  color: #ffbe40;
+}
+
+.admin-user-ico {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: 6px;
+    overflow: hidden;
+}
+
+.admin-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1500;
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+.admin-header-list a:hover :after {
+  content: none;
+}
+
+
+.am-topbar {
+ z-index: 9999;
+ margin-bottom: 0;
+}
+
+.am-nav > li {
+    font-size: 14px;
+}
+
+.am-topbar-inverse .am-topbar-nav > li > a {
+    color: #fff;
+}
+
+.am-nav-pills > li + li {
+    margin-left: 0;
+}
+
+.am-topbar-brand {
+
+    margin-right: 20px;
+}
+.admin-main {
+  position: relative;
+  height: 100%;
+  background: #f3f3f3;
+}
+
+.admin-menu {
+  position: fixed;
+  z-index: 10;
+  bottom: 30px;
+  right: 20px;
+}
+
+.admin-sidebar {
+  width: 260px;
+  min-height: 100%;
+  float: left;
+  border-right: 1px solid #cecece;
+}
+
+.admin-sidebar.am-active {
+  z-index: 16000;
+}
+
+
+
+
+
+
+.admin-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #fff;
+}
+
+.admin-content,
+.admin-sidebar {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-content-body {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  padding-bottom: 90px;
+}
+
+.admin-content-footer {
+  font-size: 85%;
+  color: #777;
+}
+
+.admin-content-list {
+  border: 1px solid #e9ecf1;
+  margin-top: 0;
+}
+
+.admin-content-list li {
+  border: 1px solid #e9ecf1;
+  border-width: 0 1px;
+  margin-left: -1px;
+}
+
+.admin-content-list li:first-child {
+  border-left: none;
+}
+
+.admin-content-list li:last-child {
+  border-right: none;
+}
+
+.admin-content-table a {
+  color: #535353;
+}
+.am-list.admin-content-file {
+  margin-bottom: 0;
+  margin-top: 0;
+  color: #666;
+}
+
+.admin-content-file.admin-content-amendment {
+  padding-bottom: 5px;
+}
+
+.admin-content-file p {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+}
+
+.admin-content-file li {
+  padding: 10px 0;
+}
+
+.admin-content-file li:first-child {
+  border-top: none;
+}
+
+.admin-content-file li:last-child {
+  border-bottom: none;
+}
+
+.admin-content-file li .am-progress {
+  margin-bottom: 4px;
+}
+
+.admin-content-browser-bd {
+  padding: 0;
+}
+
+.admin-content-browser-bd .am-table {
+  margin-bottom: 0
+}
+
+.admin-content-file li .am-progress-bar {
+  line-height: 14px;
+}
+
+.admin-content-task {
+  margin-bottom: 0;
+}
+
+.admin-task-meta {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.am-comment-bd p {
+  font-size: 14px;
+}
+
+.am-panel-bd .am-list {
+  margin-top: 0;
+}
+
+.admin-content-task li {
+  padding: 5px 0;
+  border-color: #eee;
+}
+
+.admin-content-task li:first-child {
+  border-top: none;
+}
+
+.admin-content-task li:last-child {
+  border-bottom: none;
+}
+
+.admin-task-bd {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.admin-content-comment {
+  margin-bottom: 0;
+}
+
+.admin-content-pagination {
+  margin-bottom: 0;
+}
+.admin-content-pagination li a {
+  padding: 4px 8px;
+}
+
+
+.am-list {
+    padding-top: 20px;
+
+}
+
+.am-list .am-list-title {
+    font-size: 14px;
+    color: #bbb;
+    margin-left: 0.625rem;
+    border: none;
+    padding-bottom: 0.625rem;
+    margin-top: 10px;
+}
+
+.am-list-ico  {
+  font-size: 16px;
+  padding-right: 8px;
+}
+
+.am-panel > .am-list {
+  padding: 0;
+}
+.am-list > li {
+ 
+}
+
+.am-list > li > a {
+    color: #333;
+    font-size: 16px;
+}
+
+.admin-sidebar-list {
+  background: #fff;
+}
+
+.am-form-horizontal .am-form-label {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.am-switch {
+    margin-top: 6px;
+}
+
+.am-form-horizontal .am-checkbox-inline {
+    padding-top: 0;
+}
+
+
+
+.login-background {
+    background: #f5f7fa;
+}
+
+.login-cover {
+    width: 100%;
+    padding-top: 120px;
+}
+
+.login-cover .login-info {
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.1);
+}
+
+.login-cover .login-info .login-info-form {
+    width: 440px;
+    padding: 20px;
+    float: left;
+}
+
+.login-cover .login-info .login-info-form .login-info-form-content {
+    padding: 40px;
+    padding-bottom: 0;
+}
+
+.login-cover .login-info .login-info-cover {
+    width: 360px;
+    height: 500px;
+    position: relative;
+    background: url(../img/cr.png) center;
+    float: left;
+}
+
+.login-cover .login-info .login-info-cover .login-info-cover-title {
+    position: absolute;
+    color: #fff;
+    font-size: 36px;
+    font-weight: bold;
+    left: 30px;
+    bottom: 30px;
+}
+
+.login-cover .login-info .login-info-cover .login-info-cover-title-small {
+    font-size: 14px;
+    font-weight: normal;
+    color: #fff;
+}
+
+.login-cover .login-info .login-info-cover .login-info-cover-line {
+    width: 100px;
+    margin-top: 10px;
+    border-bottom: 2px solid #5085FF;
+}
+
+.login-cover .login-logo {
+    width: 180px;
+    margin-bottom: 60px;
+}
+
+.login-link {
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+    display: block;
+    color: #b5babe;
+}
+.login-line-font {
+    padding: 0 8px;
+    position: relative;
+    top: -15px;
+    width: 100%;
+    background: #fff;
+    font-size: 12px;
+    color: #8f979e;
+    
+}
+.login-line {
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+    width: 100%;
+    border: 1px dashed #eff0f2;
+    height: 1px;
+}
+
+.login-consociation {
+    padding-top: 30px;
+    width: 100%;
+}
+
+
+.login-cover .login-logo img {
+    width: 100%;
+}
+
+
+@media only screen and (min-width: 641px) {
+  .admin-sidebar {
+    display: block;
+    position: static;
+    background: #fff;
+  }
+
+  .admin-offcanvas-bar {
+    position: static;
+    width: auto;
+    background: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    overflow-y: visible;
+    min-height: 100%;
+  }
+  .admin-offcanvas-bar:after {
+    content: none;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+
+  .login-cover .login-info {
+    width: 100%;
+    box-shadow: none;
+  }
+  .login-logo {
+    margin: 0 auto;
+  }
+  .login-cover {
+    padding-top: 30px;
+  }
+  .login-cover .login-info .login-info-form {
+    width: 100%;
+  }
+  .login-cover .login-info .login-info-form .login-info-form-content {
+    padding: 20px;
+  }
+  .login-cover .login-info .login-info-cover {
+    display: none;
+  }
+  .admin-sidebar {
+    width: inherit;
+  }
+
+  .admin-offcanvas-bar {
+    background: #f3f3f3;
+  }
+
+  .admin-offcanvas-bar:after {
+    background: #BABABA;
+  }
+
+  .admin-sidebar-list a:hover, .admin-sidebar-list a:active{
+    -webkit-transition: background-color .3s ease;
+    -moz-transition: background-color .3s ease;
+    -ms-transition: background-color .3s ease;
+    -o-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+    background: #E4E4E4;
+  }
+
+  .am-list {
+    padding-left: 0;
+  }
+  .admin-content-list li {
+    padding: 10px;
+    border-width: 1px 0;
+    margin-top: -1px;
+  }
+
+  .admin-content-list li:first-child {
+    border-top: none;
+  }
+
+  .admin-content-list li:last-child {
+    border-bottom: none;
+  }
+
+  .admin-form-text {
+    text-align: left !important;
+  }
+
+}
+
+/*
+* user.html css
+*/
+.user-info {
+  margin-bottom: 15px;
+}
+
+.user-info .am-progress {
+  margin-bottom: 4px;
+}
+
+.user-info p {
+  margin: 5px;
+}
+
+.user-info-order {
+  font-size: 1.4rem;
+}
+
+/*
+* errorLog.html css
+*/
+
+.error-log .am-pre-scrollable {
+  max-height: 40rem;
+}
+
+/*
+* table.html css
+*/
+
+.table-main {
+  font-size: 14px;
+  padding: .5rem;
+}
+
+
+.table-check {
+  width: 30px;
+}
+
+.table-id {
+  width: 50px;
+}
+
+@media only screen and (max-width: 640px) {
+  .table-select {
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+}
+
+/*
+gallery.html css
+*/
+
+.gallery-list li {
+  padding: 10px;
+}
+
+.gallery-list a {
+  color: #666;
+}
+
+.gallery-list a:hover {
+  color: #3bb4f2;
+}
+
+.gallery-title {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.gallery-desc {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/*
+ 404.html css
+*/
+
+.page-404 {
+  background: #fff;
+  border: none;
+  width: 200px;
+  margin: 0 auto;
+}
+
+/* Write your styles */
+/*自定义datatables checkbox大小 */
+td > input[type=checkbox], th >input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    left: 16px;
+}
+.am-panel > .am-list > li > a {
+    padding-left: initial;
+    padding-right: initial;
+}
+.am-panel > .am-list {
+    padding: 0;
+    padding-left:10px;
+    background-color: #eee;
+}
+.table-main {
+    font-size: 14px;
+    padding: initial;
+}
+.am-datatable-info {
+    padding-top: 6px;
+    color: #555;
+    font-size: initial;
+}
+/*  自定义tooltip */
+#vld-tooltip {
+    position: absolute;
+    z-index: 198910160;
+    padding: 5px 10px;
+    background: #F37B1D;
+    min-width: 150px;
+    color: #fff;
+    transition: all 0.15s;
+    box-shadow: 0 0 5px rgba(0,0,0,.15);
+    display: none;
+}
+
+#vld-tooltip:before {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -8px;
+    content: "";
+    border-width: 0 8px 8px;
+    border-color: transparent transparent #F37B1D;
+    border-style: none inset solid;
+}
+.am-topbar {
+    z-index: 100;
+}
+
+.asterisk {
+    font-style: normal;
+    color: red;
+}
