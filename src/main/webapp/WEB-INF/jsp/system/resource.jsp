@@ -345,6 +345,7 @@
         //初始化数据
         query();
 
+
         createChild = function (tId) {
             var treeObj = $.fn.zTree.getZTreeObj("dataTree");
             var node = treeObj.getNodeByTId(tId);
@@ -359,7 +360,11 @@
                             url:createURL,
                             callback:function(data) {
                                 if(data.success == true) {
-                                    $.myadmin.refresh();
+                                    $.mydialog.closeDialog(index);
+                                    $.myadmin.loadContent('#resource');
+//                                    var treeObj = $.fn.zTree.getZTreeObj("tree");
+//                                    var nodes = treeObj.getSelectedNodes();
+//                                    treeObj.reAsyncChildNodes(null, "refresh");
                                 }
                             }
                         });
@@ -391,7 +396,8 @@
                             url: updateURL,
                             callback: function (data) {
                                 if (data.success == true) {
-                                    $.myadmin.refresh();
+                                    $.mydialog.closeDialog(index);
+                                    $.myadmin.loadContent('#resource');
                                 }
                             }
                         });
@@ -425,7 +431,8 @@
                                 time: '2000',
                                 icon: 6
                             });
-                            $.myadmin.refresh();
+                            $.myadmin.loadContent('#resource');
+
                         },
                         error: function (data) {
                             layer.msg('操作失败', {
