@@ -1,2 +1,2 @@
 # wetech-admin
-wetech后台权限管理系统
+后台管理系统，细粒化权限控制
