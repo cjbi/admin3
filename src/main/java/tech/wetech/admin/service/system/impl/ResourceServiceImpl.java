@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class ResourceServiceImpl implements ResourceService {
+public class ResourceServiceImpl implements ResourceService{
 
     @Autowired
     private ResourceMapper resourceMapper;
@@ -26,8 +26,8 @@ public class ResourceServiceImpl implements ResourceService {
         Resource parent = findOne(resource.getParentId());
         resource.setParentIds(parent.makeSelfAsParentIds());
         resource.setAvailable(true);
-        if(resource.getType() == Resource.ResourceType.menu) {
-            if(StringUtils.isEmpty(resource.getUrl())) {
+        if (resource.getType() == Resource.ResourceType.menu) {
+            if (StringUtils.isEmpty(resource.getUrl())) {
                 resource.setUrl("#");
             }
         }
@@ -50,6 +50,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
+    public List<Resource> find(ResourceExample example) {
+        return resourceMapper.selectByExample(example);
+    }
+
+    @Override
     public List<Resource> findAll() {
         return resourceMapper.selectByExample(new ResourceExample());
     }
@@ -57,9 +62,9 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public Set<String> findPermissions(Set<Long> resourceIds) {
         Set<String> permissions = new HashSet<String>();
-        for(Long resourceId : resourceIds) {
+        for (Long resourceId : resourceIds) {
             Resource resource = findOne(resourceId);
-            if(resource != null && !StringUtils.isEmpty(resource.getPermission())) {
+            if (resource != null && !StringUtils.isEmpty(resource.getPermission())) {
                 permissions.add(resource.getPermission());
             }
         }
@@ -68,16 +73,18 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public List<Resource> findMenus(Set<String> permissions) {
-        List<Resource> allResources = findAll();
+        ResourceExample example = new ResourceExample();
+        example.setOrderByClause("sort");
+        List<Resource> allResources = resourceMapper.selectByExample(example);
         List<Resource> menus = new ArrayList<Resource>();
-        for(Resource resource : allResources) {
-            if(resource.isRootNode()) {
+        for (Resource resource : allResources) {
+            if (resource.isRootNode()) {
                 continue;
             }
-            if(resource.getType() != Resource.ResourceType.menu) {
+            if (resource.getType() != Resource.ResourceType.menu) {
                 continue;
             }
-            if(!hasPermission(permissions, resource)) {
+            if (!hasPermission(permissions, resource)) {
                 continue;
             }
             menus.add(resource);
@@ -86,13 +93,13 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     private boolean hasPermission(Set<String> permissions, Resource resource) {
-        if(StringUtils.isEmpty(resource.getPermission())) {
+        if (StringUtils.isEmpty(resource.getPermission())) {
             return true;
         }
-        for(String permission : permissions) {
+        for (String permission : permissions) {
             WildcardPermission p1 = new WildcardPermission(permission);
             WildcardPermission p2 = new WildcardPermission(resource.getPermission());
-            if(p1.implies(p2) || p2.implies(p1)) {
+            if (p1.implies(p2) || p2.implies(p1)) {
                 return true;
             }
         }

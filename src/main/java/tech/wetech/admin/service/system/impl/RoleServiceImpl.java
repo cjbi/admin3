@@ -34,8 +34,8 @@ public class RoleServiceImpl implements RoleService{
         List<RoleDto> dtoList = new ArrayList<>();
         for (Role role : roleList) {
             RoleDto dto = new RoleDto(role);
-             dto.setResourceNames(getResourceNames(role.getResourceIdList()));
-             dtoList.add(dto);
+            dto.setResourceNames(getResourceNames(role.getResourceIdList()));
+            dtoList.add(dto);
         }
         page.setResult(dtoList);
         page.setTotal(count);

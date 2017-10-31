@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService{
     public int createUser(User user) {
         User u = findByUsername(user.getUsername());
         if (u != null) {
-            throw new ServiceException("用户已存在");
+            throw new ServiceException("该用户已存在");
         }
         // 加密密码
         passwordHelper.encryptPassword(user);

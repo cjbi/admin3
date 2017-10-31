@@ -51,7 +51,6 @@
                         <li class="am-active">没有内容</li>
                     </ol>
                 </div>
-                ${dom}
             </div>
             <%-- footer start --%>
             <jsp:include page="footer.jsp"/>

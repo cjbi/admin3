@@ -56,7 +56,7 @@
 
     .ztree div.diy {
         height: 100%;
-        width: 20%;
+        width: 14.325%;
         line-height: 35px;
         border-top: 1px solid #ccc;
         border-left: 1px solid #eeeeee;
@@ -169,7 +169,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">资源名称<span class="asterisk">*</span></label>
             <div class="am-u-sm-10">
-                <input type="text" name="name" placeholder="资源的名称"  data-foolish-msg="请输入资源的名称" required>
+                <input type="text" name="name" placeholder="资源的名称" data-foolish-msg="请输入资源的名称" required>
             </div>
         </div>
         <div class="am-form-group">
@@ -194,6 +194,24 @@
                 <input type="text" name="permission" placeholder="权限控制字符串">
             </div>
         </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">图标</label>
+            <div class="am-u-sm-10">
+                <input type="text" name="icon" placeholder="资源的图标">
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">排序</label>
+            <div class="am-u-sm-10">
+                <input type="text" name="sort" placeholder="资源的排序">
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label"></label>
+            <div class="am-u-sm-10">
+                <p><a href="http://beta.amazeui.org/www/components/icon.html" target="_blank">点我找图标 : )</a></p>
+            </div>
+        </div>
     </form>
 </div>
 <div id="edit-dialog">
@@ -205,7 +223,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">资源名称<span class="asterisk">*</span></label>
             <div class="am-u-sm-10">
-                <input type="text" name="name" placeholder="资源的名称"  data-foolish-msg="请输入资源的名称" required>
+                <input type="text" name="name" placeholder="资源的名称" data-foolish-msg="请输入资源的名称" required>
             </div>
         </div>
         <div class="am-form-group">
@@ -231,6 +249,24 @@
                 <input type="text" name="permission" placeholder="权限控制字符串">
             </div>
         </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">图标</label>
+            <div class="am-u-sm-10">
+                <input type="text" name="icon" placeholder="资源的图标">
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">排序</label>
+            <div class="am-u-sm-10">
+                <input type="text" name="sort" placeholder="资源的排序">
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label"></label>
+            <div class="am-u-sm-10">
+                <p><a href="http://beta.amazeui.org/www/components/icon.html" target="_blank">点我找图标 : )</a></p>
+            </div>
+        </div>
     </form>
 </div>
 <script type="text/javascript">
@@ -253,7 +289,9 @@
                 rUrl: "${resource.url}",
                 permission: "${resource.permission}",
                 available: ${resource.available},
-                open:${resource.rootNode}
+                open:${resource.rootNode},
+                rIcon: "${resource.icon}",
+                sort: "${resource.sort}",
             },
             </c:forEach>
         ];
@@ -296,6 +334,8 @@
             editStr += '<div class="diy">' + (treeNode.typeName || '&nbsp;') + '</div>';
             editStr += '<div class="diy">' + (treeNode.rUrl || '&nbsp;') + '</div>';
             editStr += '<div class="diy">' + (treeNode.permission || '&nbsp;') + '</div>';
+            editStr += '<div class="diy"><span class="' + (treeNode.rIcon || '&nbsp;') + '"></span></div>';
+            editStr += '<div class="diy">' + (treeNode.sort || '&nbsp;') + '</div>';
             editStr += '<div class="diy">' + formatHandle(treeNode) + '</div>';
             aObj.append(editStr);
         }
@@ -309,7 +349,7 @@
             $.fn.zTree.init($("#dataTree"), setting, zNodes);
             //添加表头
             var li_head = ' <li class="head"><a><div class="diy">名称</div><div class="diy">类型</div><div class="diy">URL路径</div>' +
-                '<div class="diy">权限字符串</div><div class="diy">操作</div></a></li>';
+                '<div class="diy">权限字符串</div><div class="diy">图标</div><div class="diy">序号</div><div class="diy">操作</div></a></li>';
             var rows = $("#dataTree").find('li');
             if (rows.length > 0) {
                 rows.eq(0).before(li_head)
@@ -357,9 +397,9 @@
                 yes: function (index, layero) {
                     if ($form.isFormValid()) {
                         $form.submit({
-                            url:createURL,
-                            callback:function(data) {
-                                if(data.success == true) {
+                            url: createURL,
+                            callback: function (data) {
+                                if (data.success == true) {
                                     $.mydialog.closeDialog(index);
                                     $.myadmin.loadContent('#resource');
                                 }
@@ -384,6 +424,7 @@
             });
             $('#edit-form [name="parentId"]').val(node.pId ? node.pId : "0");
             $('#edit-form [name="url"]').val(node.rUrl);
+            $('#edit-form [name="icon"]').val(node.rIcon);
             var $form = $('#edit-form');
             var opts = {
                 title: '修改资源',

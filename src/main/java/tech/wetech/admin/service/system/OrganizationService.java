@@ -1,6 +1,7 @@
 package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.model.system.Organization;
+import tech.wetech.admin.model.system.OrganizationExample;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface OrganizationService {
     void deleteOrganization(Long organizationId);
 
     Organization findOne(Long organizationId);
+
+    public List<Organization> find(OrganizationExample example);
 
     List<Organization> findAll();
 

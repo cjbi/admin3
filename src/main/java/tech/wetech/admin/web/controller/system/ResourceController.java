@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import tech.wetech.admin.model.system.Resource;
+import tech.wetech.admin.model.system.ResourceExample;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.JsonResult;
@@ -28,7 +29,9 @@ public class ResourceController extends BaseController{
     @RequiresPermissions("user:view")
     @RequestMapping(method = RequestMethod.GET)
     public String toPage(Model model) {
-        model.addAttribute("resourceList", resourceService.findAll());
+        ResourceExample example = new ResourceExample();
+        example.setOrderByClause("sort");
+        model.addAttribute("resourceList", resourceService.find(example));
         return "system/resource";
     }
 

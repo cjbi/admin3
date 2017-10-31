@@ -44,6 +44,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    public List<Organization> find(OrganizationExample example) {
+        return organizationMapper.selectByExample(example);
+    }
+
+    @Override
     public List<Organization> findAllWithExclude(Organization excludeOraganization) {
         OrganizationExample example = new OrganizationExample();
         example.or().andIdNotEqualTo(excludeOraganization.getId()).andParentIdsNotLike(excludeOraganization.makeSelfAsParentIds() + "%");

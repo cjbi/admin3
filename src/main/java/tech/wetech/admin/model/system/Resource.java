@@ -16,6 +16,8 @@ public class Resource implements Serializable {
     private Long parentId; //父编号
     private String parentIds; //父编号列表
     private Boolean available = Boolean.FALSE;
+    private String icon;//图标
+    private Long sort;//排序
 
     private List<Resource> children;
 
@@ -130,16 +132,37 @@ public class Resource implements Serializable {
         return id != null ? id.hashCode() : 0;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public Long getSort() {
+        return sort;
+    }
+
+    public void setSort(Long sort) {
+        this.sort = sort;
+    }
+
     @Override
     public String toString() {
         return "Resource{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type=" + type +
+                ", url='" + url + '\'' +
                 ", permission='" + permission + '\'' +
                 ", parentId=" + parentId +
                 ", parentIds='" + parentIds + '\'' +
                 ", available=" + available +
+                ", icon='" + icon + '\'' +
+                ", sort=" + sort +
+                ", children=" + children +
                 '}';
     }
+
 }

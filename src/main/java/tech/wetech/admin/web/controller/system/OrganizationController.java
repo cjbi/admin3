@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tech.wetech.admin.model.system.Organization;
+import tech.wetech.admin.model.system.OrganizationExample;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.JsonResult;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/organization")
@@ -23,7 +26,9 @@ public class OrganizationController extends BaseController{
     @RequestMapping(method = RequestMethod.GET)
     @RequiresPermissions("organization:view")
     public String toPage(Model model) {
-        model.addAttribute("organizationList", organizationService.findAll());
+        OrganizationExample example = new OrganizationExample();
+        example.setOrderByClause("sort");
+        model.addAttribute("organizationList", organizationService.find(example));
         return "system/organization";
     }
 
@@ -38,7 +43,7 @@ public class OrganizationController extends BaseController{
     @ResponseBody
     @RequiresPermissions("organization:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public JsonResult create(Organization organization) {
+    public JsonResult create(@Valid Organization organization) {
         organizationService.createOrganization(organization);
         return this.renderSuccess();
     }
@@ -46,7 +51,7 @@ public class OrganizationController extends BaseController{
     @ResponseBody
     @RequiresPermissions("organization:update")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public JsonResult update(Organization organization) {
+    public JsonResult update(@Valid Organization organization) {
         organizationService.updateOrganization(organization);
         return this.renderSuccess();
     }
@@ -58,6 +63,5 @@ public class OrganizationController extends BaseController{
         organizationService.deleteOrganization(id);
         return this.renderSuccess();
     }
-
 
 }

@@ -10,6 +10,8 @@
     <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
     <result column="permission" jdbcType="VARCHAR" property="permission" />
     <result column="available" jdbcType="BIT" property="available" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="sort" jdbcType="BIGINT" property="sort" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, type, url, parent_id, parent_ids, permission, available
+    id, name, type, url, parent_id, parent_ids, permission, available, icon, sort
   </sql>
   <select id="selectByExample" parameterType="tech.wetech.admin.model.system.ResourceExample" resultMap="BaseResultMap">
     select
@@ -111,12 +113,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="tech.wetech.admin.model.system.Resource">
-    insert into sys_resource (id, name, type, 
-      url, parent_id, parent_ids, 
-      permission, available)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{parentIds,jdbcType=VARCHAR}, 
-      #{permission,jdbcType=VARCHAR}, #{available,jdbcType=BIT})
+    insert into sys_resource (id, name, type,
+    url, parent_id, parent_ids,
+    permission, available, icon,
+    sort)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+    #{url,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{parentIds,jdbcType=VARCHAR},
+    #{permission,jdbcType=VARCHAR}, #{available,jdbcType=BIT}, #{icon,jdbcType=VARCHAR},
+    #{sort,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="tech.wetech.admin.model.system.Resource">
     insert into sys_resource
@@ -145,6 +149,12 @@
       <if test="available != null">
         available,
       </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -170,6 +180,12 @@
       </if>
       <if test="available != null">
         #{available,jdbcType=BIT},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -206,6 +222,12 @@
       <if test="record.available != null">
         available = #{record.available,jdbcType=BIT},
       </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -220,7 +242,9 @@
     parent_id = #{record.parentId,jdbcType=BIGINT},
     parent_ids = #{record.parentIds,jdbcType=VARCHAR},
     permission = #{record.permission,jdbcType=VARCHAR},
-    available = #{record.available,jdbcType=BIT}
+    available = #{record.available,jdbcType=BIT},
+    icon = #{record.icon,jdbcType=VARCHAR},
+    sort = #{record.sort,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -249,6 +273,12 @@
       <if test="available != null">
         available = #{available,jdbcType=BIT},
       </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -260,7 +290,9 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       parent_ids = #{parentIds,jdbcType=VARCHAR},
       permission = #{permission,jdbcType=VARCHAR},
-      available = #{available,jdbcType=BIT}
+      available = #{available,jdbcType=BIT},
+      icon = #{icon,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

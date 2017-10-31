@@ -11,6 +11,7 @@ public class Organization implements Serializable {
     private Long parentId; //父编号
     private String parentIds; //父编号列表，如1/2/
     private Boolean available = Boolean.FALSE;
+    private Long sort;//排序
 
 
     public Long getId() {
@@ -78,6 +79,14 @@ public class Organization implements Serializable {
         return id != null ? id.hashCode() : 0;
     }
 
+    public Long getSort() {
+        return sort;
+    }
+
+    public void setSort(Long sort) {
+        this.sort = sort;
+    }
+
     @Override
     public String toString() {
         return "Organization{" +
@@ -86,6 +95,7 @@ public class Organization implements Serializable {
                 ", parentId=" + parentId +
                 ", parentIds='" + parentIds + '\'' +
                 ", available=" + available +
+                ", sort=" + sort +
                 '}';
     }
 }

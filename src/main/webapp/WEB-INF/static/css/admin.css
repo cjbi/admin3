@@ -121,7 +121,7 @@ ul {
 .admin-sidebar {
   height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -416,7 +416,7 @@ ul {
     -ms-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     overflow-y: visible;
-    min-height: 100%;
+    /*min-height: 100%;*/
   }
   .admin-offcanvas-bar:after {
     content: none;

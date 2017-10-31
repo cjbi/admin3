@@ -53,7 +53,7 @@
                     <p>
                         <span class="am-icon-bookmark"></span> 提示
                     </p>
-                    <p>鼠标单击右键操作树节点，拖动排序 : )</p>
+                    <p>鼠标单击右键操作树节点 : )</p>
                 </div>
             </div>
         </div>
@@ -70,6 +70,12 @@
                             <label class="am-u-sm-3 am-form-label">组织机构名称<span class="asterisk">*</span></label>
                             <div class="am-u-sm-9">
                                 <input type="text" name="name" placeholder="组织机构的名称" data-foolish-msg="请输入组织机构的名称" required>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label class="am-u-sm-3 am-form-label">排序</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" name="sort" placeholder="节点的序号">
                             </div>
                         </div>
                         <shiro:hasPermission name="organization:update">
@@ -103,6 +109,12 @@
             <label class="am-u-sm-2 am-form-label">节点名称<span class="asterisk">*</span></label>
             <div class="am-u-sm-10">
                 <input type="text" name="name" placeholder="节点的名称" data-foolish-msg="请输入节点的名称" required>
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">排序</label>
+            <div class="am-u-sm-10">
+                <input type="text" name="sort" placeholder="节点的序号">
             </div>
         </div>
     </form>
@@ -140,7 +152,7 @@
             },
             zNodes = [
                 <c:forEach items="${organizationList}" var="o">
-                {id:${o.id}, pId:${o.parentId}, name: "${o.name}", parentIds: "${o.parentIds}", available: ${o.available}, open:${o.rootNode}},
+                {id:${o.id}, pId:${o.parentId}, name: "${o.name}", parentIds: "${o.parentIds}", available: ${o.available},sort: '${o.sort}', open:${o.rootNode}},
                 </c:forEach>
             ];
 

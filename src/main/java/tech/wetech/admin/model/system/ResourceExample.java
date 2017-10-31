@@ -125,532 +125,662 @@ public class ResourceExample {
         }
 
         public Criteria andIdIsNull() {
-            addCriterion("sys_resource.id is null");
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
         public Criteria andIdIsNotNull() {
-            addCriterion("sys_resource.id is not null");
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
         public Criteria andIdEqualTo(Long value) {
-            addCriterion("sys_resource.id =", value, "id");
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdNotEqualTo(Long value) {
-            addCriterion("sys_resource.id <>", value, "id");
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdGreaterThan(Long value) {
-            addCriterion("sys_resource.id >", value, "id");
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("sys_resource.id >=", value, "id");
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdLessThan(Long value) {
-            addCriterion("sys_resource.id <", value, "id");
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdLessThanOrEqualTo(Long value) {
-            addCriterion("sys_resource.id <=", value, "id");
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdIn(List<Long> values) {
-            addCriterion("sys_resource.id in", values, "id");
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdNotIn(List<Long> values) {
-            addCriterion("sys_resource.id not in", values, "id");
+            addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdBetween(Long value1, Long value2) {
-            addCriterion("sys_resource.id between", value1, value2, "id");
+            addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
         public Criteria andIdNotBetween(Long value1, Long value2) {
-            addCriterion("sys_resource.id not between", value1, value2, "id");
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNull() {
-            addCriterion("sys_resource.name is null");
+            addCriterion("name is null");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNotNull() {
-            addCriterion("sys_resource.name is not null");
+            addCriterion("name is not null");
             return (Criteria) this;
         }
 
         public Criteria andNameEqualTo(String value) {
-            addCriterion("sys_resource.name =", value, "name");
+            addCriterion("name =", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotEqualTo(String value) {
-            addCriterion("sys_resource.name <>", value, "name");
+            addCriterion("name <>", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThan(String value) {
-            addCriterion("sys_resource.name >", value, "name");
+            addCriterion("name >", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("sys_resource.name >=", value, "name");
+            addCriterion("name >=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThan(String value) {
-            addCriterion("sys_resource.name <", value, "name");
+            addCriterion("name <", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("sys_resource.name <=", value, "name");
+            addCriterion("name <=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("sys_resource.name like", value, "name");
+            addCriterion("name like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("sys_resource.name not like", value, "name");
+            addCriterion("name not like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameIn(List<String> values) {
-            addCriterion("sys_resource.name in", values, "name");
+            addCriterion("name in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotIn(List<String> values) {
-            addCriterion("sys_resource.name not in", values, "name");
+            addCriterion("name not in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("sys_resource.name between", value1, value2, "name");
+            addCriterion("name between", value1, value2, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("sys_resource.name not between", value1, value2, "name");
+            addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
 
         public Criteria andTypeIsNull() {
-            addCriterion("sys_resource.type is null");
+            addCriterion("type is null");
             return (Criteria) this;
         }
 
         public Criteria andTypeIsNotNull() {
-            addCriterion("sys_resource.type is not null");
+            addCriterion("type is not null");
             return (Criteria) this;
         }
 
         public Criteria andTypeEqualTo(String value) {
-            addCriterion("sys_resource.type =", value, "type");
+            addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeNotEqualTo(String value) {
-            addCriterion("sys_resource.type <>", value, "type");
+            addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeGreaterThan(String value) {
-            addCriterion("sys_resource.type >", value, "type");
+            addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("sys_resource.type >=", value, "type");
+            addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeLessThan(String value) {
-            addCriterion("sys_resource.type <", value, "type");
+            addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeLessThanOrEqualTo(String value) {
-            addCriterion("sys_resource.type <=", value, "type");
+            addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeLike(String value) {
-            addCriterion("sys_resource.type like", value, "type");
+            addCriterion("type like", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeNotLike(String value) {
-            addCriterion("sys_resource.type not like", value, "type");
+            addCriterion("type not like", value, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeIn(List<String> values) {
-            addCriterion("sys_resource.type in", values, "type");
+            addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeNotIn(List<String> values) {
-            addCriterion("sys_resource.type not in", values, "type");
+            addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeBetween(String value1, String value2) {
-            addCriterion("sys_resource.type between", value1, value2, "type");
+            addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
         public Criteria andTypeNotBetween(String value1, String value2) {
-            addCriterion("sys_resource.type not between", value1, value2, "type");
+            addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
 
         public Criteria andUrlIsNull() {
-            addCriterion("sys_resource.url is null");
+            addCriterion("url is null");
             return (Criteria) this;
         }
 
         public Criteria andUrlIsNotNull() {
-            addCriterion("sys_resource.url is not null");
+            addCriterion("url is not null");
             return (Criteria) this;
         }
 
         public Criteria andUrlEqualTo(String value) {
-            addCriterion("sys_resource.url =", value, "url");
+            addCriterion("url =", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlNotEqualTo(String value) {
-            addCriterion("sys_resource.url <>", value, "url");
+            addCriterion("url <>", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlGreaterThan(String value) {
-            addCriterion("sys_resource.url >", value, "url");
+            addCriterion("url >", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("sys_resource.url >=", value, "url");
+            addCriterion("url >=", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlLessThan(String value) {
-            addCriterion("sys_resource.url <", value, "url");
+            addCriterion("url <", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlLessThanOrEqualTo(String value) {
-            addCriterion("sys_resource.url <=", value, "url");
+            addCriterion("url <=", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlLike(String value) {
-            addCriterion("sys_resource.url like", value, "url");
+            addCriterion("url like", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlNotLike(String value) {
-            addCriterion("sys_resource.url not like", value, "url");
+            addCriterion("url not like", value, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlIn(List<String> values) {
-            addCriterion("sys_resource.url in", values, "url");
+            addCriterion("url in", values, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlNotIn(List<String> values) {
-            addCriterion("sys_resource.url not in", values, "url");
+            addCriterion("url not in", values, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlBetween(String value1, String value2) {
-            addCriterion("sys_resource.url between", value1, value2, "url");
+            addCriterion("url between", value1, value2, "url");
             return (Criteria) this;
         }
 
         public Criteria andUrlNotBetween(String value1, String value2) {
-            addCriterion("sys_resource.url not between", value1, value2, "url");
+            addCriterion("url not between", value1, value2, "url");
             return (Criteria) this;
         }
 
         public Criteria andParentIdIsNull() {
-            addCriterion("sys_resource.parent_id is null");
+            addCriterion("parent_id is null");
             return (Criteria) this;
         }
 
         public Criteria andParentIdIsNotNull() {
-            addCriterion("sys_resource.parent_id is not null");
+            addCriterion("parent_id is not null");
             return (Criteria) this;
         }
 
         public Criteria andParentIdEqualTo(Long value) {
-            addCriterion("sys_resource.parent_id =", value, "parentId");
+            addCriterion("parent_id =", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdNotEqualTo(Long value) {
-            addCriterion("sys_resource.parent_id <>", value, "parentId");
+            addCriterion("parent_id <>", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdGreaterThan(Long value) {
-            addCriterion("sys_resource.parent_id >", value, "parentId");
+            addCriterion("parent_id >", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("sys_resource.parent_id >=", value, "parentId");
+            addCriterion("parent_id >=", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdLessThan(Long value) {
-            addCriterion("sys_resource.parent_id <", value, "parentId");
+            addCriterion("parent_id <", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdLessThanOrEqualTo(Long value) {
-            addCriterion("sys_resource.parent_id <=", value, "parentId");
+            addCriterion("parent_id <=", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdIn(List<Long> values) {
-            addCriterion("sys_resource.parent_id in", values, "parentId");
+            addCriterion("parent_id in", values, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdNotIn(List<Long> values) {
-            addCriterion("sys_resource.parent_id not in", values, "parentId");
+            addCriterion("parent_id not in", values, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdBetween(Long value1, Long value2) {
-            addCriterion("sys_resource.parent_id between", value1, value2, "parentId");
+            addCriterion("parent_id between", value1, value2, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdNotBetween(Long value1, Long value2) {
-            addCriterion("sys_resource.parent_id not between", value1, value2, "parentId");
+            addCriterion("parent_id not between", value1, value2, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsIsNull() {
-            addCriterion("sys_resource.parent_ids is null");
+            addCriterion("parent_ids is null");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsIsNotNull() {
-            addCriterion("sys_resource.parent_ids is not null");
+            addCriterion("parent_ids is not null");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsEqualTo(String value) {
-            addCriterion("sys_resource.parent_ids =", value, "parentIds");
+            addCriterion("parent_ids =", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsNotEqualTo(String value) {
-            addCriterion("sys_resource.parent_ids <>", value, "parentIds");
+            addCriterion("parent_ids <>", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsGreaterThan(String value) {
-            addCriterion("sys_resource.parent_ids >", value, "parentIds");
+            addCriterion("parent_ids >", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsGreaterThanOrEqualTo(String value) {
-            addCriterion("sys_resource.parent_ids >=", value, "parentIds");
+            addCriterion("parent_ids >=", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsLessThan(String value) {
-            addCriterion("sys_resource.parent_ids <", value, "parentIds");
+            addCriterion("parent_ids <", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsLessThanOrEqualTo(String value) {
-            addCriterion("sys_resource.parent_ids <=", value, "parentIds");
+            addCriterion("parent_ids <=", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsLike(String value) {
-            addCriterion("sys_resource.parent_ids like", value, "parentIds");
+            addCriterion("parent_ids like", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsNotLike(String value) {
-            addCriterion("sys_resource.parent_ids not like", value, "parentIds");
+            addCriterion("parent_ids not like", value, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsIn(List<String> values) {
-            addCriterion("sys_resource.parent_ids in", values, "parentIds");
+            addCriterion("parent_ids in", values, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsNotIn(List<String> values) {
-            addCriterion("sys_resource.parent_ids not in", values, "parentIds");
+            addCriterion("parent_ids not in", values, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsBetween(String value1, String value2) {
-            addCriterion("sys_resource.parent_ids between", value1, value2, "parentIds");
+            addCriterion("parent_ids between", value1, value2, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andParentIdsNotBetween(String value1, String value2) {
-            addCriterion("sys_resource.parent_ids not between", value1, value2, "parentIds");
+            addCriterion("parent_ids not between", value1, value2, "parentIds");
             return (Criteria) this;
         }
 
         public Criteria andPermissionIsNull() {
-            addCriterion("sys_resource.permission is null");
+            addCriterion("permission is null");
             return (Criteria) this;
         }
 
         public Criteria andPermissionIsNotNull() {
-            addCriterion("sys_resource.permission is not null");
+            addCriterion("permission is not null");
             return (Criteria) this;
         }
 
         public Criteria andPermissionEqualTo(String value) {
-            addCriterion("sys_resource.permission =", value, "permission");
+            addCriterion("permission =", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionNotEqualTo(String value) {
-            addCriterion("sys_resource.permission <>", value, "permission");
+            addCriterion("permission <>", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionGreaterThan(String value) {
-            addCriterion("sys_resource.permission >", value, "permission");
+            addCriterion("permission >", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionGreaterThanOrEqualTo(String value) {
-            addCriterion("sys_resource.permission >=", value, "permission");
+            addCriterion("permission >=", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionLessThan(String value) {
-            addCriterion("sys_resource.permission <", value, "permission");
+            addCriterion("permission <", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionLessThanOrEqualTo(String value) {
-            addCriterion("sys_resource.permission <=", value, "permission");
+            addCriterion("permission <=", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionLike(String value) {
-            addCriterion("sys_resource.permission like", value, "permission");
+            addCriterion("permission like", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionNotLike(String value) {
-            addCriterion("sys_resource.permission not like", value, "permission");
+            addCriterion("permission not like", value, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionIn(List<String> values) {
-            addCriterion("sys_resource.permission in", values, "permission");
+            addCriterion("permission in", values, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionNotIn(List<String> values) {
-            addCriterion("sys_resource.permission not in", values, "permission");
+            addCriterion("permission not in", values, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionBetween(String value1, String value2) {
-            addCriterion("sys_resource.permission between", value1, value2, "permission");
+            addCriterion("permission between", value1, value2, "permission");
             return (Criteria) this;
         }
 
         public Criteria andPermissionNotBetween(String value1, String value2) {
-            addCriterion("sys_resource.permission not between", value1, value2, "permission");
+            addCriterion("permission not between", value1, value2, "permission");
             return (Criteria) this;
         }
 
         public Criteria andAvailableIsNull() {
-            addCriterion("sys_resource.available is null");
+            addCriterion("available is null");
             return (Criteria) this;
         }
 
         public Criteria andAvailableIsNotNull() {
-            addCriterion("sys_resource.available is not null");
+            addCriterion("available is not null");
             return (Criteria) this;
         }
 
         public Criteria andAvailableEqualTo(Boolean value) {
-            addCriterion("sys_resource.available =", value, "available");
+            addCriterion("available =", value, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableNotEqualTo(Boolean value) {
-            addCriterion("sys_resource.available <>", value, "available");
+            addCriterion("available <>", value, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableGreaterThan(Boolean value) {
-            addCriterion("sys_resource.available >", value, "available");
+            addCriterion("available >", value, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("sys_resource.available >=", value, "available");
+            addCriterion("available >=", value, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableLessThan(Boolean value) {
-            addCriterion("sys_resource.available <", value, "available");
+            addCriterion("available <", value, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableLessThanOrEqualTo(Boolean value) {
-            addCriterion("sys_resource.available <=", value, "available");
+            addCriterion("available <=", value, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableIn(List<Boolean> values) {
-            addCriterion("sys_resource.available in", values, "available");
+            addCriterion("available in", values, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableNotIn(List<Boolean> values) {
-            addCriterion("sys_resource.available not in", values, "available");
+            addCriterion("available not in", values, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableBetween(Boolean value1, Boolean value2) {
-            addCriterion("sys_resource.available between", value1, value2, "available");
+            addCriterion("available between", value1, value2, "available");
             return (Criteria) this;
         }
 
         public Criteria andAvailableNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("sys_resource.available not between", value1, value2, "available");
+            addCriterion("available not between", value1, value2, "available");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIsNull() {
+            addCriterion("icon is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIsNotNull() {
+            addCriterion("icon is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconEqualTo(String value) {
+            addCriterion("icon =", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotEqualTo(String value) {
+            addCriterion("icon <>", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconGreaterThan(String value) {
+            addCriterion("icon >", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconGreaterThanOrEqualTo(String value) {
+            addCriterion("icon >=", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLessThan(String value) {
+            addCriterion("icon <", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLessThanOrEqualTo(String value) {
+            addCriterion("icon <=", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLike(String value) {
+            addCriterion("icon like", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotLike(String value) {
+            addCriterion("icon not like", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIn(List<String> values) {
+            addCriterion("icon in", values, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotIn(List<String> values) {
+            addCriterion("icon not in", values, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconBetween(String value1, String value2) {
+            addCriterion("icon between", value1, value2, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotBetween(String value1, String value2) {
+            addCriterion("icon not between", value1, value2, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIsNull() {
+            addCriterion("sort is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIsNotNull() {
+            addCriterion("sort is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortEqualTo(Long value) {
+            addCriterion("sort =", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotEqualTo(Long value) {
+            addCriterion("sort <>", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThan(Long value) {
+            addCriterion("sort >", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThanOrEqualTo(Long value) {
+            addCriterion("sort >=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThan(Long value) {
+            addCriterion("sort <", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThanOrEqualTo(Long value) {
+            addCriterion("sort <=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIn(List<Long> values) {
+            addCriterion("sort in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotIn(List<Long> values) {
+            addCriterion("sort not in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortBetween(Long value1, Long value2) {
+            addCriterion("sort between", value1, value2, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotBetween(Long value1, Long value2) {
+            addCriterion("sort not between", value1, value2, "sort");
             return (Criteria) this;
         }
     }

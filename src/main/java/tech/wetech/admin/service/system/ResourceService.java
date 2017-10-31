@@ -1,6 +1,7 @@
 package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.model.system.Resource;
+import tech.wetech.admin.model.system.ResourceExample;
 
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,8 @@ public interface ResourceService {
     void deleteResource(Long resourceId);
 
     Resource findOne(Long resourceId);
+
+    List<Resource> find(ResourceExample example);
 
     List<Resource> findAll();
 
