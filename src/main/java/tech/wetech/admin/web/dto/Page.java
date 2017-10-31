@@ -1,5 +1,7 @@
 package tech.wetech.admin.web.dto;
 
+import javax.validation.constraints.Null;
+
 public class Page {
 
     private int start = 0;

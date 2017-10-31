@@ -230,8 +230,16 @@
       <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- 测试相关依赖结束 -->
+    <!-- 后端校验相关依赖开始 -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.0.2.Final</version>
+    </dependency>
+    <!--后端校验相关依赖结束 -->
   </dependencies>
-  <!-- 测试相关依赖结束 -->
+
 
   <build>
     <plugins>

@@ -15,6 +15,8 @@ import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.Page;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/role")
 public class RoleController extends BaseController {
@@ -43,7 +45,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     @RequiresPermissions("role:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public JsonResult create(Role role) {
+    public JsonResult create(@Valid Role role) {
         roleService.createRole(role);
         return this.renderSuccess();
     }
@@ -51,7 +53,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     @RequiresPermissions("role:update")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public JsonResult update(Role role) {
+    public JsonResult update(@Valid Role role) {
         roleService.updateRole(role);
         return this.renderSuccess();
     }

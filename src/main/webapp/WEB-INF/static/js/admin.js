@@ -26,8 +26,8 @@ var tableName = 'example',
          * @param tableNames
          * @returns {jQuery}
          */
-        initDatatables : function(ajax, gridTable, tableNames, ServerParams, initComplete) {
-            tableName = (tableNames||'example');
+        initDatatables: function (ajax, gridTable, tableNames, ServerParams, initComplete) {
+            tableName = (tableNames || 'example');
             var table = $('#' + tableName).DataTable({
                     'aLengthMenu': [10, 15, 20, 40, 60],
                     'searching': false,// 开启搜索框
@@ -75,7 +75,7 @@ var tableName = 'example',
                 /**
                  * checkbox全选,必须用prop方法设置
                  */
-                checkAll = function() {
+                checkAll = function () {
                     if ($('input[id="checkAll"]').is(':checked')) {
                         $('input[name="checkList"]').parent().parent().addClass('selected');
                         $('input[name="checkList"]').prop('checked', true);
@@ -115,7 +115,7 @@ var tableName = 'example',
          * 填充表单
          * @returns {boolean}
          */
-        fillEditFormData: function() {
+        fillEditFormData: function () {
             // 将值填充到表单中
             var table = $('#' + tableName).DataTable(),
                 rowLength = table.rows('.selected').data().length;
@@ -167,6 +167,7 @@ var tableName = 'example',
             function obj(tkey, tval) { // 动态生成类变量方法
                 this[tkey] = tval;
             }
+
             $.each(dictType[0], function (key, value) {
                 key = new obj(key, []);
                 array.push(key);
@@ -234,7 +235,7 @@ var tableName = 'example',
          * @param opts 配置参数
          * @param $dom jquery dom对象
          */
-        openDialog: function (opts,$dom) {
+        openDialog: function (opts, $dom) {
             var $form = $dom.children("form"),
                 _title = $.extend({}, opts ? (opts.title || {}) : {}),
                 _yes = $.extend({}, opts ? (opts.yes || function (index, layero) {
@@ -248,8 +249,10 @@ var tableName = 'example',
                     $form.validator('destroy');
                 }, opts ? (opts.yes || {}) : {}),
                 editable = (opts.editable || false),
-                before = (opts.before || function () {}),
-                after = (opts.after || function () {}),
+                before = (opts.before || function () {
+                }),
+                after = (opts.after || function () {
+                }),
                 defaultOpts = $.extend({
                     title: _title,
                     type: 1,
@@ -290,7 +293,7 @@ var tableName = 'example',
          * 如果参数是 false，它就会用 HTTP 头 If-Modified-Since 来检测服务器上的文档是否已改变,否则就绕过缓存刷新页面
          * @param forceget 是否绕过缓存
          */
-        refresh: function(forceget) {
+        refresh: function (forceget) {
             window.location.reload(forceget);
         },
         /**
@@ -326,7 +329,7 @@ var tableName = 'example',
                 //重新注册验证tooltip事件
                 var $form = $('form');
                 var $tooltip = $('#vld-tooltip');
-                if($('#vld-tooltip').length==0) {
+                if ($('#vld-tooltip').length == 0) {
                     $tooltip = $('<div id="vld-tooltip">提示信息！</div>');
                     $tooltip.appendTo(document.body);
                 }
@@ -397,8 +400,10 @@ var tableName = 'example',
                 $form.validator('destroy');
             }, opts ? (opts.yes || {}) : {}),
             editable = (opts.editable || false),
-            before = (opts.before || function () {}),
-            after = (opts.after || function () {}),
+            before = (opts.before || function () {
+            }),
+            after = (opts.after || function () {
+            }),
             defaultOpts = $.extend({
                 title: _title,
                 type: 1,
@@ -446,7 +451,8 @@ var tableName = 'example',
             _url = opts.url,
             _data = (opts.data || $form.serialize()),
             _dataType = (opts.dataType || 'json'),
-            callback = (opts.callback || function () {});
+            callback = (opts.callback || function () {
+            });
         $.ajax({
             type: 'post',
             url: _url,
@@ -505,13 +511,21 @@ var tableName = 'example',
     });
 
     //出错提示
-    $(document).ajaxError(function(event, request, settings) {
+    $(document).ajaxError(function (event, request, settings) {
         debugger;
-        layer.alert(request.status + '  (' + request.statusText + ')', {
-            title : '出错',
-            icon : 5,
-            closeBtn : 0, // 关闭滚动条
-            scrollbar : false
+        var responseJSON = request.responseJSON,
+            msg;
+        if (responseJSON) {
+            msg = responseJSON.msg;
+
+        } else {
+            msg = request.status + '  (' + request.statusText + ')';
+        }
+        layer.alert(msg, {
+            title: '出错',
+            icon: 5,
+            closeBtn: 0, // 关闭滚动条
+            scrollbar: false
             // 屏蔽浏览器滚动条
             // 动画类型
         });
@@ -521,10 +535,10 @@ var tableName = 'example',
     $.myadmin.loadContent();
 
     // 加载进度条动画
-    $(document).ajaxStart(function() {
+    $(document).ajaxStart(function () {
         $.AMUI.progress.start();
     });
-    $(document).ajaxStop(function() {
+    $(document).ajaxStop(function () {
         $.AMUI.progress.done();
     });
 

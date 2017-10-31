@@ -11,6 +11,8 @@ import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.JsonResult;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/resource")
 public class ResourceController extends BaseController{
@@ -33,7 +35,7 @@ public class ResourceController extends BaseController{
     @ResponseBody
     @RequiresPermissions("resource:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public JsonResult create(Resource resource) {
+    public JsonResult create(@Valid Resource resource) {
         resourceService.createResource(resource);
         return this.renderSuccess();
     }
@@ -41,7 +43,7 @@ public class ResourceController extends BaseController{
     @ResponseBody
     @RequiresPermissions("resource:update")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public JsonResult update(Resource resource) {
+    public JsonResult update(@Valid Resource resource) {
         resourceService.updateResource(resource);
         return this.renderSuccess();
     }

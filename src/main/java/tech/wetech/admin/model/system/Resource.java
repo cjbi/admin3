@@ -1,14 +1,18 @@
 package tech.wetech.admin.model.system;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
 public class Resource implements Serializable {
     private Long id; //编号
+    @NotNull(message = "资源名称不能为空")
     private String name; //资源名称
+    @NotNull(message = "资源类型不能为空")
     private ResourceType type = ResourceType.menu; //资源类型
     private String url; //资源路径
     private String permission; //权限字符串
+    @NotNull(message = "父编号不能为空")
     private Long parentId; //父编号
     private String parentIds; //父编号列表
     private Boolean available = Boolean.FALSE;

@@ -17,6 +17,8 @@ import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.Page;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {
@@ -48,7 +50,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @RequiresPermissions("user:create")
-    public JsonResult create(User user) {
+    public JsonResult create(@Valid  User user) {
         userService.createUser(user);
         return this.renderSuccess();
     }

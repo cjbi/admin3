@@ -1,6 +1,8 @@
 package tech.wetech.admin.web.dto;
 
-public class JsonResult {
+import java.io.Serializable;
+
+public class JsonResult implements Serializable {
     private boolean success;
     private String status;
     private String msg;

@@ -1,15 +1,20 @@
 package tech.wetech.admin.model.system;
 
-import org.springframework.util.StringUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotNull;
+
 public class User implements Serializable{
     private Long id; // 编号
+    @NotNull(message = "所属公司不能为空")
     private Long organizationId; // 所属公司
+    @NotNull(message = "用户名不能为空")
     private String username; // 用户名
+    @NotNull(message = "密码不能为空")
     private String password; // 密码
     private String salt; // 加密密码的盐
     private String roleIds; // 拥有的角色列表

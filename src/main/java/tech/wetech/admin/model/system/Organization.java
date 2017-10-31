@@ -1,10 +1,13 @@
 package tech.wetech.admin.model.system;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class Organization implements Serializable {
     private Long id; //编号
+    @NotNull(message = "组织机构名称不能为空")
     private String name; //组织机构名称
+    @NotNull(message = "父编号不能为空")
     private Long parentId; //父编号
     private String parentIds; //父编号列表，如1/2/
     private Boolean available = Boolean.FALSE;
