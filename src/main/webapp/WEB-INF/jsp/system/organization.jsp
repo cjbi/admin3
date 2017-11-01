@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label class="am-u-sm-3 am-form-label">排序</label>
+                            <label class="am-u-sm-3 am-form-label">序号</label>
                             <div class="am-u-sm-9">
                                 <input type="text" name="priority" placeholder="节点的序号">
                             </div>
