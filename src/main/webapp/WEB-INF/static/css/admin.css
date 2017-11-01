@@ -636,3 +636,12 @@ td > input[type=checkbox], th >input[type=checkbox] {
     font-style: normal;
     color: red;
 }
+/*sidebar选中样式*/
+a[data-am-collapse]:hover {
+    -webkit-transition: background-color .3s ease;
+    -moz-transition: background-color .3s ease;
+    -ms-transition: background-color .3s ease;
+    -o-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+    background: #E4E4E4;
+}
