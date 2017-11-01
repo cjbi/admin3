@@ -27,7 +27,7 @@ public class OrganizationController extends BaseController{
     @RequiresPermissions("organization:view")
     public String toPage(Model model) {
         OrganizationExample example = new OrganizationExample();
-        example.setOrderByClause("sort");
+        example.setOrderByClause("priority");
         model.addAttribute("organizationList", organizationService.find(example));
         return "system/organization";
     }

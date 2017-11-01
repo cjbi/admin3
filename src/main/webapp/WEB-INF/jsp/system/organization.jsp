@@ -75,7 +75,7 @@
                         <div class="am-form-group">
                             <label class="am-u-sm-3 am-form-label">排序</label>
                             <div class="am-u-sm-9">
-                                <input type="text" name="sort" placeholder="节点的序号">
+                                <input type="text" name="priority" placeholder="节点的序号">
                             </div>
                         </div>
                         <shiro:hasPermission name="organization:update">
@@ -114,7 +114,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">排序</label>
             <div class="am-u-sm-10">
-                <input type="text" name="sort" placeholder="节点的序号">
+                <input type="text" name="priority" placeholder="节点的序号">
             </div>
         </div>
     </form>
@@ -152,7 +152,7 @@
             },
             zNodes = [
                 <c:forEach items="${organizationList}" var="o">
-                {id:${o.id}, pId:${o.parentId}, name: "${o.name}", parentIds: "${o.parentIds}", available: ${o.available},sort: '${o.sort}', open:${o.rootNode}},
+                {id:${o.id}, pId:${o.parentId}, name: "${o.name}", parentIds: "${o.parentIds}", available: ${o.available},priority: '${o.priority}', open:${o.rootNode}},
                 </c:forEach>
             ];
 

@@ -16,14 +16,6 @@ import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.web.bind.annotation.CurrentUser;
 
-/**
- * <p>
- * User: Zhang Kaitao
- * <p>
- * Date: 14-2-14
- * <p>
- * Version: 1.0
- */
 @Controller
 public class IndexController{
 

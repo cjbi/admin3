@@ -74,7 +74,7 @@ public class ResourceServiceImpl implements ResourceService{
     @Override
     public List<Resource> findMenus(Set<String> permissions) {
         ResourceExample example = new ResourceExample();
-        example.setOrderByClause("sort");
+        example.setOrderByClause("priority");
         List<Resource> allResources = resourceMapper.selectByExample(example);
         List<Resource> menus = new ArrayList<Resource>();
         for (Resource resource : allResources) {

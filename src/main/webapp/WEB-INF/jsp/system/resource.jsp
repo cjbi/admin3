@@ -203,7 +203,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">排序</label>
             <div class="am-u-sm-10">
-                <input type="text" name="sort" placeholder="资源的排序">
+                <input type="text" name="priority" placeholder="资源的排序">
             </div>
         </div>
         <div class="am-form-group">
@@ -258,7 +258,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">排序</label>
             <div class="am-u-sm-10">
-                <input type="text" name="sort" placeholder="资源的排序">
+                <input type="text" name="priority" placeholder="资源的排序">
             </div>
         </div>
         <div class="am-form-group">
@@ -291,7 +291,7 @@
                 available: ${resource.available},
                 open:${resource.rootNode},
                 rIcon: "${resource.icon}",
-                sort: "${resource.sort}",
+                priority: "${resource.priority}",
             },
             </c:forEach>
         ];
@@ -335,7 +335,7 @@
             editStr += '<div class="diy">' + (treeNode.rUrl || '&nbsp;') + '</div>';
             editStr += '<div class="diy">' + (treeNode.permission || '&nbsp;') + '</div>';
             editStr += '<div class="diy"><span class="' + (treeNode.rIcon || '&nbsp;') + '"></span></div>';
-            editStr += '<div class="diy">' + (treeNode.sort || '&nbsp;') + '</div>';
+            editStr += '<div class="diy">' + (treeNode.priority || '&nbsp;') + '</div>';
             editStr += '<div class="diy">' + formatHandle(treeNode) + '</div>';
             aObj.append(editStr);
         }

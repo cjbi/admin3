@@ -7,7 +7,7 @@
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
     <result column="available" jdbcType="BIT" property="available" />
-    <result column="sort" jdbcType="BIGINT" property="sort" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, parent_id, parent_ids, available, sort
+    id, name, parent_id, parent_ids, available, priority
   </sql>
   <select id="selectByExample" parameterType="tech.wetech.admin.model.system.OrganizationExample" resultMap="BaseResultMap">
     select
@@ -110,10 +110,10 @@
   </delete>
   <insert id="insert" parameterType="tech.wetech.admin.model.system.Organization">
     insert into sys_organization (id, name, parent_id,
-    parent_ids, available, sort
+    parent_ids, available, priority
     )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT},
-    #{parentIds,jdbcType=VARCHAR}, #{available,jdbcType=BIT}, #{sort,jdbcType=BIGINT}
+    #{parentIds,jdbcType=VARCHAR}, #{available,jdbcType=BIT}, #{priority,jdbcType=INTEGER}
     )
   </insert>
   <insert id="insertSelective" parameterType="tech.wetech.admin.model.system.Organization">
@@ -134,8 +134,8 @@
       <if test="available != null">
         available,
       </if>
-      <if test="sort != null">
-        sort,
+      <if test="priority != null">
+        priority,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -154,8 +154,8 @@
       <if test="available != null">
         #{available,jdbcType=BIT},
       </if>
-      <if test="sort != null">
-        #{sort,jdbcType=BIGINT},
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -183,8 +183,8 @@
       <if test="record.available != null">
         available = #{record.available,jdbcType=BIT},
       </if>
-      <if test="record.sort != null">
-        sort = #{record.sort,jdbcType=BIGINT},
+      <if test="record.priority != null">
+        priority = #{record.priority,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -198,7 +198,7 @@
     parent_id = #{record.parentId,jdbcType=BIGINT},
     parent_ids = #{record.parentIds,jdbcType=VARCHAR},
     available = #{record.available,jdbcType=BIT},
-    sort = #{record.sort,jdbcType=BIGINT}
+    priority = #{record.priority,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -218,8 +218,8 @@
       <if test="available != null">
         available = #{available,jdbcType=BIT},
       </if>
-      <if test="sort != null">
-        sort = #{sort,jdbcType=BIGINT},
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -230,7 +230,7 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       parent_ids = #{parentIds,jdbcType=VARCHAR},
       available = #{available,jdbcType=BIT},
-      sort = #{sort,jdbcType=BIGINT}
+      priority = #{priority,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateSalefParentIds" parameterType="java.lang.String">

@@ -7,11 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import tech.wetech.admin.common.utils.DataTableMap;
 import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.web.controller.base.BaseController;
+import tech.wetech.admin.web.dto.DataTableMap;
 import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.Page;
 

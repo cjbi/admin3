@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import tech.wetech.admin.common.utils.DataTableMap;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.web.controller.base.BaseController;
+import tech.wetech.admin.web.dto.DataTableMap;
 import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.Page;
 

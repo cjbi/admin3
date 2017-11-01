@@ -30,7 +30,7 @@ public class ResourceController extends BaseController{
     @RequestMapping(method = RequestMethod.GET)
     public String toPage(Model model) {
         ResourceExample example = new ResourceExample();
-        example.setOrderByClause("sort");
+        example.setOrderByClause("priority");
         model.addAttribute("resourceList", resourceService.find(example));
         return "system/resource";
     }

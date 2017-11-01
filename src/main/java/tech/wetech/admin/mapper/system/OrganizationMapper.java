@@ -28,5 +28,5 @@ public interface OrganizationMapper {
 
     int updateByPrimaryKey(Organization record);
 
-    int updateSalefParentIds(String makeSelfAsParentIds );
+    int updateSalefParentIds(String makeSelfAsParentIds);
 }

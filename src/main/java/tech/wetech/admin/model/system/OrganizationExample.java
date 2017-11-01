@@ -444,63 +444,63 @@ public class OrganizationExample {
             return (Criteria) this;
         }
 
-        public Criteria andSortIsNull() {
-            addCriterion("sort is null");
+        public Criteria andPriorityIsNull() {
+            addCriterion("priority is null");
             return (Criteria) this;
         }
 
-        public Criteria andSortIsNotNull() {
-            addCriterion("sort is not null");
+        public Criteria andPriorityIsNotNull() {
+            addCriterion("priority is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSortEqualTo(Long value) {
-            addCriterion("sort =", value, "sort");
+        public Criteria andPriorityEqualTo(Integer value) {
+            addCriterion("priority =", value, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotEqualTo(Long value) {
-            addCriterion("sort <>", value, "sort");
+        public Criteria andPriorityNotEqualTo(Integer value) {
+            addCriterion("priority <>", value, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortGreaterThan(Long value) {
-            addCriterion("sort >", value, "sort");
+        public Criteria andPriorityGreaterThan(Integer value) {
+            addCriterion("priority >", value, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortGreaterThanOrEqualTo(Long value) {
-            addCriterion("sort >=", value, "sort");
+        public Criteria andPriorityGreaterThanOrEqualTo(Integer value) {
+            addCriterion("priority >=", value, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortLessThan(Long value) {
-            addCriterion("sort <", value, "sort");
+        public Criteria andPriorityLessThan(Integer value) {
+            addCriterion("priority <", value, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortLessThanOrEqualTo(Long value) {
-            addCriterion("sort <=", value, "sort");
+        public Criteria andPriorityLessThanOrEqualTo(Integer value) {
+            addCriterion("priority <=", value, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortIn(List<Long> values) {
-            addCriterion("sort in", values, "sort");
+        public Criteria andPriorityIn(List<Integer> values) {
+            addCriterion("priority in", values, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotIn(List<Long> values) {
-            addCriterion("sort not in", values, "sort");
+        public Criteria andPriorityNotIn(List<Integer> values) {
+            addCriterion("priority not in", values, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortBetween(Long value1, Long value2) {
-            addCriterion("sort between", value1, value2, "sort");
+        public Criteria andPriorityBetween(Integer value1, Integer value2) {
+            addCriterion("priority between", value1, value2, "priority");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotBetween(Long value1, Long value2) {
-            addCriterion("sort not between", value1, value2, "sort");
+        public Criteria andPriorityNotBetween(Integer value1, Integer value2) {
+            addCriterion("priority not between", value1, value2, "priority");
             return (Criteria) this;
         }
     }

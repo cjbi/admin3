@@ -28,7 +28,7 @@ CREATE TABLE `sys_organization` (
   `parent_id` bigint(20) DEFAULT NULL,
   `parent_ids` varchar(100) DEFAULT NULL,
   `available` tinyint(1) DEFAULT '0',
-  `sort` bigint(20) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_sys_organization_parent_id` (`parent_id`),
   KEY `idx_sys_organization_parent_ids` (`parent_ids`)
@@ -62,7 +62,7 @@ CREATE TABLE `sys_resource` (
   `permission` varchar(100) DEFAULT NULL,
   `available` tinyint(1) DEFAULT '0',
   `icon` varchar(100) DEFAULT NULL,
-  `sort` bigint(20) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_sys_resource_parent_id` (`parent_id`),
   KEY `idx_sys_resource_parent_ids` (`parent_ids`)
@@ -75,7 +75,7 @@ CREATE TABLE `sys_resource` (
 
 LOCK TABLES `sys_resource` WRITE;
 /*!40000 ALTER TABLE `sys_resource` DISABLE KEYS */;
-INSERT INTO `sys_resource` VALUES (1,'资源','menu','#',0,'0/','',1,'',0),(11,'组织机构管理','menu','#',1,'0/1/','organization:*',1,'am-icon-sitemap',3),(12,'组织机构新增','button','',11,'0/1/11/','organization:create',1,NULL,NULL),(13,'组织机构修改','button','',11,'0/1/11/','organization:update',1,NULL,NULL),(14,'组织机构删除','button','',11,'0/1/11/','organization:delete',1,NULL,NULL),(15,'组织机构查看','button','',11,'0/1/11/','organization:view',1,NULL,NULL),(21,'用户管理','menu','#',1,'0/1/','user:*',1,'am-icon-user',1),(22,'用户新增','button','',21,'0/1/21/','user:create',1,NULL,NULL),(23,'用户修改','button','',21,'0/1/21/','user:update',1,NULL,NULL),(24,'用户删除','button','',21,'0/1/21/','user:delete',1,NULL,NULL),(25,'用户查看','button','',21,'0/1/21/','user:view',1,NULL,NULL),(31,'资源管理','menu','#',1,'0/1/','resource:*',1,'am-icon-cubes',2),(32,'资源新增','button','',31,'0/1/31/','resource:create',1,NULL,NULL),(33,'资源修改','button','',31,'0/1/31/','resource:update',1,'',NULL),(34,'资源删除','button','',31,'0/1/31/','resource:delete',1,NULL,NULL),(35,'资源查看','button','',31,'0/1/31/','resource:view',1,NULL,NULL),(41,'角色管理','menu','#role',21,'0/1/','role:*',1,'am-icon-child',2),(42,'角色新增','button','',41,'0/1/41/','role:create',1,NULL,NULL),(43,'角色修改','button','',41,'0/1/41/','role:update',1,NULL,NULL),(44,'角色删除','button','',41,'0/1/41/','role:delete',1,NULL,NULL),(45,'角色查看','button','',41,'0/1/41/','role:view',1,NULL,NULL),(46,'系统用户','menu','#user',21,'0/1/11/','user:*',1,'am-icon-wrench',1),(47,'组织机构','menu','#organization',11,'0/1/11/','user:*',1,'am-icon-suitcase',NULL),(50,'资源管理','menu','#resource',31,'0/1/','resource:*',1,'am-icon-desktop',NULL),(51,'节点测试','menu','#',1,'0/1/','',1,'',999),(54,'二级节点','menu','#',51,'0/1/51/','',1,NULL,NULL),(55,'三级节点','menu','#',54,'0/1/51/54/','',1,NULL,NULL),(56,'四级节点','menu','#',55,'0/1/51/54/55/','',1,NULL,NULL),(57,'五级节点','menu','#',56,'0/1/51/54/55/56/','',1,NULL,NULL),(64,'测试','menu','12121',1,'0/1/','1212',1,'122',999),(65,'2222','menu','333',1,'0/1/','232',1,'2323',888),(66,'二级节点2','menu','#',51,'0/1/51/','',1,'am-icon-home',NULL),(67,'三级节点','menu','#',66,'0/1/51/66/','',1,'am-icon-gear am-icon-spin',NULL);
+INSERT INTO `sys_resource` VALUES (1,'资源','menu','#',0,'0/','',1,'',0),(11,'组织机构管理','menu','#',1,'0/1/','organization:*',1,'am-icon-sitemap',3),(12,'组织机构新增','button','',11,'0/1/11/','organization:create',1,NULL,NULL),(13,'组织机构修改','button','',11,'0/1/11/','organization:update',1,NULL,NULL),(14,'组织机构删除','button','',11,'0/1/11/','organization:delete',1,NULL,NULL),(15,'组织机构查看','button','',11,'0/1/11/','organization:view',1,NULL,NULL),(21,'用户管理','menu','#',1,'0/1/','user:*',1,'am-icon-user',1),(22,'用户新增','button','',21,'0/1/21/','user:create',1,NULL,NULL),(23,'用户修改','button','',21,'0/1/21/','user:update',1,'',NULL),(24,'用户删除','button','',21,'0/1/21/','user:delete',1,NULL,NULL),(25,'用户查看','button','',21,'0/1/21/','user:view',1,NULL,NULL),(31,'资源管理','menu','#',1,'0/1/','resource:*',1,'am-icon-cubes',2),(32,'资源新增','button','',31,'0/1/31/','resource:create',1,NULL,NULL),(33,'资源修改','button','',31,'0/1/31/','resource:update',1,'',NULL),(34,'资源删除','button','',31,'0/1/31/','resource:delete',1,NULL,NULL),(35,'资源查看','button','',31,'0/1/31/','resource:view',1,NULL,NULL),(41,'角色管理','menu','#role',21,'0/1/','role:*',1,'am-icon-child',2),(42,'角色新增','button','',41,'0/1/41/','role:create',1,NULL,NULL),(43,'角色修改','button','',41,'0/1/41/','role:update',1,NULL,NULL),(44,'角色删除','button','',41,'0/1/41/','role:delete',1,NULL,NULL),(45,'角色查看','button','',41,'0/1/41/','role:view',1,NULL,NULL),(46,'系统用户','menu','#user',21,'0/1/11/','user:*',1,'am-icon-wrench',1),(47,'组织机构','menu','#organization',11,'0/1/11/','user:*',1,'am-icon-suitcase',NULL),(50,'资源管理','menu','#resource',31,'0/1/','resource:*',1,'am-icon-desktop',NULL),(51,'节点测试','menu','#',1,'0/1/','',1,'',999),(54,'二级节点','menu','#',51,'0/1/51/','',1,NULL,NULL),(55,'三级节点','menu','#',54,'0/1/51/54/','',1,NULL,NULL),(56,'四级节点','menu','#',55,'0/1/51/54/55/','',1,NULL,NULL),(57,'五级节点','menu','#',56,'0/1/51/54/55/56/','',1,NULL,NULL),(64,'测试','menu','12121',1,'0/1/','1212',1,'122',999),(65,'2222','menu','333',1,'0/1/','232',1,'2323',888),(66,'二级节点2','menu','#',51,'0/1/51/','',1,'am-icon-home',NULL),(67,'三级节点','menu','#',66,'0/1/51/66/','',1,'am-icon-gear am-icon-spin',NULL);
 /*!40000 ALTER TABLE `sys_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,7 @@ CREATE TABLE `sys_role` (
 
 LOCK TABLES `sys_role` WRITE;
 /*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
-INSERT INTO `sys_role` VALUES (1,'admin','超级管理员','11,21,31,41,51',0),(2,'guest','访客','15,25,35,45',0),(4,'ceshi','测试的角色','42,43,44,45',0),(5,'test','测试角色','12,13,14,43,47',0);
+INSERT INTO `sys_role` VALUES (1,'admin','超级管理员','11,21,31,41,51',0),(2,'guest','访客','15,25,35,45',0),(4,'ceshi3','测试的角色','12,14,34,35,51',0),(5,'test','测试角色','12,13,14,43,47',0);
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-31 21:03:58
+-- Dump completed on 2017-11-01 16:42:11
