@@ -43,9 +43,9 @@
                 <div class="am-form-group">
                     <select data-am-selected="{btnSize: 'sm'}">
                         <option value="option1">全部</option>
-                        <option value="option2">文章</option>
+                        <%--<option value="option2">文章</option>
                         <option value="option3">合作文章</option>
-                        <option value="option3">未审核</option>
+                        <option value="option3">未审核</option>--%>
                     </select>
                 </div>
             </div>
