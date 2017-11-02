@@ -15,7 +15,7 @@ import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.DataTableMap;
 import tech.wetech.admin.web.dto.JsonResult;
-import tech.wetech.admin.web.dto.Page;
+import tech.wetech.admin.web.dto.PageData;
 
 import javax.validation.Valid;
 
@@ -42,9 +42,9 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
-    public Object list(Page page) {
-        userService.listByPage(page);
-        return DataTableMap.getMapData(page);
+    public Object list(PageData pageData) {
+        userService.list(pageData);
+        return DataTableMap.getMapData(pageData);
     }
 
     @ResponseBody

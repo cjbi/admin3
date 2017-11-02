@@ -51,9 +51,9 @@
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-input-group am-input-group-sm">
-                    <input type="text" class="am-form-field">
+                    <input type="text" name="keywords" id="keywords" placeholder="角色名称 / 角色描述" class="am-form-field">
                     <span class="am-input-group-btn">
-    <button class="am-btn am-btn-primary" type="button">搜索</button>
+    <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
     </span>
                 </div>
             </div>
@@ -135,6 +135,16 @@
             updateURL = pathURL + 'update',
             deleteURL = pathURL + 'delete';
 
+        var ajax = {
+            'url': listURL,
+            'data': function(data) {
+                var keywords = $('#keywords').val();
+                if(keywords) {
+                    data.keywords = ($('#keywords').val());
+                }
+            }
+        };
+
         var gridTable = [
             {
                 'data': 'id',
@@ -153,7 +163,7 @@
                 'data': 'resourceNames'
             }
         ];
-        var table = $.mytables.initDatatables(listURL,gridTable,'example_role');
+        var table = $.mytables.initTable(ajax, gridTable, 'example_role');
 
         /**
          * 新增

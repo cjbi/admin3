@@ -3,18 +3,17 @@
  * date: 2016/9/20
  * mail: cjbi@outlook.com
  */
-var tableName = 'example',
-    basePath = $('#basePath').val();
+var basePath = $('#basePath').val();
 
 /**
  * 常用的插件封装.
  * @author cjbi
  */
 (function ($) {
-
+    var tableName = 'example';
     /**
      * 封装datatables、layer弹出层，简化操作
-     * @type {{initDatatables: $.mytables.initDatatables, getSelectedData: $.mytables.getSelectedData, fillEditFormData: $.mytables.fillEditFormData, deleteBatch: $.mytables.deleteBatch, openDialog: $.mytables.openDialog}}
+     * @type {{initTable: jQuery.mytables.initTable, getTable: jQuery.mytables.getTable, reloadTable: jQuery.mytables.reloadTable, getSelectedData: jQuery.mytables.getSelectedData, fillEditFormData: jQuery.mytables.fillEditFormData, deleteBatch: jQuery.mytables.deleteBatch, openDialog: jQuery.mytables.openDialog}}
      */
     $.mytables = {
         /**
@@ -26,8 +25,8 @@ var tableName = 'example',
          * @param tableNames
          * @returns {jQuery}
          */
-        initDatatables: function (ajax, gridTable, tableNames, ServerParams, initComplete) {
-            tableName = (tableNames || 'example');
+        initTable: function (ajax, gridTable, _tableName, ServerParams, initComplete) {
+            tableName = (_tableName || 'example');
             var table = $('#' + tableName).DataTable({
                     'aLengthMenu': [10, 15, 20, 40, 60],
                     'searching': false,// 开启搜索框
@@ -105,19 +104,35 @@ var tableName = 'example',
             return table;
         },
         /**
-         * 返回选中的行
+         * 获得表格
+         * @param _tableName
          */
-        getSelectedData: function () {
-            var table = $('#' + tableName).DataTable();
+        getTable:function(_tableName) {
+            return $('#' + (_tableName||tableName)).DataTable()
+        },
+        /**
+         * 重新加载数据源获取数据（不能指定新的数据源）
+         * @param _tableName
+         */
+        reloadTable:function (_tableName) {
+            $('#' + (_tableName||tableName)).DataTable().ajax.reload();
+        },
+        /**
+         * 返回选中的行
+         * @param _tableName
+         */
+        getSelectedData: function (_tableName) {
+            var table = $('#' + (_tableName||tableName)).DataTable();
             return table.rows('.selected').data()[0];
         },
         /**
          * 填充表单
+         * @param _tableName
          * @returns {boolean}
          */
-        fillEditFormData: function () {
+        fillEditFormData: function (_tableName) {
             // 将值填充到表单中
-            var table = $('#' + tableName).DataTable(),
+            var table = $('#' + ((_tableName||tableName))).DataTable(),
                 rowLength = table.rows('.selected').data().length;
             if (rowLength == 0) {
                 layer.msg('请选择一条记录！', {
@@ -149,13 +164,14 @@ var tableName = 'example',
          * @param url 链接地址
          * @param pk 主键
          * @returns {boolean}
+         * @param _tableName
          */
-        deleteBatch: function (url, pk) {
-            var table = $('#' + tableName).DataTable(),
+        deleteBatch: function (url, pk,_tableName) {
+            var table = $('#' + (_tableName||tableName)).DataTable(),
                 rowData = {},
                 array = [],
                 dictType = table.rows('.selected').data(),
-                str = $('#' + tableName + ' tbody tr[class="even selected"]').length + $('#' + tableName + ' tbody tr[class="odd selected"]').length;
+                str = $('#' + (_tableName||tableName) + ' tbody tr[class="even selected"]').length + $('#' + (_tableName||tableName) + ' tbody tr[class="odd selected"]').length;
 
             if (dictType[0] == undefined) {
                 layer.msg('请选择一条记录！', {

@@ -3,13 +3,14 @@ package tech.wetech.admin.service.system.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.system.UserMapper;
 import tech.wetech.admin.model.system.*;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.PasswordHelper;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
-import tech.wetech.admin.web.dto.Page;
+import tech.wetech.admin.web.dto.PageData;
 import tech.wetech.admin.web.dto.system.UserDto;
 import java.util.*;
 
@@ -34,10 +35,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Page listByPage(Page page) {
+    public PageData list(PageData pageData) {
         UserExample example = new UserExample();
-        example.setOffset(page.getStart());
-        example.setLimit(page.getLength());
+        example.setOffset(pageData.getStart());
+        example.setLimit(pageData.getLength());
+        if (!StringUtils.isEmpty(pageData.getKeywords())) {
+            example.or().andUsernameLike("%" + pageData.getKeywords() + "%");
+        }
         long count = userMapper.countByExample(example);
         List<User> userList = userMapper.selectByExample(example);
         List<UserDto> dtoList = new ArrayList<>();
@@ -47,9 +51,9 @@ public class UserServiceImpl implements UserService{
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
             dtoList.add(dto);
         }
-        page.setResult(dtoList);
-        page.setTotal(count);
-        return page;
+        pageData.setResult(dtoList);
+        pageData.setTotal(count);
+        return pageData;
     }
 
     private String getRoleNames(Collection<Long> roleIds) {

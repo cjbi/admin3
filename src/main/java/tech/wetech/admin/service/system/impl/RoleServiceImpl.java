@@ -3,13 +3,14 @@ package tech.wetech.admin.service.system.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.system.RoleMapper;
 import tech.wetech.admin.model.system.Resource;
 import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.model.system.RoleExample;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
-import tech.wetech.admin.web.dto.Page;
+import tech.wetech.admin.web.dto.PageData;
 import tech.wetech.admin.web.dto.system.RoleDto;
 
 import java.util.*;
@@ -24,10 +25,14 @@ public class RoleServiceImpl implements RoleService{
     private ResourceService resourceService;
 
     @Override
-    public Page listByPage(Page page) {
+    public PageData list(PageData pageData) {
         RoleExample example = new RoleExample();
-        example.setOffset(page.getStart());
-        example.setLimit(page.getLength());
+        example.setOffset(pageData.getStart());
+        example.setLimit(pageData.getLength());
+        if (!StringUtils.isEmpty(pageData.getKeywords())) {
+            example.or().andRoleLike("%" + pageData.getKeywords() + "%");
+            example.or().andDescriptionLike("%" + pageData.getKeywords() + "%");
+        }
         List<Role> roleList = roleMapper.selectByExample(example);
         long count = roleMapper.countByExample(example);
         roleMapper.countByExample(example);
@@ -37,9 +42,9 @@ public class RoleServiceImpl implements RoleService{
             dto.setResourceNames(getResourceNames(role.getResourceIdList()));
             dtoList.add(dto);
         }
-        page.setResult(dtoList);
-        page.setTotal(count);
-        return page;
+        pageData.setResult(dtoList);
+        pageData.setTotal(count);
+        return pageData;
     }
 
     private String getResourceNames(Collection<Long> resourceIds) {

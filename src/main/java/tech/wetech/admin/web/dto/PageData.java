@@ -1,21 +1,25 @@
 package tech.wetech.admin.web.dto;
 
-import javax.validation.constraints.Null;
-
-public class Page {
+/**
+ * @author cjbi
+ * @param <T>
+ */
+public class PageData<T> {
 
     private int start = 0;
 
     private int length =10;
 
-    private Object result;
+    private T result;//返回
 
     private long total;
 
-    public Page() {
+    private String keywords;//模糊匹配关键字
+
+    public PageData() {
     }
 
-    public Page(int start, int length) {
+    public PageData(int start, int length) {
         this.start = start;
         this.length = length;
     }
@@ -36,11 +40,11 @@ public class Page {
         this.length = length;
     }
 
-    public Object getResult() {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(T result) {
         this.result = result;
     }
 
@@ -51,4 +55,13 @@ public class Page {
     public void setTotal(long total) {
         this.total = total;
     }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
 }

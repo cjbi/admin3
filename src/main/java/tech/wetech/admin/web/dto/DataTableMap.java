@@ -18,7 +18,7 @@ public class DataTableMap {
 	 *  [json.sColumns] Column ordering (sName, comma separated)
 	 * @return Data the data from the server (nuking the old) and redraw the table
 	 */
-	public static Map<String, Object> getMapData(Page page) {
+	public static Map<String, Object> getMapData(PageData page) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("aaData", page.getResult());
 		map.put("iTotalRecords", (page.getTotal()));

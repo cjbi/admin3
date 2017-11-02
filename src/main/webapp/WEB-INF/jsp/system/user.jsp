@@ -34,17 +34,17 @@
                 <div class="am-form-group">
                     <select data-am-selected="{btnSize: 'sm'}">
                         <option value="option1">全部</option>
-                        <option value="option2">文章</option>
+                        <%--<option value="option2">文章</option>
                         <option value="option3">合作文章</option>
-                        <option value="option3">未审核</option>
+                        <option value="option3">未审核</option>--%>
                     </select>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-input-group am-input-group-sm">
-                    <input type="text" class="am-form-field">
+                    <input type="text" name="keywords" id="keywords" placeholder="用户名" class="am-form-field">
                     <span class="am-input-group-btn">
-            <button class="am-btn am-btn-primary" type="button">搜索</button>
+            <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
           </span>
                 </div>
             </div>
@@ -149,6 +149,16 @@
             updateURL = pathURL + 'update',
             deleteURL = pathURL + 'delete';
 
+        var ajax = {
+            'url': listURL,
+            'data': function(data) {
+                var keywords = $('#keywords').val();
+                if(keywords) {
+                    data.keywords = ($('#keywords').val());
+                }
+            }
+        };
+
         var gridTable = [
             {
                 'data': 'id',
@@ -167,7 +177,7 @@
                 'data': 'roleNames'
             }
         ];
-        var table = $.mytables.initDatatables(listURL, gridTable,'example_user');
+        var table = $.mytables.initTable(ajax, gridTable,'example_user');
 
         /**
          * 新增
