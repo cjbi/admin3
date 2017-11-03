@@ -326,9 +326,8 @@ var basePath = $('#basePath').val();
                 url = url.replace("#", "/");
                 $('#admin-content').load(url, function () {
                     reloadComponent();
-                    if (callback != undefined)
+                    if (callback)
                         callback();
-
                 });
             }
 
@@ -518,8 +517,8 @@ var basePath = $('#basePath').val();
         var $showText = $('.admin-show-text');
         $('#admin-show-sidebar').on('click', function () {
             $('#admin-offcanvas').css({
-                display: function(index, value) {
-                    if(value=='block') {
+                display: function (index, value) {
+                    if (value == 'block') {
                         $showText.text('显示菜单');
                         return 'none';
                     } else {
@@ -534,7 +533,7 @@ var basePath = $('#basePath').val();
     // sidebar绑定事件
     $('a[class="am-cf"]').on('click', function (e) {
         var href = $(this).attr('href');
-        if (href != undefined && href != "" && href != "#") {
+        if (href && href != "#") {
             // 加载Content
             $.myadmin.loadContent(href);
             e.preventDefault();
