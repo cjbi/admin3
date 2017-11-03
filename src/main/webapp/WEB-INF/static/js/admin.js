@@ -107,22 +107,22 @@ var basePath = $('#basePath').val();
          * 获得表格
          * @param _tableName
          */
-        getTable:function(_tableName) {
-            return $('#' + (_tableName||tableName)).DataTable()
+        getTable: function (_tableName) {
+            return $('#' + (_tableName || tableName)).DataTable()
         },
         /**
          * 重新加载数据源获取数据（不能指定新的数据源）
          * @param _tableName
          */
-        reloadTable:function (_tableName) {
-            $('#' + (_tableName||tableName)).DataTable().ajax.reload();
+        reloadTable: function (_tableName) {
+            $('#' + (_tableName || tableName)).DataTable().ajax.reload();
         },
         /**
          * 返回选中的行
          * @param _tableName
          */
         getSelectedData: function (_tableName) {
-            var table = $('#' + (_tableName||tableName)).DataTable();
+            var table = $('#' + (_tableName || tableName)).DataTable();
             return table.rows('.selected').data()[0];
         },
         /**
@@ -132,7 +132,7 @@ var basePath = $('#basePath').val();
          */
         fillEditFormData: function (_tableName) {
             // 将值填充到表单中
-            var table = $('#' + ((_tableName||tableName))).DataTable(),
+            var table = $('#' + ((_tableName || tableName))).DataTable(),
                 rowLength = table.rows('.selected').data().length;
             if (rowLength == 0) {
                 layer.msg('请选择一条记录！', {
@@ -166,12 +166,12 @@ var basePath = $('#basePath').val();
          * @returns {boolean}
          * @param _tableName
          */
-        deleteBatch: function (url, pk,_tableName) {
-            var table = $('#' + (_tableName||tableName)).DataTable(),
+        deleteBatch: function (url, pk, _tableName) {
+            var table = $('#' + (_tableName || tableName)).DataTable(),
                 rowData = {},
                 array = [],
                 dictType = table.rows('.selected').data(),
-                str = $('#' + (_tableName||tableName) + ' tbody tr[class="even selected"]').length + $('#' + (_tableName||tableName) + ' tbody tr[class="odd selected"]').length;
+                str = $('#' + (_tableName || tableName) + ' tbody tr[class="even selected"]').length + $('#' + (_tableName || tableName) + ' tbody tr[class="odd selected"]').length;
 
             if (dictType[0] == undefined) {
                 layer.msg('请选择一条记录！', {
@@ -513,6 +513,21 @@ var basePath = $('#basePath').val();
 
         $(document).on($.AMUI.fullscreen.raw.fullscreenchange, function () {
             $fullText.text($.AMUI.fullscreen.isFullscreen ? '退出全屏' : '开启全屏');
+        });
+
+        var $showText = $('.admin-show-text');
+        $('#admin-show-sidebar').on('click', function () {
+            $('#admin-offcanvas').css({
+                display: function(index, value) {
+                    if(value=='block') {
+                        $showText.text('显示侧边栏');
+                        return 'none';
+                    } else {
+                        $showText.text('隐藏侧边栏');
+                        return 'block';
+                    }
+                }
+            });
         });
     });
 

@@ -109,9 +109,6 @@
             <div class="am-u-sm-12 am-u-md-6">
                 <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                        <%--<button type="button" class="am-btn am-btn-default am-btn-primary" onclick="create();"><span class="am-icon-plus"></span> 新增</button>
-                        <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="update();"><span class="am-icon-edit"></span> 修改</button>
-                        <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="del();"><span class="am-icon-trash-o"></span> 删除</button>--%>
                         <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="reset();"><span class="am-icon-refresh"></span> 重置</button>
                     </div>
                 </div>
@@ -357,7 +354,7 @@
          * @returns {string}
          */
         function formatHandle(treeNode) {
-            var htmlStr = '<div class="am-btn-group">';
+            var htmlStr = '<div class="am-btn-group" style="">';
             <shiro:hasPermission name="resource:create">
             if (treeNode.type != 'button') {
                 htmlStr += '<button type="button" onclick="createChild(\'' + treeNode.tId + '\');" class="am-btn am-btn-primary am-radius"><span class="am-icon-plus"></span> 添加子节点</button>';
