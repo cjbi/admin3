@@ -3,7 +3,7 @@
 
 **在线访问：**
 
-[Demo](http://wetech.tech/wetech-admin "Demo")
+[demo](http://wetech.tech/wetech-admin "demo")
 
 [github](https://github.com/cjbi/wetech-admin "github")
 
