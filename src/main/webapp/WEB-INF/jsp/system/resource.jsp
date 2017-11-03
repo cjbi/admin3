@@ -5,20 +5,12 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <style type="text/css">
     /*按钮*/
-    .icon_div {
-        display: inline-block;
-        height: 25px;
-        width: 35px;
-    <%--background: url(<%=request.getContextPath()%>/static/img/f_icon.png) no-repeat 12px -127px;--%>
-    }
-
     .icon_div a {
         display: inline-block;
         width: 27px;
         height: 20px;
         cursor: pointer;
     }
-
     /*end--按钮*/
 
     /*ztree表格*/
@@ -56,7 +48,7 @@
 
     .ztree div.diy {
         height: 100%;
-        width: 14.325%;
+        width: 11.72%;
         line-height: 35px;
         border-top: 1px solid #ccc;
         border-left: 1px solid #eeeeee;
@@ -320,7 +312,7 @@
             var icoObj = $("#" + treeNode.tId + "_ico");
             var spanObj = $("#" + treeNode.tId + "_span");
             aObj.attr('title', '');
-            aObj.append('<div class="diy swich"></div>');
+            aObj.append('<div class="diy switch" style="width: 30%;"></div>');
             var div = $(liObj).find('div').eq(0);
             switchObj.remove();
             spanObj.remove();
@@ -348,7 +340,7 @@
             //初始化树
             $.fn.zTree.init($("#dataTree"), setting, zNodes);
             //添加表头
-            var li_head = ' <li class="head"><a><div class="diy">名称</div><div class="diy">类型</div><div class="diy">URL路径</div>' +
+            var li_head = ' <li class="head"><a><div class="diy" style="width: 30%;">名称</div><div class="diy">类型</div><div class="diy">URL路径</div>' +
                 '<div class="diy">权限字符串</div><div class="diy">图标</div><div class="diy">序号</div><div class="diy">操作</div></a></li>';
             var rows = $("#dataTree").find('li');
             if (rows.length > 0) {
