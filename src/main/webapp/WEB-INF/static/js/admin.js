@@ -520,10 +520,10 @@ var basePath = $('#basePath').val();
             $('#admin-offcanvas').css({
                 display: function(index, value) {
                     if(value=='block') {
-                        $showText.text('显示侧边栏');
+                        $showText.text('显示菜单');
                         return 'none';
                     } else {
-                        $showText.text('隐藏侧边栏');
+                        $showText.text('隐藏菜单');
                         return 'block';
                     }
                 }
