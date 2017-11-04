@@ -11,17 +11,8 @@
 
 	<!-- 配置别名 -->
 	<typeAliases>
-		<!--<typeAlias type="tech.wetech.admin.model.system.User" alias="User"/>-->
+		<typeAlias type="tech.wetech.admin.model.system.User" alias="User"/>
 		<!--<typeAlias type="tech.wetech.admin.model.system.Role" alias="Role"/>-->
 	</typeAliases>
-
-	<!--<plugins>
-		<plugin interceptor="com.github.pagehelper.PageInterceptor">
-			<property name="helperDialect" value="mysql"/>
-			<property name="reasonable" value="true"/>
-			<property name="supportMethodsArguments" value="true"/>
-			<property name="autoRuntimeDialect" value="true"/>
-		</plugin>
-	</plugins>-->
 
 </configuration>

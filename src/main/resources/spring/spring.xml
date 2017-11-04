@@ -67,24 +67,24 @@
 		<property name="dataSource" ref="dataSourceProxy"/>
 	</bean>
 
+	<!-- 配置哪些方法要加入事务控制 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="*" propagation="REQUIRED"/>
-		</tx:attributes>
-	</tx:advice>
-
-	<!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
+			<!-- 让所有的方法都加入事务管理，为了提高效率，可以把一些查询之类的方法设置为只读的事务 -->
+			<tx:method name="*" propagation="REQUIRED" read-only="true"/>
+			<!-- 以下方法都是可能设计修改的方法，就无法设置为只读 -->
             <tx:method name="delete*" propagation="REQUIRED" read-only="false"
                        rollback-for="java.lang.Exception"/>
-            <tx:method name="insert*" propagation="REQUIRED" read-only="false"
-                       rollback-for="java.lang.Exception" />
             <tx:method name="update*" propagation="REQUIRED" read-only="false"
                        rollback-for="java.lang.Exception" />
             <tx:method name="save*" propagation="REQUIRED" read-only="false"
                        rollback-for="java.lang.Exception" />
+			<tx:method name="create*" propagation="REQUIRED" read-only="false"
+					   rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
+					   rollback-for="java.lang.Exception" />
         </tx:attributes>
-    </tx:advice>-->
+    </tx:advice>
 
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- 事务处理 -->
