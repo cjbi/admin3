@@ -91,15 +91,25 @@ var basePath = $('#basePath').val();
                             $(this).parent().parent().removeClass('selected');
                         }
                     });
+                },
+                rowOperation = function ($this) {
+                    var $checkboxAll = $this.parent().parent().parent().parent().find('td input[type="checkbox"]'),
+                        $checkboxRow = $this.parent().parent().parent().find('td input[type="checkbox"]');
+                    $checkboxAll.prop('checked', false);
+                    $checkboxRow.prop('checked', true);
+                    rowActive();
                 };
             // checkbox全选
-            $('div').on('click', 'th input[type="checkbox"]', function () {
+            $('#' + tableName).on('click', 'th input[type="checkbox"]', function () {
                 checkAll();
             });
-
             // 选中行触发事件
-            $('div').on('click', 'td input[type="checkbox"]', function () {
+            $('#' + tableName).on('click', 'td input[type="checkbox"]', function () {
                 rowActive();
+            });
+            //选中行操作事件
+            $('#' + tableName).on('click', '.am-btn', function () {
+                rowOperation($(this));
             });
             return table;
         },

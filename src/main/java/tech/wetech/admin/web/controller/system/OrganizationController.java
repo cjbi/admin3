@@ -57,7 +57,7 @@ public class OrganizationController extends BaseController{
     }
 
     @ResponseBody
-    @RequiresPermissions("user:delete")
+    @RequiresPermissions("organization:delete")
     @RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
     public JsonResult delete(@PathVariable("id") Long id) {
         organizationService.deleteOrganization(id);

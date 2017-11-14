@@ -67,6 +67,7 @@
                     <th>角色名称</th>
                     <th>角色描述</th>
                     <th>拥有的资源</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
             </table>
@@ -161,6 +162,19 @@
             },
             {
                 'data': 'resourceNames'
+            },
+            {
+                'data': 'id',
+                'mRender': function (data, type, full) {
+                    return '<div class="am-btn-group am-btn-group-xs">\
+                                 <shiro:hasPermission name="user:update">\
+                                 <a href="javascript:update();" class="am-btn am-btn-primary am-btn-hollow"><span class="am-icon-pencil-square-o"></span> 编辑</button>\
+                                 </shiro:hasPermission>\
+                                 <shiro:hasPermission name="user:update">\
+                                 <a href="javascript:del();" class="am-btn am-btn-danger am-btn-hollow"><span class="am-icon-trash-o"></span> 删除</button>\
+                                 </shiro:hasPermission>\
+                             </div>';
+                }
             }
         ];
         var table = $.mytables.initTable(ajax, gridTable, 'example_role');

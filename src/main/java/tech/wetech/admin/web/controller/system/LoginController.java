@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController extends BaseController {
 
-
     @RequestMapping("/login")
     public String showLoginForm(HttpServletRequest req, Model model) {
         String exceptionClassName = (String)req.getAttribute("shiroLoginFailure");
+        logger.info("begin to login");
         String error = null;
         if(UnknownAccountException.class.getName().equals(exceptionClassName)) {
             error = "用户名/密码错误";
@@ -33,6 +33,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping("/main")
     public String toMain() throws Exception {
+        logger.info("begin to main");
         return "/system/main";
     }
 }

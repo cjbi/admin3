@@ -28,7 +28,7 @@ public class RoleController extends BaseController {
     private ResourceService resourceService;
 
     @RequestMapping(method = RequestMethod.GET)
-    @RequiresPermissions("organization:view")
+    @RequiresPermissions("role:view")
     public String toPage(Model model) {
         setCommonData(model);
         return "system/role";
@@ -36,7 +36,7 @@ public class RoleController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/list")
-    @RequiresPermissions("organization:view")
+    @RequiresPermissions("role:view")
     public Object list(PageData pageData) {
         roleService.list(pageData);
         return DataTableMap.getMapData(pageData);

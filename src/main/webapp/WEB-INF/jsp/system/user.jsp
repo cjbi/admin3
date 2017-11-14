@@ -58,6 +58,7 @@
                     <th>用户名</th>
                     <th>所属组织</th>
                     <th>角色列表</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
             </table>
@@ -151,9 +152,9 @@
 
         var ajax = {
             'url': listURL,
-            'data': function(data) {
+            'data': function (data) {
                 var keywords = $('#keywords').val();
-                if(keywords) {
+                if (keywords) {
                     data.keywords = ($('#keywords').val());
                 }
             }
@@ -175,9 +176,22 @@
             },
             {
                 'data': 'roleNames'
+            },
+            {
+                'data': 'id',
+                'mRender': function (data, type, full) {
+                    return '<div class="am-btn-group am-btn-group-xs">\
+                                 <shiro:hasPermission name="user:update">\
+                                 <a href="javascript:update();" class="am-btn am-btn-primary am-btn-hollow"><span class="am-icon-pencil-square-o"></span> 编辑</button>\
+                                 </shiro:hasPermission>\
+                                 <shiro:hasPermission name="user:update">\
+                                 <a href="javascript:del();" class="am-btn am-btn-danger am-btn-hollow"><span class="am-icon-trash-o"></span> 删除</button>\
+                                 </shiro:hasPermission>\
+                             </div>';
+                }
             }
         ];
-        var table = $.mytables.initTable(ajax, gridTable,'example_user');
+        var table = $.mytables.initTable(ajax, gridTable, 'example_user');
 
         /**
          * 新增
@@ -200,7 +214,7 @@
                     }
                 }
             };
-            $.mytables.openDialog(opts,$('#add-dialog'));
+            $.mytables.openDialog(opts, $('#add-dialog'));
         }
 
         /**
@@ -225,7 +239,7 @@
                     }
                 }
             };
-            $.mytables.openDialog(opts,$('#edit-dialog'));
+            $.mytables.openDialog(opts, $('#edit-dialog'));
         }
 
         del = function () {

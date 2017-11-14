@@ -26,7 +26,7 @@ public class ResourceController extends BaseController{
         return Resource.ResourceType.values();
     }
 
-    @RequiresPermissions("user:view")
+    @RequiresPermissions("resource:view")
     @RequestMapping(method = RequestMethod.GET)
     public String toPage(Model model) {
         ResourceExample example = new ResourceExample();
