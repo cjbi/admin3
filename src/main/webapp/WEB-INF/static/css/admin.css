@@ -630,6 +630,9 @@ td > input[type=checkbox], th >input[type=checkbox] {
     font-style: normal;
     color: red;
 }
+.admin-hide {
+    display: none;
+}
 /*sidebar选中样式*/
 a[data-am-collapse]:hover {
     -webkit-transition: background-color .3s ease;

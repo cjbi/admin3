@@ -146,7 +146,7 @@
     <jsp:include page="footer.jsp"/>
     <%-- footer end --%>
 </div>
-<div id="add-dialog">
+<div id="add-dialog" class="admin-hide">
     <form class="am-form am-form-horizontal am-padding-top am-padding-bottom-0" id="add-form">
         <input type="hidden" name="parentId"/>
         <div class="am-form-group">
@@ -203,7 +203,7 @@
         </div>
     </form>
 </div>
-<div id="edit-dialog">
+<div id="edit-dialog" class="admin-hide">
     <form class="am-form am-form-horizontal am-padding-top am-padding-bottom-0" id="edit-form">
         <input type="hidden" name="id"/>
         <input type="hidden" name="available"/>

@@ -77,7 +77,7 @@
     <jsp:include page="footer.jsp"/>
     <%-- footer end --%>
 </div>
-<div id="add-dialog">
+<div id="add-dialog" class="admin-hide">
     <form class="am-form am-form-horizontal am-padding-top" id="add-form">
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">角色名<span class="asterisk">*</span></label>
@@ -101,7 +101,7 @@
     </form>
 </div>
 
-<div id="edit-dialog">
+<div id="edit-dialog" class="admin-hide">
     <form class="am-form am-form-horizontal am-padding-top" id="edit-form">
         <input type="hidden" name="id"/>
         <div class="am-form-group">

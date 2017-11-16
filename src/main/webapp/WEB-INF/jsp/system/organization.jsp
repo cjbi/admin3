@@ -96,7 +96,7 @@
     <%-- footer end --%>
 </div>
 <%-- 隐藏的模态框 --%>
-<div id="rAdd-dialog">
+<div id="rAdd-dialog" class="admin-hide">
     <form class="am-form am-form-horizontal am-padding-top am-padding-bottom-0" id="add-form">
         <input type="hidden" name="parentId" required/>
         <div class="am-form-group">
