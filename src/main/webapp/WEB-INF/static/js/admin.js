@@ -25,7 +25,7 @@ var basePath = $('#basePath').val();
          * @param tableNames
          * @returns {jQuery}
          */
-        initTable: function (ajax, gridTable, _tableName, ServerParams, initComplete) {
+        initTable: function (ajax, gridTable, _tableName, tableCallback, initComplete) {
             tableName = (_tableName || tableName);
             var table = $('#' + tableName).DataTable({
                     'aLengthMenu': [10, 15, 20, 40, 60],
@@ -50,7 +50,10 @@ var basePath = $('#basePath').val();
                     // am-u-sm-4"l><"am-u-sm-4"i><"am-u-sm-4"p>><"clear">>',
                     'responsive': true,
                     'columns': gridTable,
-                    "fnServerData": ServerParams,
+                    "drawCallback": function (settings) {
+                        if (tableCallback)
+                            tableCallback(this.api().context[0].json);
+                    },
                     'oLanguage': { // 国际化配置
                         'sProcessing': '正在获取数据，请稍后...',
                         // 'sLengthMenu' : ' 显示 _MENU_ 项结果',
