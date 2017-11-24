@@ -26,7 +26,7 @@
                     <li><a href="#">Amaze UI React</a></li>
                 </ul>
             </li>
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-show-sidebar"><span class="am-icon-bars"></span> <span
+            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-show-sidebar"><span class="am-icon-list"></span> <span
                     class="admin-show-text">隐藏菜单</span></a></li>
             <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span
                     class="admin-fullText">开启全屏</span></a></li>
