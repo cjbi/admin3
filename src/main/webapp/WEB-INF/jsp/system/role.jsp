@@ -198,9 +198,10 @@
                             }
                         });
                     }
-                }
+                },
+                content: $('#add-dialog')
             };
-            $.mytables.openDialog(opts,$('#add-dialog'));
+            $.mytables.openDialog(opts);
         }
 
         /**
@@ -223,9 +224,10 @@
                             }
                         });
                     }
-                }
+                },
+                content: $('#edit-dialog')
             };
-            $.mytables.openDialog(opts,$('#edit-dialog'));
+            $.mytables.openDialog(opts);
         }
 
         del = function () {

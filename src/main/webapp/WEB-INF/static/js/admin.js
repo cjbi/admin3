@@ -26,7 +26,7 @@ var basePath = $('#basePath').val();
          * @returns {jQuery}
          */
         initTable: function (ajax, gridTable, _tableName, ServerParams, initComplete) {
-            tableName = (_tableName || 'example');
+            tableName = (_tableName || tableName);
             var table = $('#' + tableName).DataTable({
                     'aLengthMenu': [10, 15, 20, 40, 60],
                     'searching': false,// 开启搜索框
@@ -259,14 +259,14 @@ var basePath = $('#basePath').val();
         /**
          * layer封装
          * @param opts 配置参数
-         * @param $dom jquery dom对象
          */
-        openDialog: function (opts, $dom) {
-            var $form = $dom.children("form"),
+        openDialog: function (opts) {
+            var content = (opts.content ||function () {layer.msg("请定义参数content");} ),
                 _title = $.extend({}, opts ? (opts.title || {}) : {}),
                 _yes = $.extend({}, opts ? (opts.yes || function (index, layero) {
-                    $.msg('请定义参数yes');
+                    $.mydialog.msg('请定义参数yes');
                 }) : {}),
+                $form = content.children("form"),
                 _end = $.extend(function (index, layero) {
                     // 无论是确认还是取消，只要层被销毁了，end都会执行
                     // 重置表单
@@ -288,7 +288,7 @@ var basePath = $('#basePath').val();
                     // 此参数开启最大化最小化
                     // maxmin: true,
                     area: ['600px', 'auto'],
-                    content: $dom,
+                    content: content,
                     btn: ['确定', '关闭'],
                     // 按钮一【确定】的回调
                     // index 当前层索引 layero 当前层DOM对象
@@ -415,7 +415,7 @@ var basePath = $('#basePath').val();
         var $form = $(this).children("form"),
             _title = $.extend({}, opts ? (opts.title || {}) : {}),
             _yes = $.extend({}, opts ? (opts.yes || function (index, layero) {
-                $.msg('请定义参数yes');
+                $.mydialog.msg('请定义参数yes');
             }) : {}),
             _end = $.extend(function (index, layero) {
                 // 无论是确认还是取消，只要层被销毁了，end都会执行
