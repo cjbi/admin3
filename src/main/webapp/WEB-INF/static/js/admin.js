@@ -43,6 +43,7 @@ var basePath = $('#basePath').val();
                     'ordering': false,// 全局禁用排序
                     'scrollX': false,
                     'ajax': ajax,
+                    'destroy':true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
                     //		表格开启scrollX row会覆盖bProcessing样式，算是个BUG，"am-padding am-padding-horizontal-0"
                     "dom": '<"am-g am-g-collapse"rt<<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
                     // "dom" : '<"am-g am-g-collapse"<"am-g
