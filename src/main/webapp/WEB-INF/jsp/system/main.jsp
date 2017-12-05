@@ -73,7 +73,7 @@
 <script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/layer-v3.1.0/layer/layer.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/zTree_v3/js/jquery.ztree.all.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/common/common.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/common/public.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/admin.js"></script>
 </body>
 </html>
