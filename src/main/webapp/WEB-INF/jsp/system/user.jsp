@@ -143,7 +143,6 @@
 </div>
 <script type="text/javascript">
     $(function () {
-
         var pathURL = basePath + '/user/',
             listURL = pathURL + 'list',
             createURL = pathURL + 'create',
