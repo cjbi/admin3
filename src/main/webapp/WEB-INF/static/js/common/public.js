@@ -3,7 +3,7 @@
  * cjbi, 2017-12-04
  */
 (function () {
-    "use strict"
+    'use strict'
     //定义一些默认参数
     var _options = {
         _dateFormat: {
@@ -936,7 +936,7 @@
     Utils.string = _string_api;
     //浏览器兼容性
     Utils.support = _support_api;
-    //时间操作
+    //时间处理
     Utils.time = _time_api;
     //url处理
     Utils.url = _url_api;
