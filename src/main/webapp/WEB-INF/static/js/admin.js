@@ -8,8 +8,10 @@ var basePath = $('#basePath').val();
 /**
  * 常用的插件封装.
  * @author cjbi
+ * @version 1.0.1
  */
 (function ($) {
+    'use strict';
     var tableName = 'example';
     /**
      * 封装datatables、layer弹出层，简化操作
@@ -149,6 +151,7 @@ var basePath = $('#basePath').val();
             var table = $('#' + ((_tableName || tableName))).DataTable(),
                 rowLength = table.rows('.selected').data().length;
             if (rowLength == 0) {
+                $.mydialog.msg('请选择一条记录！',$.mydialog.dialog_type.msg.warn);
                 layer.msg('请选择一条记录！', {
                     time: '2000',
                     icon: 0
@@ -412,6 +415,26 @@ var basePath = $('#basePath').val();
         photos: function (options) {
             return layer.photos(options);
         },
+        //定义内部常量
+        dialog_type: {
+            msg: {
+                //正常
+                info: {
+                    time: '2000',
+                    icon: 6
+                },
+                //错误
+                error :{
+                    time: 2000,
+                    icon: 5
+                },
+                //警告
+                warn : {
+                    time: '2000',
+                    icon: 0
+                }
+            }
+        }
     };
 
     //文本对话框
@@ -509,15 +532,12 @@ var basePath = $('#basePath').val();
         return $form.validator('isFormValid');
     }
 })(jQuery);
-// 相当于定义了一个参数为$的匿名函数，并且将jQuery作为参数来调用这个匿名函数
-//var $ = 123;
-//(function($){
-//    console.log($("p"));//$仍能正常使用
-//})(jQuery)
+
+
+
 
 (function ($) {
     'use strict';
-
     $(function () {
         var $fullText = $('.admin-fullText');
         $('#admin-fullscreen').on('click', function () {
@@ -587,3 +607,8 @@ var basePath = $('#basePath').val();
     });
 
 })(jQuery);
+// 相当于定义了一个参数为$的匿名函数，并且将jQuery作为参数来调用这个匿名函数
+//var $ = 123;
+//(function($){
+//    console.log($("p"));//$仍能正常使用
+//})(jQuery)
