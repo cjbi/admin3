@@ -1,6 +1,6 @@
 package tech.wetech.admin.service.system;
 
-import tech.wetech.admin.model.system.ServiceException;
+import tech.wetech.admin.model.system.BizException;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.model.system.UserExample;
 import tech.wetech.admin.web.dto.PageData;
@@ -18,7 +18,7 @@ public interface UserService {
      * 创建用户
      * @param user
      */
-    public int createUser(User user) throws ServiceException;
+    public int createUser(User user) throws BizException;
 
     public int updateUser(User user);
 

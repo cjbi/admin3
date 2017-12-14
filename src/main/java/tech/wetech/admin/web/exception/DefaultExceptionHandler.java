@@ -48,7 +48,7 @@ public class DefaultExceptionHandler{
     @ResponseBody
     @ExceptionHandler({ BizException.class })
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public JsonResult processServiceException(NativeWebRequest request, BizException e) {
+    public JsonResult processBizException(NativeWebRequest request, BizException e) {
         JsonResult json = new JsonResult();
         json.setStatus(HttpStatus.NOT_IMPLEMENTED.toString());
         json.setMsg(e.getMessage());
