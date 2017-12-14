@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService{
         List<UserDto> dtoList = new ArrayList<>();
         for (User user : userList) {
             UserDto dto = new UserDto(user);
-            dto.setOrganizationName(getOrganizationName(dto.getOrganizationId()));
+            dto.setOrganizationName(getOrganizationName(Long.valueOf(dto.getOrganizationId())));
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
             dtoList.add(dto);
         }
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService{
     public int createUser(User user) {
         User u = findByUsername(user.getUsername());
         if (u != null) {
-            throw new ServiceException("该用户已存在");
+            throw new BizException("该用户已存在");
         }
         // 加密密码
         passwordHelper.encryptPassword(user);

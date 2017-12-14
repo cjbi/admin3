@@ -12,7 +12,7 @@
 	<!-- 配置别名 -->
 	<typeAliases>
 		<typeAlias type="tech.wetech.admin.model.system.User" alias="User"/>
-		<!--<typeAlias type="tech.wetech.admin.model.system.Role" alias="Role"/>-->
+		<!--<typeAlias type="tech.wetech.admin.model.system.User" alias="User"/>-->
 	</typeAliases>
 
 </configuration>

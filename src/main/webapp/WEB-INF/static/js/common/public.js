@@ -3,7 +3,7 @@
  * cjbi, 2017-12-04
  */
 (function () {
-    'use strict'
+    'use strict';
     //定义一些默认参数
     var _options = {
         _dateFormat: {

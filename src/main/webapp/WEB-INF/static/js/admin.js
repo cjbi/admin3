@@ -45,7 +45,7 @@ var basePath = $('#basePath').val();
                     'ordering': false,// 全局禁用排序
                     'scrollX': false,
                     'ajax': ajax,
-                    'destroy':true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
+                    'destroy': true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
                     //		表格开启scrollX row会覆盖bProcessing样式，算是个BUG，"am-padding am-padding-horizontal-0"
                     "dom": '<"am-g am-g-collapse"rt<<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
                     // "dom" : '<"am-g am-g-collapse"<"am-g
@@ -151,17 +151,10 @@ var basePath = $('#basePath').val();
             var table = $('#' + ((_tableName || tableName))).DataTable(),
                 rowLength = table.rows('.selected').data().length;
             if (rowLength == 0) {
-                $.mydialog.msg('请选择一条记录！',$.mydialog.dialog_type.msg.warn);
-                layer.msg('请选择一条记录！', {
-                    time: '2000',
-                    icon: 0
-                });
+                $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);
                 return false;
             } else if (rowLength > 1) {
-                layer.msg('最多可选一条记录！', {
-                    time: '2000',
-                    icon: 0
-                });
+                $.mydialog.msg('最多可选一条记录！', $.mydialog.dialog_type.msg.warn);
                 return false;
             }
             var data = table.rows('.selected').data()[0];
@@ -180,10 +173,12 @@ var basePath = $('#basePath').val();
          * 批量删除
          * @param url 链接地址
          * @param pk 主键
-         * @returns {boolean}
+         * @param msg 信息
          * @param _tableName
+         * @returns {boolean}
          */
-        deleteBatch: function (url, pk, _tableName) {
+        batch: function (url, pk, _msg, _tableName) {
+            var msg = (_msg || '操作');
             var table = $('#' + (_tableName || tableName)).DataTable(),
                 rowData = {},
                 array = [],
@@ -191,10 +186,7 @@ var basePath = $('#basePath').val();
                 str = $('#' + (_tableName || tableName) + ' tbody tr[class="even selected"]').length + $('#' + (_tableName || tableName) + ' tbody tr[class="odd selected"]').length;
 
             if (dictType[0] == undefined) {
-                layer.msg('请选择一条记录！', {
-                    time: '2000',
-                    icon: 0
-                });
+                $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);
                 return false;
             }
             function obj(tkey, tval) { // 动态生成类变量方法
@@ -222,12 +214,9 @@ var basePath = $('#basePath').val();
                 });
             });
             if (str == 0) {
-                layer.msg('请选择一条记录！', {
-                    time: '2000',
-                    icon: 0
-                });
+                $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);
             } else {
-                layer.confirm('确定要删除这' + str + '条数据吗？', {
+                $.mydialog.confirm('确定要' + msg + '这' + str + '条数据吗？', {
                     icon: 3,
                     title: '系统提示',
                     yes: function (index, layero) {
@@ -238,25 +227,16 @@ var basePath = $('#basePath').val();
                             dataType: 'json',
                             data: 'ids=' + rowData[pk].join(),
                             success: function (data) {
-                                if (data.success == false) {
-                                    layer.msg(data.msg, {
-                                        time: '2000',
-                                        icon: 0
-                                    });
+                                if (data.success) {
+                                    $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.warn);
                                 } else {
-                                    layer.msg(data.msg, {
-                                        time: '2000',
-                                        icon: 6
-                                    });
+                                    $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.info);
                                 }
-                                layer.close(index);
+                                $.mydialog.closeDialog(index);
                                 table.ajax.reload();
                             },
                             error: function (data) {
-                                layer.msg('操作失败', {
-                                    time: 2000,
-                                    icon: 5
-                                });
+                                $.mydialog.msg('操作失败', $.mydialog.dialog_type.msg.error);
                             }
                         });
                     }
@@ -268,10 +248,12 @@ var basePath = $('#basePath').val();
          * @param opts 配置参数
          */
         openDialog: function (opts) {
-            var content = (opts.content ||function () {layer.msg("请定义参数content");} ),
+            var content = (opts.content || function () {
+                    $.mydialog.msg('请定义参数content', $.mydialog.dialog_type.msg.error);
+                } ),
                 _title = $.extend({}, opts ? (opts.title || {}) : {}),
                 _yes = $.extend({}, opts ? (opts.yes || function (index, layero) {
-                    $.mydialog.msg('请定义参数yes');
+                    $.mydialog.msg('请定义参数yes', $.mydialog.dialog_type.msg.error);
                 }) : {}),
                 $form = content.children("form"),
                 _end = $.extend(function (index, layero) {
@@ -312,7 +294,7 @@ var basePath = $('#basePath').val();
                 if (!success) return;
             }
             before(this.getSelectedData());
-            layer.open(defaultOpts);
+            $.mydialog.openDialog(defaultOpts);
         }
     };
 
@@ -361,7 +343,7 @@ var basePath = $('#basePath').val();
                 //重新注册验证tooltip事件
                 var $form = $('form');
                 var $tooltip = $('#vld-tooltip');
-                if ($('#vld-tooltip').length == 0) {
+                if ($('#vld-tooltip').length) {
                     $tooltip = $('<div id="vld-tooltip">提示信息！</div>');
                     $tooltip.appendTo(document.body);
                 }
@@ -388,6 +370,9 @@ var basePath = $('#basePath').val();
 
     $.mydialog = {
         dialog_self: null,
+        openDialog: function (options) {
+            return layer.open(options);
+        },
         alert: function (content, options, yes) {
             return layer.alert(content, options, yes)
         },
@@ -424,12 +409,12 @@ var basePath = $('#basePath').val();
                     icon: 6
                 },
                 //错误
-                error :{
+                error: {
                     time: 2000,
                     icon: 5
                 },
                 //警告
-                warn : {
+                warn: {
                     time: '2000',
                     icon: 0
                 }
@@ -482,7 +467,7 @@ var basePath = $('#basePath').val();
             if (!success) return;
         }
         before();
-        layer.open(defaultOpts);
+        $.mydialog.openDialog(defaultOpts);
     };
     // 重置表单
     $.fn.clear = function () {
@@ -511,17 +496,11 @@ var basePath = $('#basePath').val();
             dataType: _dataType,
             data: _data,
             success: function (data) {
-                layer.msg(data.msg, {
-                    time: '2000',
-                    icon: data.success == true ? 6 : 5
-                });
+                var options = data.success ? $.mydialog.dialog_type.msg.info : $.mydialog.dialog_type.msg.error;
+                $.mydialog.msg(data.msg, options);
                 callback(data);
             },
             error: function (data) {
-                /*layer.msg('操作失败', {
-                 time: 2000,
-                 icon: 5
-                 });*/
                 callback(data);
             }
         });
@@ -532,8 +511,6 @@ var basePath = $('#basePath').val();
         return $form.validator('isFormValid');
     }
 })(jQuery);
-
-
 
 
 (function ($) {
@@ -585,7 +562,7 @@ var basePath = $('#basePath').val();
         } else {
             msg = request.status + '  (' + request.statusText + ')';
         }
-        layer.alert(msg, {
+        $.mydialog.alert(msg, {
             title: '出错',
             icon: 5,
             closeBtn: 0, // 关闭滚动条

@@ -244,7 +244,7 @@
         }
 
         del = function () {
-            $.mytables.deleteBatch(deleteURL, 'id');
+            $.mytables.batch(deleteURL, 'id','删除');
         }
 
         /**

@@ -191,7 +191,7 @@
                         $form.submit({
                             url: createURL,
                             callback: function (data) {
-                                if (data.success == true) {
+                                if (data.success) {
                                     $.mydialog.closeDialog(index);
                                     table.ajax.reload();
                                 }
@@ -217,7 +217,7 @@
                         $form.submit({
                             url: updateURL,
                             callback: function (data) {
-                                if (data.success == true) {
+                                if (data.success) {
                                     $.mydialog.closeDialog(index);
                                     table.ajax.reload();
                                 }
@@ -231,7 +231,7 @@
         }
 
         del = function () {
-            $.mytables.deleteBatch(deleteURL, 'id');
+            $.mytables.batch(deleteURL, 'id','删除');
         }
 
         /**

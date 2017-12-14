@@ -447,25 +447,16 @@
                         url: pathURL + node.id + '/delete',
                         dataType: 'json',
                         success: function (data) {
-                            if (data.success == false) {
-                                layer.msg(data.msg, {
-                                    time: '2000',
-                                    icon: 0
-                                });
+                            if (!data.success) {
+                                $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.warn);
                                 return;
                             }
-                            layer.msg(data.msg, {
-                                time: '2000',
-                                icon: 6
-                            });
+                            $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.info);
                             $.myadmin.loadContent('#resource');
 
                         },
                         error: function (data) {
-                            layer.msg('操作失败', {
-                                time: 2000,
-                                icon: 5
-                            });
+                            $.mydialog.msg('操作失败', $.mydialog.dialog_type.msg.error);
                         }
                     });
                 }

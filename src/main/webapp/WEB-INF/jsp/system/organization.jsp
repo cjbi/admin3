@@ -247,26 +247,17 @@
                         dataType: 'json',
                         success: function (data) {
                             if (data.success == false) {
-                                layer.msg(data.msg, {
-                                    time: '2000',
-                                    icon: 0
-                                });
+                                $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.warn);
                                 return;
                             }
-                            layer.msg(data.msg, {
-                                time: '2000',
-                                icon: 6
-                            });
+                            $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.info);
                             $.myadmin.loadContent('#organization');
 //                            var treeObj = $.fn.zTree.getZTreeObj("tree");
 //                            var nodes = treeObj.getSelectedNodes();
 //                            treeObj.reAsyncChildNodes(null, "refresh");
                         },
                         error: function (data) {
-                            layer.msg('操作失败', {
-                                time: 2000,
-                                icon: 5
-                            });
+                            $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.error);
                         }
                     });
                 }

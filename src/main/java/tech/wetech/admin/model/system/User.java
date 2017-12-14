@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.util.StringUtils;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class User implements Serializable{
@@ -13,6 +15,7 @@ public class User implements Serializable{
     @NotNull(message = "所属公司不能为空")
     private Long organizationId; // 所属公司
     @NotNull(message = "用户名不能为空")
+    @Min(message="长度不正确",value = 8)
     private String username; // 用户名
     @NotNull(message = "密码不能为空")
     private String password; // 密码
