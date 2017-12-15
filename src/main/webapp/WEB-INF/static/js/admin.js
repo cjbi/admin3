@@ -289,7 +289,7 @@ var basePath = $('#basePath').val();
                     // 层弹出后的成功回调方法
                     success: after //function(layero, index){}
                 }, opts || {});
-            if (editable == true) {
+            if (editable) {
                 var success = this.fillEditFormData();
                 if (!success) return;
             }
@@ -343,7 +343,7 @@ var basePath = $('#basePath').val();
                 //重新注册验证tooltip事件
                 var $form = $('form');
                 var $tooltip = $('#vld-tooltip');
-                if ($('#vld-tooltip').length) {
+                if ($('#vld-tooltip').length == 0) {
                     $tooltip = $('<div id="vld-tooltip">提示信息！</div>');
                     $tooltip.appendTo(document.body);
                 }
@@ -462,7 +462,7 @@ var basePath = $('#basePath').val();
                 // 层弹出后的成功回调方法
                 success: after //function(layero, index){}
             }, opts || {});
-        if (editable == true) {
+        if (editable) {
             var success = initFormData();
             if (!success) return;
         }

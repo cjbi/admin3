@@ -573,6 +573,9 @@ gallery.html css
 
 /* Write your styles */
 /*自定义datatables checkbox大小 */
+div.dataTables_processing {
+    z-index: 10;
+}
 td > input[type=checkbox], th >input[type=checkbox] {
     width: 18px;
     height: 18px;

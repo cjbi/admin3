@@ -78,4 +78,11 @@
     </servlet-mapping>
     <!-- 配置springmvc servlet结束 -->
 
+    <!-- 初始化系统基本参数 -->
+    <servlet>
+        <servlet-name>Init</servlet-name>
+        <servlet-class>tech.wetech.admin.web.servlet.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
 </web-app>

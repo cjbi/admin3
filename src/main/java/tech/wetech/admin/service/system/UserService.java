@@ -3,6 +3,7 @@ package tech.wetech.admin.service.system;
 import tech.wetech.admin.model.system.BizException;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.model.system.UserExample;
+import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.PageData;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface UserService {
 
     List<User> selectByExample(UserExample example);
 
-    PageData list(PageData pageData);
+    DataTableModel list(DataTableModel<User> model);
 
     /**
      * 创建用户

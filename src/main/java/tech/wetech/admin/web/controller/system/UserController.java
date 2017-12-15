@@ -13,7 +13,7 @@ import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.web.controller.base.BaseController;
-import tech.wetech.admin.web.dto.DataTableMap;
+import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.PageData;
 
@@ -42,9 +42,9 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
-    public Object list(PageData pageData) {
-        userService.list(pageData);
-        return DataTableMap.getMapData(pageData);
+    public DataTableModel<User> list(DataTableModel<User> model) {
+        userService.list(model);
+        return model;
     }
 
     @ResponseBody

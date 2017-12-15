@@ -10,7 +10,7 @@ import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.PasswordHelper;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
-import tech.wetech.admin.web.dto.PageData;
+import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.system.UserDto;
 import java.util.*;
 
@@ -35,12 +35,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public PageData list(PageData pageData) {
+    public DataTableModel<User> list(DataTableModel model) {
         UserExample example = new UserExample();
-        example.setOffset(pageData.getStart());
-        example.setLimit(pageData.getLength());
-        if (!StringUtils.isEmpty(pageData.getKeywords())) {
-            example.or().andUsernameLike("%" + pageData.getKeywords() + "%");
+        example.setOffset(model.getStart());
+        example.setLimit(model.getLength());
+        if (!StringUtils.isEmpty(model.getKeywords())) {
+            example.or().andUsernameLike("%" + model.getKeywords() + "%");
         }
         long count = userMapper.countByExample(example);
         List<User> userList = userMapper.selectByExample(example);
@@ -51,9 +51,9 @@ public class UserServiceImpl implements UserService{
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
             dtoList.add(dto);
         }
-        pageData.setResult(dtoList);
-        pageData.setTotal(count);
-        return pageData;
+        model.setData(dtoList);
+        model.setRecordsTotal(count);
+        return model;
     }
 
     private String getRoleNames(Collection<Long> roleIds) {

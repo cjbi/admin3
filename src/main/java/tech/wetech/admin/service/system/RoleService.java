@@ -1,14 +1,16 @@
 package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.model.system.Role;
+import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.PageData;
+import tech.wetech.admin.web.dto.system.RoleDto;
 
 import java.util.List;
 import java.util.Set;
 
 public interface RoleService {
 
-    PageData list(PageData pageData);
+    DataTableModel<RoleDto> list(DataTableModel<RoleDto> model);
 
     int createRole(Role role);
 

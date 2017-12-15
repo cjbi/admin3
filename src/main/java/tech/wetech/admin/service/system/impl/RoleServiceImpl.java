@@ -10,7 +10,7 @@ import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.model.system.RoleExample;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
-import tech.wetech.admin.web.dto.PageData;
+import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.system.RoleDto;
 
 import java.util.*;
@@ -25,13 +25,13 @@ public class RoleServiceImpl implements RoleService{
     private ResourceService resourceService;
 
     @Override
-    public PageData list(PageData pageData) {
+    public DataTableModel<RoleDto> list(DataTableModel<RoleDto> model) {
         RoleExample example = new RoleExample();
-        example.setOffset(pageData.getStart());
-        example.setLimit(pageData.getLength());
-        if (!StringUtils.isEmpty(pageData.getKeywords())) {
-            example.or().andRoleLike("%" + pageData.getKeywords() + "%");
-            example.or().andDescriptionLike("%" + pageData.getKeywords() + "%");
+        example.setOffset(model.getStart());
+        example.setLimit(model.getLength());
+        if (!StringUtils.isEmpty(model.getKeywords())) {
+            example.or().andRoleLike("%" + model.getKeywords() + "%");
+            example.or().andDescriptionLike("%" + model.getKeywords() + "%");
         }
         List<Role> roleList = roleMapper.selectByExample(example);
         long count = roleMapper.countByExample(example);
@@ -42,9 +42,9 @@ public class RoleServiceImpl implements RoleService{
             dto.setResourceNames(getResourceNames(role.getResourceIdList()));
             dtoList.add(dto);
         }
-        pageData.setResult(dtoList);
-        pageData.setTotal(count);
-        return pageData;
+        model.setData(dtoList);
+        model.setRecordsTotal(count);
+        return model;
     }
 
     private String getResourceNames(Collection<Long> resourceIds) {

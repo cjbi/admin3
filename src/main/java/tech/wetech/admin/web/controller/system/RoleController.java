@@ -11,9 +11,10 @@ import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.web.controller.base.BaseController;
-import tech.wetech.admin.web.dto.DataTableMap;
+import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.PageData;
+import tech.wetech.admin.web.dto.system.RoleDto;
 
 import javax.validation.Valid;
 
@@ -37,9 +38,9 @@ public class RoleController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("role:view")
-    public Object list(PageData pageData) {
-        roleService.list(pageData);
-        return DataTableMap.getMapData(pageData);
+    public DataTableModel<RoleDto> list(DataTableModel<RoleDto> model) {
+        roleService.list(model);
+        return model;
     }
 
     @ResponseBody

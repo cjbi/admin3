@@ -12,6 +12,7 @@
                      http://www.springframework.org/schema/aop/spring-aop.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context.xsd">
+
 	<context:property-placeholder location="classpath:config.properties"/>
 
 	<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描 -->
