@@ -108,7 +108,7 @@ public class SystemLogAspectj{
             System.out.println(bean);
             // 入库
             logService.createLogWithBLOBs(bean);
-        } catch (BizException ignore) {
+        } catch (Exception e) {
 
         }
 

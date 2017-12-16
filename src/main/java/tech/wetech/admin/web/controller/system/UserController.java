@@ -15,7 +15,6 @@ import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
-import tech.wetech.admin.web.dto.PageData;
 
 import javax.validation.Valid;
 

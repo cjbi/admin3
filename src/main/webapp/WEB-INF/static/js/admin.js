@@ -8,7 +8,7 @@ var basePath = $('#basePath').val();
 /**
  * 常用的插件封装.
  * @author cjbi
- * @version 1.0.1
+ * @version 1.1.0
  */
 (function ($) {
     'use strict';
@@ -43,11 +43,11 @@ var basePath = $('#basePath').val();
                     'iDisplayLength': 15,
                     'iDisplayStart': 0,
                     'ordering': false,// 全局禁用排序
-                    'scrollX': false,
+                    'scrollX': true,
                     'ajax': ajax,
                     'destroy': true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
                     //		表格开启scrollX row会覆盖bProcessing样式，算是个BUG，"am-padding am-padding-horizontal-0"
-                    "dom": '<"am-g am-g-collapse"rt<<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
+                    "dom": '<"am-g am-g-collapse"rt<"am-padding-top"<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
                     // "dom" : '<"am-g am-g-collapse"<"am-g
                     // am-datatable-hd"<"am-u-sm-6"<"#btnPlugin">><"am-u-sm-4"<"#regexPlugin">><"am-u-sm-2"f>>rt<<"am-datatable-hd
                     // am-u-sm-4"l><"am-u-sm-4"i><"am-u-sm-4"p>><"clear">>',
@@ -81,16 +81,16 @@ var basePath = $('#basePath').val();
                  * checkbox全选,必须用prop方法设置
                  */
                 checkAll = function () {
-                    if ($('input[id="checkAll"]').is(':checked')) {
-                        $('input[name="checkList"]').parent().parent().addClass('selected');
-                        $('input[name="checkList"]').prop('checked', true);
+                    if ($('input[class="am-checkbox-all"]').is(':checked')) {
+                        $('input[class="am-checkbox-list"]').parent().parent().addClass('selected');
+                        $('input[class="am-checkbox-list"]').prop('checked', true);
                     } else {
-                        $('input[name="checkList"]').parent().parent().removeClass('selected');
-                        $('input[name="checkList"]').prop('checked', false);
+                        $('input[class="am-checkbox-list"]').parent().parent().removeClass('selected');
+                        $('input[class="am-checkbox-list"]').prop('checked', false);
                     }
                 },
                 rowActive = function () {
-                    $('input[name="checkList"]').each(function () {
+                    $('td input[type="checkbox"]').each(function () {
                         if ($(this).is(':checked')) {
                             $(this).parent().parent().addClass('selected');
                         } else {
@@ -105,16 +105,17 @@ var basePath = $('#basePath').val();
                     $checkboxRow.prop('checked', true);
                     rowActive();
                 };
+                console.log(tableName);
             // checkbox全选
-            $('#' + tableName).on('click', 'th input[type="checkbox"]', function () {
+            $('#' + tableName+'_wrapper').on('click', 'th input[type="checkbox"]', function () {
                 checkAll();
             });
             // 选中行触发事件
-            $('#' + tableName).on('click', 'td input[type="checkbox"]', function () {
+            $('#' + tableName+'_wrapper').on('click', 'td input[type="checkbox"]', function () {
                 rowActive();
             });
             //选中行操作事件
-            $('#' + tableName).on('click', '.am-btn', function () {
+            $('#' + tableName+'_wrapper').on('click', '.am-btn', function () {
                 rowOperation($(this));
             });
             return table;

@@ -4,8 +4,6 @@ import tech.wetech.admin.model.system.BizException;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.model.system.UserExample;
 import tech.wetech.admin.web.dto.DataTableModel;
-import tech.wetech.admin.web.dto.PageData;
-
 import java.util.List;
 import java.util.Set;
 

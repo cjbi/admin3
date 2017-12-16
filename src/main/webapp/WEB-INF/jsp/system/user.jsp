@@ -54,7 +54,7 @@
             <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered am-text-nowrap" width="100%" id="example_user">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" id='checkAll'></th>
+                    <th><input type="checkbox" class='am-checkbox-all'></th>
                     <th>用户名</th>
                     <th>所属组织</th>
                     <th>角色列表</th>
@@ -164,7 +164,7 @@
                 'data': 'id',
                 'sWidth': '2%',
                 'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
-                    $(nTd).html('<input type="checkbox" name="checkList" title="' + sData + '" value="' + sData + '">');
+                    $(nTd).html('<input type="checkbox" class="am-checkbox-list" title="' + sData + '" value="' + sData + '">');
                 }
             },
             {

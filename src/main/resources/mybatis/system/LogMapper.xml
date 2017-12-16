@@ -95,6 +95,14 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
   </select>
   <select id="selectByExample" parameterType="tech.wetech.admin.model.system.LogExample" resultMap="BaseResultMap">
     select
@@ -119,7 +127,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select
+    select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -137,14 +145,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="tech.wetech.admin.model.system.LogWithBLOBs">
-    insert into sys_log (id, username, ip,
-    req_method, exec_method, exec_time,
-    exec_desc, status, create_time,
-    req_uri, return_val)
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
-    #{reqMethod,jdbcType=VARCHAR}, #{execMethod,jdbcType=VARCHAR}, #{execTime,jdbcType=BIGINT},
-    #{execDesc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-    #{reqUri,jdbcType=LONGVARCHAR}, #{returnVal,jdbcType=LONGVARCHAR})
+    insert into sys_log (id, username, ip, 
+      req_method, exec_method, exec_time, 
+      exec_desc, status, create_time, 
+      req_uri, return_val)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{reqMethod,jdbcType=VARCHAR}, #{execMethod,jdbcType=VARCHAR}, #{execTime,jdbcType=BIGINT}, 
+      #{execDesc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{reqUri,jdbcType=LONGVARCHAR}, #{returnVal,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="tech.wetech.admin.model.system.LogWithBLOBs">
     insert into sys_log
@@ -269,16 +277,16 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update sys_log
     set id = #{record.id,jdbcType=BIGINT},
-    username = #{record.username,jdbcType=VARCHAR},
-    ip = #{record.ip,jdbcType=VARCHAR},
-    req_method = #{record.reqMethod,jdbcType=VARCHAR},
-    exec_method = #{record.execMethod,jdbcType=VARCHAR},
-    exec_time = #{record.execTime,jdbcType=BIGINT},
-    exec_desc = #{record.execDesc,jdbcType=VARCHAR},
-    status = #{record.status,jdbcType=VARCHAR},
-    create_time = #{record.createTime,jdbcType=TIMESTAMP},
-    req_uri = #{record.reqUri,jdbcType=LONGVARCHAR},
-    return_val = #{record.returnVal,jdbcType=LONGVARCHAR}
+      username = #{record.username,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      req_method = #{record.reqMethod,jdbcType=VARCHAR},
+      exec_method = #{record.execMethod,jdbcType=VARCHAR},
+      exec_time = #{record.execTime,jdbcType=BIGINT},
+      exec_desc = #{record.execDesc,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      req_uri = #{record.reqUri,jdbcType=LONGVARCHAR},
+      return_val = #{record.returnVal,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,14 +294,14 @@
   <update id="updateByExample" parameterType="map">
     update sys_log
     set id = #{record.id,jdbcType=BIGINT},
-    username = #{record.username,jdbcType=VARCHAR},
-    ip = #{record.ip,jdbcType=VARCHAR},
-    req_method = #{record.reqMethod,jdbcType=VARCHAR},
-    exec_method = #{record.execMethod,jdbcType=VARCHAR},
-    exec_time = #{record.execTime,jdbcType=BIGINT},
-    exec_desc = #{record.execDesc,jdbcType=VARCHAR},
-    status = #{record.status,jdbcType=VARCHAR},
-    create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      username = #{record.username,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      req_method = #{record.reqMethod,jdbcType=VARCHAR},
+      exec_method = #{record.execMethod,jdbcType=VARCHAR},
+      exec_time = #{record.execTime,jdbcType=BIGINT},
+      exec_desc = #{record.execDesc,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -337,15 +345,15 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.wetech.admin.model.system.LogWithBLOBs">
     update sys_log
     set username = #{username,jdbcType=VARCHAR},
-    ip = #{ip,jdbcType=VARCHAR},
-    req_method = #{reqMethod,jdbcType=VARCHAR},
-    exec_method = #{execMethod,jdbcType=VARCHAR},
-    exec_time = #{execTime,jdbcType=BIGINT},
-    exec_desc = #{execDesc,jdbcType=VARCHAR},
-    status = #{status,jdbcType=VARCHAR},
-    create_time = #{createTime,jdbcType=TIMESTAMP},
-    req_uri = #{reqUri,jdbcType=LONGVARCHAR},
-    return_val = #{returnVal,jdbcType=LONGVARCHAR}
+      ip = #{ip,jdbcType=VARCHAR},
+      req_method = #{reqMethod,jdbcType=VARCHAR},
+      exec_method = #{execMethod,jdbcType=VARCHAR},
+      exec_time = #{execTime,jdbcType=BIGINT},
+      exec_desc = #{execDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      req_uri = #{reqUri,jdbcType=LONGVARCHAR},
+      return_val = #{returnVal,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="tech.wetech.admin.model.system.Log">

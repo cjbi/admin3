@@ -573,6 +573,10 @@ gallery.html css
 
 /* Write your styles */
 /*自定义datatables checkbox大小 */
+table.dataTable tbody th,
+table.dataTable tbody td {
+    white-space: nowrap;
+}
 div.dataTables_processing {
     z-index: 10;
 }
