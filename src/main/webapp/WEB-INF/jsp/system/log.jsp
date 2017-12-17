@@ -83,7 +83,7 @@
         var gridTable = [
             {
                 'data': 'id',
-                'sWidth': '2%',
+                'width': '2%',
                 'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
                     $(nTd).html('<input type="checkbox" class="am-checkbox-list" title="' + sData + '" value="' + sData + '">');
                 }
@@ -101,7 +101,10 @@
                 'data': 'execMethod'
             },
             {
-                'data': 'execTime'
+                'data': 'execTime',
+                'render':function(data, type, full) {
+                    return data + ' ms';
+                }
             },
             {
                 'data': 'reqUri'
