@@ -32,7 +32,7 @@ public class LogController {
 
     @ResponseBody
     @RequestMapping("/list")
-    @RequiresPermissions("role:view")
+    @RequiresPermissions("log:view")
     public DataTableModel<LogWithBLOBs> list(DataTableModel<LogWithBLOBs> model) {
         logService.list(model);
         return model;
