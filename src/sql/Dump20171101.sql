@@ -152,12 +152,13 @@ CREATE TABLE `sys_log` (
   `req_uri` text COMMENT '请求URL',
   `exec_method` varchar(200) DEFAULT NULL COMMENT '执行方法',
   `exec_time` bigint(20) DEFAULT NULL COMMENT '响应时间',
+  `args` text COMMENT '参数',
   `return_val` text COMMENT '返回值',
   `exec_desc` varchar(200) DEFAULT NULL COMMENT '描述',
   `status` varchar(45) DEFAULT NULL COMMENT '状态',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3356 DEFAULT CHARSET=utf8 COMMENT='系统日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=3436 DEFAULT CHARSET=utf8 COMMENT='系统日志表'
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
