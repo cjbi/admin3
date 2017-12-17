@@ -35,14 +35,14 @@
                 <div class="am-input-group am-input-group-sm">
                     <input type="text" name="keywords" id="keywords" placeholder="用户名 / IP / 请求方法 / 执行方法 / 执行描述 / 状态" class="am-form-field">
                     <span class="am-input-group-btn">
-    <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
-    </span>
+                        <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
+                    </span>
                 </div>
             </div>
         </div>
 
         <div class="am-u-sm-12">
-            <table class="am-table am-table-striped am-table-hover table-main am-table-bordered am-text-nowrap" width="100%" id="example_log">
+            <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered<%-- am-text-nowrap--%>" width="100%" id="example_log">
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="am-checkbox-all"></th>
@@ -52,7 +52,7 @@
                     <th>执行方法</th>
                     <th>执行时间</th>
                     <th>请求URL</th>
-                   <%-- <th>返回值</th>--%>
+                   <th>返回值</th>
                     <th>状态</th>
                     <th>描述</th>
                     <th>创建时间</th>
@@ -105,10 +105,10 @@
             },
             {
                 'data': 'reqUri'
-            }/*,
-            {
-                'data': 'returnVal'
-            }*/,
+            },
+             {
+             'data': 'returnVal'
+             },
             {
                 'data': 'status'
             },

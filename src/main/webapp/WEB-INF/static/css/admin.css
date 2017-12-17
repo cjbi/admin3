@@ -573,14 +573,13 @@ gallery.html css
 
 /* Write your styles */
 /*自定义datatables checkbox大小 */
-table.dataTable tbody th,
-table.dataTable tbody td {
-    white-space: nowrap;
+.dataTable th {
+    white-space: nowrap !important;
 }
 div.dataTables_processing {
     z-index: 10;
 }
-td > input[type=checkbox], th >input[type=checkbox] {
+input.am-checkbox-all,input.am-checkbox-list{
     width: 18px;
     height: 18px;
     position: relative;

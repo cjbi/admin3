@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.min.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.min.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/zTree_v3/css/metroStyle/metroStyle.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/admin.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/admin.css">
 </head>
 <body>
 <%-- header start --%>
@@ -69,7 +69,8 @@
 <script src="<%=request.getContextPath()%>/static/js/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="<%=request.getContextPath()%>/static/js/amazeui.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/jquery.dataTables.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/layer-v3.1.0/layer/layer.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/zTree_v3/js/jquery.ztree.all.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/common/public.js"></script>

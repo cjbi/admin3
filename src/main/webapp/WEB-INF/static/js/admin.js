@@ -11,7 +11,7 @@ var basePath = $('#basePath').val();
  * @version 1.1.0
  */
 (function ($) {
-    'use strict';
+    /*'use strict';*/
     var tableName = 'example';
     /**
      * 封装datatables、layer弹出层，简化操作
@@ -27,10 +27,10 @@ var basePath = $('#basePath').val();
          * @param tableNames
          * @returns {jQuery}
          */
-        initTable: function (ajax, gridTable, _tableName, tableCallback, initComplete) {
+        initTable: function (ajax, gridTable, _tableName, drawCallbackJson, initComplete) {
             tableName = (_tableName || tableName);
             var table = $('#' + tableName).DataTable({
-                    'aLengthMenu': [10, 15, 20, 40, 60],
+                    'aLengthMenu': [3,10, 15, 20, 40, 60],
                     'searching': false,// 开启搜索框
                     'lengthChange': true,
                     'paging': true,// 开启表格分页
@@ -46,7 +46,6 @@ var basePath = $('#basePath').val();
                     'scrollX': true,
                     'ajax': ajax,
                     'destroy': true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
-                    //		表格开启scrollX row会覆盖bProcessing样式，算是个BUG，"am-padding am-padding-horizontal-0"
                     "dom": '<"am-g am-g-collapse"rt<"am-padding-top"<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
                     // "dom" : '<"am-g am-g-collapse"<"am-g
                     // am-datatable-hd"<"am-u-sm-6"<"#btnPlugin">><"am-u-sm-4"<"#regexPlugin">><"am-u-sm-2"f>>rt<<"am-datatable-hd
@@ -54,8 +53,8 @@ var basePath = $('#basePath').val();
                     'responsive': true,
                     'columns': gridTable,
                     "drawCallback": function (settings) {
-                        if (tableCallback)
-                            tableCallback(this.api().context[0].json);
+                        if (drawCallbackJson)
+                            drawCallbackJson(this.api().context[0].json);
                     },
                     'oLanguage': { // 国际化配置
                         'sProcessing': '正在获取数据，请稍后...',
@@ -82,19 +81,19 @@ var basePath = $('#basePath').val();
                  */
                 checkAll = function () {
                     if ($('input[class="am-checkbox-all"]').is(':checked')) {
-                        $('input[class="am-checkbox-list"]').parent().parent().addClass('selected');
+                        $('input[class="am-checkbox-list"]').parent().parent().addClass('am-active');
                         $('input[class="am-checkbox-list"]').prop('checked', true);
                     } else {
-                        $('input[class="am-checkbox-list"]').parent().parent().removeClass('selected');
+                        $('input[class="am-checkbox-list"]').parent().parent().removeClass('am-active');
                         $('input[class="am-checkbox-list"]').prop('checked', false);
                     }
                 },
                 rowActive = function () {
                     $('td input[type="checkbox"]').each(function () {
                         if ($(this).is(':checked')) {
-                            $(this).parent().parent().addClass('selected');
+                            $(this).parent().parent().addClass('am-active');
                         } else {
-                            $(this).parent().parent().removeClass('selected');
+                            $(this).parent().parent().removeClass('am-active');
                         }
                     });
                 },
@@ -105,7 +104,6 @@ var basePath = $('#basePath').val();
                     $checkboxRow.prop('checked', true);
                     rowActive();
                 };
-                console.log(tableName);
             // checkbox全选
             $('#' + tableName+'_wrapper').on('click', 'th input[type="checkbox"]', function () {
                 checkAll();
@@ -140,7 +138,7 @@ var basePath = $('#basePath').val();
          */
         getSelectedData: function (_tableName) {
             var table = $('#' + (_tableName || tableName)).DataTable();
-            return table.rows('.selected').data()[0];
+            return table.rows('.am-active').data()[0];
         },
         /**
          * 填充表单
@@ -150,7 +148,7 @@ var basePath = $('#basePath').val();
         fillEditFormData: function (_tableName) {
             // 将值填充到表单中
             var table = $('#' + ((_tableName || tableName))).DataTable(),
-                rowLength = table.rows('.selected').data().length;
+                rowLength = table.rows('.am-active').data().length;
             if (rowLength == 0) {
                 $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);
                 return false;
@@ -158,7 +156,7 @@ var basePath = $('#basePath').val();
                 $.mydialog.msg('最多可选一条记录！', $.mydialog.dialog_type.msg.warn);
                 return false;
             }
-            var data = table.rows('.selected').data()[0];
+            var data = table.rows('.am-active').data()[0];
             $.each(data, function (key, value) {
                 // 如果类型为单选框
                 if ($('#edit-form [name="' + key + '"]').attr('type') == 'radio') {
@@ -183,8 +181,8 @@ var basePath = $('#basePath').val();
             var table = $('#' + (_tableName || tableName)).DataTable(),
                 rowData = {},
                 array = [],
-                dictType = table.rows('.selected').data(),
-                str = $('#' + (_tableName || tableName) + ' tbody tr[class="even selected"]').length + $('#' + (_tableName || tableName) + ' tbody tr[class="odd selected"]').length;
+                dictType = table.rows('.am-active').data(),
+                str = $('#' + (_tableName || tableName) + ' tbody tr[class="even am-active"]').length + $('#' + (_tableName || tableName) + ' tbody tr[class="odd am-active"]').length;
 
             if (dictType[0] == undefined) {
                 $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);

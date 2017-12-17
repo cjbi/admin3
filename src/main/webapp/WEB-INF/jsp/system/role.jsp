@@ -60,7 +60,7 @@
         </div>
 
         <div class="am-u-sm-12">
-            <table class="am-table am-table-striped am-table-hover table-main am-table-bordered am-text-nowrap" width="100%" id="example_role">
+            <table class="am-table am-table-striped am-table-hover table-main am-table-bordered" width="100%" id="example_role">
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="am-checkbox-all"></th>
