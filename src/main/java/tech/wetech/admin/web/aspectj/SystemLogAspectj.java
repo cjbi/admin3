@@ -17,6 +17,7 @@ import tech.wetech.admin.model.system.BizException;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.LogService;
+import tech.wetech.admin.web.controller.system.LogController;
 import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
 
@@ -34,6 +35,7 @@ public class SystemLogAspectj{
     public Object doAround(ProceedingJoinPoint point) throws Throwable {
         long time = System.currentTimeMillis();
         try {
+            Object[] args = point.getArgs();
             Object returns = point.proceed();
             save(point, returns, System.currentTimeMillis() - time);
             return returns;
@@ -98,6 +100,10 @@ public class SystemLogAspectj{
         // 执行信息
         bean.setExecMethod(sign);
         bean.setExecTime(time);
+        //请求参数
+        if("POST".equals(method)) {
+            bean.setArgs(JsonUtil.getInstance().obj2json(point.getArgs()));
+        }
         // 响应信息
         bean.setReturnVal(text);
         if (!StringUtils.isEmpty(text)) {
@@ -105,9 +111,12 @@ public class SystemLogAspectj{
             bean.setExecDesc(msg);
         }
         try {
-            System.out.println(bean);
-            // 入库
-            logService.createLogWithBLOBs(bean);
+            //不记录日志类本身的日志
+            if(point.getSignature().getDeclaringType()!= LogController.class) {
+                // 入库
+                logService.createLogWithBLOBs(bean);
+            }
+
         } catch (Exception e) {
 
         }

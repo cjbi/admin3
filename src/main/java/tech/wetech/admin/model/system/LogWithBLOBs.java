@@ -12,6 +12,11 @@ public class LogWithBLOBs extends Log implements Serializable {
     private String reqUri;
 
     /**
+     * 参数
+     */
+    private String args;
+
+    /**
      * 返回值
      */
     private String returnVal;
@@ -24,6 +29,14 @@ public class LogWithBLOBs extends Log implements Serializable {
 
     public void setReqUri(String reqUri) {
         this.reqUri = reqUri;
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
     }
 
     public String getReturnVal() {

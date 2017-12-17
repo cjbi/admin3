@@ -14,6 +14,7 @@
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.wetech.admin.model.system.LogWithBLOBs">
     <result column="req_uri" jdbcType="LONGVARCHAR" property="reqUri" />
+    <result column="args" jdbcType="LONGVARCHAR" property="args" />
     <result column="return_val" jdbcType="LONGVARCHAR" property="returnVal" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -78,7 +79,7 @@
     id, username, ip, req_method, exec_method, exec_time, exec_desc, status, create_time
   </sql>
   <sql id="Blob_Column_List">
-    req_uri, return_val
+    req_uri, args, return_val
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="tech.wetech.admin.model.system.LogExample" resultMap="ResultMapWithBLOBs">
     select
@@ -148,11 +149,13 @@
     insert into sys_log (id, username, ip, 
       req_method, exec_method, exec_time, 
       exec_desc, status, create_time, 
-      req_uri, return_val)
+      req_uri, args, return_val
+      )
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
       #{reqMethod,jdbcType=VARCHAR}, #{execMethod,jdbcType=VARCHAR}, #{execTime,jdbcType=BIGINT}, 
       #{execDesc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{reqUri,jdbcType=LONGVARCHAR}, #{returnVal,jdbcType=LONGVARCHAR})
+      #{reqUri,jdbcType=LONGVARCHAR}, #{args,jdbcType=LONGVARCHAR}, #{returnVal,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="tech.wetech.admin.model.system.LogWithBLOBs">
     insert into sys_log
@@ -186,6 +189,9 @@
       </if>
       <if test="reqUri != null">
         req_uri,
+      </if>
+      <if test="args != null">
+        args,
       </if>
       <if test="returnVal != null">
         return_val,
@@ -221,6 +227,9 @@
       </if>
       <if test="reqUri != null">
         #{reqUri,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="args != null">
+        #{args,jdbcType=LONGVARCHAR},
       </if>
       <if test="returnVal != null">
         #{returnVal,jdbcType=LONGVARCHAR},
@@ -266,6 +275,9 @@
       <if test="record.reqUri != null">
         req_uri = #{record.reqUri,jdbcType=LONGVARCHAR},
       </if>
+      <if test="record.args != null">
+        args = #{record.args,jdbcType=LONGVARCHAR},
+      </if>
       <if test="record.returnVal != null">
         return_val = #{record.returnVal,jdbcType=LONGVARCHAR},
       </if>
@@ -286,6 +298,7 @@
       status = #{record.status,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       req_uri = #{record.reqUri,jdbcType=LONGVARCHAR},
+      args = #{record.args,jdbcType=LONGVARCHAR},
       return_val = #{record.returnVal,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -336,6 +349,9 @@
       <if test="reqUri != null">
         req_uri = #{reqUri,jdbcType=LONGVARCHAR},
       </if>
+      <if test="args != null">
+        args = #{args,jdbcType=LONGVARCHAR},
+      </if>
       <if test="returnVal != null">
         return_val = #{returnVal,jdbcType=LONGVARCHAR},
       </if>
@@ -353,6 +369,7 @@
       status = #{status,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       req_uri = #{reqUri,jdbcType=LONGVARCHAR},
+      args = #{args,jdbcType=LONGVARCHAR},
       return_val = #{returnVal,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>

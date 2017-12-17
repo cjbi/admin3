@@ -52,6 +52,7 @@
                     <th>执行方法</th>
                     <th>执行时间</th>
                     <th>请求URL</th>
+                   <th>参数</th>
                    <th>返回值</th>
                     <th>状态</th>
                     <th>描述</th>
@@ -108,6 +109,9 @@
             },
             {
                 'data': 'reqUri'
+            },
+            {
+                'data': 'args'
             },
              {
              'data': 'returnVal'
