@@ -227,9 +227,9 @@ var basePath = $('#basePath').val();
                             data: 'ids=' + rowData[pk].join(),
                             success: function (data) {
                                 if (data.success) {
-                                    $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.warn);
-                                } else {
                                     $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.info);
+                                } else {
+                                    $.mydialog.msg(data.msg, $.mydialog.dialog_type.msg.warn);
                                 }
                                 $.mydialog.closeDialog(index);
                                 table.ajax.reload();
