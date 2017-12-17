@@ -136,6 +136,38 @@ LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` VALUES (1,1,'admin','d3c59d25033dbf980d29554025c23a75','8d78869f470951332959580424d4bf4f','1',0),(2,2,'ceshi','c067bee5cf7f216f352011cb9064241e','2632e0a577dba732bbfb4b298ff0b6e5','4',0),(4,4,'ceshi22323','f0c6227912db35e27eaa82308be055cd','a2425da3d41a6ef79a1ec69a7d845767','1,2',0),(5,3,'ceshi222222','2861e51604088d7f32b0f54880cb96c9','e348ab0c766bddc4e578057ee3042944','1,2',0),(6,3,'cesss1222','4ccd3a1356c1ce22ba48cbecf5f58168','c88b2e8af007844105cc3e424441b924','1,2',0),(9,3,'guest22','6622b95a30cf730253550985718102bc','7de124e9822c092d56750969eebcf260','2',0),(10,3,'guest','fdd97263888fb3767d55ff084751c125','9f1bdc22981ae8730e89f94d241a73cc','2',0),(11,3,'1221443','2294525c6a96aaf7125d8630e128671d','066ca938eaa41bf955e0bb7fec6476a0',NULL,0),(12,17,'123456','f951b9ca0b27b2a67960eb2c208b21c7','a09d3ad606abf84741858a79349747fb',NULL,0),(13,3,'1224344545','c3528ba345e30390e9dc93386c06edae','7d48d42dc8881177eed67158eb3ecf8b',NULL,0),(14,2,'1243556','f2987cc9071769190207f091a62a1527','7d44eb764a42ea338711fc4d4cff8349',NULL,0),(15,3,'adaddw','ee60b68d4b00d5495b7a88fdcbd73473','998c37b5435f3d48b010122180e1bdd2','2',0),(16,17,'12434','f17bf5e211de8a5cb611c4b6d83b728b','ffb57814a69d37ec1898282d4090cbfc','2',0),(17,3,'ewewe','a45d0145d26438bed47f16fe1f58865f','944f0820ec7fc51b1606726313b37a71','2',0);
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
+
+--
+-- Table structure for table `sys_log`
+--
+
+DROP TABLE IF EXISTS `sys_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sys_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(100) DEFAULT NULL COMMENT '用户名',
+  `ip` varchar(45) DEFAULT NULL COMMENT '用户ip',
+  `req_method` varchar(200) DEFAULT NULL COMMENT '请求方法',
+  `req_uri` text COMMENT '请求URL',
+  `exec_method` varchar(200) DEFAULT NULL COMMENT '执行方法',
+  `exec_time` bigint(20) DEFAULT NULL COMMENT '响应时间',
+  `return_val` text COMMENT '返回值',
+  `exec_desc` varchar(200) DEFAULT NULL COMMENT '描述',
+  `status` varchar(45) DEFAULT NULL COMMENT '状态',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3356 DEFAULT CHARSET=utf8 COMMENT='系统日志表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sys_log`
+--
+
+LOCK TABLES `sys_log` WRITE;
+/*!40000 ALTER TABLE `sys_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sys_log` ENABLE KEYS */;
+
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
