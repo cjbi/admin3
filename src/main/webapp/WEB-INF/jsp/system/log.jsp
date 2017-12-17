@@ -48,9 +48,9 @@
                     <th><input type="checkbox" class="am-checkbox-all"></th>
                     <th>用户名</th>
                     <th>IP</th>
-                    <th>请求方法</th>
                     <th>执行方法</th>
                     <th>执行时间</th>
+                    <th>请求方法</th>
                     <th>请求URL</th>
                    <th>参数</th>
                    <th>返回值</th>
@@ -96,9 +96,6 @@
                 'data': 'ip'
             },
             {
-                'data': 'reqMethod'
-            },
-            {
                 'data': 'execMethod'
             },
             {
@@ -106,6 +103,9 @@
                 'render':function(data, type, full) {
                     return data + ' ms';
                 }
+            },
+            {
+                'data': 'reqMethod'
             },
             {
                 'data': 'reqUri'
