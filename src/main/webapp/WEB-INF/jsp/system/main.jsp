@@ -25,10 +25,13 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/static/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="<%=request.getContextPath()%>/static/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="apple-mobile-web-app-title" content="Wetech Admin"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.min.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.min.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/css/buttons.dataTables.min.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/zTree_v3/css/metroStyle/metroStyle.css">
+
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.buttons.css"/>
    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/admin.css">
 </head>
 <body>
@@ -61,18 +64,26 @@
 <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 <input id="basePath" type="hidden" value="<%=basePath%>"/>
 <!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/amazeui.ie8polyfill.min.js"></script>
+<script src="//libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="//cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="//cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.js"></script>
 <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="<%=request.getContextPath()%>/static/js/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="<%=request.getContextPath()%>/static/js/amazeui.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/jquery.dataTables.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.js"></script>
+
+<script src="<%=request.getContextPath()%>/static/libs/DataTables-1.10.16/media/js/jquery.dataTables.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/dataTables.buttons.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.colVis.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/libs/jszip-3.1.5/dist/jszip.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.html5.min.js"></script>
+
 <script src="<%=request.getContextPath()%>/static/libs/layer-v3.1.0/layer/layer.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/zTree_v3/js/jquery.ztree.all.js"></script>
+
+<script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.buttons.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/common/public.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/admin.js"></script>
 </body>

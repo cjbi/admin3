@@ -13,22 +13,19 @@
             </ol>
         </div>
 
-        <div class="am-g">
+        <div class="am-g am-btn-toolbar">
             <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                        <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="reset();"><span class="am-icon-refresh"></span> 重置</button>
-                    </div>
+                <div class="am-btn-group am-btn-group-xs">
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-form-group">
-                    <select data-am-selected="{btnSize: 'sm'}">
-                        <option value="option1">全部</option>
-                        <%--<option value="option2">文章</option>
-                        <option value="option3">合作文章</option>
-                        <option value="option3">未审核</option>--%>
-                    </select>
+                    <%-- <select data-am-selected="{btnSize: 'sm'}">
+                         <option value="option1">全部</option>
+                         &lt;%&ndash;<option value="option2">文章</option>
+                         <option value="option3">合作文章</option>
+                         <option value="option3">未审核</option>&ndash;%&gt;
+                     </select>--%>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
@@ -52,8 +49,8 @@
                     <th>执行时间</th>
                     <th>请求方法</th>
                     <th>请求URL</th>
-                   <th>参数</th>
-                   <th>返回值</th>
+                    <th>参数</th>
+                    <th>返回值</th>
                     <th>状态</th>
                     <th>描述</th>
                     <th>创建时间</th>
@@ -73,9 +70,9 @@
 
         var ajax = {
             'url': listURL,
-            'data': function(data) {
+            'data': function (data) {
                 var keywords = $('#keywords').val();
-                if(keywords) {
+                if (keywords) {
                     data.keywords = ($('#keywords').val());
                 }
             }
@@ -100,7 +97,7 @@
             },
             {
                 'data': 'execTime',
-                'render':function(data, type, full) {
+                'render': function (data, type, full) {
                     return data + ' ms';
                 }
             },
@@ -113,9 +110,9 @@
             {
                 'data': 'args'
             },
-             {
-             'data': 'returnVal'
-             },
+            {
+                'data': 'returnVal'
+            },
             {
                 'data': 'status'
             },
@@ -124,18 +121,18 @@
             },
             {
                 'data': 'createTime',
-                'render':  function (data, type, full) {
-                    return Utils.dateFormat.formatTimestamp(data,'yyyy-MM-dd hh:mm:ss');
+                'render': function (data, type, full) {
+                    return Utils.dateFormat.formatTimestamp(data, 'yyyy-MM-dd hh:mm:ss');
                 }
             }
         ];
-        var table = $.mytables.initTable(ajax, gridTable, 'example_log');
-
-        /**
-         * 重置
-         */
-        reset = function () {
-            $.myadmin.loadContent('#log');
+        var opts = {
+            'ajax': ajax,
+            'columns': gridTable,
+            'tableId': 'example_log'
         };
+
+        var table = $.mytables.initTable(opts);
+
     });
 </script>

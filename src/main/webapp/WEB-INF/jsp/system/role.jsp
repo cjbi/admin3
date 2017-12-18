@@ -22,39 +22,27 @@
             </ol>
         </div>
 
-        <div class="am-g">
+        <div class="am-g am-btn-toolbar">
             <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                        <shiro:hasPermission name="role:create">
-                            <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="create();"><span class="am-icon-plus"></span> 新增</button>
-                        </shiro:hasPermission>
-                        <shiro:hasPermission name="role:update">
-                            <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="update();"><span class="am-icon-edit"></span> 修改</button>
-                        </shiro:hasPermission>
-                        <shiro:hasPermission name="role:delete">
-                            <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="del();"><span class="am-icon-trash-o"></span> 删除</button>
-                        </shiro:hasPermission>
-                        <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="reset();"><span class="am-icon-refresh"></span> 重置</button>
-                    </div>
+                <div class="am-btn-group am-btn-group-xs">
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-form-group">
-                    <select data-am-selected="{btnSize: 'sm'}">
+                    <%--<select data-am-selected="{btnSize: 'sm'}">
                         <option value="option1">全部</option>
-                        <%--<option value="option2">文章</option>
+                        &lt;%&ndash;<option value="option2">文章</option>
                         <option value="option3">合作文章</option>
-                        <option value="option3">未审核</option>--%>
-                    </select>
+                        <option value="option3">未审核</option>&ndash;%&gt;
+                    </select>--%>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-input-group am-input-group-sm">
                     <input type="text" name="keywords" id="keywords" placeholder="角色名称 / 角色描述" class="am-form-field">
                     <span class="am-input-group-btn">
-    <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
-    </span>
+                        <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
+                    </span>
                 </div>
             </div>
         </div>
@@ -138,9 +126,9 @@
 
         var ajax = {
             'url': listURL,
-            'data': function(data) {
+            'data': function (data) {
                 var keywords = $('#keywords').val();
-                if(keywords) {
+                if (keywords) {
                     data.keywords = ($('#keywords').val());
                 }
             }
@@ -177,7 +165,42 @@
                 }
             }
         ];
-        var table = $.mytables.initTable(ajax, gridTable, 'example_role');
+        //定义按钮
+        var buttons = [
+            <shiro:hasPermission name="role:create">
+            {
+                'text': '<span class="am-icon-plus"></span> 新增',
+                'action': function (e, dt, node, config) {
+                    create();
+                }
+            },
+            </shiro:hasPermission>
+            <shiro:hasPermission name="role:update">
+            {
+                'text': '<span class="am-icon-edit"></span> 修改',
+                'action': function (e, dt, node, config) {
+                    update();
+                }
+            },
+            </shiro:hasPermission>
+            <shiro:hasPermission name="role:delete">
+            {
+                'text': '<span class="am-icon-trash-o"></span> 删除',
+                'action': function (e, dt, node, config) {
+                    del();
+                }
+            }
+            </shiro:hasPermission>
+        ];
+
+
+        var opts = {
+            'ajax': ajax,
+            'buttons': buttons,
+            'columns': gridTable,
+            'tableId': 'example_role'
+        };
+        var table = $.mytables.initTable(opts);
 
         /**
          * 新增
@@ -230,16 +253,12 @@
             $.mytables.openDialog(opts);
         }
 
-        del = function () {
-            $.mytables.batch(deleteURL, 'id','删除');
-        }
-
         /**
-         * 重置
+         * 删除
          */
-        reset = function () {
-            $.myadmin.loadContent('#role');
-        };
+        del = function () {
+            $.mytables.batch(deleteURL, 'id', '删除');
+        }
 
         var setting = {
             check: {

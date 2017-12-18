@@ -9,7 +9,7 @@
 
 // var $ = require('jquery');
 
-// @see https://www.datatables.net/download/npm
+// @see https://www.datata$.fn.dataTablebles.net/download/npm
 var DataTable = $.fn.dataTable;
 
 // language

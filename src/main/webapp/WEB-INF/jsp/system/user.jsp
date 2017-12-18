@@ -13,31 +13,18 @@
             </ol>
         </div>
 
-        <div class="am-g">
+        <div class="am-g am-btn-toolbar">
             <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                        <shiro:hasPermission name="user:create">
-                            <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="create();"><span class="am-icon-plus"></span> 新增</button>
-                        </shiro:hasPermission>
-                        <shiro:hasPermission name="user:update">
-                            <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="update();"><span class="am-icon-edit"></span> 修改</button>
-                        </shiro:hasPermission>
-                        <shiro:hasPermission name="user:delete">
-                            <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="del();"><span class="am-icon-trash-o"></span> 删除</button>
-                        </shiro:hasPermission>
-                        <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="reset();"><span class="am-icon-refresh"></span> 重置</button>
-                    </div>
-                </div>
+                <div class="am-btn-group am-btn-group-xs"></div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-form-group">
-                    <select data-am-selected="{btnSize: 'sm'}">
+                    <%--<select data-am-selected="{btnSize: 'sm'}">
                         <option value="option1">全部</option>
-                        <%--<option value="option2">文章</option>
+                        &lt;%&ndash;<option value="option2">文章</option>
                         <option value="option3">合作文章</option>
-                        <option value="option3">未审核</option>--%>
-                    </select>
+                        <option value="option3">未审核</option>&ndash;%&gt;
+                    </select>--%>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
@@ -190,7 +177,40 @@
                 }
             }
         ];
-        var table = $.mytables.initTable(ajax, gridTable, 'example_user');
+        //定义按钮
+        var buttons = [
+            <shiro:hasPermission name="user:create">
+            {
+                'text': '<span class="am-icon-plus"></span> 新增',
+                'action': function (e, dt, node, config) {
+                    create();
+                }
+            },
+            </shiro:hasPermission>
+            <shiro:hasPermission name="user:update">
+            {
+                'text': '<span class="am-icon-edit"></span> 修改',
+                'action': function (e, dt, node, config) {
+                    update();
+                }
+            },
+            </shiro:hasPermission>
+            <shiro:hasPermission name="user:delete">
+            {
+                'text': '<span class="am-icon-trash-o"></span> 删除',
+                'action': function (e, dt, node, config) {
+                    del();
+                }
+            }
+            </shiro:hasPermission>
+        ];
+        var opts = {
+            'ajax': ajax,
+            'buttons': buttons,
+            'columns': gridTable,
+            'tableId': 'example_user'
+        };
+        var table = $.mytables.initTable(opts);
 
         /**
          * 新增
@@ -244,14 +264,7 @@
         }
 
         del = function () {
-            $.mytables.batch(deleteURL, 'id','删除');
-        }
-
-        /**
-         * 重置
-         */
-        reset = function () {
-            $.myadmin.loadContent('#user');
+            $.mytables.batch(deleteURL, 'id', '删除');
         }
 
         var setting = {

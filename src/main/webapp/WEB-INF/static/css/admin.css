@@ -573,6 +573,9 @@ gallery.html css
 
 /* Write your styles */
 /*自定义datatables checkbox大小 */
+.am-btn-toolbar {
+    margin-left: initial;
+}
 .dataTable th {
     white-space: nowrap !important;
 }

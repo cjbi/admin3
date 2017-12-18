@@ -27,55 +27,81 @@ var basePath = $('#basePath').val();
          * @param tableNames
          * @returns {jQuery}
          */
-        initTable: function (ajax, gridTable, _tableName, drawCallbackJson, initComplete) {
-            tableName = (_tableName || tableName);
-            var table = $('#' + tableName).DataTable({
-                    'aLengthMenu': [3,10, 15, 20, 40, 60],
-                    'searching': false,// 开启搜索框
-                    'lengthChange': true,
-                    'paging': true,// 开启表格分页
-                    'bProcessing': true,
-                    'bServerSide': true,
-                    'bAutoWidth': true,
-                    'sort': 'position',
-                    'deferRender': true,// 延迟渲染
-                    'bStateSave': true, // 刷新时保存表格状态
-                    'iDisplayLength': 15,
-                    'iDisplayStart': 0,
-                    'ordering': false,// 全局禁用排序
-                    'scrollX': true,
-                    'ajax': ajax,
-                    'destroy': true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
-                    "dom": '<"am-g am-g-collapse"rt<"am-padding-top"<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
-                    // "dom" : '<"am-g am-g-collapse"<"am-g
-                    // am-datatable-hd"<"am-u-sm-6"<"#btnPlugin">><"am-u-sm-4"<"#regexPlugin">><"am-u-sm-2"f>>rt<<"am-datatable-hd
-                    // am-u-sm-4"l><"am-u-sm-4"i><"am-u-sm-4"p>><"clear">>',
-                    'responsive': true,
-                    'columns': gridTable,
-                    "drawCallback": function (settings) {
-                        if (drawCallbackJson)
-                            drawCallbackJson(this.api().context[0].json);
-                    },
-                    'oLanguage': { // 国际化配置
-                        'sProcessing': '正在获取数据，请稍后...',
-                        // 'sLengthMenu' : ' 显示 _MENU_ 项结果',
-                        'sZeroRecords': '没有找到数据',
-                        // 显示第 1 至 10 项结果，共 12 项
-                        'sInfo': '显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项',
-                        'sInfoEmpty': '记录数为0',
-                        'sInfoFiltered': '(全部记录数 _MAX_ 条)',
-                        'sInfoPostFix': '',
-                        'sSearch': '搜索:',
-                        'sUrl': '',
-                        'oPaginate': {
-                            'sFirst': '第一页',
-                            'sPrevious': '«',
-                            'sNext': '»',
-                            'sLast': '最后一页'
-                        }
-                    },
-                    initComplete: initComplete
-                }),
+        initTable: function (opts) {
+            tableName = (opts.tableId || tableName);
+            var defaults = {
+                'aLengthMenu': [3, 10, 15, 20, 40, 60, 100],
+                'searching': false,// 开启搜索框
+                'lengthChange': true,
+                'paging': true,// 开启表格分页
+                'bProcessing': true,
+                'bServerSide': true,
+                'bAutoWidth': true,
+                'sort': 'position',
+                'deferRender': true,// 延迟渲染
+                'bStateSave': true, // 刷新时保存表格状态
+                'iDisplayLength': 15,
+                'iDisplayStart': 0,
+                'ordering': false,// 全局禁用排序
+                'scrollX': true,
+                /*'ajax': ajax,*/
+                'destroy': true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
+                "dom": '<"am-g am-g-collapse"rt<"am-padding-top"<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
+                'buttons': [{
+                    'extend': 'excelHtml5',
+                    'text': '<span class="am-icon-sign-out"></span> 导出Excel'
+                }, {
+                    'extend': 'colvis',
+                    'postfixButtons': [{
+                        'extend': 'colvisRestore',
+                        'text': '<span class="am-icon-undo"></span> 撤销更改',
+
+                    }],
+                    'text': '<span class="am-icon-columns"></span> 显示/隐藏列',
+                    'columnText': function (dt, idx, title) {
+                        if (idx == 0) return '<span class="am-icon-check-square-o"></span> 复选框';
+                        return title;
+                    }
+                }, {
+                    'text': '<span class="am-icon-refresh"></span> 重置',
+                    'action': function (e, dt, node, config) {
+                        //清空所有input框
+                        $('.am-btn-toolbar').find('input').val('');
+                        //刷新表格
+                        table.ajax.reload();
+                    }
+                }],
+                'responsive': true,
+                /* 'columns': gridTable,*/
+                /*"drawCallback": function (settings) {
+                 if (opts.drawCallbackJson)
+                 drawCallbackJson(this.api().context[0].json);
+                 },*/
+                'oLanguage': { // 国际化配置
+                    'sProcessing': '正在获取数据，请稍后...',
+                    // 'sLengthMenu' : ' 显示 _MENU_ 项结果',
+                    'sZeroRecords': '没有找到数据',
+                    // 显示第 1 至 10 项结果，共 12 项
+                    'sInfo': '显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项',
+                    'sInfoEmpty': '记录数为0',
+                    'sInfoFiltered': '(全部记录数 _MAX_ 条)',
+                    'sInfoPostFix': '',
+                    'sSearch': '搜索:',
+                    'sUrl': '',
+                    'oPaginate': {
+                        'sFirst': '第一页',
+                        'sPrevious': '«',
+                        'sNext': '»',
+                        'sLast': '最后一页'
+                    }
+                },
+                initComplete: function (settings) {
+                    $('.am-btn-toolbar').find('.am-btn-group').append(table.buttons().container().find('button'));
+                }
+            };
+            opts.buttons = (opts.buttons||[]).concat(defaults.buttons);//追加按钮
+            opts = $.extend(defaults, opts);//扩展配置参数
+            var table = $('#' + tableName).DataTable(opts),
                 /**
                  * checkbox全选,必须用prop方法设置
                  */
@@ -105,17 +131,19 @@ var basePath = $('#basePath').val();
                     rowActive();
                 };
             // checkbox全选
-            $('#' + tableName+'_wrapper').on('click', 'th input[type="checkbox"]', function () {
+            $('#' + tableName + '_wrapper').on('click', 'th input[type="checkbox"]', function () {
                 checkAll();
             });
             // 选中行触发事件
-            $('#' + tableName+'_wrapper').on('click', 'td input[type="checkbox"]', function () {
+            $('#' + tableName + '_wrapper').on('click', 'td input[type="checkbox"]', function () {
                 rowActive();
             });
             //选中行操作事件
-            $('#' + tableName+'_wrapper').on('click', '.am-btn', function () {
+            $('#' + tableName + '_wrapper').on('click', '.am-btn', function () {
                 rowOperation($(this));
             });
+            //设置buttons位置
+            $('.am-btn-toolbar').find('.am-btn-group').append(table.buttons().container().find('button'));
             return table;
         },
         /**
