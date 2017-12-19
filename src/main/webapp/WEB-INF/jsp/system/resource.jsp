@@ -101,7 +101,7 @@
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>
                 <%--<li><a href="#">用户管理</a></li>--%>
-                <li class="am-active">资源管理</li>
+                <li class="am-active am-title">资源管理</li>
             </ol>
         </div>
 

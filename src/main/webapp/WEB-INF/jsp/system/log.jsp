@@ -9,7 +9,7 @@
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>
                 <%--<li><a href="#">用户管理</a></li>--%>
-                <li class="am-active">日志管理</li>
+                <li class="am-active am-title">日志管理</li>
             </ol>
         </div>
 
@@ -42,7 +42,7 @@
             <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered<%-- am-text-nowrap--%>" width="100%" id="example_log">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" class="am-checkbox-all"></th>
+                    <th><span style="display: none;">ID</span>&nbsp;</th>
                     <th>用户名</th>
                     <th>IP</th>
                     <th>执行方法</th>
@@ -83,7 +83,7 @@
                 'data': 'id',
                 'width': '2%',
                 'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
-                    $(nTd).html('<input type="checkbox" class="am-checkbox-list" title="' + sData + '" value="' + sData + '">');
+                    $(nTd).html('');
                 }
             },
             {

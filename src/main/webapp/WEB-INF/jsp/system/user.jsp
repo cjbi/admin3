@@ -9,7 +9,7 @@
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>
                 <%--<li><a href="#">用户管理</a></li>--%>
-                <li class="am-active">系统用户</li>
+                <li class="am-active am-title">系统用户</li>
             </ol>
         </div>
 
@@ -41,11 +41,10 @@
             <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered" width="100%" id="example_user">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" class='am-checkbox-all'></th>
+                    <th><span style="display: none;">ID</span>&nbsp;</th>
                     <th>用户名</th>
                     <th>所属组织</th>
                     <th>角色列表</th>
-                    <th>操作</th>
                 </tr>
                 </thead>
             </table>
@@ -151,7 +150,7 @@
                 'data': 'id',
                 'sWidth': '2%',
                 'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
-                    $(nTd).html('<input type="checkbox" class="am-checkbox-list" title="' + sData + '" value="' + sData + '">');
+                    $(nTd).html('');
                 }
             },
             {
@@ -162,19 +161,6 @@
             },
             {
                 'data': 'roleNames'
-            },
-            {
-                'data': 'id',
-                'mRender': function (data, type, full) {
-                    return '<div class="am-btn-group am-btn-group-xs">\
-                                 <shiro:hasPermission name="user:update">\
-                                 <a href="javascript:update();" class="am-btn am-btn-primary am-btn-hollow"><span class="am-icon-pencil-square-o"></span> 编辑</button>\
-                                 </shiro:hasPermission>\
-                                 <shiro:hasPermission name="user:update">\
-                                 <a href="javascript:del();" class="am-btn am-btn-danger am-btn-hollow"><span class="am-icon-trash-o"></span> 删除</button>\
-                                 </shiro:hasPermission>\
-                             </div>';
-                }
             }
         ];
         //定义按钮

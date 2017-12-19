@@ -12,7 +12,7 @@ var basePath = $('#basePath').val();
  */
 (function ($) {
     /*'use strict';*/
-    var tableName = 'example';
+    var tableId = 'example';
     /**
      * 封装datatables、layer弹出层，简化操作
      * @type {{initTable: jQuery.mytables.initTable, getTable: jQuery.mytables.getTable, reloadTable: jQuery.mytables.reloadTable, getSelectedData: jQuery.mytables.getSelectedData, fillEditFormData: jQuery.mytables.fillEditFormData, deleteBatch: jQuery.mytables.deleteBatch, openDialog: jQuery.mytables.openDialog}}
@@ -28,9 +28,9 @@ var basePath = $('#basePath').val();
          * @returns {jQuery}
          */
         initTable: function (opts) {
-            tableName = (opts.tableId || tableName);
+            tableId = (opts.tableId || tableId);
             var defaults = {
-                'aLengthMenu': [3, 10, 15, 20, 40, 60, 100],
+                'aLengthMenu': [5, 10, 15, 20, 40, 60, 100],
                 'searching': false,// 开启搜索框
                 'lengthChange': true,
                 'paging': true,// 开启表格分页
@@ -71,6 +71,17 @@ var basePath = $('#basePath').val();
                         table.ajax.reload();
                     }
                 }],
+                'columnDefs': [{
+                    'orderable': false,
+                    'className': 'select-checkbox',
+                    'targets': 0
+                }],
+                'order': [[1, 'asc']],
+                'select': {
+                    'style': 'multi+shift',
+                    /*'selector': 'td:first-child',*/
+                    'className': 'am-active'
+                },
                 'responsive': true,
                 /* 'columns': gridTable,*/
                 /*"drawCallback": function (settings) {
@@ -93,57 +104,40 @@ var basePath = $('#basePath').val();
                         'sPrevious': '«',
                         'sNext': '»',
                         'sLast': '最后一页'
+                    },
+                    'select': {
+                        'rows': {
+                            '_': '选了 %d 行数据',
+                            '0': '单击选定行数据',
+                            '1': '已经选了 1 行'
+                        }
                     }
+                },
+                drawCallback: function (settings) {
+                    var $row = $('#' + tableId + '_wrapper').find('thead tr:first-child');
+                    //清除多余的样式
+                    $row.removeClass('am-active');
                 },
                 initComplete: function (settings) {
-                    $('.am-btn-toolbar').find('.am-btn-group').append(table.buttons().container().find('button'));
+                    var $btnGroup = $('.am-btn-toolbar').find('.am-btn-group');
+                    //添加按钮
+                    $btnGroup.append(table.buttons().container().find('button'));
                 }
             };
-            opts.buttons = (opts.buttons||[]).concat(defaults.buttons);//追加按钮
+            opts.buttons = (opts.buttons || []).concat(defaults.buttons);//追加按钮
             opts = $.extend(defaults, opts);//扩展配置参数
-            var table = $('#' + tableName).DataTable(opts),
-                /**
-                 * checkbox全选,必须用prop方法设置
-                 */
-                checkAll = function () {
-                    if ($('input[class="am-checkbox-all"]').is(':checked')) {
-                        $('input[class="am-checkbox-list"]').parent().parent().addClass('am-active');
-                        $('input[class="am-checkbox-list"]').prop('checked', true);
-                    } else {
-                        $('input[class="am-checkbox-list"]').parent().parent().removeClass('am-active');
-                        $('input[class="am-checkbox-list"]').prop('checked', false);
-                    }
-                },
-                rowActive = function () {
-                    $('td input[type="checkbox"]').each(function () {
-                        if ($(this).is(':checked')) {
-                            $(this).parent().parent().addClass('am-active');
-                        } else {
-                            $(this).parent().parent().removeClass('am-active');
-                        }
-                    });
-                },
-                rowOperation = function ($this) {
-                    var $checkboxAll = $this.parent().parent().parent().parent().find('td input[type="checkbox"]'),
-                        $checkboxRow = $this.parent().parent().parent().find('td input[type="checkbox"]');
-                    $checkboxAll.prop('checked', false);
-                    $checkboxRow.prop('checked', true);
-                    rowActive();
-                };
+            var table = $('#' + tableId).DataTable(opts);
             // checkbox全选
-            $('#' + tableName + '_wrapper').on('click', 'th input[type="checkbox"]', function () {
-                checkAll();
+            $('#' + tableId + '_wrapper').on('click', 'thead tr:first-child th.select-checkbox:first-child', function () {
+                var $row = $('#' + tableId + '_wrapper').find('thead tr:first-child');
+                if ($row.hasClass('am-active')) {
+                    $row.removeClass('am-active');
+                    table.rows().deselect();
+                } else {
+                    $row.addClass('am-active');
+                    table.rows().select();
+                }
             });
-            // 选中行触发事件
-            $('#' + tableName + '_wrapper').on('click', 'td input[type="checkbox"]', function () {
-                rowActive();
-            });
-            //选中行操作事件
-            $('#' + tableName + '_wrapper').on('click', '.am-btn', function () {
-                rowOperation($(this));
-            });
-            //设置buttons位置
-            $('.am-btn-toolbar').find('.am-btn-group').append(table.buttons().container().find('button'));
             return table;
         },
         /**
@@ -151,21 +145,21 @@ var basePath = $('#basePath').val();
          * @param _tableName
          */
         getTable: function (_tableName) {
-            return $('#' + (_tableName || tableName)).DataTable()
+            return $('#' + (_tableName || tableId)).DataTable()
         },
         /**
          * 重新加载数据源获取数据（不能指定新的数据源）
          * @param _tableName
          */
         reloadTable: function (_tableName) {
-            $('#' + (_tableName || tableName)).DataTable().ajax.reload();
+            $('#' + (_tableName || tableId)).DataTable().ajax.reload();
         },
         /**
          * 返回选中的行
          * @param _tableName
          */
         getSelectedData: function (_tableName) {
-            var table = $('#' + (_tableName || tableName)).DataTable();
+            var table = $('#' + (_tableName || tableId)).DataTable();
             return table.rows('.am-active').data()[0];
         },
         /**
@@ -175,7 +169,7 @@ var basePath = $('#basePath').val();
          */
         fillEditFormData: function (_tableName) {
             // 将值填充到表单中
-            var table = $('#' + ((_tableName || tableName))).DataTable(),
+            var table = $('#' + ((_tableName || tableId))).DataTable(),
                 rowLength = table.rows('.am-active').data().length;
             if (rowLength == 0) {
                 $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);
@@ -206,11 +200,11 @@ var basePath = $('#basePath').val();
          */
         batch: function (url, pk, _msg, _tableName) {
             var msg = (_msg || '操作');
-            var table = $('#' + (_tableName || tableName)).DataTable(),
+            var table = $('#' + (_tableName || tableId)).DataTable(),
                 rowData = {},
                 array = [],
                 dictType = table.rows('.am-active').data(),
-                str = $('#' + (_tableName || tableName) + ' tbody tr[class="even am-active"]').length + $('#' + (_tableName || tableName) + ' tbody tr[class="odd am-active"]').length;
+                str = $('#' + (_tableName || tableId) + ' tbody tr[class="even am-active"]').length + $('#' + (_tableName || tableId) + ' tbody tr[class="odd am-active"]').length;
 
             if (dictType[0] == undefined) {
                 $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);
@@ -351,10 +345,22 @@ var basePath = $('#basePath').val();
             if (url.indexOf('#') > 0 && url.substr(url.indexOf('#') + 1).length > 0) {
                 url = url.replace("#", "/");
                 $('#admin-content').load(url, function () {
-                    reloadComponent();
+
+                    setTitle();//设置标题
+                    reloadComponent();//重新加载组件
                     if (callback)
                         callback();
                 });
+            }
+
+            /**
+             * 设置标题
+             */
+            function setTitle() {
+                //取得标题
+                var title = ($('.am-title:first').text() || 'Wetech Admin');
+                //设置标题
+                document.title = title;
             }
 
             /**
