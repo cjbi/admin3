@@ -15,7 +15,7 @@ var basePath = $('#basePath').val();
     var tableId = 'example';
     /**
      * 封装datatables、layer弹出层，简化操作
-     * @type {{initTable: jQuery.mytables.initTable, getTable: jQuery.mytables.getTable, reloadTable: jQuery.mytables.reloadTable, getSelectedData: jQuery.mytables.getSelectedData, fillEditFormData: jQuery.mytables.fillEditFormData, deleteBatch: jQuery.mytables.deleteBatch, openDialog: jQuery.mytables.openDialog}}
+     * @type {{initTable: jQuery.mytables.initTable, selectEvent: jQuery.mytables.selectEvent, getTable: jQuery.mytables.getTable, reloadTable: jQuery.mytables.reloadTable, getSelectedData: jQuery.mytables.getSelectedData, fillEditFormData: jQuery.mytables.fillEditFormData, batch: jQuery.mytables.batch, openDialog: jQuery.mytables.openDialog}}
      */
     $.mytables = {
         /**
@@ -627,8 +627,3 @@ var basePath = $('#basePath').val();
     });
 
 })(jQuery);
-// 相当于定义了一个参数为$的匿名函数，并且将jQuery作为参数来调用这个匿名函数
-//var $ = 123;
-//(function($){
-//    console.log($("p"));//$仍能正常使用
-//})(jQuery)
