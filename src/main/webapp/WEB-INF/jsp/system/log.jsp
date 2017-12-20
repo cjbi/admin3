@@ -78,7 +78,7 @@
             }
         };
 
-        var gridTable = [
+        var columns = [
             {
                 'data': 'id',
                 'width': '2%',
@@ -128,7 +128,7 @@
         ];
         var opts = {
             'ajax': ajax,
-            'columns': gridTable,
+            'columns': columns,
             'tableId': 'example_log'
         };
 

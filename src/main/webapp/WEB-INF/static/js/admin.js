@@ -21,7 +21,7 @@ var basePath = $('#basePath').val();
         /**
          * 初始化datatables
          * @param ajax
-         * @param gridTable
+         * @param columns
          * @param ServerParams
          * @param initComplete
          * @param tableNames
@@ -40,7 +40,7 @@ var basePath = $('#basePath').val();
                 'sort': 'position',
                 'deferRender': true,// 延迟渲染
                 'bStateSave': true, // 刷新时保存表格状态
-                'iDisplayLength': 15,
+                'iDisplayLength': 10,
                 'iDisplayStart': 0,
                 'ordering': false,// 全局禁用排序
                 'scrollX': true,
@@ -83,11 +83,7 @@ var basePath = $('#basePath').val();
                     'className': 'am-active'
                 },
                 'responsive': true,
-                /* 'columns': gridTable,*/
-                /*"drawCallback": function (settings) {
-                 if (opts.drawCallbackJson)
-                 drawCallbackJson(this.api().context[0].json);
-                 },*/
+                /* 'columns': columns,*/
                 'oLanguage': { // 国际化配置
                     'sProcessing': '正在获取数据，请稍后...',
                     // 'sLengthMenu' : ' 显示 _MENU_ 项结果',
@@ -141,35 +137,49 @@ var basePath = $('#basePath').val();
             return table;
         },
         /**
-         * 获得表格
-         * @param _tableName
+         * 按钮启用禁用监听事件
+         * @param callback 回调函数
+         * @param _tableId //表格id
          */
-        getTable: function (_tableName) {
-            return $('#' + (_tableName || tableId)).DataTable()
+        selectEvent: function (callback, _tableId) {
+            var table = $('#' + ((_tableId || tableId))).DataTable();
+            // debugger;
+            table.on('draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function (event) {
+                var table = $('#' + ((_tableId || tableId))).DataTable();
+                var data = table.rows({selected: true}).data();
+                callback(data, event);
+            })
+        },
+        /**
+         * 获得表格
+         * @param _tableId 表格id
+         */
+        getTable: function (_tableId) {
+            return $('#' + (_tableId || tableId)).DataTable()
         },
         /**
          * 重新加载数据源获取数据（不能指定新的数据源）
-         * @param _tableName
+         * @param _tableId
          */
-        reloadTable: function (_tableName) {
-            $('#' + (_tableName || tableId)).DataTable().ajax.reload();
+        reloadTable: function (_tableId) {
+            $('#' + (_tableId || tableId)).DataTable().ajax.reload();
         },
         /**
          * 返回选中的行
-         * @param _tableName
+         * @param _tableId
          */
-        getSelectedData: function (_tableName) {
-            var table = $('#' + (_tableName || tableId)).DataTable();
+        getSelectedData: function (_tableId) {
+            var table = $('#' + (_tableId || tableId)).DataTable();
             return table.rows('.am-active').data()[0];
         },
         /**
          * 填充表单
-         * @param _tableName
+         * @param _tableId
          * @returns {boolean}
          */
-        fillEditFormData: function (_tableName) {
+        fillEditFormData: function (_tableId) {
             // 将值填充到表单中
-            var table = $('#' + ((_tableName || tableId))).DataTable(),
+            var table = $('#' + ((_tableId || tableId))).DataTable(),
                 rowLength = table.rows('.am-active').data().length;
             if (rowLength == 0) {
                 $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);
@@ -195,16 +205,16 @@ var basePath = $('#basePath').val();
          * @param url 链接地址
          * @param pk 主键
          * @param msg 信息
-         * @param _tableName
+         * @param _tableId
          * @returns {boolean}
          */
-        batch: function (url, pk, _msg, _tableName) {
+        batch: function (url, pk, _msg, _tableId) {
             var msg = (_msg || '操作');
-            var table = $('#' + (_tableName || tableId)).DataTable(),
+            var table = $('#' + (_tableId || tableId)).DataTable(),
                 rowData = {},
                 array = [],
                 dictType = table.rows('.am-active').data(),
-                str = $('#' + (_tableName || tableId) + ' tbody tr[class="even am-active"]').length + $('#' + (_tableName || tableId) + ' tbody tr[class="odd am-active"]').length;
+                str = $('#' + (_tableId || tableId) + ' tbody tr[class="even am-active"]').length + $('#' + (_tableId || tableId) + ' tbody tr[class="odd am-active"]').length;
 
             if (dictType[0] == undefined) {
                 $.mydialog.msg('请选择一条记录！', $.mydialog.dialog_type.msg.warn);

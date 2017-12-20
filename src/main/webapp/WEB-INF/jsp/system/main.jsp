@@ -28,7 +28,7 @@
     <meta name="apple-mobile-web-app-title" content="Wetech Admin"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.min.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.min.css"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/css/buttons.dataTables.min.css"/>
+    <%--<link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/css/buttons.dataTables.min.css"/>--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/Select-1.2.4/css/select.dataTables.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.select.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/zTree_v3/css/metroStyle/metroStyle.css">
@@ -80,7 +80,7 @@
 <script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.colVis.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/jszip-3.1.5/dist/jszip.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.html5.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/libs/Select-1.2.4/js/dataTables.select.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/libs/Select-1.2.4/js/dataTables.select.js"></script>
 
 <script src="<%=request.getContextPath()%>/static/libs/layer-v3.1.0/layer/layer.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/zTree_v3/js/jquery.ztree.all.min.js"></script>

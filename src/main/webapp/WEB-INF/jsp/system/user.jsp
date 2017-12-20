@@ -128,6 +128,7 @@
     <ul id="tree" class="ztree"></ul>
 </div>
 <script type="text/javascript">
+
     $(function () {
         var pathURL = basePath + '/user/',
             listURL = pathURL + 'list',
@@ -145,7 +146,7 @@
             }
         };
 
-        var gridTable = [
+        var columns = [
             {
                 'data': 'id',
                 'sWidth': '2%',
@@ -170,7 +171,7 @@
                 'text': '<span class="am-icon-plus"></span> 新增',
                 'action': function (e, dt, node, config) {
                     create();
-                }
+                },
             },
             </shiro:hasPermission>
             <shiro:hasPermission name="user:update">
@@ -178,7 +179,9 @@
                 'text': '<span class="am-icon-edit"></span> 修改',
                 'action': function (e, dt, node, config) {
                     update();
-                }
+                },
+                'name': 'update',
+                'enabled': false
             },
             </shiro:hasPermission>
             <shiro:hasPermission name="user:delete">
@@ -186,22 +189,34 @@
                 'text': '<span class="am-icon-trash-o"></span> 删除',
                 'action': function (e, dt, node, config) {
                     del();
-                }
+                },
+                'name': 'del',
+                'enabled': false
             }
             </shiro:hasPermission>
         ];
         var opts = {
             'ajax': ajax,
             'buttons': buttons,
-            'columns': gridTable,
+            'columns': columns,
             'tableId': 'example_user'
         };
         var table = $.mytables.initTable(opts);
 
+        //设置按钮启用/禁用状态的逻辑
+        $.mytables.selectEvent(function (selected) {
+            //获取选定的行
+            var selectedRows = table.rows({selected: true}).count();
+            //更新按钮选定1行时启用
+            table.button('update:name').enable(selectedRows === 1);
+            //删除按钮选定大于1行时启用
+            table.button('del:name').enable(selectedRows > 0);
+        });
+
         /**
          * 新增
          */
-        create = function () {
+        var create = function () {
             var $form = $('#add-form');
             var opts = {
                 title: '添加用户',
@@ -226,7 +241,7 @@
         /**
          * 修改
          */
-        update = function () {
+        var update = function () {
             var $form = $('#edit-form');
             var opts = {
                 title: '修改用户',
@@ -249,7 +264,7 @@
             $.mytables.openDialog(opts);
         }
 
-        del = function () {
+        var del = function () {
             $.mytables.batch(deleteURL, 'id', '删除');
         }
 

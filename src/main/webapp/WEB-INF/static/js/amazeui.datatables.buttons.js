@@ -41,16 +41,18 @@
                 className: 'am-btn-group am-btn-group-xs'
             },
             button: {
-                className: 'am-btn am-btn-default am-btn-primary'
+                className: 'am-btn am-btn-primary',
+                active: 'am-active',
+                disabled: 'am-disabled'
             },
             collection: {
                 tag: 'div',
-                className: 'dt-button-collection dropdown-menu',
+                className: 'dt-button-collection dropdown-menu am-btn-group-xs',
                 button: {
                     tag: 'a',
-                    className: 'dt-button dropdown-item',
-                    active: 'active',
-                    disabled: 'disabled'
+                    className: 'am-btn am-btn-primary am-btn-block',
+                    active: 'am-active',
+                    disabled: 'am-disabled'
                 }
             }
         }

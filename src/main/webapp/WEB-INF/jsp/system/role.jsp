@@ -133,7 +133,7 @@
             }
         };
 
-        var gridTable = [
+        var columns = [
             {
                 'data': 'id',
                 'sWidth': '2%',
@@ -166,7 +166,9 @@
                 'text': '<span class="am-icon-edit"></span> 修改',
                 'action': function (e, dt, node, config) {
                     update();
-                }
+                },
+                'name': 'update',
+                'enabled': false
             },
             </shiro:hasPermission>
             <shiro:hasPermission name="role:delete">
@@ -174,7 +176,9 @@
                 'text': '<span class="am-icon-trash-o"></span> 删除',
                 'action': function (e, dt, node, config) {
                     del();
-                }
+                },
+                'name': 'del',
+                'enabled': false
             }
             </shiro:hasPermission>
         ];
@@ -183,15 +187,25 @@
         var opts = {
             'ajax': ajax,
             'buttons': buttons,
-            'columns': gridTable,
+            'columns': columns,
             'tableId': 'example_role'
         };
         var table = $.mytables.initTable(opts);
 
+        //设置按钮启用/禁用状态的逻辑
+        $.mytables.selectEvent(function (selected) {
+            //获取选定的行
+            var selectedRows = table.rows({selected: true}).count();
+            //更新按钮选定1行时启用
+            table.button('update:name').enable(selectedRows === 1);
+            //删除按钮选定大于1行时启用
+            table.button('del:name').enable(selectedRows > 0);
+        });
+
         /**
          * 新增
          */
-        create = function () {
+        var create = function () {
             var $form = $('#add-form');
             var opts = {
                 title: '添加角色',
@@ -216,7 +230,7 @@
         /**
          * 修改
          */
-        update = function () {
+        var update = function () {
             var $form = $('#edit-form');
             var opts = {
                 title: '修改角色',
@@ -242,7 +256,7 @@
         /**
          * 删除
          */
-        del = function () {
+        var del = function () {
             $.mytables.batch(deleteURL, 'id', '删除');
         }
 
