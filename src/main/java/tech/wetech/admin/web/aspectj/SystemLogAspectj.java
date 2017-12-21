@@ -35,9 +35,11 @@ public class SystemLogAspectj{
     public Object doAround(ProceedingJoinPoint point) throws Throwable {
         long time = System.currentTimeMillis();
         try {
-            Object[] args = point.getArgs();
             Object returns = point.proceed();
-            save(point, returns, System.currentTimeMillis() - time);
+            //不记录日志类本身的日志
+            if(point.getSignature().getDeclaringType()!= LogController.class) {
+                save(point, returns, System.currentTimeMillis() - time);
+            }
             return returns;
         } catch (Throwable e) {
             save(point, e, System.currentTimeMillis() - time);
@@ -67,7 +69,7 @@ public class SystemLogAspectj{
             msg = result.getMsg();
         }
 
-        if(returns != null && returns instanceof DataTableModel) {
+        if (returns != null && returns instanceof DataTableModel) {
             msg = "分页查询返回";
             status = HttpStatus.OK.toString();
         }
@@ -100,8 +102,8 @@ public class SystemLogAspectj{
         // 执行信息
         bean.setExecMethod(sign);
         bean.setExecTime(time);
-        //请求参数
-        if("POST".equals(method)) {
+        // 请求参数
+        if ("POST".equals(method)) {
             bean.setArgs(JsonUtil.getInstance().obj2json(point.getArgs()));
         }
         // 响应信息
@@ -111,11 +113,8 @@ public class SystemLogAspectj{
             bean.setExecDesc(msg);
         }
         try {
-            //不记录日志类本身的日志
-            if(point.getSignature().getDeclaringType()!= LogController.class) {
-                // 入库
-                logService.createLogWithBLOBs(bean);
-            }
+            // 入库
+            logService.createLogWithBLOBs(bean);
 
         } catch (Exception e) {
 

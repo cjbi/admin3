@@ -14,7 +14,9 @@
     border-right: 0.3em solid transparent;
     border-left: 0.3em solid transparent;
 }
-
+a.am-btn.am-btn-primary.am-btn-block.buttons-columnVisibility.am-active {
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.15);
+}
 
 @keyframes dtb-spinner {
     100% {

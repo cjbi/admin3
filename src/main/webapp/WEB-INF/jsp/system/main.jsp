@@ -80,6 +80,7 @@
 <script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.colVis.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/jszip-3.1.5/dist/jszip.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.html5.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.print.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/libs/Select-1.2.4/js/dataTables.select.js"></script>
 
 <script src="<%=request.getContextPath()%>/static/libs/layer-v3.1.0/layer/layer.js"></script>

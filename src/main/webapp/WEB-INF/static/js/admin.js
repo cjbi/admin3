@@ -48,8 +48,24 @@ var basePath = $('#basePath').val();
                 'destroy': true,//初始化一个新的Datatables，如果已经存在，则销毁（配置和数据），成为一个全新的Datatables实例
                 "dom": '<"am-g am-g-collapse"rt<"am-padding-top"<"am-datatable-hd am-u-sm-4"l><"am-u-sm-4 am-text-center"i><"am-u-sm-4"p>><"clear">>',
                 'buttons': [{
-                    'extend': 'excelHtml5',
-                    'text': '<span class="am-icon-sign-out"></span> 导出Excel'
+                    'extend': 'collection',
+                    'text': '<span class="am-icon-sign-out"></span> 导出',
+                    'postfixButtons': [{
+                        'extend': 'copyHtml5',
+                        'text': '<span class="am-icon-copy"></span> 复制'
+                    }, {
+                        'extend': 'excelHtml5',
+                        'text': '<span class="am-icon-file-excel-o"></span> Excel'
+                    }, {
+                        'extend': 'csvHtml5',
+                        'text': '<span class="am-icon-file-text-o"></span> CSV'
+                    }, {
+                        'extend': 'print',
+                        'text': '<span class="am-icon-print"></span> 打印',
+                        'exportOptions': {
+                            'columns': ':visible'
+                        }
+                    }]
                 }, {
                     'extend': 'colvis',
                     'postfixButtons': [{
@@ -106,6 +122,13 @@ var basePath = $('#basePath').val();
                             '_': '选了 %d 行数据',
                             '0': '单击选定行数据',
                             '1': '已经选了 1 行'
+                        }
+                    },
+                    'buttons': {
+                        'copyTitle': '复制到剪贴板',
+                        'copyKeys': '输入 <i>Ctrl</i> 或者 <i>\u2318</i> + <i>C</i> 去复制这个表格的数据<br>到你的系统剪贴板.<br><br>' + '要取消, 单击这个消息 或者 按下 Esc键.',
+                        'copySuccess': {
+                            _: '已经复制 %d 行数据到剪贴板'
                         }
                     }
                 },
