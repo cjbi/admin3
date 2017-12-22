@@ -1,45 +1,49 @@
-package tech.wetech.admin.web.aspectj;
+package tech.wetech.admin.aspect;
 
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
 import tech.wetech.admin.common.utils.Constants;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
-import tech.wetech.admin.model.system.BizException;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.LogService;
-import tech.wetech.admin.web.controller.system.LogController;
 import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
 
 /**
  * 系统日志切面 Created by cjbi on 2017/12/15.
  */
-public class SystemLogAspectj{
+@Aspect
+@Component
+public class SystemLogAspect{
 
     @Autowired
     private LogService logService;
 
-    private static final String info = "Request info user=%s\nip=%s | session=%s | %s %s\n%s | %sms";
-    private static final String trace = "Encoding %s | ContentType %s | ContentLength %s";
+    @Pointcut("@annotation(tech.wetech.admin.annotation.SystemLog)")
+    public void systemLogPointcut() {
+    }
 
+    @Around("systemLogPointcut()")
     public Object doAround(ProceedingJoinPoint point) throws Throwable {
         long time = System.currentTimeMillis();
         try {
             Object returns = point.proceed();
-            //不记录日志类本身的日志
-            if(point.getSignature().getDeclaringType()!= LogController.class) {
-                save(point, returns, System.currentTimeMillis() - time);
-            }
+            save(point, returns, System.currentTimeMillis() - time);
             return returns;
         } catch (Throwable e) {
             save(point, e, System.currentTimeMillis() - time);
@@ -115,58 +119,8 @@ public class SystemLogAspectj{
         try {
             // 入库
             logService.createLogWithBLOBs(bean);
-
         } catch (Exception e) {
 
-        }
-
-        // 记录请求日志
-        if (log.isDebugEnabled()) {
-            StringBuilder buffer = new StringBuilder();
-            buffer.append("\n");
-            buffer.append("/*******************************************************\\");
-            buffer.append("\n");
-            buffer.append(String.format(info, user, ip, sid, method, url, sign, time));
-            if (!StringUtils.isEmpty(status) && !StringUtils.isEmpty(msg)) {
-                buffer.append(" | ").append(status + ":" + msg);
-            } else if (!StringUtils.isEmpty(status)) {
-                buffer.append(" | ").append(status);
-            } else if (!StringUtils.isEmpty(msg)) {
-                buffer.append(" | ").append(msg);
-            }
-
-            if (log.isTraceEnabled()) {
-                // 请求参数
-                StringBuffer params = new StringBuffer();
-                for (Enumeration<String> e = req.getParameterNames(); e.hasMoreElements();) {
-                    String k = e.nextElement();
-                    params.append(k).append("=").append(req.getParameter(k)).append(";");
-                }
-                // 请求头
-                StringBuffer headers = new StringBuffer();
-                for (Enumeration<String> e = req.getHeaderNames(); e.hasMoreElements();) {
-                    String k = e.nextElement();
-                    headers.append(k).append("=").append(req.getHeader(k)).append(";");
-                }
-                String contentType = req.getContentType();
-                String encoding = req.getCharacterEncoding();
-                long length = req.getContentLength();
-                buffer.append("\n");
-                buffer.append("Response ").append(text);
-                buffer.append("\n");
-                buffer.append(String.format(trace, encoding, contentType, length));
-                if (params.length() > 0) {
-                    buffer.append("\n");
-                    buffer.append("Parameters ").append(params);
-                }
-                if (headers.length() > 0) {
-                    buffer.append("\n");
-                    buffer.append("Headers ").append(headers);
-                }
-            }
-            buffer.append("\n");
-            buffer.append("\\*******************************************************/");
-            log.debug(buffer.toString());
         }
     }
 

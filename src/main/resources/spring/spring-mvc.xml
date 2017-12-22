@@ -47,14 +47,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 系统日志 aop配置 -->
-    <bean id="systemLogAspectj" class="tech.wetech.admin.web.aspectj.SystemLogAspectj" />
+    <!-- 系统日志 aop配置 备注：已经配置注解 -->
+    <!--<bean id="systemLogAspectj" class="tech.wetech.admin.web.aspectj.SystemLogAspectj" />
 
     <aop:config>
         <aop:aspect ref="systemLogAspectj">
             <aop:around method="doAround" pointcut="execution(* tech.wetech.admin.web.controller.*.*.*(..))" />
         </aop:aspect>
-    </aop:config>
+    </aop:config>-->
 
     <!-- 配置使Spring采用CGLIB代理 -->
     <aop:aspectj-autoproxy proxy-target-class="true" />

@@ -43,17 +43,17 @@
                 <thead>
                 <tr>
                     <th><span style="display: none;">ID</span>&nbsp;</th>
-                    <th>用户名</th>
+                    <th>用户</th>
                     <th>IP</th>
+                    <th>操作描述</th>
+                    <th>状态</th>
+                    <th>时间</th>
                     <th>执行方法</th>
-                    <th>执行时间</th>
+                    <th>耗时</th>
                     <th>请求方法</th>
                     <th>请求URL</th>
                     <th>参数</th>
                     <th>返回值</th>
-                    <th>状态</th>
-                    <th>描述</th>
-                    <th>创建时间</th>
                 </tr>
                 </thead>
             </table>
@@ -93,37 +93,43 @@
                 'data': 'ip'
             },
             {
-                'data': 'execMethod'
-            },
-            {
-                'data': 'execTime',
-                'render': function (data, type, full) {
-                    return data + ' ms';
-                }
-            },
-            {
-                'data': 'reqMethod'
-            },
-            {
-                'data': 'reqUri'
-            },
-            {
-                'data': 'args'
-            },
-            {
-                'data': 'returnVal'
+                'data': 'execDesc'
             },
             {
                 'data': 'status'
-            },
-            {
-                'data': 'execDesc'
             },
             {
                 'data': 'createTime',
                 'render': function (data, type, full) {
                     return Utils.dateFormat.formatTimestamp(data, 'yyyy-MM-dd hh:mm:ss');
                 }
+            },
+            {
+                'data': 'execMethod',
+                'visible': false
+            },
+            {
+                'data': 'execTime',
+                'render': function (data, type, full) {
+                    return data + ' ms';
+                },
+                'visible': false
+            },
+            {
+                'data': 'reqMethod',
+                'visible': false
+            },
+            {
+                'data': 'reqUri',
+                'visible': false
+            },
+            {
+                'data': 'args',
+                'visible': false
+            },
+            {
+                'data': 'returnVal',
+                'visible': false
             }
         ];
         var opts = {

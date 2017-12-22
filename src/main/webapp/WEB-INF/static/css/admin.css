@@ -2,33 +2,32 @@
  * admin.css
  */
 
-
 /*
  fixed-layout 固定头部和边栏布局
 */
 
 html,
 body {
-  height: 100%;
-  overflow: hidden;
+    height: 100%;
+    overflow: hidden;
 }
 
 ul {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .am-topbar .am-text-ir {
-  display: block;
-  margin-right: 10px;
-  height: 64px;
-  width: 140px;
-  background: url(../i/logo.png) no-repeat left center;
-  -webkit-background-size: 125px 24px;
-  background-size: 125px 24px;
+    display: block;
+    margin-right: 10px;
+    height: 64px;
+    width: 140px;
+    background: url(../i/logo.png) no-repeat left center;
+    -webkit-background-size: 125px 24px;
+    background-size: 125px 24px;
 }
 
 .admin-icon-yellow {
-  color: #ffbe40;
+    color: #ffbe40;
 }
 
 .admin-user-ico {
@@ -40,23 +39,22 @@ ul {
 }
 
 .admin-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1500;
-  font-size: 1.4rem;
-  margin-bottom: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1500;
+    font-size: 1.4rem;
+    margin-bottom: 0;
 }
 
 .admin-header-list a:hover :after {
-  content: none;
+    content: none;
 }
 
-
 .am-topbar {
- z-index: 9999;
- margin-bottom: 0;
+    z-index: 9999;
+    margin-bottom: 0;
 }
 
 .am-nav > li {
@@ -75,178 +73,176 @@ ul {
 
     margin-right: 20px;
 }
+
 .admin-main {
-  position: relative;
-  height: 100%;
-  background: #f3f3f3;
+    position: relative;
+    height: 100%;
+    background: #f3f3f3;
 }
 
 .admin-menu {
-  position: fixed;
-  z-index: 10;
-  bottom: 30px;
-  right: 20px;
+    position: fixed;
+    z-index: 10;
+    bottom: 30px;
+    right: 20px;
 }
 
 .admin-sidebar {
-  width: 260px;
-  min-height: 100%;
-  float: left;
-  border-right: 1px solid #cecece;
+    width: 260px;
+    min-height: 100%;
+    float: left;
+    border-right: 1px solid #cecece;
 }
 
 .admin-sidebar.am-active {
-  z-index: 16000;
+    z-index: 16000;
 }
 
-
-
-
-
-
 .admin-content {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  background: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background: #fff;
 }
 
 .admin-content,
 .admin-sidebar {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .admin-content-body {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  padding-bottom: 90px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    padding-bottom: 90px;
 }
 
 .admin-content-footer {
-  font-size: 85%;
-  color: #777;
+    font-size: 85%;
+    color: #777;
 }
 
 .admin-content-list {
-  border: 1px solid #e9ecf1;
-  margin-top: 0;
+    border: 1px solid #e9ecf1;
+    margin-top: 0;
 }
 
 .admin-content-list li {
-  border: 1px solid #e9ecf1;
-  border-width: 0 1px;
-  margin-left: -1px;
+    border: 1px solid #e9ecf1;
+    border-width: 0 1px;
+    margin-left: -1px;
 }
 
 .admin-content-list li:first-child {
-  border-left: none;
+    border-left: none;
 }
 
 .admin-content-list li:last-child {
-  border-right: none;
+    border-right: none;
 }
 
 .admin-content-table a {
-  color: #535353;
+    color: #535353;
 }
+
 .am-list.admin-content-file {
-  margin-bottom: 0;
-  margin-top: 0;
-  color: #666;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #666;
 }
 
 .admin-content-file.admin-content-amendment {
-  padding-bottom: 5px;
+    padding-bottom: 5px;
 }
 
 .admin-content-file p {
-  margin: 0 0 5px 0;
-  font-size: 14px;
+    margin: 0 0 5px 0;
+    font-size: 14px;
 }
 
 .admin-content-file li {
-  padding: 10px 0;
+    padding: 10px 0;
 }
 
 .admin-content-file li:first-child {
-  border-top: none;
+    border-top: none;
 }
 
 .admin-content-file li:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .admin-content-file li .am-progress {
-  margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 
 .admin-content-browser-bd {
-  padding: 0;
+    padding: 0;
 }
 
 .admin-content-browser-bd .am-table {
-  margin-bottom: 0
+    margin-bottom: 0
 }
 
 .admin-content-file li .am-progress-bar {
-  line-height: 14px;
+    line-height: 14px;
 }
 
 .admin-content-task {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .admin-task-meta {
-  font-size: 18px;
-  margin-bottom: 6px;
+    font-size: 18px;
+    margin-bottom: 6px;
 }
 
 .am-comment-bd p {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .am-panel-bd .am-list {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .admin-content-task li {
-  padding: 5px 0;
-  border-color: #eee;
+    padding: 5px 0;
+    border-color: #eee;
 }
 
 .admin-content-task li:first-child {
-  border-top: none;
+    border-top: none;
 }
 
 .admin-content-task li:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .admin-task-bd {
-  font-size: 14px;
-  margin-bottom: 5px;
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
 .admin-content-comment {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .admin-content-pagination {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
+
 .admin-content-pagination li a {
-  padding: 4px 8px;
+    padding: 4px 8px;
 }
 
 .am-list .am-list-title {
@@ -258,16 +254,17 @@ ul {
     margin-top: 10px;
 }
 
-.am-list-ico  {
-  font-size: 16px;
-  padding-right: 8px;
+.am-list-ico {
+    font-size: 16px;
+    padding-right: 8px;
 }
 
 .am-panel > .am-list {
-  padding: 0;
+    padding: 0;
 }
+
 .am-list > li {
- 
+
 }
 
 .am-list > li > a {
@@ -276,7 +273,7 @@ ul {
 }
 
 .admin-sidebar-list {
-  background: #fff;
+    background: #fff;
 }
 
 .am-form-horizontal .am-form-label {
@@ -291,8 +288,6 @@ ul {
 .am-form-horizontal .am-checkbox-inline {
     padding-top: 0;
 }
-
-
 
 .login-background {
     background: #f5f7fa;
@@ -365,6 +360,7 @@ ul {
     display: block;
     color: #b5babe;
 }
+
 .login-line-font {
     padding: 0 8px;
     position: relative;
@@ -373,8 +369,9 @@ ul {
     background: #fff;
     font-size: 12px;
     color: #8f979e;
-    
+
 }
+
 .login-line {
     text-align: center;
     margin-top: 40px;
@@ -389,96 +386,102 @@ ul {
     width: 100%;
 }
 
-
 .login-cover .login-logo img {
     width: 100%;
 }
 
-
 @media only screen and (min-width: 641px) {
-  .admin-sidebar {
-    display: block;
-    position: static;
-    background: #fff;
-  }
+    .admin-sidebar {
+        display: block;
+        position: static;
+        background: #fff;
+    }
 
-  .admin-offcanvas-bar {
-    position: static;
-    width: auto;
-    background: none;
-    -webkit-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    overflow-y: visible;
-    /*min-height: 100%;*/
-  }
-  .admin-offcanvas-bar:after {
-    content: none;
-  }
+    .admin-offcanvas-bar {
+        position: static;
+        width: auto;
+        background: none;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        overflow-y: visible;
+        /*min-height: 100%;*/
+    }
+
+    .admin-offcanvas-bar:after {
+        content: none;
+    }
 }
 
 @media only screen and (max-width: 640px) {
 
-  .login-cover .login-info {
-    width: 100%;
-    box-shadow: none;
-  }
-  .login-logo {
-    margin: 0 auto;
-  }
-  .login-cover {
-    padding-top: 30px;
-  }
-  .login-cover .login-info .login-info-form {
-    width: 100%;
-  }
-  .login-cover .login-info .login-info-form .login-info-form-content {
-    padding: 20px;
-  }
-  .login-cover .login-info .login-info-cover {
-    display: none;
-  }
-  .admin-sidebar {
-    width: inherit;
-  }
+    .login-cover .login-info {
+        width: 100%;
+        box-shadow: none;
+    }
 
-  .admin-offcanvas-bar {
-    background: #f3f3f3;
-  }
+    .login-logo {
+        margin: 0 auto;
+    }
 
-  .admin-offcanvas-bar:after {
-    background: #BABABA;
-  }
+    .login-cover {
+        padding-top: 30px;
+    }
 
-  .admin-sidebar-list a:hover, .admin-sidebar-list a:active{
-    -webkit-transition: background-color .3s ease;
-    -moz-transition: background-color .3s ease;
-    -ms-transition: background-color .3s ease;
-    -o-transition: background-color .3s ease;
-    transition: background-color .3s ease;
-    background: #E4E4E4;
-  }
+    .login-cover .login-info .login-info-form {
+        width: 100%;
+    }
 
-  .am-list {
-    padding-left: 0;
-  }
-  .admin-content-list li {
-    padding: 10px;
-    border-width: 1px 0;
-    margin-top: -1px;
-  }
+    .login-cover .login-info .login-info-form .login-info-form-content {
+        padding: 20px;
+    }
 
-  .admin-content-list li:first-child {
-    border-top: none;
-  }
+    .login-cover .login-info .login-info-cover {
+        display: none;
+    }
 
-  .admin-content-list li:last-child {
-    border-bottom: none;
-  }
+    .admin-sidebar {
+        width: inherit;
+    }
 
-  .admin-form-text {
-    text-align: left !important;
-  }
+    .admin-offcanvas-bar {
+        background: #f3f3f3;
+    }
+
+    .admin-offcanvas-bar:after {
+        background: #BABABA;
+    }
+
+    .admin-sidebar-list a:hover, .admin-sidebar-list a:active {
+        -webkit-transition: background-color .3s ease;
+        -moz-transition: background-color .3s ease;
+        -ms-transition: background-color .3s ease;
+        -o-transition: background-color .3s ease;
+        transition: background-color .3s ease;
+        background: #E4E4E4;
+    }
+
+    .am-list {
+        padding-left: 0;
+    }
+
+    .admin-content-list li {
+        padding: 10px;
+        border-width: 1px 0;
+        margin-top: -1px;
+    }
+
+    .admin-content-list li:first-child {
+        border-top: none;
+    }
+
+    .admin-content-list li:last-child {
+        border-bottom: none;
+    }
+
+    .admin-form-text {
+        text-align: left !important;
+    }
 
 }
 
@@ -486,19 +489,19 @@ ul {
 * user.html css
 */
 .user-info {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .user-info .am-progress {
-  margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 
 .user-info p {
-  margin: 5px;
+    margin: 5px;
 }
 
 .user-info-order {
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
 
 /*
@@ -506,7 +509,7 @@ ul {
 */
 
 .error-log .am-pre-scrollable {
-  max-height: 40rem;
+    max-height: 40rem;
 }
 
 /*
@@ -514,24 +517,23 @@ ul {
 */
 
 .table-main {
-  font-size: 14px;
-  padding: .5rem;
+    font-size: 14px;
+    padding: .5rem;
 }
 
-
 .table-check {
-  width: 30px;
+    width: 30px;
 }
 
 .table-id {
-  width: 50px;
+    width: 50px;
 }
 
 @media only screen and (max-width: 640px) {
-  .table-select {
-    margin-top: 10px;
-    margin-left: 5px;
-  }
+    .table-select {
+        margin-top: 10px;
+        margin-left: 5px;
+    }
 }
 
 /*
@@ -539,25 +541,25 @@ gallery.html css
 */
 
 .gallery-list li {
-  padding: 10px;
+    padding: 10px;
 }
 
 .gallery-list a {
-  color: #666;
+    color: #666;
 }
 
 .gallery-list a:hover {
-  color: #3bb4f2;
+    color: #3bb4f2;
 }
 
 .gallery-title {
-  margin-top: 6px;
-  font-size: 14px;
+    margin-top: 6px;
+    font-size: 14px;
 }
 
 .gallery-desc {
-  font-size: 12px;
-  margin-top: 4px;
+    font-size: 12px;
+    margin-top: 4px;
 }
 
 /*
@@ -565,47 +567,59 @@ gallery.html css
 */
 
 .page-404 {
-  background: #fff;
-  border: none;
-  width: 200px;
-  margin: 0 auto;
+    background: #fff;
+    border: none;
+    width: 200px;
+    margin: 0 auto;
 }
 
 /* Write your styles */
 /*自定义datatables checkbox大小 */
+select[name=example_log_length] {
+    vertical-align: initial;
+}
+
 .am-btn-toolbar {
     margin-left: initial;
 }
+
 .dataTable th {
     white-space: nowrap !important;
 }
+
 div.dataTables_processing {
     z-index: 10;
 }
-input.am-checkbox-all,input.am-checkbox-list{
+
+input.am-checkbox-all, input.am-checkbox-list {
     width: 18px;
     height: 18px;
     position: relative;
     left: 16px;
 }
+
 .am-panel > .am-list > li > a {
     padding-left: initial;
     padding-right: initial;
 }
+
 .am-panel > .am-list {
     padding: 0;
-    padding-left:10px;
+    padding-left: 10px;
     background-color: #eee;
 }
+
 .table-main {
     font-size: 14px;
     padding: initial;
 }
+
 .am-datatable-info {
     padding-top: 6px;
     color: #555;
     font-size: initial;
 }
+
 /*  自定义tooltip */
 #vld-tooltip {
     position: absolute;
@@ -615,7 +629,7 @@ input.am-checkbox-all,input.am-checkbox-list{
     min-width: 150px;
     color: #fff;
     transition: all 0.15s;
-    box-shadow: 0 0 5px rgba(0,0,0,.15);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
     display: none;
 }
 
@@ -631,6 +645,7 @@ input.am-checkbox-all,input.am-checkbox-list{
     border-color: transparent transparent #F37B1D;
     border-style: none inset solid;
 }
+
 .am-topbar {
     z-index: 100;
 }
@@ -639,9 +654,11 @@ input.am-checkbox-all,input.am-checkbox-list{
     font-style: normal;
     color: red;
 }
+
 .admin-hide {
     display: none;
 }
+
 /*sidebar选中样式*/
 a[data-am-collapse]:hover {
     -webkit-transition: background-color .3s ease;
@@ -660,6 +677,7 @@ a[data-am-collapse]:hover {
     pointer-events: none;
     /* Fancy blur effect */
 }
+
 #nprogress .nprogress-bar {
     position: fixed;
     top: 0;
@@ -669,6 +687,7 @@ a[data-am-collapse]:hover {
     height: 3px;
     background: #FFE;
 }
+
 #nprogress .nprogress-peg {
     display: block;
     position: absolute;
@@ -681,6 +700,7 @@ a[data-am-collapse]:hover {
     -webkit-transform: rotate(3deg) translate(0px, -4px);
     transform: rotate(3deg) translate(0px, -4px);
 }
+
 #nprogress .nprogress-spinner {
     position: fixed;
     top: 15px;
@@ -688,6 +708,7 @@ a[data-am-collapse]:hover {
     z-index: 2000;
     display: block;
 }
+
 #nprogress .nprogress-spinner-icon {
     width: 18px;
     height: 18px;
@@ -700,6 +721,7 @@ a[data-am-collapse]:hover {
     -webkit-animation: nprogress-spinner 400ms linear infinite;
     animation: nprogress-spinner 400ms linear infinite;
 }
+
 @-webkit-keyframes nprogress-spinner {
     0% {
         -webkit-transform: rotate(0deg);
@@ -710,6 +732,7 @@ a[data-am-collapse]:hover {
         transform: rotate(360deg);
     }
 }
+
 @keyframes nprogress-spinner {
     0% {
         -webkit-transform: rotate(0deg);

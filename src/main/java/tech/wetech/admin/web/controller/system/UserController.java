@@ -12,6 +12,7 @@ import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
+import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
@@ -41,6 +42,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
+    @SystemLog("用户列表查询")
     public DataTableModel<User> list(DataTableModel<User> model) {
         userService.list(model);
         return model;
@@ -49,6 +51,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @RequiresPermissions("user:create")
+    @SystemLog("用户管理创建用户")
     public JsonResult create(@Valid  User user) {
         userService.createUser(user);
         return this.renderSuccess();
