@@ -42,7 +42,6 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
-    @SystemLog("用户列表查询")
     public DataTableModel<User> list(DataTableModel<User> model) {
         userService.list(model);
         return model;
