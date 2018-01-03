@@ -60,6 +60,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions("user:update")
+    @SystemLog("用户管理更新用户")
     public JsonResult update(User user) {
         userService.updateUser(user);
         return this.renderSuccess();
@@ -68,6 +69,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @RequiresPermissions("user:delete")
+    @SystemLog("用户管理删除用户")
     public JsonResult delete(Long[] ids) {
         for(Long id: ids) {
             userService.deleteUser(id);
@@ -75,8 +77,10 @@ public class UserController extends BaseController {
         return this.renderSuccess();
     }
 
+    @ResponseBody
     @RequiresPermissions("user:update")
     @RequestMapping(value = "/{id}/change/password", method = RequestMethod.POST)
+    @SystemLog("用户管理更改用户密码")
     public JsonResult changePassword(@PathVariable("id") Long id, String newPassword) {
         userService.changePassword(id, newPassword);
         return this.renderSuccess();

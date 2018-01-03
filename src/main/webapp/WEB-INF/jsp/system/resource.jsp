@@ -11,6 +11,7 @@
         height: 20px;
         cursor: pointer;
     }
+
     /*end--按钮*/
 
     /*ztree表格*/
@@ -106,29 +107,31 @@
         </div>
 
         <div class="am-g">
-            <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-btn-toolbar">
+            <div class="am-btn-toolbar">
+                <div class="am-u-sm-12 am-u-md-6">
+
                     <div class="am-btn-group am-btn-group-xs">
                         <button type="button" class="am-btn am-btn-default am-btn-primary" onclick="reset();"><span class="am-icon-refresh"></span> 重置</button>
                     </div>
                 </div>
-            </div>
-            <div class="am-u-sm-12 am-u-md-3">
-                <div class="am-form-group">
-                    <select data-am-selected="{btnSize: 'sm'}">
-                        <option value="option1">全部</option>
-                        <%--<option value="option2">文章</option>
-                        <option value="option3">合作文章</option>
-                        <option value="option3">未审核</option>--%>
-                    </select>
+
+                <div class="am-u-sm-12 am-u-md-3">
+                    <div class="am-form-group">
+                        <select data-am-selected="{btnSize: 'sm'}">
+                            <option value="option1">全部</option>
+                            <%--<option value="option2">文章</option>
+                            <option value="option3">合作文章</option>
+                            <option value="option3">未审核</option>--%>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="am-u-sm-12 am-u-md-3">
-                <div class="am-input-group am-input-group-sm">
-                    <input type="text" class="am-form-field">
-                    <span class="am-input-group-btn">
-            <button class="am-btn am-btn-primary" type="button">搜索</button>
-          </span>
+                <div class="am-u-sm-12 am-u-md-3">
+                    <div class="am-input-group am-input-group-sm">
+                        <input type="text" class="am-form-field">
+                        <span class="am-input-group-btn">
+                        <button class="am-btn am-btn-primary" type="button">搜索</button>
+                    </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -373,7 +376,6 @@
 
         //初始化数据
         query();
-
 
         createChild = function (tId) {
             var treeObj = $.fn.zTree.getZTreeObj("dataTree");

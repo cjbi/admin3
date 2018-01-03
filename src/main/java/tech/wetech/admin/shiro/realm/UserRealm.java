@@ -9,12 +9,16 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.model.system.User;
+import tech.wetech.admin.service.system.LogService;
 import tech.wetech.admin.service.system.UserService;
 
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LogService logService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.model.system.Resource;
 import tech.wetech.admin.model.system.ResourceExample;
 import tech.wetech.admin.service.system.ResourceService;
@@ -37,6 +38,7 @@ public class ResourceController extends BaseController{
 
     @ResponseBody
     @RequiresPermissions("resource:create")
+    @SystemLog("资源管理创建资源")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public JsonResult create(@Valid Resource resource) {
         resourceService.createResource(resource);
@@ -45,6 +47,7 @@ public class ResourceController extends BaseController{
 
     @ResponseBody
     @RequiresPermissions("resource:update")
+    @SystemLog("资源管理更新资源")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public JsonResult update(@Valid Resource resource) {
         resourceService.updateResource(resource);
@@ -53,6 +56,7 @@ public class ResourceController extends BaseController{
 
     @ResponseBody
     @RequiresPermissions("resource:delete")
+    @SystemLog("资源管理删除资源")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
     public JsonResult delete(@PathVariable("id") Long id) {
         resourceService.deleteResource(id);

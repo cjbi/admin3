@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.OrganizationExample;
 import tech.wetech.admin.service.system.OrganizationService;
@@ -42,6 +43,7 @@ public class OrganizationController extends BaseController{
 
     @ResponseBody
     @RequiresPermissions("organization:create")
+    @SystemLog("组织管理创建组织")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public JsonResult create(@Valid Organization organization) {
         organizationService.createOrganization(organization);
@@ -50,6 +52,7 @@ public class OrganizationController extends BaseController{
 
     @ResponseBody
     @RequiresPermissions("organization:update")
+    @SystemLog("组织管理更新组织")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public JsonResult update(@Valid Organization organization) {
         organizationService.updateOrganization(organization);
@@ -58,6 +61,7 @@ public class OrganizationController extends BaseController{
 
     @ResponseBody
     @RequiresPermissions("organization:delete")
+    @SystemLog("组织管理删除组织")
     @RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
     public JsonResult delete(@PathVariable("id") Long id) {
         organizationService.deleteOrganization(id);

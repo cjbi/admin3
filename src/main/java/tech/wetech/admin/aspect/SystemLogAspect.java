@@ -1,13 +1,16 @@
 package tech.wetech.admin.aspect;
 
+import java.lang.reflect.Method;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.common.utils.Constants;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
@@ -34,24 +38,24 @@ public class SystemLogAspect{
     @Autowired
     private LogService logService;
 
-    @Pointcut("@annotation(tech.wetech.admin.annotation.SystemLog)")
-    public void systemLogPointcut() {
+    @Pointcut("@annotation(systemLog)")
+    public void systemLogPointcut(SystemLog systemLog) {
     }
 
-    @Around("systemLogPointcut()")
-    public Object doAround(ProceedingJoinPoint point) throws Throwable {
+    @Around("systemLogPointcut(systemLog)")
+    public Object aroundMethod(ProceedingJoinPoint point, SystemLog systemLog) throws Throwable {
         long time = System.currentTimeMillis();
         try {
             Object returns = point.proceed();
-            save(point, returns, System.currentTimeMillis() - time);
+            save(point, returns, systemLog, System.currentTimeMillis() - time);
             return returns;
         } catch (Throwable e) {
-            save(point, e, System.currentTimeMillis() - time);
+            save(point, e, systemLog, System.currentTimeMillis() - time);
             throw e;
         }
     }
 
-    private void save(ProceedingJoinPoint point, Object returns, Long time) {
+    private void save(ProceedingJoinPoint point, Object returns, SystemLog systemLog, Long time) {
         Logger log = LoggerFactory.getLogger(point.getTarget().getClass());
         String sign = point.getSignature().toString();
 
@@ -67,6 +71,7 @@ public class SystemLogAspect{
         String protocol = req.getProtocol();// 协议
         String status = null;
         String msg = null;
+        String desc = !StringUtils.isEmpty(systemLog.desc()) ? systemLog.desc() : systemLog.value();
         if (returns != null && returns instanceof JsonResult) {
             JsonResult result = (JsonResult) returns;
             status = result.getStatus();
@@ -74,7 +79,7 @@ public class SystemLogAspect{
         }
 
         if (returns != null && returns instanceof DataTableModel) {
-            msg = "分页查询返回";
+            msg = "查询成功";
             status = HttpStatus.OK.toString();
         }
 
@@ -110,12 +115,10 @@ public class SystemLogAspect{
         if ("POST".equals(method)) {
             bean.setArgs(JsonUtil.getInstance().obj2json(point.getArgs()));
         }
+        bean.setStatus(msg);
+        bean.setExecDesc(desc);
         // 响应信息
         bean.setReturnVal(text);
-        if (!StringUtils.isEmpty(text)) {
-            bean.setStatus(status);
-            bean.setExecDesc(msg);
-        }
         try {
             // 入库
             logService.createLogWithBLOBs(bean);
