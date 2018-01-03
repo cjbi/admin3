@@ -200,7 +200,7 @@ var basePath = $('#basePath').val();
          * @param _tableId
          * @returns {boolean}
          */
-        fillEditFormData: function (_tableId) {
+        fillEditFormData: function (_tableId,$form) {
             // 将值填充到表单中
             var table = $('#' + ((_tableId || tableId))).DataTable(),
                 rowLength = table.rows('.am-active').data().length;
@@ -214,10 +214,10 @@ var basePath = $('#basePath').val();
             var data = table.rows('.am-active').data()[0];
             $.each(data, function (key, value) {
                 // 如果类型为单选框
-                if ($('#edit-form [name="' + key + '"]').attr('type') == 'radio') {
-                    $('#edit-form [name="' + key + '"][value="' + value + '"]').prop('checked', true);
+                if ($form.find('[name="' + key + '"]').attr('type') == 'radio') {
+                    $form.find('[name="' + key + '"][value="' + value + '"]').prop('checked', true);
                 } else {
-                    $("#edit-form [name='" + key + "']").val(value);
+                    $form.find("[name='" + key + "']").val(value);
                 }
 
             });
@@ -344,7 +344,7 @@ var basePath = $('#basePath').val();
                     success: after //function(layero, index){}
                 }, opts || {});
             if (editable) {
-                var success = this.fillEditFormData();
+                var success = this.fillEditFormData(tableId,$form);
                 if (!success) return;
             }
             before(this.getSelectedData());
