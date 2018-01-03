@@ -3,7 +3,7 @@
 wetech-admin是基于Maven+Spring+SpringMVC+Mybatis的轻量级后台管理系统，适用于中小型项目的管理后台，支持按钮级别的权限控制，系统具有最基本的用户管理、角色管理、资源管理、组织机构管理、系统日志等通用性功能，企业或个人可直接在此基础上进行开发，扩展，添加各自的需求和业务功能!
 
 ## 技术选型
-### 后端技术:
+### 后端技术
 技术 | 名称 | 官网
 ----|------|----
 Spring Framework | 容器  | [http://projects.spring.io/spring-framework/](http://projects.spring.io/spring-framework/)
@@ -17,7 +17,7 @@ Druid | 数据库连接池  | [https://github.com/alibaba/druid](https://github.
 Ehcache | 进程内缓存框架  | [http://www.ehcache.org/](http://www.ehcache.org/)
 Hibernate Validator | 后端校验框架  | [http://hibernate.org/validator/](http://hibernate.org/validator/)
 
-### 前端技术:
+### 前端技术
 技术 | 名称 | 官网
 ----|------|----
 jQuery | 优秀的Javascript库  | [http://jquery.com/](http://jquery.com/)
