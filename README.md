@@ -28,7 +28,7 @@ ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
 
 ## 预览图
 
-> 登陆界面.
+> 登陆界面
 
 ![](http://wetech-admin.image.alimmdn.com/1.gif)
 
