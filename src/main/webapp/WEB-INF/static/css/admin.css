@@ -666,7 +666,14 @@ a[data-am-collapse]:hover {
     -ms-transition: background-color .3s ease;
     -o-transition: background-color .3s ease;
     transition: background-color .3s ease;
-    background: #E4E4E4;
+    background: #f0f0f0;
+    /*color: #5085FF;*/
+    border-right: 3px solid #5085FF;
+}
+.collapse-active {
+    color: #5085FF;
+    border-right: 3px solid #5085FF;
+    background: #f0f0f0;
 }
 
 /* ==========================================================================

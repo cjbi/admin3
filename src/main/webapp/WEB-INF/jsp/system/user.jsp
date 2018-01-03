@@ -259,6 +259,14 @@
                         });
                     }
                 },
+                after: function(){
+                    var data = $.mytables.getSelectedData();
+                    var roleIdList = data.roleIdList;
+                    for(i in roleIdList) {
+                        var roleId = roleIdList[i];
+                        $form.find('[name=roleIds]').find('option[value='+roleId+']').prop('selected',true);
+                    }
+                },
                 content: $('#edit-dialog')
             };
             $.mytables.openDialog(opts);

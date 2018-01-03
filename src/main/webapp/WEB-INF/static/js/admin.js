@@ -611,6 +611,9 @@ var basePath = $('#basePath').val();
     $('a[class="am-cf"]').on('click', function (e) {
         var href = $(this).attr('href');
         if (href && href != "#") {
+            $('#admin-offcanvas').find('a').removeClass('collapse-active');
+            //选中
+            $(this).addClass('collapse-active');
             // 加载Content
             $.myadmin.loadContent(href);
             e.preventDefault();

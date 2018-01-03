@@ -222,6 +222,10 @@
                         });
                     }
                 },
+                after: function () {
+                    $.fn.zTree.getZTreeObj("tree").destroy();
+                    $.fn.zTree.init($("#tree"), setting, zNodes);
+                },
                 content: $('#add-dialog')
             };
             $.mytables.openDialog(opts);
@@ -247,6 +251,12 @@
                             }
                         });
                     }
+                },
+                after: function () {
+                    var treeObj = $.fn.zTree.getZTreeObj("tree");
+                    treeObj.destroy();
+                    $.fn.zTree.init($("#tree"), setting, zNodes);
+                    treeObj.expandAll(true);
                 },
                 content: $('#edit-dialog')
             };
@@ -308,6 +318,7 @@
         }
 
         function showMenu() {
+            var treeObj = $.fn.zTree.getZTreeObj("tree");
             var cityObj = $("#resourceName");
             var cityOffset = $("#resourceName").offset();
             $("#menuContent").css({left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() - 60 + "px"}).slideDown("fast");
@@ -316,6 +327,14 @@
         }
 
         function showMenuOfEdit() {
+            var resourceIds = $('#edit-resourceIds').val();
+            var resourceIdList = resourceIds.split(',');
+            var treeObj = $.fn.zTree.getZTreeObj("tree");
+            for (var i in resourceIdList) {
+                var id = resourceIdList[i];
+                var node = treeObj.getNodeByParam("id", id, null);
+                treeObj.checkNode(node, true, true);
+            }
             var cityObj = $("#edit-resourceName");
             var cityOffset = $("#edit-resourceName").offset();
             $("#menuContent").css({left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() - 60 + "px"}).slideDown("fast");
