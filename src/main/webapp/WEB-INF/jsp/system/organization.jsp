@@ -114,7 +114,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">排序</label>
             <div class="am-u-sm-10">
-                <input type="text" name="priority" placeholder="节点的序号">
+                <input type="number" name="priority" placeholder="节点的序号">
             </div>
         </div>
     </form>

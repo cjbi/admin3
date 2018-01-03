@@ -32,11 +32,30 @@ ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
 
 ![](http://wetech-admin.image.alimmdn.com/1.gif)
 
+> 菜单树切换
+
+![](http://wetech-admin.image.alimmdn.com/2.gif)
+
+> 表格浏览
+
+![](http://wetech-admin.image.alimmdn.com/3.gif)
+
+> 增删改查
+
+![](http://wetech-admin.image.alimmdn.com/4.gif)
+
+> 组织机构
+
+![](http://wetech-admin.image.alimmdn.com/5.gif)
+
+> 资源管理
+
+![](http://wetech-admin.image.alimmdn.com/6.gif)
+
 ## 在线访问
 
+### 访问地址
 [http://wetech.tech/wetech-admin](http://wetech.tech/wetech-admin "demo")
-
-[https://github.com/cjbi/wetech-admin](https://github.com/cjbi/wetech-admin "github")
 
 ### 测试用户名密码
 1. admin/123456
