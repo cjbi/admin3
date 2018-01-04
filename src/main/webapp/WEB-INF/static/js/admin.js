@@ -128,7 +128,7 @@ var basePath = $('#basePath').val();
                         'copyTitle': '复制到剪贴板',
                         'copyKeys': '输入 <i>Ctrl</i> 或者 <i>\u2318</i> + <i>C</i> 去复制这个表格的数据<br>到你的系统剪贴板.<br><br>' + '要取消, 单击这个消息 或者 按下 Esc键.',
                         'copySuccess': {
-                            _: '已经复制 %d 行数据到剪贴板'
+                            '_': '已经复制 %d 行数据到剪贴板'
                         }
                     }
                 },
@@ -200,7 +200,7 @@ var basePath = $('#basePath').val();
          * @param _tableId
          * @returns {boolean}
          */
-        fillEditFormData: function (_tableId,$form) {
+        fillEditFormData: function (_tableId, $form) {
             // 将值填充到表单中
             var table = $('#' + ((_tableId || tableId))).DataTable(),
                 rowLength = table.rows('.am-active').data().length;
@@ -344,7 +344,7 @@ var basePath = $('#basePath').val();
                     success: after //function(layero, index){}
                 }, opts || {});
             if (editable) {
-                var success = this.fillEditFormData(tableId,$form);
+                var success = this.fillEditFormData(tableId, $form);
                 if (!success) return;
             }
             before(this.getSelectedData());
@@ -372,7 +372,8 @@ var basePath = $('#basePath').val();
          */
         loadContent: function loadContent(href, callback) {
             //重写url，定位 admin-content
-            history.pushState('', 0, href);
+            if (href)
+                history.pushState('', 0, href);
             var url = location.href;
             // document.title ='测试';
             if (url.indexOf('#') > 0 && url.substr(url.indexOf('#') + 1).length > 0) {
