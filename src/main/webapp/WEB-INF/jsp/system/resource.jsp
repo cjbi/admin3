@@ -195,7 +195,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">排序</label>
             <div class="am-u-sm-10">
-                <input type="number" name="priority" placeholder="资源的排序">
+                <input type="number" min="0" name="priority" placeholder="资源的排序">
             </div>
         </div>
         <div class="am-form-group">
@@ -250,7 +250,7 @@
         <div class="am-form-group">
             <label class="am-u-sm-2 am-form-label">排序</label>
             <div class="am-u-sm-10">
-                <input type="number" name="priority" placeholder="资源的排序">
+                <input type="number" min="0" name="priority" placeholder="资源的排序">
             </div>
         </div>
         <div class="am-form-group">
