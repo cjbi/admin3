@@ -162,7 +162,6 @@ public class MybatisGeneratorBridge{
         ShellCallback shellCallback = new DefaultShellCallback(true); // override=true
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration, shellCallback, warnings);
         myBatisGenerator.generate(progressCallback, contexts, fullyqualifiedTables);
-        myBatisGenerator.getGeneratedJavaFiles();
     }
 
     public void setProgressCallback(ProgressCallback progressCallback) {

@@ -28,7 +28,7 @@ public class JdbcConfigHelper {
 
     }
 
-    public static enum DbType {
+    public enum DbType {
         MySQL("com.mysql.jdbc.Driver"), Oracle("oracle.jdbc.driver.OracleDriver"), PostgreSQL(
                 "org.postgresql.Driver"), SQL_Server("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
