@@ -47,9 +47,9 @@ public class MybatisGeneratorBridge{
         Context context = new Context(ModelType.CONDITIONAL);
         configuration.addContext(context);
         context.addProperty("javaFileEncoding", "UTF-8");
-        String connectorLibPath = JdbcConfigHelper.getConnectorLibPath();
-        _LOG.info("connectorLibPath: {}", connectorLibPath);
-        configuration.addClasspathEntry(connectorLibPath);
+//        String connectorLibPath = JdbcConfigHelper.getConnectorLibPath();
+//        _LOG.info("connectorLibPath: {}", connectorLibPath);
+//        configuration.addClasspathEntry(connectorLibPath);
         // Table configuration
         TableConfiguration tableConfig = new TableConfiguration(context);
         tableConfig.setTableName(generatorConfig.getTableName());
@@ -129,17 +129,14 @@ public class MybatisGeneratorBridge{
 
         // 实体添加序列化
         PluginConfiguration serializablePluginConfiguration = new PluginConfiguration();
-        serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
         serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
         context.addPluginConfiguration(serializablePluginConfiguration);
         // toString, hashCode, equals插件
         if (generatorConfig.isNeedToStringHashcodeEquals()) {
             PluginConfiguration pluginConfiguration1 = new PluginConfiguration();
-            pluginConfiguration1.addProperty("type", "org.mybatis.generator.plugins.EqualsHashCodePlugin");
             pluginConfiguration1.setConfigurationType("org.mybatis.generator.plugins.EqualsHashCodePlugin");
             context.addPluginConfiguration(pluginConfiguration1);
             PluginConfiguration pluginConfiguration2 = new PluginConfiguration();
-            pluginConfiguration2.addProperty("type", "org.mybatis.generator.plugins.ToStringPlugin");
             pluginConfiguration2.setConfigurationType("org.mybatis.generator.plugins.ToStringPlugin");
             context.addPluginConfiguration(pluginConfiguration2);
         }
@@ -149,11 +146,38 @@ public class MybatisGeneratorBridge{
             if (JdbcConfigHelper.getDbType() == JdbcConfigHelper.DbType.MySQL
                     || JdbcConfigHelper.getDbType() == JdbcConfigHelper.DbType.PostgreSQL) {
                 PluginConfiguration pluginConfiguration = new PluginConfiguration();
-                pluginConfiguration.addProperty("type", "tech.wetech.admin.generator.plugins.MySQLLimitPlugin");
                 pluginConfiguration.setConfigurationType("tech.wetech.admin.generator.plugins.MySQLLimitPlugin");
                 context.addPluginConfiguration(pluginConfiguration);
             }
         }
+        //文件模板插件配置
+        //Service interface
+        PluginConfiguration t1 = new PluginConfiguration();
+        t1.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t1.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
+        t1.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
+        t1.addProperty("templatePath","generator/ftl/service.ftl");
+        t1.addProperty("mapperSuffix","Service");
+        t1.addProperty("fileName","${tableClass.shortClassName}${mapperSuffix}.java");
+        context.addPluginConfiguration(t1);
+
+        PluginConfiguration t2 = new PluginConfiguration();
+        t2.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t2.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
+        t2.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
+        t2.addProperty("templatePath","generator/ftl/test-one.ftl");
+        t2.addProperty("fileName","${tableClass.shortClassName}Test.txt");
+        context.addPluginConfiguration(t2);
+
+        PluginConfiguration t3 = new PluginConfiguration();
+        t3.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t3.addProperty("singleMode","false");
+        t3.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
+        t3.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
+        t3.addProperty("templatePath","generator/ftl/test-all.ftl");
+        t3.addProperty("fileName","TestAll.txt");
+        context.addPluginConfiguration(t3);
+
         context.setTargetRuntime("MyBatis3");
 
         List<String> warnings = new ArrayList<>();
