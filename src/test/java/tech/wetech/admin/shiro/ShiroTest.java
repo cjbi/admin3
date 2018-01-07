@@ -13,6 +13,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import tech.wetech.admin.shiro.realm.UserRealm;
 
+/**
+ * shiro测试类
+ * <p>
+ *  Created by cjbi on 2018/1/5.
+ * @author cjbi
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring.xml"})
 public class ShiroTest {

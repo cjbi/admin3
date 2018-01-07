@@ -29,7 +29,9 @@ import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
 
 /**
- * 系统日志切面 Created by cjbi on 2017/12/15.
+ * 系统日志切面
+ * <p>
+ * Created by cjbi on 2017/12/15.
  */
 @Aspect
 @Component

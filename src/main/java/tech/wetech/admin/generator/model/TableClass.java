@@ -30,10 +30,6 @@ import java.util.List;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 
-/**
- * @author liuzh
- * @since 3.4.5
- */
 public class TableClass implements Serializable {
     private static final long serialVersionUID = -746251813735169289L;
 

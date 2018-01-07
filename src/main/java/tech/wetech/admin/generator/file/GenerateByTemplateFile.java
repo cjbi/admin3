@@ -31,10 +31,7 @@ import org.mybatis.generator.api.dom.java.CompilationUnit;
 
 import tech.wetech.admin.generator.formatter.TemplateFormatter;
 import tech.wetech.admin.generator.model.TableClass;
-/**
- * @author liuzh
- * @since 3.4.5
- */
+
 public class GenerateByTemplateFile extends GeneratedJavaFile {
     public static final String ENCODING = "UTF-8";
 

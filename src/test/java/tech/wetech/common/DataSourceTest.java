@@ -12,7 +12,9 @@ import tech.wetech.admin.common.utils.PropertiesUtil;
 import java.util.Properties;
 
 /**
- * 测试数据源 Created by cjbi on 2018/1/5.
+ * 测试数据源
+ * <p>
+ * Created by cjbi on 2018/1/5.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/spring.xml" })

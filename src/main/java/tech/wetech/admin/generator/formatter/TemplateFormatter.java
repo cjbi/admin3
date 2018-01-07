@@ -28,10 +28,6 @@ import tech.wetech.admin.generator.model.TableClass;
 
 import java.util.Properties;
 
-/**
- * @author liuzh
- * @since 3.4.5
- */
 public interface TemplateFormatter {
 
     /**

@@ -5,7 +5,7 @@ package tech.wetech.admin.generator.model;
  * GeneratorConfig is the Config of mybatis generator config exclude database
  * config
  *
- * Created by Owen on 6/16/16.
+ * Created by cjbi on 6/16/16.
  */
 public class GeneratorConfig {
 

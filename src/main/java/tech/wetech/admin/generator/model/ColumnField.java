@@ -28,10 +28,6 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 
 import java.io.Serializable;
 
-/**
- * @author liuzh
- * @since 3.4.5
- */
 public class ColumnField implements Serializable {
 
     private static final long serialVersionUID = -435113788623615260L;
