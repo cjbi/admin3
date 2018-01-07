@@ -11,6 +11,7 @@ SpringMVC | MVC框架 | [http://docs.spring.io/spring/docs/current/spring-framew
 MyBatis | ORM框架 | [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
 Maven | 项目构建管理 | [http://maven.apache.org](http://maven.apache.org/)
 MyBatis Generator | 代码生成 | [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
+Freemarker | 模板引擎 | [https://freemarker.apache.org/](https://freemarker.apache.org/)
 Apache Shiro | 安全框架 | [http://shiro.apache.org](http://www.mybatis.org/generator/index.html)
 Logback | 日志组件 | [https://logback.qos.ch](https://logback.qos.ch/)
 Druid | 数据库连接池 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
@@ -65,6 +66,8 @@ ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
 ## 许可证
 
 Wetech-Admin 使用 MIT 许可证发布，用户可以自由使用、复制、修改、合并、出版发行、散布、再授权及贩售Wetech-Admin 及其副本。
+
+[查看许可证](https://github.com/cjbi/wetech-admin/blob/master/LICENSE "LICENSE")
 
 ## 获取源码
 
