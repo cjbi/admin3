@@ -43,7 +43,7 @@ public class UserController extends BaseController {
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
     public DataTableModel<User> list(DataTableModel<User> model) {
-        userService.list(model);
+        userService.findByPage(model);
         return model;
     }
 

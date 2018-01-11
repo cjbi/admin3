@@ -403,6 +403,7 @@ var basePath = $('#basePath').val();
             function reloadComponent() {
                 // 重新注册amaze ui下拉组件
                 $('[data-am-selected]').selected();
+                $('[data-am-ucheck]').uCheck();
                 initInputTooltip();
             }
 

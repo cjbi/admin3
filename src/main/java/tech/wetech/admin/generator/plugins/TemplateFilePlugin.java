@@ -146,10 +146,10 @@ public class TemplateFilePlugin extends PluginAdapter {
             errorCount++;
             warnings.add("没有配置 \"targetProject\" 路径!");
         }
-        if (!StringUtility.stringHasValue(targetPackage)) {
+        /*if (!StringUtility.stringHasValue(targetPackage)) {
             errorCount++;
             warnings.add("没有配置 \"targetPackage\" 路径!");
-        }
+        }*/
         if (errorCount >= 2) {
             warnings.add("由于没有配置任何有效路径，不会生成任何额外代码!");
             return false;

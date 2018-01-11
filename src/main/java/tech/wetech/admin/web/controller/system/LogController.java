@@ -9,17 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.service.system.LogService;
+import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.DataTableModel;
 
-import javax.xml.crypto.Data;
-
 /**
- * 日志控制器
- * Created by cjbi on 2017/12/16.
+ * 日志控制器 Created by cjbi on 2017/12/16.
  */
 @Controller
 @RequestMapping("/log")
-public class LogController {
+public class LogController extends BaseController{
 
     @Autowired
     private LogService logService;
@@ -34,7 +32,7 @@ public class LogController {
     @RequestMapping("/list")
     @RequiresPermissions("log:view")
     public DataTableModel<LogWithBLOBs> list(DataTableModel<LogWithBLOBs> model) {
-        logService.list(model);
+        logService.findByPage(model);
         return model;
     }
 

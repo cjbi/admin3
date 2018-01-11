@@ -11,8 +11,6 @@ import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.DefaultShellCallback;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import tech.wetech.admin.generator.model.GeneratorConfig;
 import tech.wetech.admin.generator.plugins.DbRemarksCommentGenerator;
 import tech.wetech.admin.generator.util.JdbcConfigHelper;
@@ -25,15 +23,9 @@ import tech.wetech.admin.generator.util.JdbcConfigHelper;
  */
 public class MybatisGeneratorBridge{
 
-    private static final Logger _LOG = LoggerFactory.getLogger(MybatisGeneratorBridge.class);
-
     private GeneratorConfig generatorConfig;
 
     private ProgressCallback progressCallback;
-
-    private List<IgnoredColumn> ignoredColumns;
-
-    private List<ColumnOverride> columnOverrides;
 
     public MybatisGeneratorBridge() {
     }
@@ -47,9 +39,11 @@ public class MybatisGeneratorBridge{
         Context context = new Context(ModelType.CONDITIONAL);
         configuration.addContext(context);
         context.addProperty("javaFileEncoding", "UTF-8");
-//        String connectorLibPath = JdbcConfigHelper.getConnectorLibPath();
-//        _LOG.info("connectorLibPath: {}", connectorLibPath);
-//        configuration.addClasspathEntry(connectorLibPath);
+
+        List<IgnoredColumn> ignoredColumns = generatorConfig.getIgnoredColumns();
+
+        List<ColumnOverride> columnOverrides = generatorConfig.getColumnOverrides();
+
         // Table configuration
         TableConfiguration tableConfig = new TableConfiguration(context);
         tableConfig.setTableName(generatorConfig.getTableName());
@@ -150,33 +144,73 @@ public class MybatisGeneratorBridge{
                 context.addPluginConfiguration(pluginConfiguration);
             }
         }
+
         //文件模板插件配置
         //Service interface
         PluginConfiguration t1 = new PluginConfiguration();
         t1.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
-        t1.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
-        t1.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
+        t1.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getServiceTargetFolder());
+        t1.addProperty("targetPackage",generatorConfig.getServicePackage());
         t1.addProperty("templatePath","generator/ftl/service.ftl");
-        t1.addProperty("mapperSuffix","Service");
-        t1.addProperty("fileName","${tableClass.shortClassName}${mapperSuffix}.java");
+        t1.addProperty("serviceName",generatorConfig.getServiceName());
+        t1.addProperty("fileName","${serviceName}.java");
         context.addPluginConfiguration(t1);
 
+        //service impl
         PluginConfiguration t2 = new PluginConfiguration();
         t2.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
-        t2.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
-        t2.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
-        t2.addProperty("templatePath","generator/ftl/test-one.ftl");
-        t2.addProperty("fileName","${tableClass.shortClassName}Test.txt");
+        t2.addProperty("targetProject", generatorConfig.getProjectFolder() + "/" + generatorConfig.getServiceImplTargetFolder());
+        t2.addProperty("targetPackage",generatorConfig.getServiceImplPackage());
+        t2.addProperty("templatePath","generator/ftl/serviceImpl.ftl");
+        t2.addProperty("serviceImplName",generatorConfig.getServiceImplName());
+        t2.addProperty("serviceName",generatorConfig.getServiceName());
+        t2.addProperty("servicePackage",generatorConfig.getServicePackage());
+        t2.addProperty("daoName",StringUtils.isEmpty(generatorConfig.getMapperName())?generatorConfig.getDomainObjectName()+"Mapper": generatorConfig.getMapperName());
+        t2.addProperty("daoPackage",generatorConfig.getDaoPackage());
+        t2.addProperty("fileName","${serviceImplName}.java");
         context.addPluginConfiguration(t2);
 
+        //controller
         PluginConfiguration t3 = new PluginConfiguration();
         t3.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
-        t3.addProperty("singleMode","false");
-        t3.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
-        t3.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
-        t3.addProperty("templatePath","generator/ftl/test-all.ftl");
-        t3.addProperty("fileName","TestAll.txt");
+        t3.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getControllerTargetFolder());
+        t3.addProperty("targetPackage", generatorConfig.getControllerPackage());
+        t3.addProperty("templatePath","generator/ftl/controller.ftl");
+        t3.addProperty("serviceName",generatorConfig.getServiceName());
+        t3.addProperty("servicePackage",generatorConfig.getServicePackage());
+        t3.addProperty("controllerName",generatorConfig.getControllerName());
+        t3.addProperty("controllerPackage",generatorConfig.getControllerPackage());
+        t3.addProperty("moduleName",generatorConfig.getModuleName());
+        t3.addProperty("fileName","${controllerName}.java");
         context.addPluginConfiguration(t3);
+
+        //jsp
+        PluginConfiguration t4 = new PluginConfiguration();
+        t4.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t4.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getJspTargetFolder());
+        t4.addProperty("targetPackage", "jsp/system");
+        t4.addProperty("templatePath","generator/ftl/jsp.ftl");
+        t4.addProperty("jspName",generatorConfig.getJspName());
+        t4.addProperty("moduleName",generatorConfig.getModuleName());
+        t4.addProperty("fileName", "${jspName}.jsp");
+        context.addPluginConfiguration(t4);
+
+        PluginConfiguration tt1 = new PluginConfiguration();
+        tt1.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        tt1.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
+        tt1.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
+        tt1.addProperty("templatePath","generator/ftl/test-one.ftl");
+        tt1.addProperty("fileName","${tableClass.shortClassName}Test.txt");
+        context.addPluginConfiguration(tt1);
+
+        PluginConfiguration tt2 = new PluginConfiguration();
+        tt2.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        tt2.addProperty("singleMode","false");
+        tt2.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
+        tt2.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
+        tt2.addProperty("templatePath","generator/ftl/test-all.ftl");
+        tt2.addProperty("fileName","TestAll.txt");
+        context.addPluginConfiguration(tt2);
 
         context.setTargetRuntime("MyBatis3");
 
@@ -192,11 +226,4 @@ public class MybatisGeneratorBridge{
         this.progressCallback = progressCallback;
     }
 
-    public void setIgnoredColumns(List<IgnoredColumn> ignoredColumns) {
-        this.ignoredColumns = ignoredColumns;
-    }
-
-    public void setColumnOverrides(List<ColumnOverride> columnOverrides) {
-        this.columnOverrides = columnOverrides;
-    }
 }

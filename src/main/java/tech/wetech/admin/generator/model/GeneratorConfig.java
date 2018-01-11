@@ -1,10 +1,15 @@
 package tech.wetech.admin.generator.model;
 
+import org.mybatis.generator.config.ColumnOverride;
+import org.mybatis.generator.config.IgnoredColumn;
+
+import java.util.List;
+
 /**
  *
  * GeneratorConfig is the Config of mybatis generator config exclude database
  * config
- *
+ * <p>
  * Created by cjbi on 6/16/16.
  */
 public class GeneratorConfig {
@@ -14,9 +19,9 @@ public class GeneratorConfig {
 	 */
 	private String name;
 
-	private String connectorJarPath;
-
 	private String projectFolder;
+
+	private String moduleName;
 
 	private String modelPackage;
 
@@ -50,6 +55,95 @@ public class GeneratorConfig {
 
 	private boolean useTableNameAlias;
 
+	//custom config by cjbi
+	private String serviceImplName;
+
+	private String serviceImplPackage;
+
+	private String serviceImplTargetFolder;
+
+	private String serviceName;
+
+	private String servicePackage;
+
+	private String serviceTargetFolder;
+
+	private String controllerName;
+
+	private String controllerPackage;
+
+	private String controllerTargetFolder;
+
+	private String jspName;
+
+	private String jspTargetFolder;
+
+	/**
+	 * 要忽略的行
+	 */
+	private List<IgnoredColumn> ignoredColumns;
+
+	/**
+	 * 重写的行
+	 */
+	private List<ColumnOverride> columnOverrides;
+
+	public List<IgnoredColumn> getIgnoredColumns() {
+		return ignoredColumns;
+	}
+
+	public void setIgnoredColumns(List<IgnoredColumn> ignoredColumns) {
+		this.ignoredColumns = ignoredColumns;
+	}
+
+	public List<ColumnOverride> getColumnOverrides() {
+		return columnOverrides;
+	}
+
+	public void setColumnOverrides(List<ColumnOverride> columnOverrides) {
+		this.columnOverrides = columnOverrides;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public String getServicePackage() {
+		return servicePackage;
+	}
+
+	public void setServicePackage(String servicePackage) {
+		this.servicePackage = servicePackage;
+	}
+
+	public String getControllerName() {
+		return controllerName;
+	}
+
+	public void setControllerName(String controllerName) {
+		this.controllerName = controllerName;
+	}
+
+	public String getControllerPackage() {
+		return controllerPackage;
+	}
+
+	public void setControllerPackage(String controllerPackage) {
+		this.controllerPackage = controllerPackage;
+	}
+
+	public String getJspName() {
+		return jspName;
+	}
+
+	public void setJspName(String jspName) {
+		this.jspName = jspName;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -72,14 +166,6 @@ public class GeneratorConfig {
 
 	public void setDomainObjectName(String domainObjectName) {
 		this.domainObjectName = domainObjectName;
-	}
-
-	public String getConnectorJarPath() {
-		return connectorJarPath;
-	}
-
-	public void setConnectorJarPath(String connectorJarPath) {
-		this.connectorJarPath = connectorJarPath;
 	}
 
 	public String getProjectFolder() {
@@ -204,5 +290,61 @@ public class GeneratorConfig {
 
 	public boolean isUseTableNameAlias() {
 		return useTableNameAlias;
+	}
+
+	public String getServiceTargetFolder() {
+		return serviceTargetFolder;
+	}
+
+	public void setServiceTargetFolder(String serviceTargetFolder) {
+		this.serviceTargetFolder = serviceTargetFolder;
+	}
+
+	public String getControllerTargetFolder() {
+		return controllerTargetFolder;
+	}
+
+	public void setControllerTargetFolder(String controllerTargetFolder) {
+		this.controllerTargetFolder = controllerTargetFolder;
+	}
+
+	public String getJspTargetFolder() {
+		return jspTargetFolder;
+	}
+
+	public void setJspTargetFolder(String jspTargetFolder) {
+		this.jspTargetFolder = jspTargetFolder;
+	}
+
+	public String getServiceImplName() {
+		return serviceImplName;
+	}
+
+	public void setServiceImplName(String serviceImplName) {
+		this.serviceImplName = serviceImplName;
+	}
+
+	public String getServiceImplPackage() {
+		return serviceImplPackage;
+	}
+
+	public void setServiceImplPackage(String serviceImplPackage) {
+		this.serviceImplPackage = serviceImplPackage;
+	}
+
+	public String getServiceImplTargetFolder() {
+		return serviceImplTargetFolder;
+	}
+
+	public void setServiceImplTargetFolder(String serviceImplTargetFolder) {
+		this.serviceImplTargetFolder = serviceImplTargetFolder;
+	}
+
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
 	}
 }

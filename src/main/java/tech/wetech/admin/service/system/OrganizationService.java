@@ -15,7 +15,7 @@ public interface OrganizationService {
 
     Organization findOne(Long organizationId);
 
-    public List<Organization> find(OrganizationExample example);
+    List<Organization> find(OrganizationExample example);
 
     List<Organization> findAll();
 

@@ -34,6 +34,7 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import tech.wetech.admin.generator.model.TableClass;
+import tech.wetech.admin.generator.util.JdbcConfigHelper;
 
 /**
  * 基于 freemarker 的实现

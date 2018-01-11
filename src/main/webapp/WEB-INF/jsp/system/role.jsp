@@ -333,6 +333,7 @@
             for (var i in resourceIdList) {
                 var id = resourceIdList[i];
                 var node = treeObj.getNodeByParam("id", id, null);
+                if (node === null) continue;
                 treeObj.checkNode(node, true, true);
             }
             var cityObj = $("#edit-resourceName");

@@ -25,7 +25,7 @@ public class RoleServiceImpl implements RoleService{
     private ResourceService resourceService;
 
     @Override
-    public DataTableModel<RoleDto> list(DataTableModel<RoleDto> model) {
+    public DataTableModel<RoleDto> findByPage(DataTableModel<RoleDto> model) {
         RoleExample example = new RoleExample();
         example.setOffset(model.getStart());
         example.setLimit(model.getLength());

@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface RoleService {
 
-    DataTableModel<RoleDto> list(DataTableModel<RoleDto> model);
+    DataTableModel<RoleDto> findByPage(DataTableModel<RoleDto> model);
 
     int createRole(Role role);
 

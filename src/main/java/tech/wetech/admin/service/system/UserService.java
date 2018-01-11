@@ -11,7 +11,7 @@ public interface UserService {
 
     List<User> selectByExample(UserExample example);
 
-    DataTableModel list(DataTableModel<User> model);
+    DataTableModel findByPage(DataTableModel<User> model);
 
     /**
      * 创建用户

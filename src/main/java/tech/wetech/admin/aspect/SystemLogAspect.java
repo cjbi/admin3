@@ -58,7 +58,6 @@ public class SystemLogAspect{
     }
 
     private void save(ProceedingJoinPoint point, Object returns, SystemLog systemLog, Long time) {
-        Logger log = LoggerFactory.getLogger(point.getTarget().getClass());
         String sign = point.getSignature().toString();
 
         // 获取相关参数
@@ -68,7 +67,6 @@ public class SystemLogAspect{
         String qs = req.getQueryString();// 查询参数
         String url = req.getRequestURL().append(qs == null ? "" : "?" + qs).toString();// url
         String ip = wu.getIpAddress();// IP地址
-        String sid = wu.getSessionId();// 会话id
         String method = req.getMethod();// 方法
         String protocol = req.getProtocol();// 协议
         String status = null;

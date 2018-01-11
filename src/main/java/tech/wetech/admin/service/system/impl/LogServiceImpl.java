@@ -28,7 +28,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public DataTableModel<LogWithBLOBs> list(DataTableModel<LogWithBLOBs> model) {
+    public DataTableModel<LogWithBLOBs> findByPage(DataTableModel<LogWithBLOBs> model) {
         LogExample example = new LogExample();
         example.setOffset(model.getStart());
         example.setLimit(model.getLength());

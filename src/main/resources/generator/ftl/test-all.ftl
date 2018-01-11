@@ -1,5 +1,4 @@
 目标package: ${package}
-
 <!-- http://freemarker.apache.org/docs/ref_builtins_date.html -->
 当前时间：
 <#assign dateTime = .now>

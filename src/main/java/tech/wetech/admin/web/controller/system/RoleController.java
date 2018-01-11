@@ -39,7 +39,7 @@ public class RoleController extends BaseController {
     @RequestMapping("/list")
     @RequiresPermissions("role:view")
     public DataTableModel<RoleDto> list(DataTableModel<RoleDto> model) {
-        roleService.list(model);
+        roleService.findByPage(model);
         return model;
     }
 

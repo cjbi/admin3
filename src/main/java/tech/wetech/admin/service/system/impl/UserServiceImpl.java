@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public DataTableModel<User> list(DataTableModel model) {
+    public DataTableModel<User> findByPage(DataTableModel model) {
         UserExample example = new UserExample();
         example.setOffset(model.getStart());
         example.setLimit(model.getLength());

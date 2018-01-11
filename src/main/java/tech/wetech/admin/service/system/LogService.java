@@ -12,6 +12,6 @@ public interface LogService {
      */
     int createLogWithBLOBs(LogWithBLOBs logWithBLOBs);
 
-    DataTableModel<LogWithBLOBs> list(DataTableModel<LogWithBLOBs> model);
+    DataTableModel<LogWithBLOBs> findByPage(DataTableModel<LogWithBLOBs> model);
 
 }

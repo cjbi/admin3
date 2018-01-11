@@ -30,7 +30,7 @@ import java.util.Enumeration;
 @Component
 public class DebugLogAspect {
 
-    private static final String info = "Request info user=%s\nip=%s | session=%s | %s %s\n%s | %sms";
+    private static final String info = "Request info user=%s%nip=%s | session=%s | %s %s%n%s | %sms";
     private static final String trace = "Encoding %s | ContentType %s | ContentLength %s";
 
     @Pointcut("execution(* tech.wetech.admin.web.controller.*.*.*(..))")
@@ -93,17 +93,17 @@ public class DebugLogAspect {
                 }
                 text = tmp;
             }
-            StringBuilder buffer = new StringBuilder();
-            buffer.append("\n");
-            buffer.append("/*******************************************************\\");
-            buffer.append("\n");
-            buffer.append(String.format(info, user, ip, sid, method, url, sign, time));
+            StringBuilder builder = new StringBuilder();
+            builder.append("\n");
+            builder.append("/*******************************************************\\");
+            builder.append("\n");
+            builder.append(String.format(info, user, ip, sid, method, url, sign, time));
             if (!StringUtils.isEmpty(status) && !StringUtils.isEmpty(msg)) {
-                buffer.append(" | ").append(status + ":" + msg);
+                builder.append(" | ").append(status + ":" + msg);
             } else if (!StringUtils.isEmpty(status)) {
-                buffer.append(" | ").append(status);
+                builder.append(" | ").append(status);
             } else if (!StringUtils.isEmpty(msg)) {
-                buffer.append(" | ").append(msg);
+                builder.append(" | ").append(msg);
             }
 
             if (log.isTraceEnabled()) {
@@ -122,22 +122,22 @@ public class DebugLogAspect {
                 String contentType = req.getContentType();
                 String encoding = req.getCharacterEncoding();
                 long length = req.getContentLength();
-                buffer.append("\n");
-                buffer.append("Response ").append(text);
-                buffer.append("\n");
-                buffer.append(String.format(trace, encoding, contentType, length));
+                builder.append("\n");
+                builder.append("Response ").append(text);
+                builder.append("\n");
+                builder.append(String.format(trace, encoding, contentType, length));
                 if (params.length() > 0) {
-                    buffer.append("\n");
-                    buffer.append("Parameters ").append(params);
+                    builder.append("\n");
+                    builder.append("Parameters ").append(params);
                 }
                 if (headers.length() > 0) {
-                    buffer.append("\n");
-                    buffer.append("Headers ").append(headers);
+                    builder.append("\n");
+                    builder.append("Headers ").append(headers);
                 }
             }
-            buffer.append("\n");
-            buffer.append("\\*******************************************************/");
-            log.debug(buffer.toString());
+            builder.append("\n");
+            builder.append("\\*******************************************************/");
+            log.debug(builder.toString());
         }
     }
 

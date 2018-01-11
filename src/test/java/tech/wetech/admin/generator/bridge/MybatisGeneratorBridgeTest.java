@@ -23,6 +23,7 @@ public class MybatisGeneratorBridgeTest{
     public void testGenerate() throws Exception {
         GeneratorConfig generatorConfig = new GeneratorConfig();
         generatorConfig.setProjectFolder("D:/aaa");//项目目录
+        generatorConfig.setModuleName("system");
         generatorConfig.setModelPackage("tech.wetech.admin.model");//实体类包名
         generatorConfig.setModelPackageTargetFolder("src/main/java");//实体类存放目录
         generatorConfig.setDaoPackage("tech.wetech.admin.mapper");//dao接口包名
@@ -30,6 +31,17 @@ public class MybatisGeneratorBridgeTest{
         generatorConfig.setMapperName("");//自定义接口名称(选填)
         generatorConfig.setMappingXMLPackage("mybatis.system");//映射xml文件包名
         generatorConfig.setMappingXMLTargetFolder("src/main/resource");//映射xml文件存放目录
+        generatorConfig.setServiceName("LogService");
+        generatorConfig.setServicePackage("tech.wetech.admin.service.system");
+        generatorConfig.setServiceTargetFolder("src/main/java");
+        generatorConfig.setServiceImplName("LogServiceImpl");
+        generatorConfig.setServiceImplPackage("tech.wetech.admin.service.system.impl");
+        generatorConfig.setServiceImplTargetFolder("src/main/java");
+        generatorConfig.setControllerName("LogController");
+        generatorConfig.setControllerPackage("tech.wetech.admin.web.controller.system");
+        generatorConfig.setControllerTargetFolder("src/main/java");
+        generatorConfig.setJspName("log");
+        generatorConfig.setJspTargetFolder("src/main/webapp/WEB-INF");
         generatorConfig.setTableName("sys_log");//表名
         generatorConfig.setDomainObjectName("Log");//实体类名
         generatorConfig.setOffsetLimit(true);//是否分页
@@ -60,6 +72,8 @@ public class MybatisGeneratorBridgeTest{
         dirs.add(FilenameUtils.normalize(config.getProjectFolder().concat("/").concat(config.getDaoTargetFolder())));
         dirs.add(FilenameUtils
                 .normalize(config.getProjectFolder().concat("/").concat(config.getMappingXMLTargetFolder())));
+        dirs.add(FilenameUtils
+                .normalize(config.getProjectFolder().concat("/").concat(config.getJspTargetFolder())));
         boolean haveNotExistFolder = false;
         for (String dir : dirs) {
             File file = new File(dir);
