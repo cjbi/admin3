@@ -29,7 +29,7 @@ public class ${controllerName} extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String toPage(Model model) {
-        return "${moduleName}/${tableClass.variableName}";
+        return "${moduleName}/${jspName}";
     }
 
     @ResponseBody

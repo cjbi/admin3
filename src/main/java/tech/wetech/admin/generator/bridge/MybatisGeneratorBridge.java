@@ -161,6 +161,10 @@ public class MybatisGeneratorBridge{
         if(StringUtils.isEmpty(generatorConfig.getControllerName())) {
             generatorConfig.setControllerName(generatorConfig.getModelName() + "Controller");
         }
+        String jspName = generatorConfig.getJspName();
+        if(StringUtils.isEmpty(jspName)) {
+            jspName = generatorConfig.getModelName();
+        }
 
         //Service interface
         LOGGER.info("config servie interface plugin");
@@ -199,6 +203,7 @@ public class MybatisGeneratorBridge{
         t3.addProperty("servicePackage",generatorConfig.getServicePackage());
         t3.addProperty("controllerName", generatorConfig.getControllerName());
         t3.addProperty("controllerPackage",generatorConfig.getControllerPackage());
+        t3.addProperty("jspName",jspName);
         t3.addProperty("moduleName",generatorConfig.getModuleName());
         t3.addProperty("fileName","${controllerName}.java");
         context.addPluginConfiguration(t3);
@@ -206,10 +211,6 @@ public class MybatisGeneratorBridge{
         //jsp
         LOGGER.info("config jsp plugin");
         PluginConfiguration t4 = new PluginConfiguration();
-        String jspName = generatorConfig.getJspName();
-        if(StringUtils.isEmpty(jspName)) {
-            jspName = generatorConfig.getModelName();
-        }
         t4.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
         t4.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getJspTargetFolder());
         t4.addProperty("targetPackage", "");
