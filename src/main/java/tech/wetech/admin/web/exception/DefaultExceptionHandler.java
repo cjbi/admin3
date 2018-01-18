@@ -1,5 +1,10 @@
 package tech.wetech.admin.web.exception;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -9,17 +14,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
+
 import tech.wetech.admin.model.system.BizException;
 import tech.wetech.admin.web.dto.JsonResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @ControllerAdvice
 public class DefaultExceptionHandler{
@@ -31,7 +30,6 @@ public class DefaultExceptionHandler{
     @ExceptionHandler({ UnauthorizedException.class })
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
-        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
         ModelAndView mv = new ModelAndView();
         mv.addObject("exception", e);
         mv.setViewName("system/unauthorized");
@@ -68,7 +66,6 @@ public class DefaultExceptionHandler{
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public JsonResult processBindException(HttpServletRequest request, HttpServletResponse response, BindException e, BindingResult br) {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
-        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext( request.getSession().getServletContext());
         JsonResult json = new JsonResult();
         StringBuilder msg = new StringBuilder();
         List<ObjectError> allErrors = br.getAllErrors();

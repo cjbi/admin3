@@ -73,7 +73,7 @@
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="<%=request.getContextPath()%>/static/js/jquery.min.js"></script>
 <!--<![endif]-->
-<script src="<%=request.getContextPath()%>/static/js/amazeui.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/amazeui.js"></script>
 
 <script src="<%=request.getContextPath()%>/static/libs/DataTables-1.10.16/media/js/jquery.dataTables.min.js"></script>
 
@@ -90,7 +90,7 @@
 
 <script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.buttons.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/common/public.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/common/utils.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/admin.js"></script>
 </body>
 </html>

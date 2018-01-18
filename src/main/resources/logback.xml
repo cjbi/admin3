@@ -1,59 +1,83 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
 <configuration>
+
+	<!-- properties -->
+	<property name="logDir" value="logs" />
+	<property name="maxHistory" value="30" />
+
 	<!-- %p级别 %m消息 %c.%M包+方法 %F:%L文件+行 -->
 	<property name="pattern"
-		value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %p | %m | %thread | %c.%M | %F:%L %n" />
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5p) | %m | %thread | %c.%M | %F:%L %n" />
 
+	<!-- 控制台输出 ConsoleAppender -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder charset="UTF-8">
-			<pattern>${pattern}</pattern>
-		</encoder>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				${pattern}
+			</Pattern>
+		</layout>
 	</appender>
-	<!-- 文件输出 -->
-	<!-- <appender name="LOGS"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${catalina.home}/logs/wetech-web.log</file>
-		按天滚动 保存30天
+
+	<!-- 滚动文件输出, RollingFileAppender -->
+	<appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 日志过滤器 LevelFilter -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+			<!-- 只写入DEBUG级别的日志信息 -->
+		</filter>
+		<!-- 滚动策略 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>${catalina.home}/logs/wetech-web-%d{MMdd}-%i.log</FileNamePattern>
-			<MaxHistory>30</MaxHistory>
-			超过指定大小滚动当天日志
-			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<MaxFileSize>50MB</MaxFileSize>
-			</TimeBasedFileNamingAndTriggeringPolicy>
+			<!-- 以天为单位记录日志, 只保留30天 -->
+			<fileNamePattern>${logDir}/%d{yyyy-MM-dd}/debug-log.log</fileNamePattern>
+			<maxHistory>${maxHistory}</maxHistory>
 		</rollingPolicy>
 		<encoder>
 			<pattern>${pattern}</pattern>
 		</encoder>
-	</appender> -->
-	<!-- 异步输出 -->
-	<appender name ="ASYNC" class= "ch.qos.logback.classic.AsyncAppender">
-            <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
-            <discardingThreshold>0</discardingThreshold>
-            <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
-            <queueSize>1024</queueSize>
-            <!-- 添加附加的appender,最多只能添加一个 -->
-         	<appender-ref ref ="LOGS"/>
 	</appender>
-	
-	<!-- 业务日志记录  -->
-	<!-- <logger name="com.yixan" level="ALL" additivity="true">
-		<appender-ref ref="ASYNC" />
-	</logger>
-	<logger name="com.cttq.cim" level="ALL" additivity="true">
-		<appender-ref ref="ASYNC" />
-	</logger> -->
-	<logger name="tech.wetech" level="ALL" additivity="true">
-		<appender-ref ref="ASYNC" />
-	</logger>
-	
-	<logger name="tech.wetech" level="ALL" additivity="true">
-		<appender-ref ref="ASYNC" />
-	</logger>
 
+	<appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 日志过滤器 ThresholdFilter -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- 只记录WARN及以上级别的日志. 即WARN, ERROR.  -->
+			<level>WARN</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logDir}/%d{yyyy-MM-dd}/warn-log.log</fileNamePattern>
+			<maxHistory>${maxHistory}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 邮件日志
+    <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+        <smtpHost>smtp.host.com</smtpHost>
+        <smtpPort></smtpPort>
+        <SSL>true</SSL>
+        <username>your@mail.com</username>
+        <password>yourPassword</password>
+
+        <to>someone@mail.com</to>
+        <to>another@mail.com</to>
+        <from>your@mail.com/from>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date %highlight(%-5level) %logger{36} - %message%n</pattern>
+        </layout>
+    </appender>
+    -->
+
+	<!-- root, 只有在level及以上级别的日志会被输出 -->
+	<!-- 例如: 当root level设置为INFO时, appender DEBUG中无法获取到DEBUG级别的日志事件, 则DEBUG日志信息也不会写入debug.log中. -->
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
-		<appender-ref ref="ASYNC" />
+		<appender-ref ref="DEBUG" />
+		<appender-ref ref="WARN" />
 	</root>
 
 </configuration>

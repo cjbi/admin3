@@ -1,6 +1,6 @@
 # Wetech-Admin
 
-Wetech-Admin 是基于Maven+Spring+SpringMVC+Mybatis的轻量级后台管理系统，适用于中小型项目的管理后台，支持按钮级别的权限控制，系统具有最基本的用户管理、角色管理、资源管理、组织机构管理、系统日志等通用性功能，企业或个人可直接在此基础上进行开发，扩展，添加各自的需求和业务功能！http://wetech.tech/wetech-admin/
+Wetech-Admin 是基于Maven+Spring+SpringMVC+Mybatis的轻量级后台管理系统，适用于中小型项目的管理后台，支持按钮级别的权限控制，系统具有最基本的用户管理、角色管理、资源管理、组织机构管理、系统日志、代码生成器等通用性功能，企业或个人可直接在此基础上进行开发，扩展，添加各自的需求和业务功能！http://wetech.tech/wetech-admin/
 
 ## 技术选型
 ### 后端技术
@@ -52,6 +52,14 @@ ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
 > 资源管理
 
 ![](http://wetech-admin.image.alimmdn.com/6.gif)
+
+> 代码生成器
+
+![](http://wetech-admin.image.alimmdn.com/7.PNG)
+
+## 代码生成器
+
+通过freemarker模板技术配合mybatis generator插件机制可以直接生成model、mapper、service、controller、service、jsp，单表增删改查不需要写任何代码，你也可以自定义模板，生成想要的代码。
 
 ## 在线访问
 

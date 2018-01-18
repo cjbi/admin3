@@ -277,8 +277,6 @@
         },
 
 
-
-
         /**
          * 是否为空
          * @param str
@@ -315,15 +313,15 @@
             while (n--) {
                 u8arr[n] = bstr.charCodeAt(n);
             }
-            return new Blob([u8arr], { type: mime });
+            return new Blob([u8arr], {type: mime});
         }
     };
 
     var _cookie_api = {
         /**
-         * 
+         *
          * @desc 根据name读取cookie
-         * @param  {String} name 
+         * @param  {String} name
          * @return {String}
          */
         getCookie: function (name) {
@@ -337,11 +335,11 @@
             return '';
         },
         /**
-         * 
+         *
          * @desc  设置Cookie
-         * @param {String} name 
-         * @param {String} value 
-         * @param {Number} days 
+         * @param {String} name
+         * @param {String} value
+         * @param {Number} days
          */
         setCookie: function (name, value, days) {
             var date = new Date();
@@ -349,10 +347,10 @@
             document.cookie = name + '=' + value + ';expires=' + date;
         },
         /**
-        * 
-        * @desc 根据name删除cookie
-        * @param  {String} name 
-        */
+         *
+         * @desc 根据name删除cookie
+         * @param  {String} name
+         */
         removeCookie: function (name) {
             // 设置已过期，系统会立刻删除cookie
             setCookie(name, '1', -1);
@@ -386,9 +384,9 @@
             return 'Unkonwn'
         },
         /**
-         * 
+         *
          * @desc 获取操作系统类型
-         * @return {String} 
+         * @return {String}
          */
         getOS: function () {
             var userAgent = 'navigator' in window && 'userAgent' in navigator && navigator.userAgent.toLowerCase() || '';
@@ -406,14 +404,14 @@
 
     var _dom_api = {
         /**
-         * 
+         *
          * @desc 获取滚动条距顶部的距离
          */
         getScrollTop: function () {
             return (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         },
         /**
-         * 
+         *
          * @desc 设置滚动条距顶部的距离
          */
         setScrollTop: function (value) {
@@ -421,9 +419,9 @@
             return value;
         },
         /**
-         * 
+         *
          * @desc  获取一个元素的距离文档(document)的位置，类似jQ中的offset()
-         * @param {HTMLElement} ele 
+         * @param {HTMLElement} ele
          * @returns { {left: number, top: number} }
          */
         offset: function (ele) {
@@ -435,14 +433,15 @@
                 pos.left += ele.offsetLeft;
                 pos.top += ele.offsetTop;
                 ele = ele.offsetParent;
-            };
+            }
+            ;
             return pos;
         },
         /**
-         * 
+         *
          * @desc  在${duration}时间内，滚动条平滑滚动到${to}指定位置
-         * @param {Number} to 
-         * @param {Number} duration 
+         * @param {Number} to
+         * @param {Number} duration
          */
         scrollTo: function (to, duration) {
             if (duration < 0) {
@@ -470,10 +469,10 @@
 
     var _array_api = {
         /**
-         * 
+         *
          * @desc 判断两个数组是否相等
-         * @param {Array} arr1 
-         * @param {Array} arr2 
+         * @param {Array} arr1
+         * @param {Array} arr2
          * @return {Boolean}
          */
         arrayEqual: function (arr1, arr2) {
@@ -488,10 +487,10 @@
 
     var _class_api = {
         /**
-         * 
+         *
          * @desc   为元素添加class
-         * @param  {HTMLElement} ele 
-         * @param  {String} cls 
+         * @param  {HTMLElement} ele
+         * @param  {String} cls
          */
         addClass: function (ele, cls) {
             if (!hasClass(ele, cls)) {
@@ -499,20 +498,20 @@
             }
         },
         /**
-        * 
-        * @desc 判断元素是否有某个class
-        * @param {HTMLElement} ele 
-        * @param {String} cls 
-        * @return {Boolean}
-        */
+         *
+         * @desc 判断元素是否有某个class
+         * @param {HTMLElement} ele
+         * @param {String} cls
+         * @return {Boolean}
+         */
         hasClass: function (ele, cls) {
             return (new RegExp('(\\s|^)' + cls + '(\\s|$)')).test(ele.className);
         },
         /**
-         * 
+         *
          * @desc 为元素移除class
-         * @param {HTMLElement} ele 
-         * @param {String} cls 
+         * @param {HTMLElement} ele
+         * @param {String} cls
          */
         removeClass: function (ele, cls) {
             if (hasClass(ele, cls)) {
@@ -561,7 +560,7 @@
             throw new Error("Unable to copy values! Its type isn't supported.");
         },
         /**
-         * 
+         *
          * @desc   判断`obj`是否为空
          * @param  {Object} obj
          * @return {Boolean}
@@ -575,19 +574,19 @@
 
     var _random_api = {
         /**
-         * 
+         *
          * @desc 随机生成颜色
-         * @return {String} 
+         * @return {String}
          */
         randomColor: function () {
             return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
         },
         /**
-         * 
+         *
          * @desc 生成指定范围随机数
-         * @param  {Number} min 
-         * @param  {Number} max 
-         * @return {Number} 
+         * @param  {Number} min
+         * @param  {Number} max
+         * @return {Number}
          */
         randomNum: function (min, max) {
             return Math.floor(min + Math.random() * (max - min));
@@ -596,36 +595,36 @@
 
     var _regexp_api = {
         /**
-         * 
+         *
          * @desc   判断是否为邮箱地址
          * @param  {String}  str
-         * @return {Boolean} 
+         * @return {Boolean}
          */
         isEmail: function (str) {
             return /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(str);
         },
         /**
-         * 
+         *
          * @desc  判断是否为身份证号
-         * @param  {String|Number} str 
+         * @param  {String|Number} str
          * @return {Boolean}
          */
         isIdCard: function (str) {
             return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(str)
         },
         /**
-         * 
+         *
          * @desc   判断是否为手机号
-         * @param  {String|Number} str 
-         * @return {Boolean} 
+         * @param  {String|Number} str
+         * @return {Boolean}
          */
         isPhoneNum: function (str) {
             return /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(str)
         },
         /**
-         * 
+         *
          * @desc   判断是否为URL地址
-         * @param  {String} str 
+         * @param  {String} str
          * @return {Boolean}
          */
         isUrl: function (str) {
@@ -634,10 +633,30 @@
     };
 
     var _string_api = {
+
         /**
-         * 
+         * 驼峰转换为连字符\连字符转换为驼峰
+         * <pre>
+         *     fooStyleCss -->  foo-style-css
+         *     formatHump('fooStyleCss','-');
+         * </pre>
+         * @param str
+         * @param split
+         */
+        formatHump: function (str, split) {
+            if (str.indexOf(split) >= 0) {
+                var re = new RegExp(split + "(\\w)", "g");
+                return str.replace(re, function ($0, $1) {
+                    return $1.toUpperCase();
+                });
+
+            }
+            return str.replace(/([A-Z])/g, '' + split + '$1').toLowerCase();
+        },
+        /**
+         *
          * @desc   现金额转大写
-         * @param  {Number} n 
+         * @param  {Number} n
          * @return {String}
          */
         digitUppercase: function (n) {
@@ -667,16 +686,16 @@
                 s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
             }
             return head + s.replace(/(零.)*零元/, '元')
-                .replace(/(零.)+/g, '零')
-                .replace(/^整$/, '零元整');
+                    .replace(/(零.)+/g, '零')
+                    .replace(/^整$/, '零元整');
         },
         /**
-        * 格式化货币
-        * @param num
-        * @param length 保留位数
-        * @returns {*}
-        * @constructor
-        */
+         * 格式化货币
+         * @param num
+         * @param length 保留位数
+         * @returns {*}
+         * @constructor
+         */
         rmbformat: function (num, length) {
             if (num != null && num != "") {
                 var lengthNum = 1;
@@ -688,7 +707,7 @@
                     length = 2;
                     lengthNum *= 100;
                 }
-               var num = num.toString().replace(/\$|\,/g, '');
+                var num = num.toString().replace(/\$|\,/g, '');
                 if (isNaN(num))
                     num = "0";
                 var sign = (num == (num = Math.abs(num)));
@@ -707,9 +726,9 @@
 
     var _support_api = {
         /**
-         * 
+         *
          * @desc 判断浏览器是否支持webP格式图片
-         * @return {Boolean} 
+         * @return {Boolean}
          */
         isSupportWebP: function () {
             return !![].map && document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
@@ -718,9 +737,9 @@
 
     var _time_api = {
         /**
-         * 
+         *
          * @desc   格式化现在距${endTime}的剩余时间
-         * @param  {Date} endTime  
+         * @param  {Date} endTime
          * @return {String}
          */
         formatRemainTime: function (endTime) {
@@ -741,7 +760,7 @@
         },
         /**
          * @desc   格式化${startTime}距现在的已过时间
-         * @param  {Date} startTime 
+         * @param  {Date} startTime
          * @return {String}
          */
         formatPassTime: function (startTime) {
@@ -763,10 +782,10 @@
 
     var _url_api = {
         /**
-         * 
+         *
          * @desc   url参数转对象
          * @param  {String} url  default: window.location.href
-         * @return {Object} 
+         * @return {Object}
          */
         parseQueryString: function (url) {
             url = url == null ? window.location.href : url
@@ -777,9 +796,9 @@
             return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
         },
         /**
-         * 
+         *
          * @desc   对象序列化
-         * @param  {Object} obj 
+         * @param  {Object} obj
          * @return {String}
          */
         stringfyQueryString: function (obj) {
@@ -892,19 +911,19 @@
             return wrapper;
         },
         /**
-         * @desc 函数防抖 
+         * @desc 函数防抖
          * 与throttle不同的是，debounce保证一个函数在多少毫秒内不再被触发，只会执行一次，
          * 要么在第一次调用return的防抖函数时执行，要么在延迟指定毫秒后调用。
          * @example 适用场景：如在线编辑的自动存储防抖。
          * @param  {Number}   delay         0或者更大的毫秒数。 对于事件回调，大约100或250毫秒（或更高）的延迟是最有用的。
          * @param  {Boolean}  atBegin       可选，默认为false。
          *                                  如果`atBegin`为false或未传入，回调函数则在第一次调用return的防抖函数后延迟指定毫秒调用。
-                                            如果`atBegin`为true，回调函数则在第一次调用return的防抖函数时直接执行
-        * @param  {Function} callback      延迟毫秒后执行的函数。`this`上下文和所有参数都是按原样传递的，
-        *                                  执行去抖动功能时，，调用`callback`。
-        *
-        * @return {Function} 新的防抖函数。
-        */
+         如果`atBegin`为true，回调函数则在第一次调用return的防抖函数时直接执行
+         * @param  {Function} callback      延迟毫秒后执行的函数。`this`上下文和所有参数都是按原样传递的，
+         *                                  执行去抖动功能时，，调用`callback`。
+         *
+         * @return {Function} 新的防抖函数。
+         */
         debounce: function (delay, atBegin, callback) {
             return callback === undefined ? throttle(delay, atBegin, false) : throttle(delay, callback, atBegin !== false);
         }

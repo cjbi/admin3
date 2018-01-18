@@ -43,10 +43,10 @@ public class IndexController{
 
 
             dom.append("<li class=\"am-panel\">");
-                dom.append("<a "+href+" class=\"am-cf\" data-am-collapse=\"{parent: '#collapase-nav-"+pid+"', target: '#user-nav-"+resource.getId()+"'}\">");
+                dom.append("<a "+href+" class=\"am-cf\" data-am-collapse=\"{'parent': '#collapase-nav-"+pid+"', 'target': '#collapase-nav-"+resource.getId()+"'}\">");
                     dom.append("<span class=\"am-list-ico "+icon+" am-margin-left-sm\"></span>"+resource.getName()+angleRight);
                 dom.append("</a>");
-                dom.append("<ul class=\"am-list am-collapse admin-sidebar-sub\" id=\"user-nav-"+resource.getId()+"\">");
+                dom.append("<ul class=\"am-list am-collapse admin-sidebar-sub\" id=\"collapase-nav-"+resource.getId()+"\">");
             resource.setChildren(getMenuTree(source, resource.getId(), dom));
                 dom.append("</ul>");
             dom.append("</li>");

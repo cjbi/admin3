@@ -88,7 +88,7 @@ public class TemplateFilePlugin extends PluginAdapter {
      * @throws IOException
      */
     protected String read(InputStream inputStream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
         StringBuffer stringBuffer = new StringBuffer();
         String line = reader.readLine();
         while (line != null) {

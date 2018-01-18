@@ -405,6 +405,29 @@ var basePath = $('#basePath').val();
                 $('[data-am-selected]').selected();
                 $('[data-am-ucheck]').uCheck();
                 initInputTooltip();
+                initCollapse();
+            }
+
+            function collapseOpen(target, parent) {
+                var $parent = $(parent);
+                if ($parent.length > 0) {
+                    $parent.collapse('open');
+                    var $collapse = $parent.siblings('a');
+                    if ($collapse.length > 0) {
+                        var data_am_collapse = $collapse.attr('data-am-collapse');
+                        var collapse = JSON.parse(data_am_collapse.replace(/'/g, "\""));
+                        collapseOpen(collapse.target, collapse.parent);
+                    }
+                }
+            }
+
+            function initCollapse() {
+                var data_am_collapse = localStorage.getItem('data_am_collapse');
+                var $collapse = $('[data-am-collapse="' + data_am_collapse + '"]');
+                if (!$collapse.hasClass('collapse-active'))
+                    $collapse.addClass('collapse-active');
+                var collapse = JSON.parse(data_am_collapse.replace(/'/g, "\""));
+                collapseOpen(collapse.target, collapse.parent);
             }
 
             function initInputTooltip() {
@@ -616,6 +639,7 @@ var basePath = $('#basePath').val();
             $('#admin-offcanvas').find('a').removeClass('collapse-active');
             //选中
             $(this).addClass('collapse-active');
+            localStorage.setItem("data_am_collapse", $(this).attr('data-am-collapse'));
             // 加载Content
             $.myadmin.loadContent(href);
             e.preventDefault();

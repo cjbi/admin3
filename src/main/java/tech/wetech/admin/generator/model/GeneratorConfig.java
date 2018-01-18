@@ -14,11 +14,6 @@ import java.util.List;
  */
 public class GeneratorConfig {
 
-	/**
-	 * 本配置的名称
-	 */
-	private String name;
-
 	private String projectFolder;
 
 	private String moduleName;
@@ -39,7 +34,7 @@ public class GeneratorConfig {
 
 	private String tableName;
 
-	private String domainObjectName;
+	private String modelName;
 
 	private boolean offsetLimit;
 
@@ -144,14 +139,6 @@ public class GeneratorConfig {
 		this.jspName = jspName;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getTableName() {
 		return tableName;
 	}
@@ -160,12 +147,12 @@ public class GeneratorConfig {
 		this.tableName = tableName;
 	}
 
-	public String getDomainObjectName() {
-		return domainObjectName;
+	public String getModelName() {
+		return modelName;
 	}
 
-	public void setDomainObjectName(String domainObjectName) {
-		this.domainObjectName = domainObjectName;
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
 	}
 
 	public String getProjectFolder() {

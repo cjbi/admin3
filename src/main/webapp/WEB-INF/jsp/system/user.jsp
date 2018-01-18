@@ -41,7 +41,7 @@
             <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered" width="100%" id="example_user">
                 <thead>
                 <tr>
-                    <th><span style="display: none;">ID</span>&nbsp;</th>
+                    <th class="am-print-hide"><span style="display: none;">ID</span>&nbsp;</th>
                     <th>用户名</th>
                     <th>所属组织</th>
                     <th>角色列表</th>

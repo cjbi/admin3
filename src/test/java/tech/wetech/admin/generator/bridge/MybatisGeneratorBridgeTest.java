@@ -1,7 +1,5 @@
 package tech.wetech.admin.generator.bridge;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.Test;
@@ -10,9 +8,6 @@ import tech.wetech.admin.generator.model.GeneratorConfig;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by cjbi on 2018/1/5.
@@ -41,9 +36,9 @@ public class MybatisGeneratorBridgeTest{
         generatorConfig.setControllerPackage("tech.wetech.admin.web.controller.system");
         generatorConfig.setControllerTargetFolder("src/main/java");
         generatorConfig.setJspName("log");
-        generatorConfig.setJspTargetFolder("src/main/webapp/WEB-INF");
+        generatorConfig.setJspTargetFolder("src/main/webapp/WEB-INF/jsp/system");
         generatorConfig.setTableName("sys_log");//表名
-        generatorConfig.setDomainObjectName("Log");//实体类名
+        generatorConfig.setModelName("Log");//实体类名
         generatorConfig.setOffsetLimit(true);//是否分页
         generatorConfig.setComment(true);//是否生成实体域注释(来自表注释)
         generatorConfig.setNeedToStringHashcodeEquals(true);//是否生成toString/hashCode/equals方法

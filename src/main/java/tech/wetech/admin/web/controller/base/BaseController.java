@@ -9,6 +9,10 @@ public class BaseController {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
+	public BaseController() {
+
+	}
+
 	/**
 	 * 渲染失败数据
 	 *

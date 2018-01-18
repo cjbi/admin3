@@ -1,14 +1,21 @@
 package tech.wetech.admin.generator.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.wetech.admin.common.utils.PropertiesUtil;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
  * MBG 数据库连接配置 <br>
  * Created by cjbi on 2018/1/5.
  */
-public class JdbcConfigHelper {
+public class JdbcConfigHelper{
+
+    private static final Logger _LOG = LoggerFactory.getLogger(JdbcConfigHelper.class);
 
     final private static String PROP_NAME = "config";
 
@@ -70,7 +77,7 @@ public class JdbcConfigHelper {
         return getConfig().getProperty(PROP_URL);
     }
 
-    public static String getPropUsername() {
+    public static String getUsername() {
         return getConfig().getProperty(PROP_USERNAME);
     }
 
@@ -88,6 +95,67 @@ public class JdbcConfigHelper {
             e.printStackTrace();
         }
         return jarFilePath;
+    }
+
+    public static List<String> getTableNames() throws SQLException {
+        String url = getURL();
+        _LOG.info("getTableNames, connection url: {}", url);
+        Connection conn = getConnection();
+        try {
+            List<String> tables = new ArrayList<>();
+            DatabaseMetaData md = conn.getMetaData();
+            ResultSet rs;
+            DbType dbType = getDbType();
+            if (dbType == DbType.SQL_Server) {
+                String sql = "select name from sysobjects  where xtype='u' or xtype='v' ";
+                rs = conn.createStatement().executeQuery(sql);
+                while (rs.next()) {
+                    tables.add(rs.getString("name"));
+                }
+            } else if (dbType == DbType.Oracle) {
+                rs = md.getTables(null,getUsername().toUpperCase(),null,new String[]{"TABLE","VIEW"});
+            } else {
+                rs = md.getTables(null, "%", "%", new String[] {"TABLE", "VIEW"});
+            }
+            while(rs.next()) {
+                tables.add(rs.getString(3));
+            }
+            return tables;
+        } finally {
+            close(conn);
+        }
+    }
+
+    public static Connection getConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(getURL(), getUsername(), getPassword());
+        return conn;
+    }
+
+    public static void close(Connection conn) {
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void close(PreparedStatement ps) {
+        try {
+            if (ps != null)
+                ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void close(ResultSet rs) {
+        try {
+            if (rs != null)
+                rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
