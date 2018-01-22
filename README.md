@@ -30,14 +30,22 @@ DataTables | 数据表格 | [https://www.datatables.net/](https://www.datatables
 Layer | jQuery弹出层插件 | [http://layer.layui.com/](http://layer.layui.com/)
 ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
 
-### 软件需求
+## 软件需求
 
 - JDK1.8+
 - MySQL5.6+
-- Tomcat7.0+
+- Tomcat7.0+/jetty9.0+
 - Maven3.0+
 
+## 本地部署
 
+- 通过git下载源码
+- 创建数据库wetech_admin，数据库编码为UTF-8
+- 执行docs/sql/init.sql文件，初始化数据
+- 修改config.properties文件，更新MySQL账号和密码
+- Eclipse、IDEA执行【clean package jetty:run】命令，即可运行项目
+- 项目访问路径：http://localhost:8888/wetech-admin
+- 账号密码：admin/123456
 
 ## 预览图
 
