@@ -3,7 +3,9 @@
 Wetech-Admin 是基于Maven+Spring+SpringMVC+Mybatis的轻量级后台管理系统，适用于中小型项目的管理后台，支持按钮级别的权限控制，系统具有最基本的用户管理、角色管理、资源管理、组织机构管理、系统日志、代码生成器等通用性功能，企业或个人可直接在此基础上进行开发，扩展，添加各自的需求和业务功能！http://wetech.tech/wetech-admin/
 
 ## 技术选型
+
 ### 后端技术
+
 技术 | 名称 | 官网
 ----|------|----
 Spring Framework | 容器 | [http://projects.spring.io/spring-framework/](http://projects.spring.io/spring-framework/)
@@ -19,6 +21,7 @@ Ehcache | 进程内缓存框架 | [http://www.ehcache.org/](http://www.ehcache.o
 Hibernate Validator | 后端校验框架 | [http://hibernate.org/validator/](http://hibernate.org/validator/)
 
 ### 前端技术
+
 技术 | 名称 | 官网
 ----|------|----
 jQuery | 优秀的Javascript库 | [http://jquery.com/](http://jquery.com/)
@@ -26,6 +29,23 @@ Amaze UI | 前端框架 | [http://amazeui.org/](http://amazeui.org/)
 DataTables | 数据表格 | [https://www.datatables.net/](https://www.datatables.net/)
 Layer | jQuery弹出层插件 | [http://layer.layui.com/](http://layer.layui.com/)
 ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
+
+## 软件需求
+
+- JDK1.8+
+- MySQL5.6+
+- Tomcat7.0+/jetty9.0+
+- Maven3.0+
+
+## 本地部署
+
+- 通过git下载源码
+- 创建数据库wetech_admin，数据库编码为UTF-8
+- 执行docs/sql/init.sql文件，初始化数据
+- 修改config.properties文件，更新MySQL账号和密码
+- Eclipse、IDEA执行【clean package jetty:run】命令，即可运行项目
+- 项目访问路径：http://localhost:8888/wetech-admin
+- 账号密码：admin/123456
 
 ## 预览图
 
