@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+# * text=auto
+*.js linguist-language=Java
+*.css linguist-language=Java
+*.html linguist-language=Java
