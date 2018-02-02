@@ -80,6 +80,8 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 通过freemarker模板技术配合mybatis generator插件机制可以直接生成model、mapper、service、controller、service、jsp，单表增删改查不需要写任何代码，你也可以自定义模板，生成想要的代码。
 
+[代码生成器文档](docs/wetech-admin/CodeGenerator.md)
+
 ## 在线访问
 
 ### 预览地址
@@ -94,7 +96,7 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 Wetech-Admin 使用 MIT 许可证发布，用户可以自由使用、复制、修改、合并、出版发行、散布、再授权及贩售Wetech-Admin 及其副本。
 
-[查看许可证](https://github.com/cjbi/wetech-admin/blob/master/LICENSE "LICENSE")
+[查看许可证](LICENSE "LICENSE")
 
 ## 获取源码
 
