@@ -6,29 +6,28 @@ Wetech-Admin 是基于Maven+Spring+SpringMVC+Mybatis的轻量级后台管理系�
 
 ### 后端技术
 
-技术 | 名称 | 官网
-----|------|----
-Spring Framework | 容器 | [http://projects.spring.io/spring-framework/](http://projects.spring.io/spring-framework/)
-SpringMVC | MVC框架 | [http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc)
-MyBatis | ORM框架 | [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
-Maven | 项目构建管理 | [http://maven.apache.org](http://maven.apache.org/)
-MyBatis Generator | 代码生成 | [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
-Freemarker | 模板引擎 | [https://freemarker.apache.org/](https://freemarker.apache.org/)
-Apache Shiro | 安全框架 | [http://shiro.apache.org](http://www.mybatis.org/generator/index.html)
-Logback | 日志组件 | [https://logback.qos.ch](https://logback.qos.ch/)
-Druid | 数据库连接池 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
-Ehcache | 进程内缓存框架 | [http://www.ehcache.org/](http://www.ehcache.org/)
-Hibernate Validator | 后端校验框架 | [http://hibernate.org/validator/](http://hibernate.org/validator/)
+技术 | 名称 | 版本 | 官网
+----|------|----|----
+Spring Framework | 容器 | 4.3.5.RELEASE | [http://projects.spring.io/spring-framework/](http://projects.spring.io/spring-framework/)
+SpringMVC | MVC框架 | 4.3.5.RELEASE |  [http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc)
+MyBatis | ORM框架 | 3.2.1 |  [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
+Maven | 项目构建管理 | 4.0.0 |  [http://maven.apache.org](http://maven.apache.org/)
+MyBatis Generator | 代码生成 | 1.3.5 |  [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
+Freemarker | 模板引擎 | 2.3.23 |  [https://freemarker.apache.org/](https://freemarker.apache.org/)
+Apache Shiro | 安全框架 | 1.2.2 |  [http://shiro.apache.org](http://www.mybatis.org/generator/index.html)
+Logback | 日志组件 | 1.1.3 |  [https://logback.qos.ch](https://logback.qos.ch/)
+Druid | 数据库连接池 | 0.2.23 |  [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
+Hibernate Validator | 后端校验框架 | 5.4.2.Final | [http://hibernate.org/validator/](http://hibernate.org/validator/)
 
 ### 前端技术
 
-技术 | 名称 | 官网
-----|------|----
-jQuery | 优秀的Javascript库 | [http://jquery.com/](http://jquery.com/)
-Amaze UI | 前端框架 | [http://amazeui.org/](http://amazeui.org/)
-DataTables | 数据表格 | [https://www.datatables.net/](https://www.datatables.net/)
-Layer | jQuery弹出层插件 | [http://layer.layui.com/](http://layer.layui.com/)
-ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
+技术 | 名称 | 版本 |  官网
+----|------|----|----
+jQuery | 优秀的Javascript库 | 3.2.1 |  [http://jquery.com/](http://jquery.com/)
+Amaze UI | 前端框架 | 3.0.0 |  [http://amazeui.org/](http://amazeui.org/)
+DataTables | 数据表格 | 1.10.16 |  [https://www.datatables.net/](https://www.datatables.net/)
+Layer | jQuery弹出层插件 | 3.1.0 |  [http://layer.layui.com/](http://layer.layui.com/)
+ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 ## 软件需求
 
@@ -51,31 +50,31 @@ ZTree | jQuery树插件 | [http://www.treejs.cn](http://www.treejs.cn)
 
 > 登陆界面
 
-![](http://wetech-admin.image.alimmdn.com/1.gif)
+![](docs/preview/1.gif)
 
 > 菜单树切换
 
-![](http://wetech-admin.image.alimmdn.com/2.gif)
+![](docs/preview/2.gif)
 
 > 表格浏览
 
-![](http://wetech-admin.image.alimmdn.com/3.gif)
+![](docs/preview/3.gif)
 
 > 增删改查
 
-![](http://wetech-admin.image.alimmdn.com/4.gif)
+![](docs/preview/4.gif)
 
 > 组织机构
 
-![](http://wetech-admin.image.alimmdn.com/5.gif)
+![](docs/preview/5.gif)
 
 > 资源管理
 
-![](http://wetech-admin.image.alimmdn.com/6.gif)
+![](docs/preview/6.gif)
 
 > 代码生成器
 
-![](http://wetech-admin.image.alimmdn.com/7.PNG)
+![](docs/preview/7.PNG)
 
 ## 代码生成器
 

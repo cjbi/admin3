@@ -165,7 +165,6 @@
             var $form = $('#generator-form');
             var json = localStorage.getItem("generatorConfig");
             var config = JSON.parse(json);
-            debugger;
             for(var key in config) {
                 $form.find('input[name="'+key+'"]').val(config[key]);
             }
