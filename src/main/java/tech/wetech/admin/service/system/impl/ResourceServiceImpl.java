@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.system.ResourceMapper;
-import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.Resource;
 import tech.wetech.admin.model.system.ResourceExample;
 import tech.wetech.admin.service.system.ResourceService;
@@ -61,7 +60,7 @@ public class ResourceServiceImpl implements ResourceService{
 
     @Override
     public Set<String> findPermissions(Set<Long> resourceIds) {
-        Set<String> permissions = new HashSet<String>();
+        Set<String> permissions = new HashSet<>();
         for (Long resourceId : resourceIds) {
             Resource resource = findOne(resourceId);
             if (resource != null && !StringUtils.isEmpty(resource.getPermission())) {
@@ -76,7 +75,7 @@ public class ResourceServiceImpl implements ResourceService{
         ResourceExample example = new ResourceExample();
         example.setOrderByClause("priority");
         List<Resource> allResources = resourceMapper.selectByExample(example);
-        List<Resource> menus = new ArrayList<Resource>();
+        List<Resource> menus = new ArrayList<>();
         for (Resource resource : allResources) {
             if (resource.isRootNode()) {
                 continue;

@@ -10,6 +10,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>4.3.5.RELEASE</spring.version>
+    <shiro.version>1.2.2</shiro.version>
     <slf4j.version>1.7.12</slf4j.version>
     <jackson.version>2.8.4</jackson.version>
   </properties>
@@ -174,22 +175,22 @@
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
-      <version>1.2.2</version>
+      <version>${shiro.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-ehcache</artifactId>
-      <version>1.2.2</version>
+      <version>${shiro.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-web</artifactId>
-      <version>1.2.2</version>
+      <version>${shiro.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-quartz</artifactId>
-      <version>1.2.2</version>
+      <version>${shiro.version}</version>
     </dependency>
     <!-- shiro-quartz依赖 commons-collections 否则java.lang.NoClassDefFoundError: org/apache/commons/collections/SetUtils org.quartz.JobDetail.<init>(JobDetail.java:85) -->
     <dependency>
@@ -200,7 +201,7 @@
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-spring</artifactId>
-      <version>1.2.2</version>
+      <version>${shiro.version}</version>
     </dependency>
     <!-- shiro整合结束 -->
 

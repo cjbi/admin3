@@ -92,7 +92,7 @@ public class User implements Serializable{
 
     public List<Long> getRoleIdList() {
         if (roleIdList == null) {
-            roleIdList = new ArrayList<Long>();
+            roleIdList = new ArrayList<>();
         }
         return roleIdList;
     }
