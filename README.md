@@ -74,7 +74,7 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 > 代码生成器
 
-![](docs/preview/7.PNG)
+![](docs/preview/7.png)
 
 ## 代码生成器
 
