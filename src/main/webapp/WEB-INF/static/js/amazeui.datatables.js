@@ -229,3 +229,7 @@ if (DataTable.TableTools) {
 }
 
 // module.exports = DataTable;
+
+
+//抛出javascript错误 https://datatables.net/reference/event/error
+$.fn.dataTable.ext.errMode = 'throw';
