@@ -190,46 +190,5 @@ DataTable.ext.renderer.pageButton.amazeui = function(settings, host, idx, button
     }
 };
 
-
-/*
- * TableTools Amaze UI compatibility
- * Required TableTools 2.1+
- */
-if (DataTable.TableTools) {
-    // Set the classes that TableTools uses to something suitable for Bootstrap
-    $.extend(true, DataTable.TableTools.classes, {
-        container: "DTTT am-btn-group",
-        buttons: {
-            normal: "am-btn am-btn-default",
-            disabled: "am-disabled"
-        },
-        collection: {
-            container: "DTTT_dropdown dropdown-menu",
-            buttons: {
-                normal: "",
-                disabled: "am-disabled"
-            }
-        },
-        print: {
-            info: "DTTT_print_info"
-        },
-        select: {
-            row: "am-active"
-        }
-    });
-
-    // Have the collection use a bootstrap compatible drop down
-    $.extend(true, DataTable.TableTools.DEFAULTS.oTags, {
-        collection: {
-            container: "ul",
-            button: "li",
-            liner: "a"
-        }
-    });
-}
-
-// module.exports = DataTable;
-
-
 //抛出javascript错误 https://datatables.net/reference/event/error
 $.fn.dataTable.ext.errMode = 'throw';
