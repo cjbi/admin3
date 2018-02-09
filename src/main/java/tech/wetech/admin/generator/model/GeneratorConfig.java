@@ -50,7 +50,9 @@ public class GeneratorConfig {
 
 	private boolean useTableNameAlias;
 
-	//custom config by cjbi
+	/**
+	 * custom config by cjbi
+	 */
 	private String serviceImplName;
 
 	private String serviceImplPackage;

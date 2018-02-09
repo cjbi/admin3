@@ -177,46 +177,6 @@ public class WebUtil {
     }
 
     /**
-     * 根据服务器请求信息替换URL中的占位符<br>
-     * 如: getServerURL("http://{ServerName}:{ServerPort}/xxx/")<br>
-     * 返回 http://127.0.0.1:8080/xxx/
-     *
-     * @author 赵卉华
-     * @param url 替换前的URL
-     * @return 替换后的URL
-     */
-    public String getServerURL(String url) {
-        if (url == null) {
-            return url;
-        }
-        url = url.trim();
-        if (url.indexOf("{") < 0 || url.indexOf("}") < 0) {
-            return url;
-        }
-        // 获取服务器请求信息
-        HttpServletRequest request = getRequest();
-        String scheme = request.getScheme();
-        String host = request.getServerName();
-        String port = String.valueOf(request.getServerPort());
-        // ContextPath是以/斜杠开头的, substring(1)去掉斜杠
-        String ctx = request.getContextPath();
-        if (ctx != null && ctx.length() > 0) {
-            ctx = request.getContextPath().substring(1);
-        }
-        // 占位符正则表达式
-        Pattern pScheme = Pattern.compile("\\{[Ss]cheme\\}");
-        Pattern pHost = Pattern.compile("\\{[Ss]erverName\\}");
-        Pattern pPort = Pattern.compile("\\{[Ss]erverPort\\}");
-        Pattern pCtx = Pattern.compile("\\{[Cc]ontextPath\\}");
-        // 替换占位符
-        url = pScheme.matcher(url).replaceFirst(scheme);
-        url = pHost.matcher(url).replaceFirst(host);
-        url = pPort.matcher(url).replaceFirst(port);
-        url = pCtx.matcher(url).replaceFirst(ctx);
-        return Pattern.compile("(?<!:)//").matcher(url).replaceAll("/");
-    }
-
-    /**
      * 获取IP地址
      *
      * @author 龚健
@@ -243,6 +203,6 @@ public class WebUtil {
         if (ip != null && ip.indexOf(",") != -1) {
             ip = ip.substring(ip.lastIndexOf(",") + 1, ip.length()).trim();
         }
-        return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
+        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }
 }

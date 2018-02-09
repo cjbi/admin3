@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 
+ * @author cjbi
  */
 public class Log implements Serializable {
     /**

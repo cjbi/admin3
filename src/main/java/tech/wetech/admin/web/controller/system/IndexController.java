@@ -37,8 +37,8 @@ public class IndexController{
     private List<Resource> getMenuTree(List<Resource> source, Long pid, StringBuilder dom) {
         List<Resource> target = getChildResourceByPid(source, pid);
         for (Resource resource : target) {
-            String angleRight = resource.getUrl().equals("#")?"<i class=\"am-icon-angle-right am-fr am-margin-right\"></i>": "",
-                    href = resource.getUrl().equals("#")?"": "href=\"" + resource.getUrl() + "\"",
+            String angleRight = "#".equals(resource.getUrl())?"<i class=\"am-icon-angle-right am-fr am-margin-right\"></i>": "",
+                    href = "#".equals(resource.getUrl())?"": "href=\"" + resource.getUrl() + "\"",
                     icon = StringUtils.isEmpty(resource.getIcon())?"am-icon-file": resource.getIcon();
 
 

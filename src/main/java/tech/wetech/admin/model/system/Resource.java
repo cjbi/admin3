@@ -4,20 +4,50 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author cjbi
+ */
 public class Resource implements Serializable {
-    private Long id; //编号
+    /**
+     * 编号
+     */
+    private Long id;
     @NotNull(message = "资源名称不能为空")
-    private String name; //资源名称
+    /**
+     * 资源名称
+     */
+    private String name;
+    /**
+     * 资源类型
+     */
     @NotNull(message = "资源类型不能为空")
-    private ResourceType type = ResourceType.menu; //资源类型
-    private String url; //资源路径
-    private String permission; //权限字符串
+    /**
+     * 资源路径
+     */
+    private ResourceType type = ResourceType.menu;
+    private String url;
+    /**
+     * 权限字符串
+     */
+    private String permission;
+    /**
+     * 父编号
+     */
     @NotNull(message = "父编号不能为空")
-    private Long parentId; //父编号
-    private String parentIds; //父编号列表
+    private Long parentId;
+    /**
+     * 父编号列表
+     */
+    private String parentIds;
     private Boolean available = Boolean.FALSE;
-    private String icon;//图标
-    private Long priority;//排序
+    /**
+     * 图标
+     */
+    private String icon;
+    /**
+     * 排序
+     */
+    private Long priority;
 
     private List<Resource> children;
 
@@ -115,23 +145,6 @@ public class Resource implements Serializable {
     public String makeSelfAsParentIds() {
         return getParentIds() + getId() + "/";
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Resource resource = (Resource) o;
-
-        if (id != null ? !id.equals(resource.id) : resource.id != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
     public String getIcon() {
         return icon;
     }

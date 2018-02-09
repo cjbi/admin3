@@ -10,16 +10,37 @@ import org.springframework.util.StringUtils;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author cjbi
+ */
 public class User implements Serializable{
-    private Long id; // 编号
+    /**
+     * 编号
+     */
+    private Long id;
+    /**
+     * 所属公司
+     */
     @NotNull(message = "所属公司不能为空")
-    private Long organizationId; // 所属公司
+    private Long organizationId;
+    /**
+     * 用户名
+     */
     @NotNull(message = "用户名不能为空")
-    private String username; // 用户名
+    private String username;
+    /**
+     * 密码
+     */
     @NotNull(message = "密码不能为空")
-    private String password; // 密码
-    private String salt; // 加密密码的盐
-    private String roleIds; // 拥有的角色列表
+    private String password;
+    /**
+     * 加密密码的盐
+     */
+    private String salt;
+    /**
+     * 拥有的角色列表
+     */
+    private String roleIds;
     private List<Long> roleIdList;
     private Boolean locked = Boolean.FALSE;
 
@@ -118,30 +139,4 @@ public class User implements Serializable{
         this.locked = locked;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        User user = (User) o;
-
-        if (id != null ? !id.equals(user.id) : user.id != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", organizationId=" + organizationId + ", username='" + username + '\''
-                + ", password='" + password + '\'' + ", salt='" + salt + '\'' + ", roleIds=" + roleIds + ", locked="
-                + locked + '}';
-    }
 }

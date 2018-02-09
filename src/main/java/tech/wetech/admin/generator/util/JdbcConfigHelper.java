@@ -11,11 +11,13 @@ import java.util.Properties;
 
 /**
  * MBG 数据库连接配置 <br>
- * Created by cjbi on 2018/1/5.
+ *
+ * @author cjbi
+ * @date 2018/1/5
  */
-public class JdbcConfigHelper{
+public class JdbcConfigHelper {
 
-    private static final Logger _LOG = LoggerFactory.getLogger(JdbcConfigHelper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcConfigHelper.class);
 
     final private static String PROP_NAME = "config";
 
@@ -99,7 +101,7 @@ public class JdbcConfigHelper{
 
     public static List<String> getTableNames() throws SQLException {
         String url = getURL();
-        _LOG.info("getTableNames, connection url: {}", url);
+        LOGGER.info("getTableNames, connection url: {}", url);
         Connection conn = getConnection();
         try {
             List<String> tables = new ArrayList<>();
@@ -113,11 +115,11 @@ public class JdbcConfigHelper{
                     tables.add(rs.getString("name"));
                 }
             } else if (dbType == DbType.Oracle) {
-                rs = md.getTables(null,getUsername().toUpperCase(),null,new String[]{"TABLE","VIEW"});
+                rs = md.getTables(null, getUsername().toUpperCase(), null, new String[]{"TABLE", "VIEW"});
             } else {
-                rs = md.getTables(null, "%", "%", new String[] {"TABLE", "VIEW"});
+                rs = md.getTables(null, "%", "%", new String[]{"TABLE", "VIEW"});
             }
-            while(rs.next()) {
+            while (rs.next()) {
                 tables.add(rs.getString(3));
             }
             return tables;
@@ -133,8 +135,9 @@ public class JdbcConfigHelper{
 
     public static void close(Connection conn) {
         try {
-            if (conn != null)
+            if (conn != null) {
                 conn.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -142,8 +145,9 @@ public class JdbcConfigHelper{
 
     public static void close(PreparedStatement ps) {
         try {
-            if (ps != null)
+            if (ps != null) {
                 ps.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -151,8 +155,9 @@ public class JdbcConfigHelper{
 
     public static void close(ResultSet rs) {
         try {
-            if (rs != null)
+            if (rs != null) {
                 rs.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

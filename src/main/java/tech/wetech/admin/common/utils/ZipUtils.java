@@ -20,7 +20,9 @@ public class ZipUtils{
     public static final String EXT = ".zip";
     private static final String BASE_DIR = "";
 
-    // 符号"/"用来作为目录标识判断符
+    /**
+     * 符号"/"用来作为目录标识判断符
+     */
     private static final String PATH = "/";
     private static final int BUFFER = 1024;
 

@@ -14,7 +14,7 @@ public class PropertiesUtil {
 	
 	public static PropertiesUtil getInstance() {
 		if(util==null) {
-			props = new HashMap<String, Properties>();
+			props = new HashMap<>();
 			util = new PropertiesUtil();
 		}
 		return util;

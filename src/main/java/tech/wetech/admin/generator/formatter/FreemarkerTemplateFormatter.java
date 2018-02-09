@@ -74,7 +74,7 @@ public class FreemarkerTemplateFormatter implements TemplateFormatter, ListTempl
 
     @Override
     public String getFormattedContent(TableClass tableClass, Properties properties, String targetPackage, String templateContent) {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         for (Object o : properties.keySet()) {
             params.put(String.valueOf(o), properties.get(o));
         }
@@ -86,7 +86,7 @@ public class FreemarkerTemplateFormatter implements TemplateFormatter, ListTempl
 
     @Override
     public String getFormattedContent(Set<TableClass> tableClassSet, Properties properties, String targetPackage, String templateContent) {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         for (Object o : properties.keySet()) {
             params.put(String.valueOf(o), properties.get(o));
         }

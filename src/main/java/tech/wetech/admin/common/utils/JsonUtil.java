@@ -17,7 +17,9 @@ public class JsonUtil {
 	private JsonUtil(){}
 	
 	public static JsonUtil getInstance() {
-		if(ju==null) ju = new JsonUtil();
+		if(ju==null) {
+			ju = new JsonUtil();
+		}
 		return ju;
 	}
 	
@@ -31,7 +33,9 @@ public class JsonUtil {
 	}
 	
 	public static JsonFactory getFactory() {
-		if(jf==null) jf = new JsonFactory();
+		if(jf==null) {
+			jf = new JsonFactory();
+		}
 		return jf;
 	}
 	
@@ -48,7 +52,9 @@ public class JsonUtil {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(jg!=null) jg.close();
+				if(jg!=null) {
+					jg.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
