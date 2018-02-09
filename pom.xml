@@ -28,14 +28,14 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
+      <version>1.1.3</version>
     </dependency>
 
     <!-- 把JCL(Apache Commons Logging)的日志输出桥接到 SLF4J -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>${slf4j.version}</version>
+      <version>1.7.12</version>
     </dependency>
 
     <dependency>
@@ -175,34 +175,22 @@
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
-      <version>${shiro.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-api</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
+      <version>1.2.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-ehcache</artifactId>
-      <version>${shiro.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-api</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
+      <version>1.2.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-web</artifactId>
-      <version>${shiro.version}</version>
+      <version>1.2.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-quartz</artifactId>
-      <version>${shiro.version}</version>
+      <version>1.2.2</version>
     </dependency>
     <!-- shiro-quartz依赖 commons-collections 否则java.lang.NoClassDefFoundError: org/apache/commons/collections/SetUtils org.quartz.JobDetail.<init>(JobDetail.java:85) -->
     <dependency>
@@ -213,7 +201,7 @@
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-spring</artifactId>
-      <version>${shiro.version}</version>
+      <version>1.2.2</version>
     </dependency>
     <!-- shiro整合结束 -->
 
@@ -221,12 +209,12 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
-      <version>1.8.9</version>
+      <version>1.7.4</version>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
-      <version>1.8.9</version>
+      <version>1.7.4</version>
     </dependency>
 
     <!-- 测试相关依赖开始 -->

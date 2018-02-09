@@ -3,7 +3,6 @@
 ## 1.2.1-RELEASE
 
 - 修复BUG
-- datatables出错提示修改
 
 ## 1.2.0-RELEASE
 
