@@ -17,9 +17,6 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private LogService logService;
-
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String)principals.getPrimaryPrincipal();

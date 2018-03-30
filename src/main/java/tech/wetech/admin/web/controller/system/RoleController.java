@@ -17,6 +17,7 @@ import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.system.RoleDto;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/role")
@@ -66,9 +67,7 @@ public class RoleController extends BaseController {
     @SystemLog("角色管理删除角色")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public JsonResult delete(Long[] ids) {
-        for(Long id : ids) {
-            roleService.deleteRole(id);
-        }
+        Arrays.asList(ids).forEach(id-> roleService.deleteRole(id));
         return this.renderSuccess();
     }
 

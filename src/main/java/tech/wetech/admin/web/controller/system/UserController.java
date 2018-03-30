@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tech.wetech.admin.common.utils.Constants;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.RoleService;
@@ -17,7 +18,9 @@ import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/user")
@@ -42,7 +45,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
-    public DataTableModel<User> list(DataTableModel<User> model) throws Exception {
+    public DataTableModel<User> list(DataTableModel<User> model) {
         userService.findByPage(model);
         return model;
     }
@@ -51,7 +54,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @RequiresPermissions("user:create")
     @SystemLog("用户管理创建用户")
-    public JsonResult create(@Valid  User user) {
+    public JsonResult create(@Valid User user) {
         userService.createUser(user);
         return this.renderSuccess();
     }
@@ -69,10 +72,14 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @RequiresPermissions("user:delete")
     @SystemLog("用户管理删除用户")
-    public JsonResult delete(Long[] ids) {
-        for(Long id: ids) {
-            userService.deleteUser(id);
+    public JsonResult delete(Long[] ids, HttpServletRequest request) {
+        // 当前用户
+        User user = (User) request.getAttribute(Constants.CURRENT_USER);
+        boolean isSelf = Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));
+        if (isSelf) {
+            return this.renderError("不能删除当前登陆用户！");
         }
+        Arrays.asList(ids).forEach(id -> userService.deleteUser(id));
         return this.renderSuccess();
     }
 
