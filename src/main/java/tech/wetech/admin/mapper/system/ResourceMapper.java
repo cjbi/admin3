@@ -1,9 +1,10 @@
 package tech.wetech.admin.mapper.system;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import tech.wetech.admin.model.system.Resource;
 import tech.wetech.admin.model.system.ResourceExample;
+
+import java.util.List;
 
 public interface ResourceMapper {
     long countByExample(ResourceExample example);

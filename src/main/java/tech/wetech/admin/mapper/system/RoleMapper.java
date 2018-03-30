@@ -1,9 +1,10 @@
 package tech.wetech.admin.mapper.system;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.model.system.RoleExample;
+
+import java.util.List;
 
 public interface RoleMapper {
     long countByExample(RoleExample example);

@@ -1,14 +1,12 @@
 package tech.wetech.admin.model.system;
 
+import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.validator.constraints.Length;
-import org.springframework.util.StringUtils;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author cjbi
@@ -21,7 +19,7 @@ public class User implements Serializable{
     /**
      * 所属公司
      */
-    @NotNull(message = "所属公司不能为空")
+    @NotNull(message = "所属组织不能为空")
     private Long organizationId;
     /**
      * 用户名
@@ -40,6 +38,7 @@ public class User implements Serializable{
     /**
      * 拥有的角色列表
      */
+    @Null(message = "测试测试测试")
     private String roleIds;
     private List<Long> roleIdList;
     private Boolean locked = Boolean.FALSE;

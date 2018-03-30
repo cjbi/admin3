@@ -2,9 +2,13 @@ package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.OrganizationExample;
+import tech.wetech.admin.model.system.TreeDto;
 
 import java.util.List;
 
+/**
+ * @author cjbi
+ */
 public interface OrganizationService {
 
     int createOrganization(Organization organization);
@@ -16,6 +20,8 @@ public interface OrganizationService {
     Organization findOne(Long organizationId);
 
     List<Organization> find(OrganizationExample example);
+
+    List<TreeDto> findOrgTree(Long pId);
 
     List<Organization> findAll();
 

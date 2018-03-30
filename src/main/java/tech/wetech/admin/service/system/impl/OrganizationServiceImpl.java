@@ -2,11 +2,15 @@ package tech.wetech.admin.service.system.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.mapper.system.OrganizationMapper;
 import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.OrganizationExample;
+import tech.wetech.admin.model.system.TreeDto;
 import tech.wetech.admin.service.system.OrganizationService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,6 +50,19 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public List<Organization> find(OrganizationExample example) {
         return organizationMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<TreeDto> findOrgTree(Long pId) {
+        if (StringUtils.isEmpty(pId)) {
+            pId = Constants.ORG_ROOT_ID;
+        }
+        List<TreeDto> tds = new ArrayList<>();
+        OrganizationExample example = new OrganizationExample();
+        OrganizationExample.Criteria criteria = example.createCriteria();
+        criteria.andParentIdEqualTo(pId);
+        organizationMapper.selectByExample(example).forEach(o -> tds.add(new TreeDto(o.getId(), o.getParentId(), o.getName(), Boolean.FALSE.equals(o.getLeaf()), o)));
+        return tds;
     }
 
     @Override

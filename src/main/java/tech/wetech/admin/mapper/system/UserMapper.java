@@ -3,6 +3,7 @@ package tech.wetech.admin.mapper.system;
 import org.apache.ibatis.annotations.Param;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.model.system.UserExample;
+
 import java.util.List;
 
 public interface UserMapper {

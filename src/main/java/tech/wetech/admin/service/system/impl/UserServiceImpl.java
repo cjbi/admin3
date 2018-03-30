@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.common.base.ResultCodeEnum;
+import tech.wetech.admin.common.exception.BizException;
 import tech.wetech.admin.mapper.system.UserMapper;
 import tech.wetech.admin.model.system.*;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.PasswordHelper;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
-import tech.wetech.admin.web.dto.DataTableModel;
-import tech.wetech.admin.web.dto.system.UserDto;
 
 import java.util.*;
 
@@ -36,25 +38,25 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public DataTableModel<User> findByPage(DataTableModel model) {
+    public PageResultSet<UserDto> findByPage(Page page) {
         UserExample example = new UserExample();
-        example.setOffset(model.getStart());
-        example.setLimit(model.getLength());
-        if (!StringUtils.isEmpty(model.getKeywords())) {
-            example.or().andUsernameLike("%" + model.getKeywords() + "%");
+        example.setOffset(page.getOffset());
+        example.setLimit(page.getLimit());
+        if (!StringUtils.isEmpty(page.getSearch())) {
+            example.or().andUsernameLike("%" + page.getSearch() + "%");
         }
         long count = userMapper.countByExample(example);
-        List<User> userList = userMapper.selectByExample(example);
         List<UserDto> dtoList = new ArrayList<>();
-        for (User user : userList) {
-            UserDto dto = new UserDto(user);
+        PageResultSet<UserDto> resultSet = new PageResultSet<>();
+        userMapper.selectByExample(example).forEach(u -> {
+            UserDto dto = new UserDto(u);
             dto.setOrganizationName(getOrganizationName(Long.valueOf(dto.getOrganizationId())));
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
             dtoList.add(dto);
-        }
-        model.setData(dtoList);
-        model.setRecordsTotal(count);
-        return model;
+        });
+        resultSet.setRows(dtoList);
+        resultSet.setTotal(count);
+        return resultSet;
     }
 
     private String getRoleNames(Collection<Long> roleIds) {
@@ -91,7 +93,7 @@ public class UserServiceImpl implements UserService{
     public int createUser(User user) {
         User u = findByUsername(user.getUsername());
         if (u != null) {
-            throw new BizException("该用户已存在");
+            throw new BizException(ResultCodeEnum.FailedUserAlreadyExist);
         }
         // 加密密码
         passwordHelper.encryptPassword(user);

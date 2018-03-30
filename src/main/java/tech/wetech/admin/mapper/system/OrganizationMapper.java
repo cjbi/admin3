@@ -1,9 +1,10 @@
 package tech.wetech.admin.mapper.system;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.OrganizationExample;
+
+import java.util.List;
 
 public interface OrganizationMapper {
     long countByExample(OrganizationExample example);

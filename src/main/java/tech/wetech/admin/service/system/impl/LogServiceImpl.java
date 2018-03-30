@@ -3,11 +3,12 @@ package tech.wetech.admin.service.system.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.mapper.system.LogMapper;
 import tech.wetech.admin.model.system.LogExample;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.service.system.LogService;
-import tech.wetech.admin.web.dto.DataTableModel;
 
 import java.util.List;
 
@@ -28,13 +29,13 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public DataTableModel<LogWithBLOBs> findByPage(DataTableModel<LogWithBLOBs> model) {
+    public PageResultSet<LogWithBLOBs> findByPage(Page page) {
         LogExample example = new LogExample();
-        example.setOffset(model.getStart());
-        example.setLimit(model.getLength());
+        example.setOffset(page.getOffset());
+        example.setLimit(page.getLimit());
         example.setOrderByClause("create_time desc");//时间倒序
-        if(!StringUtils.isEmpty(model.getKeywords())) {
-            String value = "%" + model.getKeywords() + "%";
+        if(!StringUtils.isEmpty(page.getSearch())) {
+            String value = "%" + page.getSearch() + "%";
             example.or().andUsernameLike(value);//用户名
             example.or().andIpLike(value);//ip地址
             example.or().andReqMethodLike(value);//请求方法
@@ -42,10 +43,11 @@ public class LogServiceImpl implements LogService {
             example.or().andExecDescLike(value);//执行描述
             example.or().andStatusLike(value);//状态
         }
-        List<LogWithBLOBs> list = logMapper.selectByExampleWithBLOBs(example);
+        PageResultSet<LogWithBLOBs> resultSet = new PageResultSet<>();
         long count = logMapper.countByExample(example);
-        model.setData(list);
-        model.setRecordsTotal(count);
-        return model;
+        List<LogWithBLOBs> list = logMapper.selectByExampleWithBLOBs(example);
+        resultSet.setRows(list);
+        resultSet.setTotal(count);
+        return resultSet;
     }
 }

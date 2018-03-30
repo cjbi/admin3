@@ -1,7 +1,8 @@
 package tech.wetech.admin.service.system;
 
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.model.system.LogWithBLOBs;
-import tech.wetech.admin.web.dto.DataTableModel;
 
 public interface LogService {
 
@@ -12,6 +13,6 @@ public interface LogService {
      */
     int createLogWithBLOBs(LogWithBLOBs logWithBLOBs);
 
-    DataTableModel<LogWithBLOBs> findByPage(DataTableModel<LogWithBLOBs> model);
+    PageResultSet<LogWithBLOBs> findByPage(Page page);
 
 }

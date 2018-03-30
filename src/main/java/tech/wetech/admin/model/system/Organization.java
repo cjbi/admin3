@@ -26,6 +26,11 @@ public class Organization implements Serializable {
      */
     private String parentIds;
     private Boolean available = Boolean.FALSE;
+
+    /**
+     * 叶子节点
+     */
+    private Boolean leaf = Boolean.FALSE;
     /**
      * 排序
      */
@@ -74,6 +79,14 @@ public class Organization implements Serializable {
 
     public boolean isRootNode() {
         return parentId == 0;
+    }
+
+    public Boolean getLeaf() {
+        return leaf;
+    }
+
+    public void setLeaf(Boolean leaf) {
+        this.leaf = leaf;
     }
 
     public String makeSelfAsParentIds() {

@@ -1,10 +1,11 @@
 package tech.wetech.admin.mapper.system;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import tech.wetech.admin.model.system.Log;
 import tech.wetech.admin.model.system.LogExample;
 import tech.wetech.admin.model.system.LogWithBLOBs;
+
+import java.util.List;
 
 public interface LogMapper {
     long countByExample(LogExample example);

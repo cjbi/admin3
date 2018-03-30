@@ -4,14 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.mapper.system.RoleMapper;
 import tech.wetech.admin.model.system.Resource;
 import tech.wetech.admin.model.system.Role;
+import tech.wetech.admin.model.system.RoleDto;
 import tech.wetech.admin.model.system.RoleExample;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
-import tech.wetech.admin.web.dto.DataTableModel;
-import tech.wetech.admin.web.dto.system.RoleDto;
 
 import java.util.*;
 
@@ -25,26 +26,25 @@ public class RoleServiceImpl implements RoleService{
     private ResourceService resourceService;
 
     @Override
-    public DataTableModel<RoleDto> findByPage(DataTableModel<RoleDto> model) {
+    public PageResultSet<RoleDto> findByPage(Page page) {
         RoleExample example = new RoleExample();
-        example.setOffset(model.getStart());
-        example.setLimit(model.getLength());
-        if (!StringUtils.isEmpty(model.getKeywords())) {
-            example.or().andRoleLike("%" + model.getKeywords() + "%");
-            example.or().andDescriptionLike("%" + model.getKeywords() + "%");
+        example.setOffset(page.getOffset());
+        example.setLimit(page.getLimit());
+        if (!StringUtils.isEmpty(page.getSearch())) {
+            example.or().andRoleLike("%" + page.getSearch() + "%");
+            example.or().andDescriptionLike("%" + page.getSearch() + "%");
         }
-        List<Role> roleList = roleMapper.selectByExample(example);
         long count = roleMapper.countByExample(example);
-        roleMapper.countByExample(example);
+        PageResultSet<RoleDto> resultSet = new PageResultSet<>();
         List<RoleDto> dtoList = new ArrayList<>();
-        for (Role role : roleList) {
-            RoleDto dto = new RoleDto(role);
-            dto.setResourceNames(getResourceNames(role.getResourceIdList()));
+        roleMapper.selectByExample(example).forEach(r->{
+            RoleDto dto = new RoleDto(r);
+            dto.setResourceNames(getResourceNames(r.getResourceIdList()));
             dtoList.add(dto);
-        }
-        model.setData(dtoList);
-        model.setRecordsTotal(count);
-        return model;
+        });
+        resultSet.setRows(dtoList);
+        resultSet.setTotal(count);
+        return resultSet;
     }
 
     private String getResourceNames(Collection<Long> resourceIds) {
