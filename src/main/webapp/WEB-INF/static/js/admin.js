@@ -11,7 +11,7 @@ var basePath = $('#basePath').val();
  * @version 1.1.0
  */
 (function ($) {
-    /*'use strict';*/
+    'use strict';
     var tableId = 'example';
     /**
      * 封装datatables、layer弹出层，简化操作

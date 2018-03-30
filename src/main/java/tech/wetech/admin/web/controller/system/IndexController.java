@@ -29,39 +29,38 @@ public class IndexController{
         Set<String> permissions = userService.findPermissions(loginUser.getUsername());
         List<Resource> menus = resourceService.findMenus(permissions);
         StringBuilder dom = new StringBuilder();
-        List<Resource>  menusTrees = getMenuTree(menus,Constants.MENU_ROOT_ID,dom);
-        model.addAttribute("menuTree", dom);
+        getMenuTree(menus,Constants.MENU_ROOT_ID,dom);
+        model.addAttribute(Constants.MENU_TREE, dom);
         return "index";
     }
 
     private List<Resource> getMenuTree(List<Resource> source, Long pid, StringBuilder dom) {
         List<Resource> target = getChildResourceByPid(source, pid);
-        for (Resource resource : target) {
-            String angleRight = "#".equals(resource.getUrl())?"<i class=\"am-icon-angle-right am-fr am-margin-right\"></i>": "",
-                    href = "#".equals(resource.getUrl())?"": "href=\"" + resource.getUrl() + "\"",
-                    icon = StringUtils.isEmpty(resource.getIcon())?"am-icon-file": resource.getIcon();
-
+        target.forEach(res ->  {
+            String angleRight = "#".equals(res.getUrl())?"<span class=\"am-icon-angle-right am-fr am-margin-right\"></span>": "",
+                    href = "#".equals(res.getUrl())?"": "href=\"" + res.getUrl() + "\"",
+                    icon = StringUtils.isEmpty(res.getIcon())?"am-icon-file": res.getIcon();
 
             dom.append("<li class=\"am-panel\">");
-                dom.append("<a "+href+" class=\"am-cf\" data-am-collapse=\"{'parent': '#collapase-nav-"+pid+"', 'target': '#collapase-nav-"+resource.getId()+"'}\">");
-                    dom.append("<span class=\"am-list-ico "+icon+" am-margin-left-sm\"></span>"+resource.getName()+angleRight);
+                dom.append("<a "+href+" class=\"am-cf\" data-am-collapse=\"{'parent': '#collapase-nav-"+pid+"', 'target': '#collapase-nav-"+res.getId()+"'}\">");
+                    dom.append("<span class=\"am-list-ico "+icon+" am-margin-left-sm\"></span>"+res.getName()+angleRight);
                 dom.append("</a>");
-                dom.append("<ul class=\"am-list am-collapse admin-sidebar-sub\" id=\"collapase-nav-"+resource.getId()+"\">");
-            resource.setChildren(getMenuTree(source, resource.getId(), dom));
+                dom.append("<ul class=\"am-list am-collapse admin-sidebar-sub\" id=\"collapase-nav-"+res.getId()+"\">");
+            res.setChildren(getMenuTree(source, res.getId(), dom));
                 dom.append("</ul>");
             dom.append("</li>");
-        }
+        });
         return target;
     }
 
     private List<Resource> getChildResourceByPid(List<Resource> source, Long pid) {
-        List<Resource> children = new ArrayList<>();
-        for (Resource resource : source) {
-            if (pid.equals(resource.getParentId())) {
-                children.add(resource);
+        List<Resource> child = new ArrayList<>();
+        source.forEach(res -> {
+            if (pid.equals(res.getParentId())) {
+                child.add(res);
             }
-        }
-        return children;
+        });
+        return child;
     }
 
 }
