@@ -1,106 +1,108 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: cjbi
+  Date: 2018/4/6
+  Time: 8:48
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<!doctype html>
-<html class="no-js fixed-layout">
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/static/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="<%=request.getContextPath()%>/static/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.css"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/admin.css"/>
+    <title>Wetech Admin | 登陆</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet"
+          href="<%=request.getContextPath()%>/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="<%=request.getContextPath()%>/static/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/iCheck/square/blue.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-    以获得更好的体验！</p>
-<![endif]-->
-<div class="login-cover">
-    <div class="login-info am-cf">
-        <form action="" method="post">
-            <div class="login-info-form">
-                <div class="login-info-form-content">
-                    <div class="am-g">
-                        <div class="am-u-lg-12">
-                            <div class="login-logo">
-                                <img src="<%=request.getContextPath()%>/static/i/logo-off.png" alt="">
-                            </div>
-                        </div>
-                        <div class="am-u-lg-12">
-                            <div class="am-input-group">
-                                <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
-                                <input type="text" name="username" value="<shiro:principal/>" class="am-form-field" placeholder="Username">
-                            </div>
-                        </div>
-                        <div class="am-u-lg-12">
-                            <div class="am-input-group">
-                                <span class="am-input-group-label"><i class="am-icon-key am-icon-fw"></i></span>
-                                <input type="password" name="password" class="am-form-field" placeholder="PassWord">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-g">
-                        <div class="am-u-lg-12">
-                            <div style="color:red;">${error}</div>
-                        </div>
-                    </div>
-                    <div class="am-g am-margin-top-lg">
-                        <div class="am-u-md-6 am-u-lg-6">
-                            <span class="am-u-md-4 am-u-lg-4" style="font-size: 12px; white-space: nowrap; padding-top: 6px;padding-left: 0px;">自动登陆</span>
-                            <span class="am-u-md-8 am-u-lg-8">
-                                <label class="am-switch">
-                                    <input name="rememberMe" type="checkbox">
-                                    <span class="am-switch-checkbox"></span>
-                                </label>
-                            </span>
-                        </div>
-                        <div class="am-u-md-6 am-u-lg-6">
-                            <button type="submit" class="am-btn am-btn-primary am-btn-block">登陆</button>
-                        </div>
-                    </div>
-                    <div class="am-u-lg-12">
-                        <div class="login-line">
-                        <span class="login-line-font">
-                            第三方登陆
-                        </span>
-                        </div>
-                    </div>
-                    <div class="am-u-md-12 am-u-lg-12 login-consociation">
-                        <div class="am-u-sm-4 am-u-md-4 am-u-lg-4"><a href="##" class="am-icon-btn am-primary am-icon-twitter am-center"></a></div>
-                        <div class="am-u-sm-4 am-u-lg-4"><a href="##" class="am-icon-btn am-success  am-icon-facebook  am-center"></a></div>
-                        <div class="am-u-sm-4 am-u-lg-4"><a href="##" class="am-icon-btn am-danger am-icon-youtube  am-center"></a></div>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>Wetech</b>Admin</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">登陆以开始你的会话</p>
+
+        <form method="post">
+            <div class="form-group has-feedback">
+                <input type="text" name="username" value="<shiro:principal/>" class="form-control" placeholder="用户名">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="password" class="form-control" placeholder="密码">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div style="color:red;">${error}</div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input name="rememberMe" type="checkbox"> 自动登陆
+                        </label>
                     </div>
                 </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">登陆</button>
+                </div>
+                <!-- /.col -->
             </div>
         </form>
-        <div class="login-info-cover">
-            <div class="login-info-cover-title">
-                Amaze UI 3.0
-                <div class="login-info-cover-title-small">欢迎使用 Amaze UI 3.0 New Style</div>
-                <div class="login-info-cover-line"></div>
-            </div>
 
+        <div class="social-auth-links text-center">
+            <p>- 或者 -</p>
+            <a href="#" class="btn btn-block btn-social btn-success btn-flat"><i class="fa fa-wechat"></i> 通过微信登陆</a>
+            <a href="#" class="btn btn-block btn-social btn-info btn-flat"><i class="fa fa-qq"></i> 通过QQ登陆</a>
         </div>
+        <!-- /.social-auth-links -->
+
+        <a href="#">我忘记了密码</a><br>
+        <a href="register.html" class="text-center">注册成为会员</a>
+
     </div>
+    <!-- /.login-box-body -->
 </div>
+<!-- /.login-box -->
 
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="<%=request.getContextPath()%>/static/js/jquery.min.js"></script>
-<!--<![endif]-->
-<script src="<%=request.getContextPath()%>/static/js/amazeui.js"></script>
+<!-- jQuery 3 -->
+<script src="<%=request.getContextPath()%>/static/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<%=request.getContextPath()%>/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="<%=request.getContextPath()%>/static/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' /* optional */
+        });
+    });
+</script>
 </body>
 </html>
-

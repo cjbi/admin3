@@ -1,24 +1,40 @@
 package tech.wetech.admin.model.system;
 
+import tech.wetech.admin.common.base.ResultCodeEnum;
+
 public class BizException extends RuntimeException {
 
-    public BizException() {
-        super();
+    private String code;
+
+    private String msg;
+
+    public BizException(String msg) {
+        super(msg);
     }
 
-    public BizException(String message) {
-        super(message);
+    public BizException(ResultCodeEnum resultCode) {
+        this(resultCode.getCode(), resultCode.getMsg());
     }
 
-    public BizException(String message, Throwable cause) {
-        super(message, cause);
+    public BizException(String code, String msg) {
+        super(msg);
+        this.code = code;
+        this.msg = msg;
     }
 
-    public BizException(Throwable cause) {
-        super(cause);
+    public String getCode() {
+        return code;
     }
 
-    protected BizException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

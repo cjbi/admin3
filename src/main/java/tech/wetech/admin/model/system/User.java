@@ -21,7 +21,7 @@ public class User implements Serializable{
     /**
      * 所属公司
      */
-    @NotNull(message = "所属公司不能为空")
+    @NotNull(message = "所属组织不能为空")
     private Long organizationId;
     /**
      * 用户名

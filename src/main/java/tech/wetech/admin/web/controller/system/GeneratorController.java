@@ -32,7 +32,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tech.wetech.admin.common.utils.Constants;
+import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.ZipUtils;
 import tech.wetech.admin.generator.bridge.MybatisGeneratorBridge;

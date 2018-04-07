@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tech.weteh</groupId>
   <artifactId>wetech-admin</artifactId>
-  <version>1.2.0-RELEASE</version>
+  <version>1.5.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

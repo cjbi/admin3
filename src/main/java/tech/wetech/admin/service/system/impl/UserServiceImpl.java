@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.mapper.system.UserMapper;
 import tech.wetech.admin.model.system.*;
 import tech.wetech.admin.service.system.OrganizationService;
@@ -36,25 +38,25 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public DataTableModel<User> findByPage(DataTableModel model) {
+    public PageResultSet<UserDto> findByPage(Page page) {
         UserExample example = new UserExample();
-        example.setOffset(model.getStart());
-        example.setLimit(model.getLength());
-        if (!StringUtils.isEmpty(model.getKeywords())) {
-            example.or().andUsernameLike("%" + model.getKeywords() + "%");
+        example.setOffset(page.getOffset());
+        example.setLimit(page.getLimit());
+        if (!StringUtils.isEmpty(page.getSearch())) {
+            example.or().andUsernameLike("%" + page.getSearch() + "%");
         }
         long count = userMapper.countByExample(example);
-        List<User> userList = userMapper.selectByExample(example);
         List<UserDto> dtoList = new ArrayList<>();
-        for (User user : userList) {
-            UserDto dto = new UserDto(user);
+        PageResultSet<UserDto> resultSet = new PageResultSet<>();
+        userMapper.selectByExample(example).forEach(u -> {
+            UserDto dto = new UserDto(u);
             dto.setOrganizationName(getOrganizationName(Long.valueOf(dto.getOrganizationId())));
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
             dtoList.add(dto);
-        }
-        model.setData(dtoList);
-        model.setRecordsTotal(count);
-        return model;
+        });
+        resultSet.setRows(dtoList);
+        resultSet.setTotal(count);
+        return resultSet;
     }
 
     private String getRoleNames(Collection<Long> roleIds) {

@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import tech.wetech.admin.common.utils.Constants;
+import tech.wetech.admin.common.Constants;
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.common.base.Result;
+import tech.wetech.admin.common.base.ResultCodeEnum;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.RoleService;
@@ -17,6 +21,7 @@ import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.web.controller.base.BaseController;
 import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.JsonResult;
+import tech.wetech.admin.web.dto.system.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -45,51 +50,50 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
-    public DataTableModel<User> list(DataTableModel<User> model) {
-        userService.findByPage(model);
-        return model;
+    public PageResultSet<UserDto> list(Page page) {
+        return userService.findByPage(page);
     }
 
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @RequiresPermissions("user:create")
     @SystemLog("用户管理创建用户")
-    public JsonResult create(@Valid User user) {
+    public Result create(@Valid User user) {
         userService.createUser(user);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions("user:update")
     @SystemLog("用户管理更新用户")
-    public JsonResult update(User user) {
+    public Result update(User user) {
         userService.updateUser(user);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @RequiresPermissions("user:delete")
     @SystemLog("用户管理删除用户")
-    public JsonResult delete(Long[] ids, HttpServletRequest request) {
+    public Result delete(Long[] ids, HttpServletRequest request) {
         // 当前用户
         User user = (User) request.getAttribute(Constants.CURRENT_USER);
         boolean isSelf = Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));
         if (isSelf) {
-            return this.renderError("不能删除当前登陆用户！");
+            return Result.Failure(ResultCodeEnum.FailedDelOwn);
         }
         Arrays.asList(ids).forEach(id -> userService.deleteUser(id));
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     @ResponseBody
     @RequiresPermissions("user:update")
     @RequestMapping(value = "/{id}/change/password", method = RequestMethod.POST)
     @SystemLog("用户管理更改用户密码")
-    public JsonResult changePassword(@PathVariable("id") Long id, String newPassword) {
+    public Result changePassword(@PathVariable("id") Long id, String newPassword) {
         userService.changePassword(id, newPassword);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     private void setCommonData(Model model) {

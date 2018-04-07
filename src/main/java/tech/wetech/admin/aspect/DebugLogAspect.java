@@ -10,7 +10,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.common.utils.Constants;
+import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
 import tech.wetech.admin.model.system.User;

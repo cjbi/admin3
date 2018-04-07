@@ -1,353 +1,336 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: cjbi
+  Date: 2018/4/6
+  Time: 7:43
+  空页面.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="wetechfn" uri="http://wetech.tech/admin/tags/wetech-functions" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<div class="admin-content">
-    <div class="admin-content-body">
-        <div class="am-cf am-padding">
-            <ol class="am-breadcrumb">
-                <li><a href="#" class="am-icon-home">首页</a></li>
-                <%--<li><a href="#">用户管理</a></li>--%>
-                <li class="am-active am-title">系统用户</li>
-            </ol>
-        </div>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+<!-- Content Header (Page header) -->
+<section class="content-header" style="">
+    <h1>
+        用户管理
+        <small>系统用户管理页面</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="#">用户管理</a></li>
+        <li class="active">系统用户管理</li>
+    </ol>
+</section>
 
-        <div class="am-g am-btn-toolbar">
-            <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-btn-group am-btn-group-xs"></div>
-            </div>
-            <div class="am-u-sm-12 am-u-md-3">
-                <div class="am-form-group">
-                    <%--<select data-am-selected="{btnSize: 'sm'}">
-                        <option value="option1">全部</option>
-                        &lt;%&ndash;<option value="option2">文章</option>
-                        <option value="option3">合作文章</option>
-                        <option value="option3">未审核</option>&ndash;%&gt;
-                    </select>--%>
-                </div>
-            </div>
-            <div class="am-u-sm-12 am-u-md-3">
-                <div class="am-input-group am-input-group-sm">
-                    <input type="text" name="keywords" id="keywords" placeholder="用户名" class="am-form-field">
-                    <span class="am-input-group-btn">
-            <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
-          </span>
-                </div>
-            </div>
-        </div>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="btn-group btn-group-sm" id="toolbar">
+                        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon glyphicon-plus"></i> 新增</button>
 
-        <div class="am-u-sm-12">
-            <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered" width="100%" id="example_user">
-                <thead>
-                <tr>
-                    <th class="am-print-hide"><span style="display: none;">ID</span>&nbsp;</th>
-                    <th>用户名</th>
-                    <th>所属组织</th>
-                    <th>角色列表</th>
-                </tr>
-                </thead>
-            </table>
+                        <!-- Indicates caution should be taken with this action -->
+                        <button type="button" class="btn btn-default"><i class="glyphicon glyphicon glyphicon-edit"></i> 修改</button>
+
+                        <!-- Indicates a dangerous or potentially negative action -->
+                        <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> 删除</button>
+                    </div>
+                    <table id="table"></table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add">
+                    <div class="form-group">
+                        <label class="control-label"><span class="asterisk">*</span>用户名:</label>
+                        <input type="text" class="form-control" name="username" placeholder="输入用户名" minlength="3" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><span class="asterisk">*</span>密码:</label>
+                        <input type="password" class="form-control" name="password" placeholder="输入密码" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><span class="asterisk">*</span>确认密码:</label>
+                        <input type="password" class="form-control" name="chkpassowrd" placeholder="确认密码" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><span class="asterisk">*</span>所属组织:</label>
+                        <input type="text" class="form-control" id="organizationName" name="organizationName" readonly required>
+                        <input type="hidden" id="organizationId" name="organizationId" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><span class="asterisk">*</span>角色列表:</label>
+                        <select name="roleIds" multiple class="form-control">
+                            <c:forEach items="${roleList}" var="role">
+                                <option value="${role.id}">${role.description}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-action="{type:'submit',form:'#add',url:'<%=request.getContextPath()%>/user/create',after:'onAfter'}">确定</button>
+            </div>
         </div>
     </div>
-    <%-- footer start --%>
-    <jsp:include page="footer.jsp"/>
-    <%-- footer end --%>
-</div>
-<div id="add-dialog" class="admin-hide">
-    <form class="am-form am-form-horizontal am-padding-top am-padding-bottom-0" id="add-form">
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">用户名<span class="asterisk">*</span></label>
-            <div class="am-u-sm-10">
-                <input type="text" name="username" placeholder="输入用户名" minlength="3" data-foolish-msg="请输入英文，至少3个字符" required>
-            </div>
-        </div>
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">密码<span class="asterisk">*</span></label>
-            <div class="am-u-sm-10">
-                <input type="password" name="password" id="addpassword" placeholder="输入密码" data-foolish-msg="必须输入密码" required>
-            </div>
-        </div>
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">确认密码<span class="asterisk">*</span></label>
-            <div class="am-u-sm-10">
-                <input type="password" name="chkpassowrd" placeholder="确认密码" data-equal-to="#addpassword" data-foolish-msg="确认密码一致" required>
-            </div>
-        </div>
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">所属组织<span class="asterisk">*</span></label>
-            <div class="am-u-sm-10">
-                <input type="hidden" id="organizationId" name="organizationId" readonly required>
-                <input type="text" id="organizationName" name="organizationName" readonly required>
-            </div>
-        </div>
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">角色列表<span class="asterisk">*</span></label>
-            <div class="am-u-sm-6">
-                <select name="roleIds" multiple <%--data-am-selected--%>>
-                    <c:forEach items="${roleList}" var="role">
-                        <option value="${role.id}">${role.description}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="am-u-sm-4">(按住shift键多选)</div>
-        </div>
-    </form>
 </div>
 
-<div id="edit-dialog" class="admin-hide">
-    <form class="am-form am-form-horizontal am-padding-top" id="edit-form">
-        <input type="hidden" name="id"/>
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">用户名<span class="asterisk">*</span></label>
-            <div class="am-u-sm-10">
-                <input type="text" name="username" placeholder="输入用户名" minlength="3" data-foolish-msg="请输入英文，至少3个字符" required>
-            </div>
-        </div>
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">所属组织<span class="asterisk">*</span></label>
-            <div class="am-u-sm-10">
-                <input type="hidden" id="edit-organizationId" name="organizationId" readonly required>
-                <input type="text" id="edit-organizationName" name="organizationName" readonly required>
-            </div>
-        </div>
-        <div class="am-form-group">
-            <label class="am-u-sm-2 am-form-label">角色列表<span class="asterisk">*</span></label>
-            <div class="am-u-sm-6">
-                <select name="roleIds" style="z-index:19891016;" multiple <%--data-am-selected--%>>
-                    <c:forEach items="${roleList}" var="role">
-                        <option value="${role.id}">${role.description}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="am-u-sm-4">(按住shift键多选)</div>
-        </div>
-    </form>
-</div>
-<div id="menuContent" class="menuContent" style="display:none;z-index:1989101600;position: absolute;border: 1px solid #ccc; background-color: #fff;">
-    <ul id="tree" class="ztree"></ul>
-</div>
-<script type="text/javascript">
-
-    $(function () {
-        var pathURL = basePath + '/user/',
-            listURL = pathURL + 'list',
-            createURL = pathURL + 'create',
-            updateURL = pathURL + 'update',
-            deleteURL = pathURL + 'delete';
-
-        var ajax = {
-            'url': listURL,
-            'data': function (data) {
-                var keywords = $('#keywords').val();
-                if (keywords) {
-                    data.keywords = ($('#keywords').val());
-                }
-            }
-        };
-
-        var columns = [
-            {
-                'data': 'id',
-                'sWidth': '2%',
-                'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
-                    $(nTd).html('');
-                }
-            },
-            {
-                'data': 'username'
-            },
-            {
-                'data': 'organizationName'
-            },
-            {
-                'data': 'roleNames'
-            }
-        ];
-        //定义按钮
-        var buttons = [
-            <shiro:hasPermission name="user:create">
-            {
-                'text': '<span class="am-icon-plus"></span> 新增',
-                'action': function (e, dt, node, config) {
-                    create();
-                },
-            },
-            </shiro:hasPermission>
-            <shiro:hasPermission name="user:update">
-            {
-                'text': '<span class="am-icon-edit"></span> 修改',
-                'action': function (e, dt, node, config) {
-                    update();
-                },
-                'name': 'update',
-                'enabled': false
-            },
-            </shiro:hasPermission>
-            <shiro:hasPermission name="user:delete">
-            {
-                'text': '<span class="am-icon-trash-o"></span> 删除',
-                'action': function (e, dt, node, config) {
-                    del();
-                },
-                'name': 'del',
-                'enabled': false
-            }
-            </shiro:hasPermission>
-        ];
-        var opts = {
-            'ajax': ajax,
-            'buttons': buttons,
-            'columns': columns,
-            'tableId': 'example_user'
-        };
-        var table = $.mytables.initTable(opts);
-
-        //设置按钮启用/禁用状态的逻辑
-        $.mytables.selectEvent(function (selected) {
-            //获取选定的行
-            var selectedRows = table.rows({selected: true}).count();
-            //更新按钮选定1行时启用
-            table.button('update:name').enable(selectedRows === 1);
-            //删除按钮选定大于1行时启用
-            table.button('del:name').enable(selectedRows > 0);
+<script>
+    // 数据表格展开内容
+    function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
         });
-
-        /**
-         * 新增
-         */
-        var create = function () {
-            var $form = $('#add-form');
-            var opts = {
-                title: '添加用户',
-                yes: function (index, layero) {
-                    if ($form.isFormValid()) {
-                        $form.submit({
-                            url: createURL,
-                            callback: function (data) {
-                                if (data.success == true) {
-                                    $.mydialog.closeDialog(index);
-                                    table.ajax.reload();
-                                }
-                            }
-                        });
-                    }
-                },
-                content: $('#add-dialog')
-            };
-            $.mytables.openDialog(opts);
-        }
-
-        /**
-         * 修改
-         */
-        var update = function () {
-            var $form = $('#edit-form');
-            var opts = {
-                title: '修改用户',
-                editable: true,
-                yes: function (index, layero) {
-                    if ($form.isFormValid()) {
-                        $form.submit({
-                            url: updateURL,
-                            callback: function (data) {
-                                if (data.success == true) {
-                                    $.mydialog.closeDialog(index);
-                                    table.ajax.reload();
-                                }
-                            }
-                        });
-                    }
-                },
-                after: function(){
-                    var data = $.mytables.getSelectedData();
-                    var roleIdList = data.roleIdList;
-                    for(i in roleIdList) {
-                        var roleId = roleIdList[i];
-                        $form.find('[name=roleIds]').find('option[value='+roleId+']').prop('selected',true);
-                    }
-                },
-                content: $('#edit-dialog')
-            };
-            $.mytables.openDialog(opts);
-        }
-
-        var del = function () {
-            $.mytables.batch(deleteURL, 'id', '删除');
-        }
-
-        var setting = {
-            view: {
-                dblClickExpand: false
-            },
-            data: {
-                simpleData: {
-                    enable: true
+        return html.join('');
+    }
+    var $table = $('#table');
+    $(function () {
+        // bootstrap table初始化
+        // http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
+        $table.bootstrapTable({
+            url: path +'/user/list',
+            columns: [
+                {field: 'state', checkbox: true},
+                {field: 'id', title: '编号', sortable: true, halign: 'left'},
+                {field: 'username', title: '用户名', sortable: true, halign: 'left'},
+                {field: 'organizationName', title: '所属组织', sortable: true, halign: 'left'},
+                {field: 'roleNames', title: '角色列表', sortable: true, halign: 'left'},
+                {
+                    field: 'action',
+                    title: '操作',
+                    halign: 'center',
+                    align: 'center',
+                    formatter: 'actionFormatter',
+                    events: 'actionEvents',
+                    clickToSelect: false
                 }
-            },
-            callback: {
-                onClick: onClick
-            }
-        };
+            ]
+        }).on('all.bs.table', function (e, name, args) {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+        });
+    });
 
-        var zNodes = [
-            <c:forEach items="${organizationList}" var="o">
-            <c:if test="${not o.rootNode}">
-            {id:${o.id}, pId:${o.parentId}, name: "${o.name}"},
-            </c:if>
-            </c:forEach>
-        ];
+    function actionFormatter(value, row, index) {
+        return [
+            '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+            '<a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+        ].join('');
+    }
 
-        function onClick(e, treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("tree"),
-                nodes = zTree.getSelectedNodes(),
-                id = "",
-                name = "";
-            nodes.sort(function compare(a, b) {
-                return a.id - b.id;
-            });
-            for (var i = 0, l = nodes.length; i < l; i++) {
-                id += nodes[i].id + ",";
-                name += nodes[i].name + ",";
+    window.actionEvents = {
+        'click .like': function (e, value, row, index) {
+            alert('You click like icon, row: ' + JSON.stringify(row));
+            console.log(value, row, index);
+        },
+        'click .edit': function (e, value, row, index) {
+            alert('You click edit icon, row: ' + JSON.stringify(row));
+            console.log(value, row, index);
+        },
+        'click .remove': function (e, value, row, index) {
+            alert('You click remove icon, row: ' + JSON.stringify(row));
+            console.log(value, row, index);
+        }
+    };
+
+    var setting = {
+        view: {
+            dblClickExpand: false
+        },
+        data: {
+            simpleData: {
+                enable: true
             }
-            if (id.length > 0) id = id.substring(0, id.length - 1);
-            if (name.length > 0) name = name.substring(0, name.length - 1);
-            $("#organizationId").val(id);
-            $("#organizationName").val(name);
-            $("#edit-organizationId").val(id);
-            $("#edit-organizationName").val(name);
+        },
+        callback: {
+            onClick: onClick
+        }
+    };
+
+    var zNodes = [
+        <c:forEach items="${organizationList}" var="o">
+        <c:if test="${not o.rootNode}">
+        {id:${o.id}, pId:${o.parentId}, name: "${o.name}"},
+        </c:if>
+        </c:forEach>
+    ];
+
+    function onClick(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("tree"),
+            nodes = zTree.getSelectedNodes(),
+            id = "",
+            name = "";
+        nodes.sort(function compare(a, b) {
+            return a.id - b.id;
+        });
+        for (var i = 0, l = nodes.length; i < l; i++) {
+            id += nodes[i].id + ",";
+            name += nodes[i].name + ",";
+        }
+        if (id.length > 0) id = id.substring(0, id.length - 1);
+        if (name.length > 0) name = name.substring(0, name.length - 1);
+        $("#organizationId").val(id);
+        $("#organizationName").val(name);
+        $("#edit-organizationId").val(id);
+        $("#edit-organizationName").val(name);
+        hideMenu();
+    }
+
+    function showMenu() {
+        var cityObj = $("#organizationName");
+        var cityOffset = $("#organizationName").offset();
+        $("#menuContent").css({left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() - 60 + "px"}).slideDown("fast");
+
+        $("body").bind("mousedown", onBodyDown);
+    }
+
+    function showMenuOfEdit() {
+        var cityObj = $("#edit-organizationName");
+        var cityOffset = $("#edit-organizationName").offset();
+        $("#menuContent").css({left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() - 60 + "px"}).slideDown("fast");
+
+        $("body").bind("mousedown", onBodyDown);
+    }
+
+    function hideMenu() {
+        $("#menuContent").fadeOut("fast");
+        $("body").unbind("mousedown", onBodyDown);
+    }
+
+    function onBodyDown(event) {
+        if (!(event.target.id == "organizationName" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
             hideMenu();
         }
+    }
 
-        function showMenu() {
-            var cityObj = $("#organizationName");
-            var cityOffset = $("#organizationName").offset();
-            $("#menuContent").css({left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() - 60 + "px"}).slideDown("fast");
+    $.fn.zTree.init($("#tree"), setting, zNodes);
+    $("#organizationName").click(showMenu);
+    $("#edit-organizationName").click(showMenuOfEdit);
 
-            $("body").bind("mousedown", onBodyDown);
-        }
-
-        function showMenuOfEdit() {
-            var cityObj = $("#edit-organizationName");
-            var cityOffset = $("#edit-organizationName").offset();
-            $("#menuContent").css({left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() - 60 + "px"}).slideDown("fast");
-
-            $("body").bind("mousedown", onBodyDown);
-        }
-
-        function hideMenu() {
-            $("#menuContent").fadeOut("fast");
-            $("body").unbind("mousedown", onBodyDown);
-        }
-
-        function onBodyDown(event) {
-            if (!(event.target.id == "organizationName" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
-                hideMenu();
+    // 新增
+    function createAction() {
+        $.confirm({
+            type: 'dark',
+            animationSpeed: 300,
+            title: '新增系统',
+            content: $('#createDialog').html(),
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'waves-effect waves-button',
+                    action: function () {
+                        $.alert('确认');
+                    }
+                },
+                cancel: {
+                    text: '取消',
+                    btnClass: 'waves-effect waves-button'
+                }
             }
-        }
+        });
+    }
 
-        $.fn.zTree.init($("#tree"), setting, zNodes);
-        $("#organizationName").click(showMenu);
-        $("#edit-organizationName").click(showMenuOfEdit);
-    });
+    // 编辑
+    function updateAction() {
+        var rows = $table.bootstrapTable('getSelections');
+        if (rows.length == 0) {
+            $.confirm({
+                title: false,
+                content: '请至少选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        } else {
+            $.confirm({
+                type: 'blue',
+                animationSpeed: 300,
+                title: '编辑系统',
+                content: $('#createDialog').html(),
+                buttons: {
+                    confirm: {
+                        text: '确认',
+                        btnClass: 'waves-effect waves-button',
+                        action: function () {
+                            $.alert('确认');
+                        }
+                    },
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        }
+    }
+
+    // 删除
+    function deleteAction() {
+        var rows = $table.bootstrapTable('getSelections');
+        if (rows.length == 0) {
+            $.confirm({
+                title: false,
+                content: '请至少选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        } else {
+            $.confirm({
+                type: 'red',
+                animationSpeed: 300,
+                title: false,
+                content: '确认删除该系统吗？',
+                buttons: {
+                    confirm: {
+                        text: '确认',
+                        btnClass: 'waves-effect waves-button',
+                        action: function () {
+                            var ids = new Array();
+                            for (var i in rows) {
+                                ids.push(rows[i].systemId);
+                            }
+                            $.alert('删除：id=' + ids.join("-"));
+                        }
+                    },
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        }
+    }
 </script>

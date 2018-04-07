@@ -12,6 +12,7 @@
     <result column="available" jdbcType="BIT" property="available" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="leaf" jdbcType="BIT" property="leaf" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, type, url, parent_id, parent_ids, permission, available, icon, priority
+    id, name, type, url, parent_id, parent_ids, permission, available, icon, priority,
+    leaf
   </sql>
   <select id="selectByExample" parameterType="tech.wetech.admin.model.system.ResourceExample" resultMap="BaseResultMap">
     select
@@ -116,11 +118,11 @@
     insert into sys_resource (id, name, type,
     url, parent_id, parent_ids,
     permission, available, icon,
-    priority)
+    priority, leaf)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
     #{url,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{parentIds,jdbcType=VARCHAR},
     #{permission,jdbcType=VARCHAR}, #{available,jdbcType=BIT}, #{icon,jdbcType=VARCHAR},
-    #{priority,jdbcType=INTEGER})
+    #{priority,jdbcType=INTEGER}, #{leaf,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="tech.wetech.admin.model.system.Resource">
     insert into sys_resource
@@ -155,6 +157,9 @@
       <if test="priority != null">
         priority,
       </if>
+      <if test="leaf != null">
+        leaf,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -186,6 +191,9 @@
       </if>
       <if test="priority != null">
         #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="leaf != null">
+        #{leaf,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -228,6 +236,9 @@
       <if test="record.priority != null">
         priority = #{record.priority,jdbcType=INTEGER},
       </if>
+      <if test="record.leaf != null">
+        leaf = #{record.leaf,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -244,7 +255,8 @@
     permission = #{record.permission,jdbcType=VARCHAR},
     available = #{record.available,jdbcType=BIT},
     icon = #{record.icon,jdbcType=VARCHAR},
-    priority = #{record.priority,jdbcType=INTEGER}
+    priority = #{record.priority,jdbcType=INTEGER},
+    leaf = #{record.leaf,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -279,6 +291,9 @@
       <if test="priority != null">
         priority = #{priority,jdbcType=INTEGER},
       </if>
+      <if test="leaf != null">
+        leaf = #{leaf,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -292,7 +307,8 @@
       permission = #{permission,jdbcType=VARCHAR},
       available = #{available,jdbcType=BIT},
       icon = #{icon,jdbcType=VARCHAR},
-      priority = #{priority,jdbcType=INTEGER}
+      priority = #{priority,jdbcType=INTEGER},
+      leaf = #{leaf,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,9 +1,13 @@
 package tech.wetech.admin.service.system;
 
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.model.system.BizException;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.model.system.UserExample;
 import tech.wetech.admin.web.dto.DataTableModel;
+import tech.wetech.admin.web.dto.system.UserDto;
+
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +15,7 @@ public interface UserService {
 
     List<User> selectByExample(UserExample example);
 
-    DataTableModel findByPage(DataTableModel<User> model);
+    PageResultSet<UserDto> findByPage(Page page);
 
     /**
      * 创建用户

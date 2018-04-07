@@ -1,25 +1,18 @@
 package tech.wetech.admin.aspect;
 
-import java.lang.reflect.Method;
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import tech.wetech.admin.annotation.SystemLog;
-import tech.wetech.admin.common.utils.Constants;
+import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
 import tech.wetech.admin.model.system.LogWithBLOBs;

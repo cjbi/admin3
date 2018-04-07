@@ -16,7 +16,7 @@
 
 package tech.wetech.admin.web.bind.annotation;
 
-import tech.wetech.admin.common.utils.Constants;
+import tech.wetech.admin.common.Constants;
 
 import java.lang.annotation.*;
 

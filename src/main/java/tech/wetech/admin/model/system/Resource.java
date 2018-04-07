@@ -49,6 +49,11 @@ public class Resource implements Serializable {
      */
     private Long priority;
 
+    /**
+     * 叶子节点
+     */
+    private Boolean leaf;
+
     private List<Resource> children;
 
     public List<Resource> getChildren() {
@@ -159,5 +164,13 @@ public class Resource implements Serializable {
 
     public void setPriority(Long priority) {
         this.priority = priority;
+    }
+
+    public Boolean getLeaf() {
+        return leaf;
+    }
+
+    public void setLeaf(Boolean leaf) {
+        this.leaf = leaf;
     }
 }

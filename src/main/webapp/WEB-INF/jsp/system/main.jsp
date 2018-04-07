@@ -1,96 +1,106 @@
 <%--
   Created by IntelliJ IDEA.
   User: cjbi
-  Date: 2017/9/29
-  Time: 0:08
-  To change this template use File | Settings | File Templates.
+  Date: 2018/4/5
+  Time: 11:00
+  主页面.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort()
-            + path;
-%>
-<!doctype html>
-<html class="no-js fixed-layout">
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Wetech Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/static/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="<%=request.getContextPath()%>/static/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Wetech Admin"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.min.css"/>
-    <%--<link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/css/buttons.dataTables.min.css"/>--%>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/Select-1.2.4/css/select.dataTables.css"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.select.css"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/libs/zTree_v3/css/metroStyle/metroStyle.css">
+    <title>Wetech Admin | 管理控制台</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet"
+          href="<%=request.getContextPath()%>/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="<%=request.getContextPath()%>/static/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/skins/_all-skins.min.css">
+    <!-- Pace style -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/pace/pace.min.css">
+    <!-- zTree style -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/zTree_v3/css/metroStyle/metroStyle.css">
+    <!-- Bootstrap-table -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/bootstrap-table/dist/bootstrap-table.min.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/amazeui.datatables.buttons.css"/>
-   <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/admin.css">
+    <!-- Animate -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/animate.css-3.5.2/animate.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/admin.css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        var path = '<%=request.getContextPath()%>';
+    </script>
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body>
-<%-- header start --%>
-<jsp:include page="header.jsp"/>
-<%-- header end --%>
-<div class="am-cf admin-main">
-    <%-- sidebar start --%>
-    <jsp:include page="sidebar.jsp"/>
-    <%-- sidebar end --%>
-    <%-- content start --%>
-     <content id="admin-content">
-        <div class="admin-content">
-            <div class="admin-content-body">
-                <div class="am-cf am-padding">
-                    <ol class="am-breadcrumb">
-                        <li><a href="#" class="am-icon-home">首页</a></li>
-                        <%--<li><a href="#">用户管理</a></li>--%>
-                        <li class="am-active">没有内容</li>
-                    </ol>
-                </div>
-            </div>
-            <%-- footer start --%>
-            <jsp:include page="footer.jsp"/>
-            <%-- footer end --%>
-        </div>
-    </content>
-    <%-- content end --%>
+<body class="hold-transition skin-green sidebar-mini fixed">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <%@ include file="header.jsp" %>
+
+    <%@include file="main-sidebar.jsp" %>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" id="content-wrapper">
+        <%@include file="content-wrapper.jsp" %>
+    </div>
+    <!-- /.content-wrapper -->
+
+    <%--<%@include file="footer.jsp"%>--%>
+
+    <%@ include file="control-sidebar.jsp" %>
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
 </div>
-<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-<input id="basePath" type="hidden" value="<%=basePath%>"/>
-<!--[if lt IE 9]>
-<script src="//libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="//cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="//cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.js"></script>
-<![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="<%=request.getContextPath()%>/static/js/jquery.min.js"></script>
-<!--<![endif]-->
-<script src="<%=request.getContextPath()%>/static/js/amazeui.js"></script>
+<!-- ./wrapper -->
+<!-- jQuery 3 -->
+<script src="<%=request.getContextPath()%>/static/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<%=request.getContextPath()%>/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="<%=request.getContextPath()%>/static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="<%=request.getContextPath()%>/static/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="<%=request.getContextPath()%>/static/js/adminlte.min.js"></script>
+<!-- PACE -->
+<script src="<%=request.getContextPath()%>/static/bower_components/PACE/pace.min.js"></script>
+<!-- zTree script -->
+<script src="<%=request.getContextPath()%>/static/plugins/zTree_v3/js/jquery.ztree.all.min.js"></script>
+<!-- Bootstrap-table -->
+<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<!-- Bootstrap-notify-3.1.3 -->
+<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-notify-3.1.3/dist/bootstrap-notify.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<%=request.getContextPath()%>/static/js/demo.js"></script>
 
-<script src="<%=request.getContextPath()%>/static/libs/DataTables-1.10.16/media/js/jquery.dataTables.min.js"></script>
-
-<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/dataTables.buttons.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.colVis.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/libs/jszip-3.1.5/dist/jszip.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.html5.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/libs/Buttons-1.5.0/js/buttons.print.min.js"></script>
-
-<script src="<%=request.getContextPath()%>/static/libs/Select-1.2.4/js/dataTables.select.js"></script>
-
-<script src="<%=request.getContextPath()%>/static/libs/layer-v3.1.0/layer/layer.js"></script>
-<script src="<%=request.getContextPath()%>/static/libs/zTree_v3/js/jquery.ztree.all.min.js"></script>
-
-<script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/amazeui.datatables.buttons.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/common/utils.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/admin.js"></script>
 </body>
 </html>
+

@@ -1,47 +1,161 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: cjbi
+  Date: 2018/4/6
+  Time: 7:24
+  头部.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-以获得更好的体验！</p>
-<![endif]-->
-<header class="am-topbar am-topbar-inverse">
-    <h1 class="am-topbar-brand">
-        <a href="#" class="am-text-ir"></a>
-    </h1>
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>W</b>A</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Wetech</b>Admin</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
 
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse-2'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success">4</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">你有 4 条消息</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li><!-- start message -->
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <img src="<%=request.getContextPath()%>/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        </div>
+                                        <h4>
+                                            支持团队
+                                            <small><i class="fa fa-clock-o"></i> 5 分钟前</small>
+                                        </h4>
+                                        <p>为什么不购买一个很棒的主题呢?</p>
+                                    </a>
+                                </li>
+                                <!-- end message -->
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">显示所有的消息</a></li>
+                    </ul>
+                </li>
+                <!-- Notifications: style can be found in dropdown.less -->
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label label-warning">10</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">你有 10 条通知</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-users text-aqua"></i> 5 个新成员在今天加入
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">浏览所有</a></li>
+                    </ul>
+                </li>
+                <!-- Tasks: style can be found in dropdown.less -->
+                <li class="dropdown tasks-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-flag-o"></i>
+                        <span class="label label-danger">9</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">你有 9 个任务</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li><!-- Task item -->
+                                    <a href="#">
+                                        <h3>
+                                            设计一些按钮
+                                            <small class="pull-right">20%</small>
+                                        </h3>
+                                        <div class="progress xs">
+                                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only">完成 20%</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end task item -->
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="#">浏览所有任务</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="<%=request.getContextPath()%>/static/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                        <span class="hidden-xs"><shiro:principal/></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="<%=request.getContextPath()%>/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-    <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse-2">
-        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-            <li><a href="javascript:;"><span class="am-mark"><span class="am-icon-bell"></span> 信息<sup>99+</sup></span></a></li>
-            <li class="am-dropdown" data-am-dropdown>
-                <a  class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                    <span class="am-mark"><span class="am-icon-calendar-check-o"></span> 进度<sup>12</sup></span>
-                    <span class="am-icon-caret-down"></span>
-                </a>
-                <ul class="am-dropdown-content">
-                    <li class="am-dropdown-header">进度列表</li>
-                    <li><a href="#">Amaze UI</a></li>
-                    <li class="am-active"><a href="#">Amaze UI Touch</a></li>
-                    <li><a href="#">Amaze UI React</a></li>
-                </ul>
-            </li>
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-show-sidebar"><span class="am-icon-list"></span> <span
-                    class="admin-show-text">隐藏菜单</span></a></li>
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span
-                    class="admin-fullText">开启全屏</span></a></li>
-            <li class="am-dropdown" data-am-dropdown>
-                <a  class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                    <img class="admin-user-ico" src="<%=request.getContextPath()%>/static/img/user.png" alt=""><shiro:principal/>
-                    <span class="am-icon-caret-down"></span>
-                </a>
-                <ul class="am-dropdown-content">
-                    <li class="am-dropdown-header">个人资料</li>
-                    <li><a href="#">资料设置</a></li>
-                    <li class="am-active"><a href="#">个人中心</a></li>
-                </ul>
-            </li>
-            <li><a href="<%=request.getContextPath()%>/logout"><span class="am-icon-close"></span> 退出</a></li>
-        </ul>
-    </div>
+                            <p>
+                                <shiro:principal/> - Web Developer
+                                <small>2012年11月加入</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">关注数</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">销量</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">好友</a>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">个人信息</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-default btn-flat">注销</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </header>
