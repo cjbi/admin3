@@ -7,12 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import tech.wetech.admin.annotation.SystemLog;
+import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.model.system.Resource;
 import tech.wetech.admin.model.system.ResourceExample;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.web.controller.base.BaseController;
-import tech.wetech.admin.web.dto.JsonResult;
-
 import javax.validation.Valid;
 
 @Controller
@@ -40,27 +39,27 @@ public class ResourceController extends BaseController{
     @RequiresPermissions("resource:create")
     @SystemLog("资源管理创建资源")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public JsonResult create(@Valid Resource resource) {
+    public Result create(@Valid Resource resource) {
         resourceService.createResource(resource);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     @ResponseBody
     @RequiresPermissions("resource:update")
     @SystemLog("资源管理更新资源")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public JsonResult update(@Valid Resource resource) {
+    public Result update(@Valid Resource resource) {
         resourceService.updateResource(resource);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     @ResponseBody
     @RequiresPermissions("resource:delete")
     @SystemLog("资源管理删除资源")
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
-    public JsonResult delete(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Result delete(@RequestParam("id") Long id) {
         resourceService.deleteResource(id);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
 }

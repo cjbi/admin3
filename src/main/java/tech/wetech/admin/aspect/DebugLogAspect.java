@@ -11,11 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.Constants;
+import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
 import tech.wetech.admin.model.system.User;
-import tech.wetech.admin.web.dto.DataTableModel;
-import tech.wetech.admin.web.dto.JsonResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -68,13 +68,13 @@ public class DebugLogAspect {
             String protocol = req.getProtocol();// 协议
             String status = null;
             String msg = null;
-            if (returns != null && returns instanceof JsonResult) {
-                JsonResult result = (JsonResult) returns;
-                status = result.getStatus();
+            if (returns != null && returns instanceof Result) {
+                Result result = (Result) returns;
+                status = result.getCode();
                 msg = result.getMsg();
             }
 
-            if (returns != null && returns instanceof DataTableModel) {
+            if (returns != null && returns instanceof PageResultSet) {
                 msg = "分页查询返回";
                 status = HttpStatus.OK.toString();
             }
@@ -109,13 +109,13 @@ public class DebugLogAspect {
             if (log.isTraceEnabled()) {
                 // 请求参数
                 StringBuffer params = new StringBuffer();
-                for (Enumeration<String> e = req.getParameterNames(); e.hasMoreElements();) {
+                for (Enumeration<String> e = req.getParameterNames(); e.hasMoreElements(); ) {
                     String k = e.nextElement();
                     params.append(k).append("=").append(req.getParameter(k)).append(";");
                 }
                 // 请求头
                 StringBuffer headers = new StringBuffer();
-                for (Enumeration<String> e = req.getHeaderNames(); e.hasMoreElements();) {
+                for (Enumeration<String> e = req.getHeaderNames(); e.hasMoreElements(); ) {
                     String k = e.nextElement();
                     headers.append(k).append("=").append(req.getHeader(k)).append(";");
                 }

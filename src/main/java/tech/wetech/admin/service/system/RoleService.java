@@ -1,5 +1,7 @@
 package tech.wetech.admin.service.system;
 
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.system.RoleDto;
@@ -9,7 +11,7 @@ import java.util.Set;
 
 public interface RoleService {
 
-    DataTableModel<RoleDto> findByPage(DataTableModel<RoleDto> model);
+    PageResultSet<RoleDto> findByPage(Page page);
 
     int createRole(Role role);
 

@@ -13,13 +13,13 @@ import org.springframework.util.StringUtils;
 
 import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.common.Constants;
+import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.LogService;
-import tech.wetech.admin.web.dto.DataTableModel;
-import tech.wetech.admin.web.dto.JsonResult;
 
 /**
  * 系统日志切面
@@ -65,13 +65,13 @@ public class SystemLogAspect{
         String status = null;
         String msg = null;
         String desc = !StringUtils.isEmpty(systemLog.desc()) ? systemLog.desc() : systemLog.value();
-        if (returns != null && returns instanceof JsonResult) {
-            JsonResult result = (JsonResult) returns;
-            status = result.getStatus();
+        if (returns != null && returns instanceof Result) {
+            Result result = (Result) returns;
+            status = result.getCode();
             msg = result.getMsg();
         }
 
-        if (returns != null && returns instanceof DataTableModel) {
+        if (returns != null && returns instanceof PageResultSet) {
             msg = "查询成功";
             status = HttpStatus.OK.toString();
         }

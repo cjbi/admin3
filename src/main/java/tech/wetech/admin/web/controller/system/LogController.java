@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tech.wetech.admin.common.base.Page;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.service.system.LogService;
 import tech.wetech.admin.web.controller.base.BaseController;
@@ -31,9 +33,9 @@ public class LogController extends BaseController{
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("log:view")
-    public DataTableModel<LogWithBLOBs> list(DataTableModel<LogWithBLOBs> model) {
-        logService.findByPage(model);
-        return model;
+    public PageResultSet<LogWithBLOBs> list(Page page) {
+        logService.findByPage(page);
+        return logService.findByPage(page);
     }
 
 }

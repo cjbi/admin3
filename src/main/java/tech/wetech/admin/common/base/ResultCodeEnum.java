@@ -11,8 +11,8 @@ public enum ResultCodeEnum {
     ParamsMiss("483","缺少接口中必填参数"),
     ParamError("484","参数非法"),
     FailedDelOwn("485","不能删除自己"),
-    InternalServerError("500","服务器内部错误")
-    ;
+    InternalServerError("500","服务器内部错误"),
+    NotImplemented("501","业务异常");
 
     private String code;
     private String msg;

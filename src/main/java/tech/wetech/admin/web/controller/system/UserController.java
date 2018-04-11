@@ -4,10 +4,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.common.base.Page;
 import tech.wetech.admin.common.base.PageResultSet;
@@ -19,8 +16,6 @@ import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.web.controller.base.BaseController;
-import tech.wetech.admin.web.dto.DataTableModel;
-import tech.wetech.admin.web.dto.JsonResult;
 import tech.wetech.admin.web.dto.system.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +71,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @RequiresPermissions("user:delete")
     @SystemLog("用户管理删除用户")
-    public Result delete(Long[] ids, HttpServletRequest request) {
+    public Result delete(@RequestParam("id") Long[] ids, HttpServletRequest request) {
         // 当前用户
         User user = (User) request.getAttribute(Constants.CURRENT_USER);
         boolean isSelf = Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tech.wetech.admin.annotation.SystemLog;
+import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.OrganizationExample;
 import tech.wetech.admin.service.system.OrganizationService;
@@ -36,36 +37,36 @@ public class OrganizationController extends BaseController{
     @ResponseBody
     @RequiresPermissions("organization:view")
     @RequestMapping(value = "{id}/load", method = RequestMethod.POST)
-    public JsonResult load(@PathVariable Long id) {
+    public Result load(@PathVariable Long id) {
         Organization organization = organizationService.findOne(id);
-        return this.renderSuccess(organization);
+        return Result.Success(organization);
     }
 
     @ResponseBody
     @RequiresPermissions("organization:create")
     @SystemLog("组织管理创建组织")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public JsonResult create(@Valid Organization organization) {
+    public Result create(@Valid Organization organization) {
         organizationService.createOrganization(organization);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     @ResponseBody
     @RequiresPermissions("organization:update")
     @SystemLog("组织管理更新组织")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public JsonResult update(@Valid Organization organization) {
+    public Result update(@Valid Organization organization) {
         organizationService.updateOrganization(organization);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
     @ResponseBody
     @RequiresPermissions("organization:delete")
     @SystemLog("组织管理删除组织")
-    @RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
-    public JsonResult delete(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Result delete(Long id) {
         organizationService.deleteOrganization(id);
-        return this.renderSuccess();
+        return Result.Success();
     }
 
 }
