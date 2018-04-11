@@ -65,17 +65,15 @@
                 });
             }
 
-            /**
-             * jQuery因为删除dom事件也会失效，所以页面需要注册下部分依赖jQuery的组件和事件
-             */
-            function reloadComponent() {
+            var error = function (...msg) {
+                console.error(msg);
+                $.myNotify.danger(msg);
+            };
+            //jQuery因为删除dom事件也会失效，所以页面需要注册下部分依赖jQuery的组件和事件
+            var reloadComponent = function() {
                 //自定义事件
                 $('[data-action]').on('click', function (e) {
                     var str = $(this).attr('data-action');
-                    var error = function (...msg) {
-                        console.error(msg);
-                        $.myNotify.danger(msg);
-                    };
                     try {
                         var obj = eval('(' + str + ')');
                     } catch(err) {
@@ -164,10 +162,6 @@
                     var $table = $(this);
                     $('[data-action]').each(function (i) {
                         var str = $(this).attr('data-action');
-                        var error = function (...msg) {
-                            console.error(msg);
-                            $.myNotify.danger(msg);
-                        };
                         try {
                             var obj = eval('(' + str + ')');
                         } catch(err) {
@@ -195,7 +189,7 @@
                 $('form').validator();
                 //chosen
                 $(".chosen-select").chosen({width: '100%', no_results_text: '没找到你要的选项！'});
-            }
+            };
         }
 
     };
