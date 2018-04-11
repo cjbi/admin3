@@ -45,7 +45,7 @@
                         <button type="button" id="deleteBtn" class="btn btn-default" data-toggle="modal"
                                 data-target="#deleteModal"
                                 data-action="{type:'delete',form:'#deleteForm',idField:'id',table:'#table'}" disabled><i
-                                class="glyphicon-remove"></i> 删除
+                                class="glyphicon glyphicon-remove"></i> 删除
                         </button>
                     </div>
                     <table id="table"></table>
