@@ -180,6 +180,7 @@
         $table.bootstrapTable({
             url: path + '/role/list',
             idField: 'id',
+            searchOnEnterKey: false,
             columns: [
                 {field: 'state', checkbox: true},
                 {field: 'id', title: '编号', sortable: true, halign: 'left'},

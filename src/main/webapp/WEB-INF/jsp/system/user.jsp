@@ -206,6 +206,7 @@
         $table.bootstrapTable({
             url: path + '/user/list',
             idField: 'id',
+            searchOnEnterKey: false,
             columns: [
                 {field: 'state', checkbox: true},
                 {field: 'id', title: '编号', sortable: true, halign: 'left'},

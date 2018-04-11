@@ -44,6 +44,7 @@
         $table.bootstrapTable({
             url: path + '/log/list',
             idField: 'id',
+            searchOnEnterKey: false,
             columns: [
                 {field: 'state', checkbox: true},
                 {field: 'id', title: '编号', sortable: true, halign: 'left'},
