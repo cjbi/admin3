@@ -11,11 +11,16 @@ import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.mybatis.generator.plugins.EqualsHashCodePlugin;
+import org.mybatis.generator.plugins.SerializablePlugin;
+import org.mybatis.generator.plugins.ToStringPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import tech.wetech.admin.generator.model.GeneratorConfig;
 import tech.wetech.admin.generator.plugins.DbRemarksCommentGenerator;
+import tech.wetech.admin.generator.plugins.MySQLLimitPlugin;
+import tech.wetech.admin.generator.plugins.TemplateFilePlugin;
 import tech.wetech.admin.generator.util.JdbcConfigHelper;
 
 /**
@@ -129,15 +134,15 @@ public class MybatisGeneratorBridge{
 
         // 实体添加序列化
         PluginConfiguration serializablePluginConfiguration = new PluginConfiguration();
-        serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
+        serializablePluginConfiguration.setConfigurationType(SerializablePlugin.class.getName());
         context.addPluginConfiguration(serializablePluginConfiguration);
         // toString, hashCode, equals插件
         if (generatorConfig.isNeedToStringHashcodeEquals()) {
             PluginConfiguration pluginConfiguration1 = new PluginConfiguration();
-            pluginConfiguration1.setConfigurationType("org.mybatis.generator.plugins.EqualsHashCodePlugin");
+            pluginConfiguration1.setConfigurationType(EqualsHashCodePlugin.class.getName());
             context.addPluginConfiguration(pluginConfiguration1);
             PluginConfiguration pluginConfiguration2 = new PluginConfiguration();
-            pluginConfiguration2.setConfigurationType("org.mybatis.generator.plugins.ToStringPlugin");
+            pluginConfiguration2.setConfigurationType(ToStringPlugin.class.getName());
             context.addPluginConfiguration(pluginConfiguration2);
         }
         // limit/offset插件
@@ -146,7 +151,7 @@ public class MybatisGeneratorBridge{
             if (JdbcConfigHelper.getDbType() == JdbcConfigHelper.DbType.MySQL
                     || JdbcConfigHelper.getDbType() == JdbcConfigHelper.DbType.PostgreSQL) {
                 PluginConfiguration pluginConfiguration = new PluginConfiguration();
-                pluginConfiguration.setConfigurationType("tech.wetech.admin.generator.plugins.MySQLLimitPlugin");
+                pluginConfiguration.setConfigurationType(MySQLLimitPlugin.class.getName());
                 context.addPluginConfiguration(pluginConfiguration);
             }
         }
@@ -169,7 +174,7 @@ public class MybatisGeneratorBridge{
         //Service interface
         LOGGER.info("config servie interface plugin");
         PluginConfiguration t1 = new PluginConfiguration();
-        t1.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t1.setConfigurationType(TemplateFilePlugin.class.getName());
         t1.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getServiceTargetFolder());
         t1.addProperty("targetPackage",generatorConfig.getServicePackage());
         t1.addProperty("templatePath","generator/ftl/service.ftl");
@@ -180,7 +185,7 @@ public class MybatisGeneratorBridge{
         //service impl
         LOGGER.info("config serviceImpl plugin");
         PluginConfiguration t2 = new PluginConfiguration();
-        t2.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t2.setConfigurationType(TemplateFilePlugin.class.getName());
         t2.addProperty("targetProject", generatorConfig.getProjectFolder() + "/" + generatorConfig.getServiceImplTargetFolder());
         t2.addProperty("targetPackage",generatorConfig.getServiceImplPackage());
         t2.addProperty("templatePath","generator/ftl/serviceImpl.ftl");
@@ -195,7 +200,7 @@ public class MybatisGeneratorBridge{
         //controller
         LOGGER.info("config controller plugin");
         PluginConfiguration t3 = new PluginConfiguration();
-        t3.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t3.setConfigurationType(TemplateFilePlugin.class.getName());
         t3.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getControllerTargetFolder());
         t3.addProperty("targetPackage", generatorConfig.getControllerPackage());
         t3.addProperty("templatePath","generator/ftl/controller.ftl");
@@ -211,7 +216,7 @@ public class MybatisGeneratorBridge{
         //jsp
         LOGGER.info("config jsp plugin");
         PluginConfiguration t4 = new PluginConfiguration();
-        t4.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        t4.setConfigurationType(TemplateFilePlugin.class.getName());
         t4.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getJspTargetFolder());
         t4.addProperty("targetPackage", "");
         t4.addProperty("templatePath","generator/ftl/jsp.ftl");
@@ -221,7 +226,7 @@ public class MybatisGeneratorBridge{
         context.addPluginConfiguration(t4);
 
         PluginConfiguration tt1 = new PluginConfiguration();
-        tt1.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        tt1.setConfigurationType(TemplateFilePlugin.class.getName());
         tt1.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
         tt1.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());
         tt1.addProperty("templatePath","generator/ftl/test-one.ftl");
@@ -229,7 +234,7 @@ public class MybatisGeneratorBridge{
         context.addPluginConfiguration(tt1);
 
         PluginConfiguration tt2 = new PluginConfiguration();
-        tt2.setConfigurationType("tech.wetech.admin.generator.plugins.TemplateFilePlugin");
+        tt2.setConfigurationType(TemplateFilePlugin.class.getName());
         tt2.addProperty("singleMode","false");
         tt2.addProperty("targetProject",generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
         tt2.addProperty("targetPackage",generatorConfig.getMappingXMLPackage());

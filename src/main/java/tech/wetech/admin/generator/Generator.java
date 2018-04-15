@@ -1,6 +1,5 @@
-package tech.wetech.admin.generator.util;
+package tech.wetech.admin.generator;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,20 +7,25 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 代码生成器
  * <p>
  * Created by cjbi on 2018/1/7.
+ *
  * @author cjbi
  */
-public class GeneratorHelper {
+public class Generator {
 
-    private static GeneratorHelper helper = null;
+    public static final Logger LOGGER = LoggerFactory.getLogger(Generator.class);
 
-    public static GeneratorHelper getInstance() {
-        if(helper == null) {
-            helper = new GeneratorHelper();
+    private static Generator helper = null;
+
+    public static Generator getInstance() {
+        if (helper == null) {
+            helper = new Generator();
         }
         return helper;
     }
@@ -31,9 +35,12 @@ public class GeneratorHelper {
         boolean overwrite = true;
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(
-                GeneratorHelper.class.getResourceAsStream("/generator/generatorConfig.xml"));
+                Generator.class.getResourceAsStream("/generator/generatorConfig.xml"));
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
+        warnings.forEach(w -> {
+            LOGGER.warn(w);
+        });
     }
 }

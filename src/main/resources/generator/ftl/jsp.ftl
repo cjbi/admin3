@@ -1,91 +1,103 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="wetechfn" uri="http://wetech.tech/admin/tags/wetech-functions" %>
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<div class="admin-content">
-    <div class="admin-content-body">
-        <div class="am-cf am-padding">
-            <ol class="am-breadcrumb">
-                <li><a href="#" class="am-icon-home">首页</a></li>
-                <li class="am-active am-title">新页面</li>
-            </ol>
-        </div>
+﻿目标package: ${package}
 
-        <div class="am-g am-btn-toolbar">
-            <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-btn-group am-btn-group-xs">
-                </div>
-            </div>
-            <div class="am-u-sm-12 am-u-md-3">
-                <div class="am-form-group">
-                </div>
-            </div>
-            <div class="am-u-sm-12 am-u-md-3">
-                <div class="am-input-group am-input-group-sm">
-                    <input type="text" name="keywords" id="keywords" placeholder="根据条件模糊匹配" class="am-form-field">
-                    <span class="am-input-group-btn">
-                        <button class="am-btn am-btn-primary" onclick="$.mytables.reloadTable();" type="button">搜索</button>
-                    </span>
-                </div>
-            </div>
-        </div>
+当前时间：
+<#assign dateTime = .now>
+${dateTime?date}
+${dateTime?time}
+${dateTime?string["yyyy-MM-dd HH:mm:ss"]}
 
-        <div class="am-u-sm-12">
-            <table class="am-table am-table-striped  am-table-hover table-main am-table-bordered" width="100%" id="example_${tableClass.lowerCaseName}">
-                <thead>
-                <tr>
-                    <th><#if tableClass.pkFields??><span style="display: none;">${tableClass.pkFields[0].remarks}</span></#if>&nbsp;</th>
-                <#if tableClass.baseFields??>
-                <#list tableClass.baseFields as field>
-                    <th>${field.remarks}</th>
-                </#list>
-                </#if>
-                </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-    <%-- footer start --%>
-    <jsp:include page="footer.jsp"/>
-    <%-- footer end --%>
-</div>
-<script type="text/javascript">
-    $(function () {
-        var pathURL = basePath + '/log/',
-                listURL = pathURL + 'list';
+所有配置的属性信息:
+<#list props?keys as key>
+    ${key} - ${props[key]}
+</#list>
 
-        var ajax = {
-            'url': listURL,
-            'data': function (data) {
-                var keywords = $('#keywords').val();
-                if (keywords) {
-                    data.keywords = ($('#keywords').val());
-                }
-            }
-        };
+实体和表的信息：
+表名：${tableClass.tableName}
+变量名：${tableClass.variableName}
+小写名：${tableClass.lowerCaseName}
+类名：${tableClass.shortClassName}
+全名：${tableClass.fullClassName}
+包名：${tableClass.packageName}
 
-        var columns = [
-            <#if tableClass.pkFields??>{
-                'data': '${tableClass.pkFields[0].fieldName}',
-            </#if>
-                'width': '2%',
-                'fnCreatedCell': function (nTd, sData, oData, iRow, iCol) {
-                    $(nTd).html('');
-                }
-            }<#if tableClass.baseFields??><#list tableClass.baseFields as field>,
-            {
-                'data': '${field.fieldName}' // ${field.remarks}
-            }
-        </#list></#if>
-        ];
-        var opts = {
-            'ajax': ajax,
-            'columns': columns,
-            'tableId': 'example_${tableClass.lowerCaseName}'
-        };
+列的信息：
+=====================================
+<#if tableClass.pkFields??>
+主键：
+    <#list tableClass.pkFields as field>
+    -------------------------------------
+    列名：${field.columnName}
+    列类型：${field.jdbcType}
+    字段名：${field.fieldName}
+    注释：${field.remarks}
+    类型包名：${field.typePackage}
+    类型短名：${field.shortTypeName}
+    类型全名：${field.fullTypeName}
+    是否主键：${field.identity?c}
+    是否可空：${field.nullable?c}
+    是否为BLOB列：${field.blobColumn?c}
+    是否为String列：${field.stringColumn?c}
+    是否为字符串列：${field.jdbcCharacterColumn?c}
+    是否为日期列：${field.jdbcDateColumn?c}
+    是否为时间列：${field.jdbcTimeColumn?c}
+    是否为序列列：${field.sequenceColumn?c}
+    列长度：${field.length?c}
+    列精度：${field.scale}
+    </#list>
+</#if>
 
-        var table = $.mytables.initTable(opts);
+<#if tableClass.baseFields??>
+基础列：
+    <#list tableClass.baseFields as field>
+    -------------------------------------
+    列名：${field.columnName}
+    列类型：${field.jdbcType}
+    字段名：${field.fieldName}
+    注释：${field.remarks}
+    类型包名：${field.typePackage}
+    类型短名：${field.shortTypeName}
+    类型全名：${field.fullTypeName}
+    是否主键：${field.identity?c}
+    是否可空：${field.nullable?c}
+    是否为BLOB列：${field.blobColumn?c}
+    是否为String列：${field.stringColumn?c}
+    是否为字符串列：${field.jdbcCharacterColumn?c}
+    是否为日期列：${field.jdbcDateColumn?c}
+    是否为时间列：${field.jdbcTimeColumn?c}
+    是否为序列列：${field.sequenceColumn?c}
+    列长度：${field.length?c}
+    列精度：${field.scale}
+    </#list>
+</#if>
 
-    });
-</script>
+<#if tableClass.blobFields??>
+Blob列：
+    <#list tableClass.blobFields as field>
+    -------------------------------------
+    列名：${field.columnName}
+    列类型：${field.jdbcType}
+    字段名：${field.fieldName}
+    注释：${field.remarks}
+    类型包名：${field.typePackage}
+    类型短名：${field.shortTypeName}
+    类型全名：${field.fullTypeName}
+    是否主键：${field.identity?c}
+    是否可空：${field.nullable?c}
+    是否为BLOB列：${field.blobColumn?c}
+    是否为String列：${field.stringColumn?c}
+    是否为字符串列：${field.jdbcCharacterColumn?c}
+    是否为日期列：${field.jdbcDateColumn?c}
+    是否为时间列：${field.jdbcTimeColumn?c}
+    是否为序列列：${field.sequenceColumn?c}
+    列长度：${field.length?c}
+    列精度：${field.scale}
+    </#list>
+</#if>
+
+=====================================
+全部列：
+<#if tableClass.allFields??>
+列名 - 字段名
+    <#list tableClass.allFields as field>
+        ${field.columnName} - ${field.fieldName}
+    </#list>
+</#if>

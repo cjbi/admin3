@@ -2,7 +2,7 @@
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2018 Chengjinbao
+  ~ Copyright (c) 2018 Jinbao Cheng
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -29,66 +29,98 @@
 
 <!--suppress MybatisGenerateCustomPluginInspection -->
 <generatorConfiguration>
-    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
-        <property name="javaFileEncoding" value="UTF-8"/>
-        <!--<property name="useMapperCommentGenerator" value="false"/>-->
+    <!-- 引入配置文件 -->
+    <properties resource="config.properties"/>
 
-        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="tk.mybatis.mapper.common.Mapper,tk.mybatis.mapper.hsqldb.HsqldbMapper"/>
-            <property name="caseSensitive" value="true"/>
-            <property name="forceAnnotation" value="true"/>
-            <property name="beginningDelimiter" value="`"/>
-            <property name="endingDelimiter" value="`"/>
-        </plugin>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+
+        <property name="javaFileEncoding" value="UTF-8"/>
 
         <!--通用代码生成器插件-->
-        <!--mapper接口-->
-        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
-            <property name="targetProject" value="src/test/java"/>
-            <property name="targetPackage" value="test.mapper"/>
-            <property name="templatePath" value="generator/mapper.ftl"/>
-            <property name="mapperSuffix" value="Dao"/>
-            <property name="fileName" value="${tableClass.shortClassName}${mapperSuffix}.java"/>
+        <!--实体添加序列化-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- limit/offset插件 -->
+        <plugin type="tech.wetech.admin.generator.plugins.MySQLLimitPlugin"/>
+
+        <!--自定义模板输出插件 tech.wetech.admin.generator.plugins.TemplateFilePlugin -->
+        <!--Service interface-->
+        <plugin type="tech.wetech.admin.generator.plugins.TemplateFilePlugin">
+            <property name="targetProject" value="${generator.projectFolder}/src/main/java/"/>
+            <property name="targetPackage" value="tech.wetech.admin.service"/>
+            <property name="templatePath" value="generator/ftl/service.ftl"/>
+            <property name="Suffix" value="Service"/>
+            <property name="fileName" value="${tableClass.shortClassName}${Suffix}.java"/>
         </plugin>
-        <!--mapper.xml-->
-        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
-            <property name="targetProject" value="src/test/resources"/>
-            <property name="targetPackage" value="mappers"/>
-            <property name="mapperPackage" value="test.mapper"/>
-            <property name="templatePath" value="generator/mapperXml.ftl"/>
-            <property name="mapperSuffix" value="Dao"/>
-            <property name="fileName" value="${tableClass.shortClassName}${mapperSuffix}.xml"/>
+        <!--service impl-->
+        <plugin type="tech.wetech.admin.generator.plugins.TemplateFilePlugin">
+            <property name="targetProject" value="${generator.projectFolder}/src/main/java/"/>
+            <property name="targetPackage" value="tech.wetech.admin.service.impl"/>
+            <property name="templatePath" value="generator/ftl/serviceImpl.ftl"/>
+            <property name="Suffix" value="ServiceImpl"/>
+            <property name="fileName" value="${tableClass.shortClassName}${Suffix}.java"/>
         </plugin>
+        
+        <!--controller-->
+        <plugin type="tech.wetech.admin.generator.plugins.TemplateFilePlugin">
+            <property name="targetProject" value="${generator.projectFolder}/src/main/java/"/>
+            <property name="targetPackage" value="tech.wetech.admin.web.controller"/>
+            <property name="templatePath" value="generator/ftl/controller.ftl"/>
+            <property name="Suffix" value="Controller"/>
+            <property name="fileName" value="${tableClass.shortClassName}${Suffix}.java"/>
+        </plugin>
+
+        <!-- jsp -->
+        <plugin type="tech.wetech.admin.generator.plugins.TemplateFilePlugin">
+            <property name="moduleName" value="system"/>
+            <property name="targetProject" value="${generator.projectFolder}/src/main/webapp/"/>
+            <property name="targetPackage" value="WEB-INF/jsp/${moduleName}"/>
+            <property name="templatePath" value="generator/ftl/jsp.ftl"/>
+            <property name="fileName" value="${tableClass.lowerCaseName}.jsp"/>
+        </plugin>
+
         <!--测试输出单个文件，每个表都会生成一个对应的文件-->
-        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
-            <property name="targetProject" value="src/test/resources"/>
+        <plugin type="tech.wetech.admin.generator.plugins.TemplateFilePlugin">
+            <property name="targetProject" value="${generator.projectFolder}/src/main/resources"/>
             <property name="targetPackage" value=""/>
-            <property name="templatePath" value="generator/test-one.ftl"/>
+            <property name="templatePath" value="generator/ftl/test-one.ftl"/>
             <property name="fileName" value="${tableClass.shortClassName}Test.txt"/>
             <!--默认值是下面这个，可以不配置-->
-            <property name="templateFormatter"
-                      value="tk.mybatis.mapper.generator.formatter.FreemarkerTemplateFormatter"/>
+            <property name="templateFormatter" value="tech.wetech.admin.generator.formatter.FreemarkerTemplateFormatter"/>
         </plugin>
         <!--测试输出整个文件，所有表都可用，一次只生成一个文件，用于聚合所有表使用-->
-        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+        <plugin type="tech.wetech.admin.generator.plugins.TemplateFilePlugin">
             <property name="singleMode" value="false"/>
-            <property name="targetProject" value="src/test/resources"/>
+            <property name="targetProject" value="${generator.projectFolder}/src/main/resources"/>
             <property name="targetPackage" value=""/>
-            <property name="templatePath" value="generator/test-all.ftl"/>
+            <property name="templatePath" value="generator/ftl/test-all.ftl"/>
             <property name="fileName" value="TestAll.txt"/>
         </plugin>
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/test?useSSL=false"
-                        userId="root"
-                        password="">
+        <!-- 此插件使用数据库表中列的注释来生成Java Model中属性的注释 -->
+        <commentGenerator type="tech.wetech.admin.generator.plugins.DbRemarksCommentGenerator">
+            <!-- 生成实体域注释(来自表注释) -->
+            <property name="columnRemarks" value="true"/>
+            <!-- 生成JPA注解 -->
+            <property name="annotations" value="false"/>
+        </commentGenerator>
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="${connection.driverClassName}" connectionURL="${connection.url}"
+                        userId="${connection.username}"
+                        password="${connection.password}">
         </jdbcConnection>
 
-        <!--MyBatis 生成器只需要生成 Model-->
-        <javaModelGenerator targetPackage="test.model" targetProject="./src/test/java"/>
+        <!-- 生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径,如./src/main/java，
+               也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下 -->
+        <javaModelGenerator targetPackage="tech.wetech.admin.model" targetProject="${generator.projectFolder}/src/main/java/"/>
 
-        <table tableName="user%">
+        <!--对应的mapper.xml文件 -->
+        <sqlMapGenerator targetPackage="mybatis.system" targetProject="${generator.projectFolder}/src/main/resources/"/>
+        <!-- 对应的Mapper接口类文件 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="tech.wetech.admin.mapper"  targetProject="${generator.projectFolder}/src/main/java/" />
+
+        <table tableName="sys_log" alias="Log" domainObjectName="Log">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
+
     </context>
 </generatorConfiguration>
