@@ -11,6 +11,7 @@ public enum ResultCodeEnum {
     ParamsMiss("483","缺少接口中必填参数"),
     ParamError("484","参数非法"),
     FailedDelOwn("485","不能删除自己"),
+    FailedUserAlreadyExist("486","该用户已存在"),
     InternalServerError("500","服务器内部错误"),
     NotImplemented("501","业务异常");
 

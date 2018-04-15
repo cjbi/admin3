@@ -146,7 +146,7 @@
                                 <a href="#" class="btn btn-default btn-flat">个人信息</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">注销</a>
+                                <a href="<%=request.getContextPath()%>/logout" class="btn btn-default btn-flat">注销</a>
                             </div>
                         </li>
                     </ul>

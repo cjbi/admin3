@@ -71,8 +71,8 @@
 </style>
 <section class="content-header" style="">
     <h1>
-        日志管理
-        <small>系统日志的管理页面</small>
+        组织机构
+        <small>组织机构的管理页面</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>

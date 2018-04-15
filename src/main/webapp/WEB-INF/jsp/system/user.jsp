@@ -94,9 +94,9 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="organizationName"><span class="asterisk">*</span>所属组织:</label>
-                        <input type="text" class="form-control" id="organizationName" name="organizationName" onfocus="this.blur();"
+                        <input type="text" class="form-control" id="organizationName" name="organizationName" readonly
                                required>
-                        <input type="hidden" id="organizationId" name="organizationId" onfocus="this.blur();" required>
+                        <input type="hidden" id="organizationId" name="organizationId" readonly required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
@@ -136,13 +136,13 @@
                     <div class="form-group">
                         <label class="control-label" for="username"><span class="asterisk">*</span>用户名:</label>
                         <input id="editUsername" type="text" class="form-control" name="username" placeholder="输入用户名"
-                               minlength="3" required>
+                               minlength="3" readonly required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="organizationName"><span class="asterisk">*</span>所属组织:</label>
                         <input type="text" class="form-control" id="editOrganizationName" name="organizationName"
-                               onfocus="this.blur();" required>
+                               readonly required>
                         <input type="hidden" id="editOrganizationId" name="organizationId" required>
                         <div class="help-block with-errors"></div>
                     </div>

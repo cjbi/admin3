@@ -48,14 +48,16 @@
     <div class="login-box-body">
         <p class="login-box-msg">登陆以开始你的会话</p>
 
-        <form method="post">
+        <form method="post" data-toggle="validator">
             <div class="form-group has-feedback">
-                <input type="text" name="username" value="<shiro:principal/>" class="form-control" placeholder="用户名">
+                <input type="text" name="username" value="<shiro:principal/>" class="form-control" placeholder="用户名" data-error="用户名不能为空" required>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <div class="help-block with-errors"></div>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="密码">
+                <input type="password" name="password" class="form-control" placeholder="密码" data-error="密码不能为空" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <div class="help-block with-errors"></div>
             </div>
             <div style="color:red;">${error}</div>
             <div class="row">
@@ -82,7 +84,7 @@
         <!-- /.social-auth-links -->
 
         <a href="#">我忘记了密码</a><br>
-        <a href="register.html" class="text-center">注册成为会员</a>
+        <a href="#" class="text-center">注册成为会员</a>
 
     </div>
     <!-- /.login-box-body -->
@@ -95,6 +97,8 @@
 <script src="<%=request.getContextPath()%>/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="<%=request.getContextPath()%>/static/plugins/iCheck/icheck.min.js"></script>
+<!-- Bootstrap-validator-0.11.9 -->
+<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-validator-0.11.9/dist/validator.min.js"></script>
 <script>
     $(function () {
         $('input').iCheck({

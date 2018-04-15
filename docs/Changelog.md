@@ -1,5 +1,9 @@
 # 更新日志
 
+## 1.5.0-SNAPSHOT
+
+1.5.x版本前台UI换成了adminLTE 2，后台代码优化。
+
 ## 1.2.1-RELEASE
 
 - 修复BUG

@@ -6,6 +6,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.base.Page;
 import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.common.base.ResultCodeEnum;
 import tech.wetech.admin.mapper.system.UserMapper;
 import tech.wetech.admin.model.system.*;
 import tech.wetech.admin.service.system.OrganizationService;
@@ -92,7 +93,7 @@ public class UserServiceImpl implements UserService{
     public int createUser(User user) {
         User u = findByUsername(user.getUsername());
         if (u != null) {
-            throw new BizException("该用户已存在");
+            throw new BizException(ResultCodeEnum.FailedUserAlreadyExist);
         }
         // 加密密码
         passwordHelper.encryptPassword(user);

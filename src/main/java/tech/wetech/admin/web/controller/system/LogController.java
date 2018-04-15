@@ -12,7 +12,6 @@ import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.service.system.LogService;
 import tech.wetech.admin.web.controller.base.BaseController;
-import tech.wetech.admin.web.dto.DataTableModel;
 
 /**
  * 日志控制器 Created by cjbi on 2017/12/16.

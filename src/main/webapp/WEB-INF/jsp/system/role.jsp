@@ -88,7 +88,7 @@
                     <div class="form-group">
                         <label class="control-label" for="resourceIds"><span class="asterisk">*</span>拥有的资源列表:</label>
                         <input type="hidden" id="resourceIds" name="resourceIds" required>
-                        <input type="text" class="form-control" id="resourceName" name="resourceNames" onfocus="this.blur();" required>
+                        <input type="text" class="form-control" id="resourceName" name="resourceNames" readonly required>
                         <div class="help-block with-errors"></div>
                     </div>
                 </form>
@@ -128,7 +128,7 @@
                     <div class="form-group">
                         <label class="control-label" for="resourceIds"><span class="asterisk">*</span>拥有的资源列表:</label>
                         <input type="hidden" id="editResourceIds" name="resourceIds" required>
-                        <input type="text" class="form-control" id="editResourceName" name="resourceNames" onfocus="this.blur();" required>
+                        <input type="text" class="form-control" id="editResourceName" name="resourceNames" readonly required>
                         <div class="help-block with-errors"></div>
                     </div>
                 </form>

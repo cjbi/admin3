@@ -9,7 +9,6 @@ import tech.wetech.admin.mapper.system.LogMapper;
 import tech.wetech.admin.model.system.LogExample;
 import tech.wetech.admin.model.system.LogWithBLOBs;
 import tech.wetech.admin.service.system.LogService;
-import tech.wetech.admin.web.dto.DataTableModel;
 import tech.wetech.admin.web.dto.system.UserDto;
 
 import java.util.List;

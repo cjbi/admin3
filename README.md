@@ -52,33 +52,35 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 ![](docs/preview/1.gif)
 
-> 菜单树切换
+> 更换主题
 
 ![](docs/preview/2.gif)
 
-> 表格浏览
+> 菜单切换
 
 ![](docs/preview/3.gif)
 
-> 增删改查
+> 表格浏览
 
 ![](docs/preview/4.gif)
 
-> 组织机构
+> 增删改查
 
 ![](docs/preview/5.gif)
 
-> 资源管理
+> 组织机构
 
 ![](docs/preview/6.gif)
 
-> 代码生成器
+> 资源管理
 
-![](docs/preview/7.png)
+![](docs/preview/7.gif)
 
 ## 代码生成器
 
 通过freemarker模板技术配合mybatis generator插件机制可以直接生成model、mapper、service、controller、service、jsp，单表增删改查不需要写任何代码，你也可以自定义模板，生成想要的代码。
+
+注意：1.5.x版本暂时不提供前台生成代码，可以通过提供的Generator.java类生成。
 
 [代码生成器文档](docs/wetech-admin/CodeGenerator.md)
 
@@ -86,7 +88,7 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 ### 预览地址
 
-[http://wetech.tech/wetech-admin](http://wetech.tech/wetech-admin "demo")
+[http://wetech.tech/1.5.x/wetech-admin](http://wetech.tech/wetech-admin "demo")
 
 ### 测试用户名密码
 1. admin/123456

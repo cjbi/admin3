@@ -14,8 +14,6 @@ import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.OrganizationExample;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.web.controller.base.BaseController;
-import tech.wetech.admin.web.dto.JsonResult;
-
 import javax.validation.Valid;
 
 @Controller
