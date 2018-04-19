@@ -79,14 +79,15 @@
                     } catch(err) {
                         error('[data-action]有误，请检查语法',err)
                     }
+                    //前置事件
+                    if (obj.before) {
+                        eval(obj.before + '(obj)');
+                    }
                     if (obj && obj.type) {
                         switch (obj.type) {
                             //提交
                             case 'submit':
                                 if (obj.form && obj.url) {
-                                    if (obj.before) {
-                                        eval(obj.before + '(obj)');
-                                    }
                                     e.preventDefault();
                                     $(obj.form).submit({url: obj.url},
                                         function (data) {
@@ -101,9 +102,6 @@
                             //编辑模式
                             case 'editable':
                                 if (obj.form && obj.table) {
-                                    if (obj.before) {
-                                        eval(obj.before + '(obj)');
-                                    }
                                     var data = $(obj.table).bootstrapTable('getSelections');
                                     if (data.length === 0) {
                                         $.myNotify.warning('请选择一条记录');

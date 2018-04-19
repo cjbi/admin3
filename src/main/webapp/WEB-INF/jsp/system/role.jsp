@@ -34,13 +34,13 @@
                     <div class="btn-group btn-group-sm" id="toolbar">
                         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
                         <button type="button" id="addBtn" class="btn btn-default" data-toggle="modal"
-                                data-target="#addModal"><i class="glyphicon glyphicon glyphicon-plus"></i> 新增
+                                data-target="#addModal" data-action="{before:'addBefore'}"><i class="glyphicon glyphicon glyphicon-plus"></i> 新增
                         </button>
 
                         <!-- Indicates caution should be taken with this action -->
                         <button type="button" id="editBtn" class="btn btn-default" data-toggle="modal"
                                 data-target="#editModal"
-                                data-action="{type:'editable',form:'#editForm',table:'#table'}"
+                                data-action="{type:'editable',form:'#editForm',table:'#table',after:'editAfter'}"
                                 disabled><i class="glyphicon glyphicon glyphicon-edit"></i> 修改
                         </button>
 
@@ -207,6 +207,18 @@
             html.push('<p><b>' + key + ':</b> ' + value + '</p>');
         });
         return html.join('');
+    }
+
+    function addBefore(obj) {
+        $.fn.zTree.getZTreeObj("tree").destroy();
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+    }
+
+    function editAfter(obj,row) {
+        var treeObj = $.fn.zTree.getZTreeObj("tree");
+        treeObj.destroy();
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+        treeObj.expandAll(true);
     }
 
     function actionFormatter(value, row, index) {
