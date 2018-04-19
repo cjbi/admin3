@@ -40,7 +40,7 @@ public class IndexController {
             dom.append("<a href='" + res.getUrl() + "'>");
             dom.append("<i class='" + res.getIcon() + "'></i>");
             dom.append("<span>" + res.getName() + "</span>");
-            if (Boolean.FALSE.equals(res.getLeaf())) {
+            if (Boolean.FALSE.equals(res.getLeaf())|| "#".equals(res.getUrl())) {
                 dom.append("<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i> </span>");
             }
             dom.append("</a>");
