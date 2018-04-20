@@ -126,8 +126,10 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
+                                            <shiro:hasPermission name="organization:update">
                                             <button type="submit" form="editForm" class="btn btn-primary" data-action="{type:'submit',form:'#editForm',url:'<%=request.getContextPath()%>/organization/update',after:'$.myAction.refreshContent'}">保存</button>
                                             <button type="reset" class="btn btn-warning">重置</button>
+                                            </shiro:hasPermission>
                                         </div>
                                     </div>
                                 </form>
@@ -212,48 +214,49 @@
 <%-- 隐藏的右键菜单 --%>
 <div id="rMenu">
     <ul role="menu" class="dropdown-menu" aria-labelledby="dropdownMenu3">
+        <shiro:hasPermission name="organization:create">
         <li data-toggle="modal" data-target="#addModal"><a href="#organization" id="rAdd-chi">添加子节点</a></li>
+        </shiro:hasPermission>
         <%--<li role="separator" class="divider"></li>--%>
+        <shiro:hasPermission name="organization:delete">
         <li data-toggle="modal" data-target="#deleteModal"><a href="#organization" id="rDel">删除节点</a></li>
+        </shiro:hasPermission>
     </ul>
 </div>
 <script type="text/javascript">
     $(function () {
 
-        var pathURL = path + '/organization/',
-            createURL = pathURL + 'create',
-            updateURL = pathURL + 'update';
-
         var rMenu = $('#rMenu'),
             setting = {
                 data: {
                     simpleData: {
-                        enable: true
+                        enable: true,
+                        idKey: 'id',
+                        pIdKey: 'pId',
+                        rootPId: 0
                     }
+                },
+                view: {
+                    expandSpeed: 300,
+                    // 设置树展开的动画速度，IE6下面没效果
+                },
+                async: {
+                    enable: true,
+                    url: getAsyncUrl
                 },
                 callback: {
                     asyncError: zTreeOnAsyncError, // 加载错误的fun
                     beforeClick: beforeClick, // 捕获单击节点之前的事件回调函数
                     onRightClick: OnRightClick
                 }
-            },
-            zNodes = [
-                <c:forEach items="${organizationList}" var="o">
-                {
-                    id:${o.id},
-                    pId:${o.parentId},
-                    name: "${o.name}",
-                    parentIds: "${o.parentIds}",
-                    available: ${o.available},
-                    priority: '${o.priority}',
-                    open:${o.rootNode}
-                },
-                </c:forEach>
-            ];
+            }, zNodes = [];
 
-        $(document).ready(function () {
-            $.fn.zTree.init($("#tree"), setting, zNodes);
-        });
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+
+        // 获取异步连接
+        function getAsyncUrl(treeId, treeNode) {
+            return treeNode == undefined ? path + '/organization/tree' : path + '/organization/tree?pId=' + treeNode.id;
+        }
 
         // 加载错误的fun
         function zTreeOnAsyncError(event, treeId, treeNode) {

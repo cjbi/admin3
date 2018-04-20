@@ -8,6 +8,7 @@
     <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
     <result column="available" jdbcType="BIT" property="available" />
     <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="leaf" jdbcType="BIT" property="leaf" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, parent_id, parent_ids, available, priority
+    id, name, parent_id, parent_ids, available, priority, leaf
   </sql>
   <select id="selectByExample" parameterType="tech.wetech.admin.model.system.OrganizationExample" resultMap="BaseResultMap">
     select
@@ -110,11 +111,11 @@
   </delete>
   <insert id="insert" parameterType="tech.wetech.admin.model.system.Organization">
     insert into sys_organization (id, name, parent_id,
-    parent_ids, available, priority
-    )
+    parent_ids, available, priority,
+    leaf)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT},
-    #{parentIds,jdbcType=VARCHAR}, #{available,jdbcType=BIT}, #{priority,jdbcType=INTEGER}
-    )
+    #{parentIds,jdbcType=VARCHAR}, #{available,jdbcType=BIT}, #{priority,jdbcType=INTEGER},
+    #{leaf,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="tech.wetech.admin.model.system.Organization">
     insert into sys_organization
@@ -137,6 +138,9 @@
       <if test="priority != null">
         priority,
       </if>
+      <if test="leaf != null">
+        leaf,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -156,6 +160,9 @@
       </if>
       <if test="priority != null">
         #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="leaf != null">
+        #{leaf,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -186,6 +193,9 @@
       <if test="record.priority != null">
         priority = #{record.priority,jdbcType=INTEGER},
       </if>
+      <if test="record.leaf != null">
+        leaf = #{record.leaf,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -198,7 +208,8 @@
     parent_id = #{record.parentId,jdbcType=BIGINT},
     parent_ids = #{record.parentIds,jdbcType=VARCHAR},
     available = #{record.available,jdbcType=BIT},
-    priority = #{record.priority,jdbcType=INTEGER}
+    priority = #{record.priority,jdbcType=INTEGER},
+    leaf = #{record.leaf,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -221,6 +232,9 @@
       <if test="priority != null">
         priority = #{priority,jdbcType=INTEGER},
       </if>
+      <if test="leaf != null">
+        leaf = #{leaf,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -230,7 +244,8 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       parent_ids = #{parentIds,jdbcType=VARCHAR},
       available = #{available,jdbcType=BIT},
-      priority = #{priority,jdbcType=INTEGER}
+      priority = #{priority,jdbcType=INTEGER},
+      leaf = #{leaf,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateSalefParentIds" parameterType="java.lang.String">

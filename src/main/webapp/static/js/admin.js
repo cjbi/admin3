@@ -5,6 +5,7 @@
  */
 /**
  * 常用的插件封装.
+ * javaScript language version:ECMAScript 3
  * @author cjbi
  * @version 1.5.x-adminlte
  */
@@ -24,7 +25,7 @@
             //以静默方式刷新数据
             $('table').bootstrapTable('refresh', {silent: true});
         },
-        refreshContent() {
+        refreshContent: function() {
             var u = window.location.href;
             var i = u.indexOf('#');
             if (i != -1) {
@@ -65,7 +66,7 @@
                 });
             }
 
-            var error = function (...msg) {
+            var error = function (msg) {
                 console.error(msg);
                 $.myNotify.danger(msg);
             };
@@ -77,7 +78,8 @@
                     try {
                         var obj = eval('(' + str + ')');
                     } catch(err) {
-                        error('[data-action]有误，请检查语法',err)
+                        console.error(err);
+                        error('[data-action]有误，请检查语法')
                     }
                     //前置事件
                     if (obj.before) {
@@ -201,7 +203,7 @@
             }
         },
         //刷新内容区域
-        refreshContent(obj, data) {
+        refreshContent: function(obj, data) {
             if (data.success) {
                 var u = location.href;
                 var i = u.indexOf('#');
