@@ -52,7 +52,7 @@ public class Resource implements Serializable {
     /**
      * 叶子节点
      */
-    private Boolean leaf;
+    private Boolean leaf = Boolean.FALSE;
 
     private List<Resource> children;
 

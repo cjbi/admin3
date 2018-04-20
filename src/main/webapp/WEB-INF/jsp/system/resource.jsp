@@ -19,11 +19,17 @@
         font-family: 'Glyphicons Halflings', 'FontAwesome';
     }
 
-    .ztree {
+    .panel {
+        padding: 0;
+        border-color:#ccc;
+        min-width: 800px;
+    }
+
+    /*.ztree {
         padding: 0;
         border: 1px solid #ccc;
         min-width: 800px;
-    }
+    }*/
 
     .ztree li a {
         vertical-align: middle;
@@ -111,6 +117,9 @@
     .btn-group > a {
         padding-left: 10px;
     }
+    .box-body {
+        overflow: auto;
+    }
 
     /*end--ztree表格*/
 </style>
@@ -142,9 +151,9 @@
                     </div>
 
                 </div>
-                <div class="box-body" style="overflow: auto;">
+                <div class="box-body">
                     <div id="tableMain">
-                        <ul id="dataTree" class="ztree">
+                        <ul id="dataTree" class="ztree panel">
 
                         </ul>
                     </div>
@@ -196,7 +205,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="icon">图标:</label>
-                        <input type="text" class="form-control" name="icon" id="icon" placeholder="支持 Glyphicons 和 FontAwesome图标，只支持菜单">
+                        <input type="text" class="form-control" name="icon" id="icon" placeholder="支持 Glyphicons 和 FontAwesome 图标，只支持菜单">
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="priority">排序:</label>
@@ -253,7 +262,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="editIcon">图标:</label>
-                        <input type="text" class="form-control" name="icon" id="editIcon" placeholder="支持 Glyphicons 和 FontAwesome图标，只支持菜单">
+                        <input type="text" class="form-control" name="icon" id="editIcon" placeholder="支持 Glyphicons 和 FontAwesome 图标，只支持菜单">
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="editPriority">排序:</label>
@@ -282,6 +291,7 @@
             <div class="modal-body">
                 <form id="deleteForm">
                     <input type="hidden" name="id">
+                    <input type="hidden" name="parentId">
                 </form>
                 确定要删除该资源?
             </div>
@@ -324,7 +334,9 @@
         remove = function (tId) {
             var treeObj = $.fn.zTree.getZTreeObj("dataTree");
             var node = treeObj.getNodeByTId(tId);
+            debugger;
             $('#deleteForm').fillForm(node);
+            $('#deleteForm [name="parentId"]').val(node.pId ? node.pId : "0");
             $('#deleteModal').modal('show');
         };
 
