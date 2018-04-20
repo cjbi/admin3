@@ -2,6 +2,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +50,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-        var path = '<%=request.getContextPath()%>';
+        var path = '<%=path%>';
+        var basePath = '<%=basePath%>"';
     </script>
     <!-- Google Font -->
     <link rel="stylesheet"

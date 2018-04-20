@@ -88,7 +88,7 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 ### 预览地址
 
-[http://wetech.tech/1.5.x/wetech-admin](http://wetech.tech/wetech-admin "demo")
+[http://wetech.tech/wetech-admin](http://wetech.tech/wetech-admin "demo")
 
 ### 测试用户名密码
 1. admin/123456

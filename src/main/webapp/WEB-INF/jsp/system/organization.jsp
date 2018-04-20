@@ -118,6 +118,15 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="editLeaf"><span class="asterisk">*</span>叶子节点:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="leaf" id="editLeaf">
+                                                <option value="0" selected>否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="eidtPriority" class="col-sm-2 control-label">序号</label>
                                         <div class="col-sm-10">
                                             <input type="number" class="form-control" name="priority" id="eidtPriority" placeholder="节点的序号">
@@ -126,8 +135,13 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
-                                            <button type="submit" form="editForm" class="btn btn-primary" data-action="{type:'submit',form:'#editForm',url:'<%=request.getContextPath()%>/organization/update',after:'$.myAction.refreshContent'}">保存</button>
-                                            <button type="reset" class="btn btn-warning">重置</button>
+                                            <shiro:hasPermission name="organization:update">
+                                                <button type="submit" form="editForm" class="btn btn-primary"
+                                                        data-action="{type:'submit',form:'#editForm',url:'<%=request.getContextPath()%>/organization/update',after:'$.myAction.refreshContent'}">
+                                                    保存
+                                                </button>
+                                                <button type="reset" class="btn btn-warning">重置</button>
+                                            </shiro:hasPermission>
                                         </div>
                                     </div>
                                 </form>
@@ -166,6 +180,13 @@
                         <label class="control-label" for="name">节点名称:</label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="节点的名称" required>
                         <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="leaf"><span class="asterisk">*</span>叶子节点:</label>
+                        <select class="form-control" name="leaf" id="leaf">
+                            <option value="0" selected>否</option>
+                            <option value="1">是</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="priority">排序:</label>
@@ -212,48 +233,49 @@
 <%-- 隐藏的右键菜单 --%>
 <div id="rMenu">
     <ul role="menu" class="dropdown-menu" aria-labelledby="dropdownMenu3">
-        <li data-toggle="modal" data-target="#addModal"><a href="#organization" id="rAdd-chi">添加子节点</a></li>
+        <shiro:hasPermission name="organization:create">
+            <li data-toggle="modal" data-target="#addModal"><a href="#organization" id="rAdd-chi">添加子节点</a></li>
+        </shiro:hasPermission>
         <%--<li role="separator" class="divider"></li>--%>
-        <li data-toggle="modal" data-target="#deleteModal"><a href="#organization" id="rDel">删除节点</a></li>
+        <shiro:hasPermission name="organization:delete">
+            <li data-toggle="modal" data-target="#deleteModal"><a href="#organization" id="rDel">删除节点</a></li>
+        </shiro:hasPermission>
     </ul>
 </div>
 <script type="text/javascript">
     $(function () {
 
-        var pathURL = path + '/organization/',
-            createURL = pathURL + 'create',
-            updateURL = pathURL + 'update';
-
         var rMenu = $('#rMenu'),
             setting = {
                 data: {
                     simpleData: {
-                        enable: true
+                        enable: true,
+                        idKey: 'id',
+                        pIdKey: 'pId',
+                        rootPId: 0
                     }
+                },
+                view: {
+                    expandSpeed: 300,
+                    // 设置树展开的动画速度，IE6下面没效果
+                },
+                async: {
+                    enable: true,
+                    url: getAsyncUrl
                 },
                 callback: {
                     asyncError: zTreeOnAsyncError, // 加载错误的fun
                     beforeClick: beforeClick, // 捕获单击节点之前的事件回调函数
                     onRightClick: OnRightClick
                 }
-            },
-            zNodes = [
-                <c:forEach items="${organizationList}" var="o">
-                {
-                    id:${o.id},
-                    pId:${o.parentId},
-                    name: "${o.name}",
-                    parentIds: "${o.parentIds}",
-                    available: ${o.available},
-                    priority: '${o.priority}',
-                    open:${o.rootNode}
-                },
-                </c:forEach>
-            ];
+            }, zNodes = [];
 
-        $(document).ready(function () {
-            $.fn.zTree.init($("#tree"), setting, zNodes);
-        });
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+
+        // 获取异步连接
+        function getAsyncUrl(treeId, treeNode) {
+            return treeNode == undefined ? path + '/organization/tree' : path + '/organization/tree?pId=' + treeNode.id;
+        }
 
         // 加载错误的fun
         function zTreeOnAsyncError(event, treeId, treeNode) {
@@ -267,13 +289,9 @@
             // 取消被选中状态
             $('#editForm [type="radio"]').removeAttr('checked');
             // 将值赋给编辑表单
-            $.each(treeNode, function (key, value) {
-                if ($('#editForm [name="' + key + '"]').attr('type') == 'radio') {
-                    $('#editForm [name="' + key + '"][value="' + value + '"]').prop('checked', true);
-                } else {
-                    $('#editForm [name="' + key + '"]').val(value);
-                }
-            });
+            debugger;
+            //
+            $('#editForm').fillForm(treeNode.obj);
             $('#editForm [name="parentId"]').val(treeNode.pId ? treeNode.pId : "0");
         }
 

@@ -5,6 +5,7 @@
  */
 /**
  * 常用的插件封装.
+ * javaScript language version:ECMAScript 3
  * @author cjbi
  * @version 1.5.x-adminlte
  */
@@ -24,7 +25,7 @@
             //以静默方式刷新数据
             $('table').bootstrapTable('refresh', {silent: true});
         },
-        refreshContent() {
+        refreshContent: function() {
             var u = window.location.href;
             var i = u.indexOf('#');
             if (i != -1) {
@@ -65,7 +66,7 @@
                 });
             }
 
-            var error = function (...msg) {
+            var error = function (msg) {
                 console.error(msg);
                 $.myNotify.danger(msg);
             };
@@ -77,7 +78,12 @@
                     try {
                         var obj = eval('(' + str + ')');
                     } catch(err) {
-                        error('[data-action]有误，请检查语法',err)
+                        console.error(err);
+                        error('[data-action]有误，请检查语法')
+                    }
+                    //前置事件
+                    if (obj.before) {
+                        eval(obj.before + '(obj)');
                     }
                     //前置事件
                     if (obj.before) {
@@ -201,7 +207,7 @@
             }
         },
         //刷新内容区域
-        refreshContent(obj, data) {
+        refreshContent: function(obj, data) {
             if (data.success) {
                 var u = location.href;
                 var i = u.indexOf('#');
@@ -253,7 +259,10 @@
             // 如果类型为单选框
             if ($form.find('[name="' + key + '"]').attr('type') == 'radio') {
                 $form.find('[name="' + key + '"][value="' + value + '"]').prop('checked', true);
-            } else {
+            } else if (typeof(value) === "boolean") {
+                //布尔类型转换为数值0和1
+                $('#editForm [name="' + key + '"]').val(value + 0);
+            }  else {
                 $form.find("[name='" + key + "']").val(value);
             }
         })

@@ -308,9 +308,14 @@
 
 <!-- /.content -->
 <script type="text/javascript">
-    var createChild, update, remove;
+    var like, createChild, update, remove;
     $(function () {
-
+        like = function(tId) {
+            var treeObj = $.fn.zTree.getZTreeObj("dataTree");
+            var node = treeObj.getNodeByTId(tId);
+            console.log(node);
+            alert(JSON.stringify(node));
+        }
         createChild = function (tId) {
             var treeObj = $.fn.zTree.getZTreeObj("dataTree");
             var node = treeObj.getNodeByTId(tId);
@@ -431,17 +436,18 @@
          */
         function formatHandle(treeNode) {
             var htmlStr = '<div class="btn-group">';
+            htmlStr = '<a class="like" href="javascript:void(0)" data-toggle="tooltip" title="查看" onclick="like(\'' + treeNode.tId + '\');"><i class="glyphicon glyphicon-heart"></i></a>　';
             <shiro:hasPermission name="resource:create">
             if (treeNode.type != 'button') {
-                htmlStr += '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="新增" onclick="createChild(\'' + treeNode.tId + '\');"><i class="glyphicon glyphicon-plus"></i></a>';
+                htmlStr += '<a class="add ml10" href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="新增" onclick="createChild(\'' + treeNode.tId + '\');"><i class="glyphicon glyphicon-plus"></i></a>　';
             }
             </shiro:hasPermission>
             <shiro:hasPermission name="resource:update">
-            htmlStr += '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="修改" onclick="update(\'' + treeNode.tId + '\');"><i class="glyphicon glyphicon-edit"></i></a>';
+            htmlStr += '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="修改" onclick="update(\'' + treeNode.tId + '\');"><i class="glyphicon glyphicon-edit"></i></a>　';
             </shiro:hasPermission>
             <shiro:hasPermission name="resource:delete">
             if (treeNode.isParent != true) {
-                htmlStr += '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="删除" onclick="remove(\'' + treeNode.tId + '\');"><i class="glyphicon glyphicon-remove"></i></a>';
+                htmlStr += '<a class="delete ml10" href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="删除" onclick="remove(\'' + treeNode.tId + '\');"><i class="glyphicon glyphicon-remove"></i></a>　';
             }
             </shiro:hasPermission>
             return htmlStr + '</div>';
