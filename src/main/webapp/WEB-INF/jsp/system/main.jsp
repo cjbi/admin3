@@ -28,7 +28,7 @@
     <!-- zTree style -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/zTree_v3-3.5.33/css/metroStyle/metroStyle.css">
     <!-- Bootstrap-table -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/bootstrap-table-1.12.1/dist/bootstrap-table.min.css">
     <!-- Animate -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/plugins/animate.css-3.5.2/animate.min.css">
     <!-- chosen -->
@@ -87,8 +87,8 @@
 <!-- zTree script -->
 <script src="<%=request.getContextPath()%>/static/plugins/zTree_v3-3.5.33/js/jquery.ztree.all.min.js"></script>
 <!-- Bootstrap-table -->
-<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-table-1.12.1/dist/bootstrap-table.min.js"></script>
+<script src="<%=request.getContextPath()%>/static/plugins/bootstrap-table-1.12.1/dist/locale/bootstrap-table-zh-CN.js"></script>
 <!-- Bootstrap-notify-3.1.3 -->
 <script src="<%=request.getContextPath()%>/static/plugins/bootstrap-notify-3.1.3/dist/bootstrap-notify.min.js"></script>
 <!-- Bootstrap-validator-0.11.9 -->
