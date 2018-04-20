@@ -255,7 +255,10 @@
             // 如果类型为单选框
             if ($form.find('[name="' + key + '"]').attr('type') == 'radio') {
                 $form.find('[name="' + key + '"][value="' + value + '"]').prop('checked', true);
-            } else {
+            } else if (typeof(value) === "boolean") {
+                //布尔类型转换为数值0和1
+                $('#editForm [name="' + key + '"]').val(value + 0);
+            }  else {
                 $form.find("[name='" + key + "']").val(value);
             }
         })

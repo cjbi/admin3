@@ -196,13 +196,6 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="leaf"><span class="asterisk">*</span>叶子节点:</label>
-                        <select class="form-control" name="leaf" id="leaf">
-                            <option value="0" selected>否</option>
-                            <option value="1">是</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label class="control-label" for="url">URL路径:</label>
                         <input type="text" class="form-control" name="url" id="url" placeholder="资源的URL路径，‘#’+资源名，或者站外地址">
                     </div>
@@ -257,13 +250,6 @@
                             <c:forEach items="${types}" var="type">
                                 <option value="${type}">${type.info}</option>
                             </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="editLeaf"><span class="asterisk">*</span>叶子节点:</label>
-                        <select class="form-control" name="leaf" id="editLeaf">
-                            <option value="0" selected>否</option>
-                            <option value="1">是</option>
                         </select>
                     </div>
                     <div class="form-group">
