@@ -40,7 +40,7 @@ public class IndexController {
             dom.append("<a href='" + res.getUrl() + "'>");
             dom.append("<i class='" + res.getIcon() + "'></i>");
             dom.append("<span>" + res.getName() + "</span>");
-            if (Boolean.FALSE.equals(res.getLeaf())|| "#".equals(res.getUrl())) {
+            if (Constants.SHARP.equals(res.getUrl())) {
                 dom.append("<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i> </span>");
             }
             dom.append("</a>");
@@ -52,10 +52,10 @@ public class IndexController {
         return target;
     }
 
-    private List<Resource> getChildResourceByPid(List<Resource> source, Long pid) {
+    private List<Resource> getChildResourceByPid(List<Resource> source, Long pId) {
         List<Resource> child = new ArrayList<>();
         source.forEach(res -> {
-            if (pid.equals(res.getParentId())) {
+            if (pId.equals(res.getParentId())) {
                 child.add(res);
             }
         });
