@@ -339,7 +339,6 @@
         remove = function (tId) {
             var treeObj = $.fn.zTree.getZTreeObj("dataTree");
             var node = treeObj.getNodeByTId(tId);
-            debugger;
             $('#deleteForm').fillForm(node);
             $('#deleteForm [name="parentId"]').val(node.pId ? node.pId : "0");
             $('#deleteModal').modal('show');
