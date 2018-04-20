@@ -33,23 +33,27 @@
                 <div class="box-body">
                     <div class="btn-group btn-group-sm" id="toolbar">
                         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                        <shiro:hasPermission name="role:create">
                         <button type="button" id="addBtn" class="btn btn-default" data-toggle="modal"
                                 data-target="#addModal" data-action="{before:'addBefore'}"><i class="glyphicon glyphicon glyphicon-plus"></i> 新增
                         </button>
-
+                        </shiro:hasPermission>
                         <!-- Indicates caution should be taken with this action -->
+                        <shiro:hasPermission name="role:update">
                         <button type="button" id="editBtn" class="btn btn-default" data-toggle="modal"
                                 data-target="#editModal"
                                 data-action="{type:'editable',form:'#editForm',table:'#table',after:'editAfter'}"
                                 disabled><i class="glyphicon glyphicon glyphicon-edit"></i> 修改
                         </button>
-
+                        </shiro:hasPermission>
                         <!-- Indicates a dangerous or potentially negative action -->
+                        <shiro:hasPermission name="role:delete">
                         <button type="button" id="deleteBtn" class="btn btn-default" data-toggle="modal"
                                 data-target="#deleteModal"
                                 data-action="{type:'delete',form:'#deleteForm',idField:'id',table:'#table'}" disabled><i
                                 class="glyphicon glyphicon-remove"></i> 删除
                         </button>
+                        </shiro:hasPermission>
                     </div>
                     <table id="table"></table>
                 </div>
@@ -222,11 +226,15 @@
     }
 
     function actionFormatter(value, row, index) {
-        return [
-            '<a class="like" href="javascript:void(0)" data-toggle="tooltip" title="Like"><i class="glyphicon glyphicon-heart"></i></a>　',
-            '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="编辑"><i class="glyphicon glyphicon-edit"></i></a>　',
-            '<a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="删除"><i class="glyphicon glyphicon-remove"></i></a>'
-        ].join('');
+        return '\
+        <a class="like" href="javascript:void(0)" data-toggle="tooltip" title="Like"><i class="glyphicon glyphicon-heart"></i></a>\
+        <shiro:hasPermission name="role:update">\
+        <a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="编辑"><i class="glyphicon glyphicon-edit"></i></a>\
+        </shiro:hasPermission>\
+        <shiro:hasPermission name="role:delete">\
+        <a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="删除"><i class="glyphicon glyphicon-remove"></i></a>\
+        </shiro:hasPermission>\
+        ';
     }
 
     window.actionEvents = {

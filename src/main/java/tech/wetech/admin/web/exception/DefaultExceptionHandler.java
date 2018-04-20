@@ -37,7 +37,7 @@ public class DefaultExceptionHandler {
      * 没有权限 异常
      * <p/>
      * 后续根据不同的需求定制即可
-     */
+     *//*
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
@@ -45,6 +45,13 @@ public class DefaultExceptionHandler {
         mv.addObject("exception", e);
         mv.setViewName("system/unauthorized");
         return mv;
+    }*/
+    @ResponseBody
+    @ExceptionHandler({UnauthorizedException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Result processUnauthenticatedException(HttpServletRequest request, UnauthorizedException e) {
+        LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
+        return Result.Failure(ResultCodeEnum.Unauthorized, e.getMessage());
     }
 
     /**
