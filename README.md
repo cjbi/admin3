@@ -25,9 +25,9 @@ Hibernate Validator | 后端校验框架 | 5.4.2.Final | [http://hibernate.org/v
 ----|------|----|----
 jQuery | 优秀的Javascript库 | 3.2.1 |  [http://jquery.com/](http://jquery.com/)
 AdminLTE 2 | 前端框架 | 2.4.2 |  [https://adminlte.io/themes/AdminLTE/](https://adminlte.io/themes/AdminLTE/)
-DataTables | 数据表格 | 1.10.16 |  [https://www.datatables.net/](https://www.datatables.net/)
-Layer | jQuery弹出层插件 | 3.1.0 |  [http://layer.layui.com/](http://layer.layui.com/)
+bootstrap table | 数据表格 | 1.12.1 |  [https://www.datatables.net/](https://www.datatables.net/)
 ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
+chosen | 选择框插件 | 1.8.3 |  [https://github.com/harvesthq/chosen](https://github.com/harvesthq/chosen)
 
 ## 软件需求
 
