@@ -289,8 +289,6 @@
             // 取消被选中状态
             $('#editForm [type="radio"]').removeAttr('checked');
             // 将值赋给编辑表单
-            debugger;
-            //
             $('#editForm').fillForm(treeNode.obj);
             $('#editForm [name="parentId"]').val(treeNode.pId ? treeNode.pId : "0");
         }
