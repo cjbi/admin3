@@ -245,7 +245,7 @@
             var roleId = roleIdList[i];
             $('#editForm').find('[name=roleIds]').find('option[value=' + roleId + ']').prop('selected', true);
         }
-        $.myAdmin.refreshComponent();
+        $(".chosen-select").trigger("chosen:updated");
     }
 
     function actionFormatter(value, row, index) {

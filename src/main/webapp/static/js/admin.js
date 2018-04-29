@@ -37,10 +37,6 @@
                 }
             }
         },
-        refreshComponent: function () {
-            $(".chosen-select").trigger("chosen:updated");
-            $('form').validator('validate');
-        },
         /**
          * 加载content区域
          * @param href #锚点
@@ -120,7 +116,7 @@
                                     if (obj.after) {
                                         eval(obj.after + '(obj,data[0])');
                                     }
-                                    $('form').validator('validate');
+                                    $(obj.form).validator('validate');
                                 } else {
                                     error('[data-action]参数有误，请检查参数form和table是否存在');
                                 }
