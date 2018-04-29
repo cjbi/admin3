@@ -15,6 +15,9 @@ import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.web.bind.annotation.CurrentUser;
 
+/**
+ * @author cjbi
+ */
 @Controller
 public class IndexController {
 
