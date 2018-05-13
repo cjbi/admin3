@@ -76,7 +76,7 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 ## 代码生成器
 
-通过freemarker模板技术配合mybatis generator插件机制可以直接生成model、mapper、service、controller、service、jsp，单表增删改查不需要写任何代码，你也可以自定义模板，生成想要的代码。
+通过freemarker模板技术配合mybatis generator插件机制可以直接生成model、mapper、service、controller、service、jsp，单表增删改查不需要写任何代码，你也可以自定义模板，生成想要的代码。(此版本暂不支持该功能，后续支持...)
 
 [代码生成器文档](docs/wetech-admin/CodeGenerator.md)
 
