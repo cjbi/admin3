@@ -79,10 +79,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
-		</dependency>-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -217,7 +213,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-					<!--fork :  如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
+					<!--fork :  如果没有该项配置，devtools不会起作用，即应用不会restart -->
 					<fork>true</fork>
 				</configuration>
 			</plugin>
