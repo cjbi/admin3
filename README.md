@@ -4,7 +4,7 @@ Wetech-Admin 是基于Maven+Spring+SpringMVC+Mybatis的轻量级后台管理系�
 
 [获取 spring boot 版本](https://gitee.com/cjbi/wetech-admin/tree/1.6.x-rc1 "获取spring boot版本")
 
-[获取 spring boot + mapper 4 + pageHelper 版本](https://gitee.com/cjbi/wetech-admin/tree/1.6.x-rc1 "获取spring boot版本")
+[获取 spring boot + mapper 4 + pageHelper 版本](https://gitee.com/cjbi/wetech-admin/tree/1.6.x-rc2 "获取 spring boot + mapper 4 + pageHelper 版本")
 
 [获取 AmazeUI 版本](https://gitee.com/cjbi/wetech-admin/tree/1.2.x "获取AmazeUI版本")
 
