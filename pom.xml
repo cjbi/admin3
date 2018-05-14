@@ -26,12 +26,6 @@
 	</properties>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>2.3.0</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.theborakompanioni</groupId>
 			<artifactId>thymeleaf-extras-shiro</artifactId>
