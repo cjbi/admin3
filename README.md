@@ -2,7 +2,7 @@
 
 Wetech-Admin 是基于Maven+Spring+SpringMVC+Mybatis的轻量级后台管理系统，适用于中小型项目的管理后台，支持按钮级别的权限控制，系统具有最基本的用户管理、角色管理、资源管理、组织机构管理、系统日志、代码生成器等通用性功能，企业或个人可直接在此基础上进行开发，扩展，添加各自的需求和业务功能！http://wetech.tech/wetech-admin/
 
-[获取spring boot版本](https://gitee.com/cjbi/wetech-admin/tree/1.6.x-rc1 "获取spring mvc版本")
+[获取spring boot版本](https://gitee.com/cjbi/wetech-admin/tree/1.6.x-rc1 "获取spring boot版本")
 
 [获取AmazeUI版本](https://gitee.com/cjbi/wetech-admin/tree/1.2.x "获取AmazeUI版本")
 
