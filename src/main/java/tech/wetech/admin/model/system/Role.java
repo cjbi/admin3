@@ -6,7 +6,6 @@ import tech.wetech.admin.model.BaseEntity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

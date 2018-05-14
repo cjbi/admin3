@@ -1,14 +1,9 @@
 package tech.wetech.admin.model.system;
 
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.EnumTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import org.apache.ibatis.type.StringTypeHandler;
 import tech.wetech.admin.model.BaseEntity;
 import tk.mybatis.mapper.annotation.ColumnType;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;

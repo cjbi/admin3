@@ -4,7 +4,6 @@ import tech.wetech.admin.model.BaseEntity;
 
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author cjbi
