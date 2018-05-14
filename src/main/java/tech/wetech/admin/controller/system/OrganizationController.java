@@ -7,11 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.common.annotation.SystemLog;
 import tech.wetech.admin.common.base.Result;
-import tech.wetech.admin.model.system.Organization;
-import tech.wetech.admin.model.system.OrganizationExample;
-import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.controller.base.BaseController;
+import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.TreeDto;
+import tech.wetech.admin.service.system.OrganizationService;
+import tk.mybatis.mapper.weekend.Weekend;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,9 +26,8 @@ public class OrganizationController extends BaseController{
     @GetMapping
     @RequiresPermissions("organization:view")
     public String toPage(Model model) {
-        OrganizationExample example = new OrganizationExample();
-        example.setOrderByClause("priority");
-        model.addAttribute("organizationList", organizationService.find(example));
+        Weekend weekend = Weekend.of(Organization.class);
+        weekend.setOrderByClause("priority");
         return "system/organization";
     }
 

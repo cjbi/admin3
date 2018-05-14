@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tech.wetech.admin.common.base.Page;
 import tech.wetech.admin.common.base.PageResultSet;
-import tech.wetech.admin.model.system.LogWithBLOBs;
-import tech.wetech.admin.service.system.LogService;
 import tech.wetech.admin.controller.base.BaseController;
+import tech.wetech.admin.model.system.Log;
+import tech.wetech.admin.service.system.LogService;
 
 /**
  * 日志控制器 Created by cjbi on 2017/12/16.
@@ -32,7 +32,7 @@ public class LogController extends BaseController{
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("log:view")
-    public PageResultSet<LogWithBLOBs> list(Page page) {
+    public PageResultSet<Log> list(Page page) {
         logService.findByPage(page);
         return logService.findByPage(page);
     }

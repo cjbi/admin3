@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.system.ResourceMapper;
 import tech.wetech.admin.model.system.Resource;
-import tech.wetech.admin.model.system.ResourceExample;
 import tech.wetech.admin.service.system.ResourceService;
+import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,13 +49,13 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> find(ResourceExample example) {
-        return resourceMapper.selectByExample(example);
+    public List<Resource> find(Weekend weekend) {
+        return resourceMapper.selectByExample(weekend);
     }
 
     @Override
     public List<Resource> findAll() {
-        return resourceMapper.selectByExample(new ResourceExample());
+        return resourceMapper.selectAll();
     }
 
     @Override
@@ -72,9 +72,9 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public List<Resource> findMenus(Set<String> permissions) {
-        ResourceExample example = new ResourceExample();
-        example.setOrderByClause("priority");
-        List<Resource> allResources = resourceMapper.selectByExample(example);
+        Weekend weekend = Weekend.of(Resource.class);
+        weekend.setOrderByClause("priority");
+        List<Resource> allResources = resourceMapper.selectByExample(weekend);
         List<Resource> menus = new ArrayList<>();
         for (Resource resource : allResources) {
             if (resource.isRootNode()) {

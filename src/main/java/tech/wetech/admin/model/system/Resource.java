@@ -1,17 +1,25 @@
 package tech.wetech.admin.model.system;
 
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.EnumTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.StringTypeHandler;
+import tech.wetech.admin.model.BaseEntity;
+import tk.mybatis.mapper.annotation.ColumnType;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author cjbi
  */
-public class Resource implements Serializable {
-    /**
-     * 编号
-     */
-    private Long id;
+@Table(name = "sys_resource")
+public class Resource extends BaseEntity {
+
     @NotNull(message = "资源名称不能为空")
     /**
      * 资源名称
@@ -21,10 +29,11 @@ public class Resource implements Serializable {
      * 资源类型
      */
     @NotNull(message = "资源类型不能为空")
+    @ColumnType(jdbcType = JdbcType.VARCHAR)
+    private ResourceType type = ResourceType.menu;
     /**
      * 资源路径
      */
-    private ResourceType type = ResourceType.menu;
     private String url;
     /**
      * 权限字符串
@@ -54,6 +63,7 @@ public class Resource implements Serializable {
      */
     private Boolean leaf = Boolean.FALSE;
 
+    @Transient
     private List<Resource> children;
 
     public List<Resource> getChildren() {
@@ -68,6 +78,7 @@ public class Resource implements Serializable {
         menu("菜单"), button("按钮");
 
         private final String info;
+
         private ResourceType(String info) {
             this.info = info;
         }
@@ -75,16 +86,6 @@ public class Resource implements Serializable {
         public String getInfo() {
             return info;
         }
-    }
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -150,6 +151,7 @@ public class Resource implements Serializable {
     public String makeSelfAsParentIds() {
         return getParentIds() + getId() + "/";
     }
+
     public String getIcon() {
         return icon;
     }

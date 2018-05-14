@@ -1,7 +1,10 @@
 package tech.wetech.admin.model.system;
 
 import org.springframework.util.StringUtils;
+import tech.wetech.admin.model.BaseEntity;
 
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,11 +13,8 @@ import java.util.List;
 /**
  * @author cjbi
  */
-public class Role implements Serializable {
-    /**
-     * 编号
-     */
-    private Long id;
+@Table(name = "sys_role")
+public class Role extends BaseEntity {
     /**
      * 角色标识 程序中判断使用,如"admin"
      */
@@ -33,6 +33,7 @@ public class Role implements Serializable {
     /**
      * 拥有的资料列表
      */
+    @Transient
     private List<Long> resourceIdList;
     /**
      * 是否可用,如果不可用将不会添加给用户
@@ -46,14 +47,6 @@ public class Role implements Serializable {
         this.role = role;
         this.description = description;
         this.available = available;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getRole() {

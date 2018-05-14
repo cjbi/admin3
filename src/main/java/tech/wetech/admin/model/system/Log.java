@@ -1,12 +1,15 @@
 package tech.wetech.admin.model.system;
 
-import java.io.Serializable;
+import tech.wetech.admin.model.BaseEntity;
+
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @author cjbi
  */
-public class Log implements Serializable {
+@Table(name="sys_log")
+public class Log extends BaseEntity {
     /**
      * 主键
      */
@@ -52,7 +55,45 @@ public class Log implements Serializable {
      */
     private Date createTime;
 
-    private static final long serialVersionUID = 1L;
+
+    /**
+     * 请求URL
+     */
+    private String reqUri;
+
+    /**
+     * 参数
+     */
+    private String args;
+
+    /**
+     * 返回值
+     */
+    private String returnVal;
+
+    public String getReqUri() {
+        return reqUri;
+    }
+
+    public void setReqUri(String reqUri) {
+        this.reqUri = reqUri;
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
+    }
+
+    public String getReturnVal() {
+        return returnVal;
+    }
+
+    public void setReturnVal(String returnVal) {
+        this.returnVal = returnVal;
+    }
 
     public Long getId() {
         return id;

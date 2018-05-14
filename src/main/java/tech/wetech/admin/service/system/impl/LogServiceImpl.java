@@ -1,14 +1,16 @@
 package tech.wetech.admin.service.system.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.base.Page;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.mapper.system.LogMapper;
-import tech.wetech.admin.model.system.LogExample;
-import tech.wetech.admin.model.system.LogWithBLOBs;
+import tech.wetech.admin.model.system.Log;
 import tech.wetech.admin.service.system.LogService;
+import tk.mybatis.mapper.weekend.Weekend;
+import tk.mybatis.mapper.weekend.WeekendCriteria;
 
 import java.util.List;
 
@@ -24,28 +26,27 @@ public class LogServiceImpl implements LogService {
 
 
     @Override
-    public int createLogWithBLOBs(LogWithBLOBs logWithBLOBs) {
-        return logMapper.insertSelective(logWithBLOBs);
+    public int create(Log log) {
+        return logMapper.insert(log);
     }
 
     @Override
-    public PageResultSet<LogWithBLOBs> findByPage(Page page) {
-        LogExample example = new LogExample();
-        example.setOffset(page.getOffset());
-        example.setLimit(page.getLimit());
-        example.setOrderByClause("create_time desc");//时间倒序
-        if(!StringUtils.isEmpty(page.getSearch())) {
+    public PageResultSet<Log> findByPage(Page page) {
+        PageHelper.offsetPage(page.getOffset(), page.getLimit());
+        Weekend weekend = Weekend.of(Log.class);
+        WeekendCriteria<Log, Object> criteria = weekend.weekendCriteria();
+        if (!StringUtils.isEmpty(page.getSearch())) {
             String value = "%" + page.getSearch() + "%";
-            example.or().andUsernameLike(value);//用户名
-            example.or().andIpLike(value);//ip地址
-            example.or().andReqMethodLike(value);//请求方法
-            example.or().andExecMethodLike(value);//执行方法
-            example.or().andExecDescLike(value);//执行描述
-            example.or().andStatusLike(value);//状态
+            criteria.andLike(Log::getUsername, value)
+                    .orLike(Log::getIp, value)
+                    .orLike(Log::getReqMethod, value)
+                    .orLike(Log::getExecMethod, value)
+                    .orLike(Log::getExecDesc, value)
+                    .orLike(Log::getStatus, value);
         }
-        PageResultSet<LogWithBLOBs> resultSet = new PageResultSet<>();
-        long count = logMapper.countByExample(example);
-        List<LogWithBLOBs> list = logMapper.selectByExampleWithBLOBs(example);
+        PageResultSet<Log> resultSet = new PageResultSet<>();
+        List<Log> list = logMapper.selectByExample(weekend);
+        long count = logMapper.selectCountByExample(weekend);
         resultSet.setRows(list);
         resultSet.setTotal(count);
         return resultSet;

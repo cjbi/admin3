@@ -2,17 +2,17 @@ package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.common.base.Page;
 import tech.wetech.admin.common.base.PageResultSet;
-import tech.wetech.admin.model.system.LogWithBLOBs;
+import tech.wetech.admin.model.system.Log;
 
 public interface LogService {
 
     /**
      * 创建日志
-     * @param logWithBLOBs
+     * @param log
      * @return
      */
-    int createLogWithBLOBs(LogWithBLOBs logWithBLOBs);
+    int create(Log log);
 
-    PageResultSet<LogWithBLOBs> findByPage(Page page);
+    PageResultSet<Log> findByPage(Page page);
 
 }

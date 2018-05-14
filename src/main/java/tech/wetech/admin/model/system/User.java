@@ -1,7 +1,10 @@
 package tech.wetech.admin.model.system;
 
 import org.springframework.util.StringUtils;
+import tech.wetech.admin.model.BaseEntity;
 
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.io.Serializable;
@@ -11,11 +14,8 @@ import java.util.List;
 /**
  * @author cjbi
  */
-public class User implements Serializable{
-    /**
-     * 编号
-     */
-    private Long id;
+@Table(name="sys_user")
+public class User extends BaseEntity {
     /**
      * 所属公司
      */
@@ -38,8 +38,8 @@ public class User implements Serializable{
     /**
      * 拥有的角色列表
      */
-    @Null(message = "测试测试测试")
     private String roleIds;
+    @Transient
     private List<Long> roleIdList;
     private Boolean locked = Boolean.FALSE;
 
@@ -49,14 +49,6 @@ public class User implements Serializable{
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getOrganizationId() {

@@ -1,7 +1,7 @@
 package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.model.system.Resource;
-import tech.wetech.admin.model.system.ResourceExample;
+import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.List;
 import java.util.Set;
@@ -16,7 +16,7 @@ public interface ResourceService {
 
     Resource findOne(Long resourceId);
 
-    List<Resource> find(ResourceExample example);
+    List<Resource> find(Weekend weekend);
 
     List<Resource> findAll();
 

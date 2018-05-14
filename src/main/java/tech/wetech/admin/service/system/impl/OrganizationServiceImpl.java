@@ -6,9 +6,11 @@ import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.mapper.system.OrganizationMapper;
 import tech.wetech.admin.model.system.Organization;
-import tech.wetech.admin.model.system.OrganizationExample;
 import tech.wetech.admin.model.system.TreeDto;
 import tech.wetech.admin.service.system.OrganizationService;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.weekend.Weekend;
+import tk.mybatis.mapper.weekend.WeekendCriteria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +46,12 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public List<Organization> findAll() {
-        return organizationMapper.selectByExample(new OrganizationExample());
+        return organizationMapper.selectAll();
     }
 
     @Override
-    public List<Organization> find(OrganizationExample example) {
-        return organizationMapper.selectByExample(example);
+    public List<Organization> find(Weekend weekend) {
+        return organizationMapper.selectByExample(weekend);
     }
 
     @Override
@@ -58,25 +60,24 @@ public class OrganizationServiceImpl implements OrganizationService {
             pId = Constants.ORG_ROOT_ID;
         }
         List<TreeDto> tds = new ArrayList<>();
-        OrganizationExample example = new OrganizationExample();
-        OrganizationExample.Criteria criteria = example.createCriteria();
-        criteria.andParentIdEqualTo(pId);
-        organizationMapper.selectByExample(example).forEach(o -> tds.add(new TreeDto(o.getId(), o.getParentId(), o.getName(), Boolean.FALSE.equals(o.getLeaf()), o)));
+        Weekend weekend = Weekend.of(Organization.class);
+        WeekendCriteria<Organization, Object> criteria = weekend.weekendCriteria();
+        criteria.andEqualTo(Organization::getParentId, pId);
+        organizationMapper.selectByExample(weekend).forEach(o -> tds.add(new TreeDto(o.getId(), o.getParentId(), o.getName(), Boolean.FALSE.equals(o.getLeaf()), o)));
         return tds;
     }
 
     @Override
-    public List<Organization> findAllWithExclude(Organization excludeOraganization) {
-        OrganizationExample example = new OrganizationExample();
-        example.or().andIdNotEqualTo(excludeOraganization.getId()).andParentIdsNotLike(excludeOraganization.makeSelfAsParentIds() + "%");
-        return organizationMapper.selectByExample(example);
+    public List<Organization> findAllWithExclude(Organization exclude) {
+        Weekend weekend = Weekend.of(Organization.class);
+        WeekendCriteria<Organization, Object> criteria = weekend.weekendCriteria();
+        criteria.andNotEqualTo(Organization::getId, exclude.getId()).andNotLike(Organization::getParentIds, exclude.makeSelfAsParentIds() + "%");
+        return organizationMapper.selectByExample(weekend);
     }
 
     @Override
     public void move(Organization source, Organization target) {
-        OrganizationExample moveSourceExample = new OrganizationExample();
-        moveSourceExample.or().andIdEqualTo(source.getId());
-        organizationMapper.updateByExampleSelective(target, moveSourceExample);
+        organizationMapper.updateByPrimaryKeySelective(target);
         organizationMapper.updateSalefParentIds(source.makeSelfAsParentIds());
     }
 }

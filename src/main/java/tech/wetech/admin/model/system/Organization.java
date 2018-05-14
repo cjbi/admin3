@@ -1,16 +1,16 @@
 package tech.wetech.admin.model.system;
 
+import tech.wetech.admin.model.BaseEntity;
+
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * @author cjbi
  */
-public class Organization implements Serializable {
-    /**
-     * 编号
-     */
-    private Long id;
+@Table(name="sys_organization")
+public class Organization extends BaseEntity {
     /**
      * 组织机构名称
      */
@@ -35,15 +35,6 @@ public class Organization implements Serializable {
      * 排序
      */
     private Long priority;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

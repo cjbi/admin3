@@ -1,5 +1,6 @@
 package tech.wetech.admin.service.system.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -14,11 +15,13 @@ import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.PasswordHelper;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
+import tk.mybatis.mapper.weekend.Weekend;
+import tk.mybatis.mapper.weekend.WeekendCriteria;
 
 import java.util.*;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -33,27 +36,23 @@ public class UserServiceImpl implements UserService{
     private PasswordHelper passwordHelper;
 
     @Override
-    public List<User> selectByExample(UserExample example) {
-        return userMapper.selectByExample(example);
-    }
-
-    @Override
     public PageResultSet<UserDto> findByPage(Page page) {
-        UserExample example = new UserExample();
-        example.setOffset(page.getOffset());
-        example.setLimit(page.getLimit());
+        PageHelper.offsetPage(page.getOffset(), page.getLimit());
+        Weekend<User> weekend = Weekend.of(User.class);
+        WeekendCriteria<User, Object> criteria = weekend.weekendCriteria();
         if (!StringUtils.isEmpty(page.getSearch())) {
-            example.or().andUsernameLike("%" + page.getSearch() + "%");
+            criteria.andLike(User::getUsername, "%" + page.getSearch() + "%");
         }
-        long count = userMapper.countByExample(example);
         List<UserDto> dtoList = new ArrayList<>();
-        PageResultSet<UserDto> resultSet = new PageResultSet<>();
-        userMapper.selectByExample(example).forEach(u -> {
+        userMapper.selectByExample(weekend).forEach(u -> {
             UserDto dto = new UserDto(u);
             dto.setOrganizationName(getOrganizationName(Long.valueOf(dto.getOrganizationId())));
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
             dtoList.add(dto);
         });
+
+        long count = userMapper.selectCountByExample(weekend);
+        PageResultSet<UserDto> resultSet = new PageResultSet<>();
         resultSet.setRows(dtoList);
         resultSet.setTotal(count);
         return resultSet;
@@ -125,15 +124,15 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> findAll() {
-        return userMapper.selectByExample(new UserExample());
+        return userMapper.selectAll();
     }
 
     @Override
     public User findByUsername(String username) {
-        UserExample example = new UserExample();
-        example.or().andUsernameEqualTo(username);
-        List<User> list = userMapper.selectByExample(example);
-        return !list.isEmpty() ? list.get(0) : null;
+        User user = new User();
+        user.setUsername(username);
+        userMapper.selectOne(user);
+        return userMapper.selectOne(user);
     }
 
     @Override

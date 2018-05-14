@@ -1,8 +1,8 @@
 package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.model.system.Organization;
-import tech.wetech.admin.model.system.OrganizationExample;
 import tech.wetech.admin.model.system.TreeDto;
+import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface OrganizationService {
 
     Organization findOne(Long organizationId);
 
-    List<Organization> find(OrganizationExample example);
+    List<Organization> find(Weekend weekend);
 
     List<TreeDto> findOrgTree(Long pId);
 

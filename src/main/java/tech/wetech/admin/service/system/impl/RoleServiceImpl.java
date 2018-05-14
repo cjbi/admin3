@@ -1,5 +1,6 @@
 package tech.wetech.admin.service.system.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -10,14 +11,15 @@ import tech.wetech.admin.mapper.system.RoleMapper;
 import tech.wetech.admin.model.system.Resource;
 import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.model.system.RoleDto;
-import tech.wetech.admin.model.system.RoleExample;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
+import tk.mybatis.mapper.weekend.Weekend;
+import tk.mybatis.mapper.weekend.WeekendCriteria;
 
 import java.util.*;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleMapper roleMapper;
@@ -27,21 +29,21 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public PageResultSet<RoleDto> findByPage(Page page) {
-        RoleExample example = new RoleExample();
-        example.setOffset(page.getOffset());
-        example.setLimit(page.getLimit());
+        PageHelper.offsetPage(page.getOffset(), page.getLimit());
+        Weekend<Role> weekend = Weekend.of(Role.class);
+        WeekendCriteria<Role, Object> criteria = weekend.weekendCriteria();
         if (!StringUtils.isEmpty(page.getSearch())) {
-            example.or().andRoleLike("%" + page.getSearch() + "%");
-            example.or().andDescriptionLike("%" + page.getSearch() + "%");
+            criteria.andLike(Role::getRole, "%" + page.getSearch() + "%");
+            criteria.andLike(Role::getDescription, "%" + page.getSearch() + "%");
         }
-        long count = roleMapper.countByExample(example);
         PageResultSet<RoleDto> resultSet = new PageResultSet<>();
         List<RoleDto> dtoList = new ArrayList<>();
-        roleMapper.selectByExample(example).forEach(r->{
+        roleMapper.selectByExample(weekend).forEach(r -> {
             RoleDto dto = new RoleDto(r);
             dto.setResourceNames(getResourceNames(r.getResourceIdList()));
             dtoList.add(dto);
         });
+        long count = roleMapper.selectCountByExample(weekend);
         resultSet.setRows(dtoList);
         resultSet.setTotal(count);
         return resultSet;
@@ -88,7 +90,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public List<Role> findAll() {
-        return roleMapper.selectByExample(new RoleExample());
+        return roleMapper.selectAll();
     }
 
     @Override
