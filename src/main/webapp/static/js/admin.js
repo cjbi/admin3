@@ -186,7 +186,7 @@
 
                 });
                 //初始化表单验证
-                $('form').validator();
+                $('form').validator({'disable':false});
                 //chosen
                 $(".chosen-select").chosen({width: '100%', no_results_text: '没找到你要的选项！'});
             };
