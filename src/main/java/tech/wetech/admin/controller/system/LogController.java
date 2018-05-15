@@ -32,9 +32,8 @@ public class LogController extends BaseController{
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("log:view")
-    public PageResultSet<Log> list(Page page) {
-        logService.findByPage(page);
-        return logService.findByPage(page);
+    public PageResultSet<Log> list(Log log) {
+        return logService.findByPage(log);
     }
 
 }

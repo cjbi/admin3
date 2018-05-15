@@ -28,13 +28,16 @@ public class RoleServiceImpl implements RoleService {
     private ResourceService resourceService;
 
     @Override
-    public PageResultSet<RoleDto> findByPage(Page page) {
-        PageHelper.offsetPage(page.getOffset(), page.getLimit());
+    public PageResultSet<RoleDto> findByPage(Role role) {
+        PageHelper.offsetPage(role.getOffset(), role.getLimit());
+        if(!StringUtils.isEmpty(role.getOrderBy())) {
+            PageHelper.orderBy(role.getOrderBy());
+        }
         Weekend<Role> weekend = Weekend.of(Role.class);
         WeekendCriteria<Role, Object> criteria = weekend.weekendCriteria();
-        if (!StringUtils.isEmpty(page.getSearch())) {
-            criteria.andLike(Role::getRole, "%" + page.getSearch() + "%");
-            criteria.andLike(Role::getDescription, "%" + page.getSearch() + "%");
+        if (!StringUtils.isEmpty(role.getSearch())) {
+            criteria.andLike(Role::getRole, "%" + role.getSearch() + "%")
+                    .orLike(Role::getDescription, "%" + role.getSearch() + "%");
         }
         PageResultSet<RoleDto> resultSet = new PageResultSet<>();
         List<RoleDto> dtoList = new ArrayList<>();

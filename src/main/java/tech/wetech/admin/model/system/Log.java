@@ -10,10 +10,6 @@ import java.util.Date;
  */
 @Table(name="sys_log")
 public class Log extends BaseEntity {
-    /**
-     * 主键
-     */
-    private Long id;
 
     /**
      * 用户名
@@ -93,14 +89,6 @@ public class Log extends BaseEntity {
 
     public void setReturnVal(String returnVal) {
         this.returnVal = returnVal;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {

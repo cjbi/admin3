@@ -45,8 +45,8 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("user:view")
-    public PageResultSet<UserDto> list(Page page) {
-        return userService.findByPage(page);
+    public PageResultSet<UserDto> list(User user) {
+        return userService.findByPage(user);
     }
 
     @ResponseBody

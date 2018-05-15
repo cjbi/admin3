@@ -10,6 +10,7 @@ import tech.wetech.admin.common.base.Page;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.model.system.Role;
+import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.controller.BaseController;
@@ -38,8 +39,8 @@ public class RoleController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("role:view")
-    public PageResultSet<RoleDto> list(Page page) {
-        return roleService.findByPage(page);
+    public PageResultSet<RoleDto> list(Role role) {
+        return roleService.findByPage(role);
     }
 
     @ResponseBody

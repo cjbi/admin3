@@ -15,6 +15,7 @@ import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.PasswordHelper;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
+import tk.mybatis.mapper.mapperhelper.EntityHelper;
 import tk.mybatis.mapper.weekend.Weekend;
 import tk.mybatis.mapper.weekend.WeekendCriteria;
 
@@ -36,12 +37,15 @@ public class UserServiceImpl implements UserService {
     private PasswordHelper passwordHelper;
 
     @Override
-    public PageResultSet<UserDto> findByPage(Page page) {
-        PageHelper.offsetPage(page.getOffset(), page.getLimit());
+    public PageResultSet<UserDto> findByPage(User user) {
+        PageHelper.offsetPage(user.getOffset(), user.getLimit());
+        if(!StringUtils.isEmpty(user.getOrderBy())) {
+            PageHelper.orderBy(user.getOrderBy());
+        }
         Weekend<User> weekend = Weekend.of(User.class);
         WeekendCriteria<User, Object> criteria = weekend.weekendCriteria();
-        if (!StringUtils.isEmpty(page.getSearch())) {
-            criteria.andLike(User::getUsername, "%" + page.getSearch() + "%");
+        if (!StringUtils.isEmpty(user.getSearch())) {
+            criteria.andLike(User::getUsername, "%" + user.getSearch() + "%");
         }
         List<UserDto> dtoList = new ArrayList<>();
         userMapper.selectByExample(weekend).forEach(u -> {

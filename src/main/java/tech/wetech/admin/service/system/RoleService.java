@@ -4,13 +4,14 @@ import tech.wetech.admin.common.base.Page;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.model.system.RoleDto;
+import tech.wetech.admin.model.system.User;
 
 import java.util.List;
 import java.util.Set;
 
 public interface RoleService {
 
-    PageResultSet<RoleDto> findByPage(Page page);
+    PageResultSet<RoleDto> findByPage(Role role);
 
     int createRole(Role role);
 

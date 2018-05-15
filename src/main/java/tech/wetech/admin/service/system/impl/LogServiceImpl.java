@@ -31,12 +31,15 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public PageResultSet<Log> findByPage(Page page) {
-        PageHelper.offsetPage(page.getOffset(), page.getLimit());
+    public PageResultSet<Log> findByPage(Log log) {
+        PageHelper.offsetPage(log.getOffset(), log.getLimit());
+        if(!StringUtils.isEmpty(log.getOrderBy())) {
+            PageHelper.orderBy(log.getOrderBy());
+        }
         Weekend weekend = Weekend.of(Log.class);
         WeekendCriteria<Log, Object> criteria = weekend.weekendCriteria();
-        if (!StringUtils.isEmpty(page.getSearch())) {
-            String value = "%" + page.getSearch() + "%";
+        if (!StringUtils.isEmpty(log.getSearch())) {
+            String value = "%" + log.getSearch() + "%";
             criteria.andLike(Log::getUsername, value)
                     .orLike(Log::getIp, value)
                     .orLike(Log::getReqMethod, value)

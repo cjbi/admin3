@@ -13,6 +13,6 @@ public interface LogService {
      */
     int create(Log log);
 
-    PageResultSet<Log> findByPage(Page page);
+    PageResultSet<Log> findByPage(Log log);
 
 }

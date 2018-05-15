@@ -6,6 +6,7 @@ import java.util.Arrays;
 /**
  * @author cjbi
  */
+@Deprecated
 public class Page implements Serializable{
 
     private static final long serialVersionUID = 1L;

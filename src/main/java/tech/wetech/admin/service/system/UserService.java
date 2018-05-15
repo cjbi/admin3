@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface UserService {
 
-    PageResultSet<UserDto> findByPage(Page page);
+    PageResultSet<UserDto> findByPage(User user);
 
     /**
      * 创建用户
