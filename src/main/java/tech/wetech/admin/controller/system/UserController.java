@@ -15,7 +15,7 @@ import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.common.annotation.SystemLog;
-import tech.wetech.admin.controller.base.BaseController;
+import tech.wetech.admin.controller.BaseController;
 import tech.wetech.admin.model.system.UserDto;
 
 import javax.servlet.http.HttpServletRequest;

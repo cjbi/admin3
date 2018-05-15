@@ -12,7 +12,7 @@ import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.model.system.Role;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
-import tech.wetech.admin.controller.base.BaseController;
+import tech.wetech.admin.controller.BaseController;
 import tech.wetech.admin.model.system.RoleDto;
 
 import javax.validation.Valid;
