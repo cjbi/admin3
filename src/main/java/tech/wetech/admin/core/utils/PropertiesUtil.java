@@ -1,4 +1,4 @@
-package tech.wetech.admin.common.utils;
+package tech.wetech.admin.core.utils;
 
 import java.io.IOException;
 import java.util.HashMap;

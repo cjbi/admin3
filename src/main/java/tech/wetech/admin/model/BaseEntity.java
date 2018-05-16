@@ -1,14 +1,11 @@
 package tech.wetech.admin.model;
 
-import tech.wetech.admin.common.base.Page;
-import tech.wetech.admin.model.system.User;
 import tk.mybatis.mapper.entity.EntityColumn;
 import tk.mybatis.mapper.mapperhelper.EntityHelper;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * 基础信息

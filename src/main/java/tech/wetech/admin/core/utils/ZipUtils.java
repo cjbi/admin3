@@ -1,4 +1,4 @@
-package tech.wetech.admin.common.utils;
+package tech.wetech.admin.core.utils;
 
 import java.io.BufferedInputStream;
 import java.io.File;

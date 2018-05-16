@@ -1,4 +1,4 @@
-package tech.wetech.admin.common.annotation;
+package tech.wetech.admin.core.annotation;
 
 import java.lang.annotation.*;
 

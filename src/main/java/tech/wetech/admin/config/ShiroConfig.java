@@ -15,9 +15,9 @@ import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.wetech.admin.common.shiro.credentials.RetryLimitHashedCredentialsMatcher;
-import tech.wetech.admin.common.shiro.realm.UserRealm;
-import tech.wetech.admin.common.shiro.spring.SpringCacheManagerWrapper;
+import tech.wetech.admin.core.shiro.credentials.RetryLimitHashedCredentialsMatcher;
+import tech.wetech.admin.core.shiro.realm.UserRealm;
+import tech.wetech.admin.core.shiro.spring.SpringCacheManagerWrapper;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;

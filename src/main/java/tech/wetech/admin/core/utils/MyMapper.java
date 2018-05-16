@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package tech.wetech.admin.common.utils;
+package tech.wetech.admin.core.utils;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

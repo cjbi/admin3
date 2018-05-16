@@ -1,4 +1,4 @@
-package tech.wetech.admin.common.exception;
+package tech.wetech.admin.core.exception;
 
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.NativeWebRequest;
-import tech.wetech.admin.common.base.Result;
-import tech.wetech.admin.common.base.ResultCodeEnum;
+import tech.wetech.admin.core.base.Result;
+import tech.wetech.admin.core.base.ResultCodeEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package tech.wetech.admin.common.shiro.realm;
+package tech.wetech.admin.core.shiro.realm;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

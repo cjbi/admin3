@@ -1,8 +1,7 @@
 package tech.wetech.admin.service.system;
 
-import tech.wetech.admin.common.base.Page;
-import tech.wetech.admin.common.base.PageResultSet;
-import tech.wetech.admin.common.exception.BizException;
+import tech.wetech.admin.core.base.PageResultSet;
+import tech.wetech.admin.core.exception.BizException;
 import tech.wetech.admin.model.system.User;
 import tech.wetech.admin.model.system.UserDto;
 

@@ -1,4 +1,4 @@
-package tech.wetech.admin.common;
+package tech.wetech.admin.core;
 
 /**
  * 常量定义

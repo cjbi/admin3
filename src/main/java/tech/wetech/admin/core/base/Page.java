@@ -1,4 +1,4 @@
-package tech.wetech.admin.common.base;
+package tech.wetech.admin.core.base;
 
 import java.io.Serializable;
 import java.util.Arrays;

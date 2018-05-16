@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
-package tech.wetech.admin.common.shiro.spring;
+package tech.wetech.admin.core.shiro.spring;
 
 import net.sf.ehcache.Ehcache;
 import org.apache.shiro.cache.Cache;
