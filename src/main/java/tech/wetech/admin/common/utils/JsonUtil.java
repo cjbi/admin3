@@ -1,4 +1,4 @@
-package tech.wetech.admin.core.utils;
+package tech.wetech.admin.common.utils;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import tech.wetech.admin.core.base.PageResultSet;
+import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.controller.BaseController;
 import tech.wetech.admin.model.system.Log;
 import tech.wetech.admin.service.system.LogService;

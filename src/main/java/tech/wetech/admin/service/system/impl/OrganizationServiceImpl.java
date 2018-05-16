@@ -3,7 +3,7 @@ package tech.wetech.admin.service.system.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.core.Constants;
+import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.mapper.system.OrganizationMapper;
 import tech.wetech.admin.model.system.Organization;
 import tech.wetech.admin.model.system.TreeDto;

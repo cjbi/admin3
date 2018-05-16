@@ -1,8 +1,8 @@
-package tech.wetech.admin.core.base;
+package tech.wetech.admin.common.base;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import tech.wetech.admin.core.exception.BizException;
+import tech.wetech.admin.common.exception.BizException;
 
 import java.io.Serializable;
 import java.util.HashMap;

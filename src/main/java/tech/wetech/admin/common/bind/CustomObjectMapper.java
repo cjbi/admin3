@@ -1,4 +1,4 @@
-package tech.wetech.admin.core.bind;
+package tech.wetech.admin.common.bind;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

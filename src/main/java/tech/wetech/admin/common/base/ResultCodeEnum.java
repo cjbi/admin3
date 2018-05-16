@@ -1,4 +1,4 @@
-package tech.wetech.admin.core.base;
+package tech.wetech.admin.common.base;
 
 /**
  * @author cjbi

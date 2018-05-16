@@ -1,4 +1,4 @@
-package tech.wetech.admin.core.aspect;
+package tech.wetech.admin.common.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,11 +10,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.core.Constants;
-import tech.wetech.admin.core.base.PageResultSet;
-import tech.wetech.admin.core.base.Result;
-import tech.wetech.admin.core.utils.JsonUtil;
-import tech.wetech.admin.core.utils.WebUtil;
+import tech.wetech.admin.common.Constants;
+import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.common.base.Result;
+import tech.wetech.admin.common.utils.JsonUtil;
+import tech.wetech.admin.common.utils.WebUtil;
 import tech.wetech.admin.model.system.User;
 
 import javax.servlet.http.HttpServletRequest;
