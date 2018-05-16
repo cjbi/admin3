@@ -105,7 +105,7 @@ public class SystemLogAspect{
         log.setExecTime(time);
         // 请求参数
         if ("POST".equals(method)) {
-            log.setArgs(JsonUtil.getInstance().obj2json(point.getArgs()));
+            log.setArgs(JsonUtil.getInstance().obj2json(point.getArgs()[0]));
         }
         log.setStatus(msg);
         log.setExecDesc(desc);

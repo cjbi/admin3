@@ -26,7 +26,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public int create(Log log) {
-        return logMapper.insert(log);
+        return logMapper.insertSelective(log);
     }
 
     @Override
