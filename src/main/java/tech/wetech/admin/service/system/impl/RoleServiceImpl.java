@@ -72,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int createRole(Role role) {
-        return roleMapper.insert(role);
+        return roleMapper.insertSelective(role);
     }
 
     @Override

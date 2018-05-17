@@ -30,7 +30,7 @@ public class ResourceServiceImpl implements ResourceService {
                 resource.setUrl("#");
             }
         }
-        return resourceMapper.insert(resource);
+        return resourceMapper.insertSelective(resource);
     }
 
     @Override

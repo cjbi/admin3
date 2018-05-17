@@ -25,7 +25,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         Organization parent = findOne(organization.getParentId());
         organization.setParentIds(parent.makeSelfAsParentIds());
         organization.setAvailable(true);
-        return organizationMapper.insert(organization);
+        return organizationMapper.insertSelective(organization);
     }
 
     @Override

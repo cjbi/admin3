@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
         }
         // 加密密码
         passwordHelper.encryptPassword(user);
-        return userMapper.insert(user);
+        return userMapper.insertSelective(user);
     }
 
     @Override
