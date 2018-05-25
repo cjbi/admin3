@@ -68,12 +68,7 @@ public class Result<T> implements Serializable {
     }
 
     public static Result Success() {
-        Result result = new Result();
-        result.setSuccess(true);
-        result.setCode(ResultCodeEnum.OK.getCode());
-        result.setMsg(ResultCodeEnum.OK.getMsg());
-        result.setData(new HashMap<>(1));
-        return result;
+        return Result.Success(null);
     }
 
     public static <T> Result Success(T obj) {
@@ -99,27 +94,19 @@ public class Result<T> implements Serializable {
     }
 
     public static Result Failure(String code, String msg) {
-        Result result = new Result();
-        result.setSuccess(false);
-        result.setCode(code);
-        result.setMsg(msg);
-        return result;
+        return Result.Failure(code, msg, null);
+    }
+
+    public static Result Failure(BizException e) {
+        return Result.Failure(e.getCode(), e.getMsg(), e.getMessage());
     }
 
     public static Result Failure(String code, String msg, String sysMsg) {
         Result result = new Result();
         result.setCode(code);
+        result.setSuccess(false);
         result.setMsg(msg);
         result.setSysMsg(sysMsg);
-        return result;
-    }
-
-    public static Result Failure(BizException e) {
-        Result result = new Result();
-        result.setSuccess(false);
-        result.setCode(e.getCode());
-        result.setMsg(e.getMsg());
-        result.setSysMsg(e.getMessage());
         return result;
     }
 

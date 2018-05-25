@@ -75,8 +75,7 @@ public class DefaultExceptionHandler {
     @ResponseBody
     @ExceptionHandler({BindException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Result processBindException(HttpServletRequest request, HttpServletResponse response, BindException e, BindingResult br) {
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
+    public Result processBindException(HttpServletRequest request, BindException e, BindingResult br) {
         StringBuilder msg = new StringBuilder();
         br.getAllErrors().forEach(error -> {
             msg.append(error.getDefaultMessage());
