@@ -34,7 +34,7 @@ public class IndexController {
         getMenuTree(menus, Constants.MENU_ROOT_ID, dom);
         model.addAttribute(Constants.MENU_TREE, dom);
         model.addAttribute(Constants.PERMISSIONS, permissions);
-        return "/system/main";
+        return "system/main";
     }
 
     private List<Resource> getMenuTree(List<Resource> source, Long pid, StringBuilder dom) {
