@@ -2,6 +2,7 @@ package tech.wetech.admin.service.system.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.mapper.system.OrganizationMapper;
@@ -21,6 +22,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationMapper organizationMapper;
 
     @Override
+    @Transactional
     public int createOrganization(Organization organization) {
         Organization parent = findOne(organization.getParentId());
         organization.setParentIds(parent.makeSelfAsParentIds());
@@ -29,11 +31,13 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    @Transactional
     public int updateOrganization(Organization organization) {
         return organizationMapper.updateByPrimaryKeySelective(organization);
     }
 
     @Override
+    @Transactional
     public void deleteOrganization(Long organizationId) {
         organizationMapper.deleteByPrimaryKey(organizationId);
     }
@@ -75,6 +79,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    @Transactional
     public void move(Organization source, Organization target) {
         organizationMapper.updateByPrimaryKeySelective(target);
         organizationMapper.updateSalefParentIds(source.makeSelfAsParentIds());

@@ -7,9 +7,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {QuartzAutoConfiguration.class})
+@EnableTransactionManagement
 public class WetechAdminApplication implements CommandLineRunner {
 
     private Logger logger = LoggerFactory.getLogger(WetechAdminApplication.class);

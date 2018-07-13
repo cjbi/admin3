@@ -3,6 +3,7 @@ package tech.wetech.admin.service.system.impl;
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.system.ResourceMapper;
 import tech.wetech.admin.model.system.Resource;
@@ -21,6 +22,7 @@ public class ResourceServiceImpl implements ResourceService {
     private ResourceMapper resourceMapper;
 
     @Override
+    @Transactional
     public int createResource(Resource resource) {
         Resource parent = findOne(resource.getParentId());
         resource.setParentIds(parent.makeSelfAsParentIds());
@@ -34,11 +36,13 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
+    @Transactional
     public int updateResource(Resource resource) {
         return resourceMapper.updateByPrimaryKeySelective(resource);
     }
 
     @Override
+    @Transactional
     public void deleteResource(Long resourceId) {
         resourceMapper.deleteByPrimaryKey(resourceId);
     }

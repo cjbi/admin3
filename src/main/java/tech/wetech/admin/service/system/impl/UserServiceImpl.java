@@ -3,6 +3,7 @@ package tech.wetech.admin.service.system.impl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.base.PageResultSet;
@@ -91,6 +92,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int createUser(User user) {
         User u = findByUsername(user.getUsername());
         if (u != null) {
@@ -102,16 +104,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int updateUser(User user) {
         return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long userId) {
         userMapper.deleteByPrimaryKey(userId);
     }
 
     @Override
+    @Transactional
     public void changePassword(Long userId, String newPassword) {
         User user = userMapper.selectByPrimaryKey(userId);
         user.setPassword(newPassword);

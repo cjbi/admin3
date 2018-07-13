@@ -3,6 +3,7 @@ package tech.wetech.admin.service.system.impl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.mapper.system.LogMapper;
@@ -25,6 +26,7 @@ public class LogServiceImpl implements LogService {
 
 
     @Override
+    @Transactional
     public int create(Log log) {
         return logMapper.insertSelective(log);
     }

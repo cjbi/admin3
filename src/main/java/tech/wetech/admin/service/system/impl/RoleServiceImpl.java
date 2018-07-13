@@ -3,6 +3,7 @@ package tech.wetech.admin.service.system.impl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.base.PageResultSet;
@@ -71,16 +72,19 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public int createRole(Role role) {
         return roleMapper.insertSelective(role);
     }
 
     @Override
+    @Transactional
     public int updateRole(Role role) {
         return roleMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override
+    @Transactional
     public void deleteRole(Long roleId) {
         roleMapper.deleteByPrimaryKey(roleId);
     }
