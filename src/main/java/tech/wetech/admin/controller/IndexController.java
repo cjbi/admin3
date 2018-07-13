@@ -1,4 +1,4 @@
-package tech.wetech.admin.controller.system;
+package tech.wetech.admin.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +33,7 @@ public class IndexController {
         StringBuilder dom = new StringBuilder();
         getMenuTree(menus, Constants.MENU_ROOT_ID, dom);
         model.addAttribute(Constants.MENU_TREE, dom);
-        model.addAttribute(Constants.PERMISSIONS, permissions);
-        return "system/main";
+        return "base/main";
     }
 
     private List<Resource> getMenuTree(List<Resource> source, Long pid, StringBuilder dom) {

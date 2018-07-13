@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="context-path" th:content="@{/}"/>
-    <meta name="permissions" th:content="${permissions}"/>
     <title>管理控制台 | Wetech Admin</title>
     <!-- favicon icon -->
     <link rel="icon" type="image/png" th:href="@{/static/img/favicon.ico}">
@@ -44,7 +43,6 @@
     <![endif]-->
     <script th:inline="javascript">
         var CONTEXT_PATH = [[${#request.getContextPath()}]];
-        var PERMISSIONS = [[${permissions}]];
     </script>
     <!-- Google Font -->
     <link rel="stylesheet"
@@ -54,19 +52,19 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-    <div th:replace="~{system/header :: header}"> </div>
+    <div th:replace="~{base/header :: header}"> </div>
 
-    <div th:replace="~{system/main-sidebar :: main-sidebar}"> </div>
+    <div th:replace="~{base/main-sidebar :: main-sidebar}"> </div>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" id="content-wrapper">
-        <div th:replace="~{system/content-wrapper :: content-wrapper}"> </div>
+        <div th:replace="~{base/content-wrapper :: content-wrapper}"> </div>
     </div>
     <!-- /.content-wrapper -->
 
-    <div th:replace="~{system/footer :: main-footer}"> </div>
+    <div th:replace="~{base/footer :: main-footer}"> </div>
 
-    <div th:replace="~{system/control-sidebar :: control-sidebar}"> </div>
+    <div th:replace="~{base/control-sidebar :: control-sidebar}"> </div>
 
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->

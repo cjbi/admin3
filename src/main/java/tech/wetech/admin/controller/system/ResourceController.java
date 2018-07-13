@@ -14,6 +14,9 @@ import tk.mybatis.mapper.weekend.Weekend;
 
 import javax.validation.Valid;
 
+/**
+ * @author cjbi
+ */
 @Controller
 @RequestMapping("/resource")
 public class ResourceController extends BaseController{
@@ -41,7 +44,7 @@ public class ResourceController extends BaseController{
     @PostMapping("/create")
     public Result create(@Valid Resource resource) {
         resourceService.createResource(resource);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -50,7 +53,7 @@ public class ResourceController extends BaseController{
     @PostMapping("/update")
     public Result update(@Valid Resource resource) {
         resourceService.updateResource(resource);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -59,7 +62,7 @@ public class ResourceController extends BaseController{
     @PostMapping("/delete")
     public Result delete(@RequestParam("id") Long id) {
         resourceService.deleteResource(id);
-        return Result.Success();
+        return Result.success();
     }
 
 }

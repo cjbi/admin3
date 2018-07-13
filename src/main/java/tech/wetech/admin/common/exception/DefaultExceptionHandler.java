@@ -15,7 +15,6 @@ import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.common.base.ResultCodeEnum;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @ControllerAdvice
 public class DefaultExceptionHandler {
@@ -27,7 +26,7 @@ public class DefaultExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Object> processThrowable(HttpServletRequest request, Throwable e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
-        return Result.Failure(ResultCodeEnum.InternalServerError, e.getMessage());
+        return Result.failure(ResultCodeEnum.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
     /**
@@ -48,7 +47,7 @@ public class DefaultExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Result processUnauthenticatedException(HttpServletRequest request, UnauthorizedException e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
-        return Result.Failure(ResultCodeEnum.Unauthorized, e.getMessage());
+        return Result.failure(ResultCodeEnum.UNAUTHORIZED, e.getMessage());
     }
 
     /**
@@ -62,7 +61,7 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({BizException.class})
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     public Result processBizException(NativeWebRequest request, BizException e) {
-        return Result.Failure(e.getCode(), e.getMsg(), e.getMessage());
+        return Result.failure(e.getCode(), e.getMsg(), e.getMessage());
     }
 
     /**
@@ -84,7 +83,7 @@ public class DefaultExceptionHandler {
         if (msg.length() > 0) {
             msg.deleteCharAt(msg.length() - 1);
         }
-        return Result.Failure(ResultCodeEnum.BadRequest.getCode(), msg.toString(), e.getMessage());
+        return Result.failure(ResultCodeEnum.BADREQUEST.getCode(), msg.toString(), e.getMessage());
     }
 
 }

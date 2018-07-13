@@ -42,7 +42,7 @@ public class OrganizationController extends BaseController{
     @RequestMapping(value = "{id}/load", method = RequestMethod.POST)
     public Result load(@PathVariable Long id) {
         Organization organization = organizationService.findOne(id);
-        return Result.Success(organization);
+        return Result.success(organization);
     }
 
     @ResponseBody
@@ -51,7 +51,7 @@ public class OrganizationController extends BaseController{
     @PostMapping("/create")
     public Result create(@Valid Organization organization) {
         organizationService.createOrganization(organization);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -60,7 +60,7 @@ public class OrganizationController extends BaseController{
     @PostMapping("/update")
     public Result update(@Valid Organization organization) {
         organizationService.updateOrganization(organization);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -69,7 +69,7 @@ public class OrganizationController extends BaseController{
     @PostMapping("/delete")
     public Result delete(Long id) {
         organizationService.deleteOrganization(id);
-        return Result.Success();
+        return Result.success();
     }
 
 }

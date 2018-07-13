@@ -6,19 +6,19 @@ package tech.wetech.admin.common.base;
 public enum ResultCodeEnum {
 
     OK("200","处理成功"),
-    BadRequest("400","请求参数有误"),
-    Unauthorized("401","未授权"),
-    ParamsMiss("483","缺少接口中必填参数"),
-    ParamError("484","参数非法"),
-    FailedDelOwn("485","不能删除自己"),
-    FailedUserAlreadyExist("486","该用户已存在"),
-    InternalServerError("500","服务器内部错误"),
-    NotImplemented("501","业务异常");
+    BADREQUEST("400","请求参数有误"),
+    UNAUTHORIZED("401","未授权"),
+    PARAMS_MISS("483","缺少接口中必填参数"),
+    PARAM_ERROR("484","参数非法"),
+    FAILED_DEL_OWN("485","不能删除自己"),
+    FAILED_USER_ALREADY_EXIST("486","该用户已存在"),
+    INTERNAL_SERVER_ERROR("500","服务器内部错误"),
+    NOT_IMPLEMENTED("501","业务异常");
 
     private String code;
     private String msg;
 
-    private ResultCodeEnum(String code, String msg) {
+    ResultCodeEnum(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }

@@ -11,6 +11,9 @@ import tech.wetech.admin.controller.BaseController;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author cjbi
+ */
 @Controller
 public class LoginController extends BaseController {
 

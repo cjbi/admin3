@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Arrays;
 
+/**
+ * @author cjbi
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {
@@ -54,7 +57,7 @@ public class UserController extends BaseController {
     @SystemLog("用户管理创建用户")
     public Result create(@Valid User user) {
         userService.createUser(user);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -63,7 +66,7 @@ public class UserController extends BaseController {
     @SystemLog("用户管理更新用户")
     public Result update(User user) {
         userService.updateUser(user);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -76,10 +79,10 @@ public class UserController extends BaseController {
         User user = userService.findByUsername(username);
         boolean isSelf = Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));
         if (isSelf) {
-            return Result.Failure(ResultCodeEnum.FailedDelOwn);
+            return Result.failure(ResultCodeEnum.FAILED_DEL_OWN);
         }
         Arrays.asList(ids).forEach(id -> userService.deleteUser(id));
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -88,7 +91,7 @@ public class UserController extends BaseController {
     @SystemLog("用户管理更改用户密码")
     public Result changePassword(@PathVariable("id") Long id, String newPassword) {
         userService.changePassword(id, newPassword);
-        return Result.Success();
+        return Result.success();
     }
 
     private void setCommonData(Model model) {

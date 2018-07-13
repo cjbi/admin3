@@ -13,7 +13,9 @@ import tech.wetech.admin.model.system.Log;
 import tech.wetech.admin.service.system.LogService;
 
 /**
- * 日志控制器 Created by cjbi on 2017/12/16.
+ *
+ * @author cjbi
+ * @date 2017/12/16
  */
 @Controller
 @RequestMapping("/log")

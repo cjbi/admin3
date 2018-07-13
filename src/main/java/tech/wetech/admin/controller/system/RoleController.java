@@ -17,6 +17,9 @@ import tech.wetech.admin.model.system.RoleDto;
 import javax.validation.Valid;
 import java.util.Arrays;
 
+/**
+ * @author cjbi
+ */
 @Controller
 @RequestMapping("/role")
 public class RoleController extends BaseController {
@@ -47,7 +50,7 @@ public class RoleController extends BaseController {
     @PostMapping("/create")
     public Result create(@Valid Role role) {
         roleService.createRole(role);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -56,7 +59,7 @@ public class RoleController extends BaseController {
     @PostMapping("/update")
     public Result update(@Valid Role role) {
         roleService.updateRole(role);
-        return Result.Success();
+        return Result.success();
     }
 
     @ResponseBody
@@ -65,7 +68,7 @@ public class RoleController extends BaseController {
     @PostMapping("/delete")
     public Result delete(@RequestParam("id") Long[] ids) {
         Arrays.asList(ids).forEach(id-> roleService.deleteRole(id));
-        return Result.Success();
+        return Result.success();
     }
 
     private void setCommonData(Model model) {

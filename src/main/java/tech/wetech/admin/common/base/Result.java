@@ -23,7 +23,7 @@ public class Result<T> implements Serializable {
 
     private String msg;
 
-    private String sysMsg;
+    private String errorMsg;
 
     private T data;
 
@@ -59,19 +59,19 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
-    public String getSysMsg() {
-        return sysMsg;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setSysMsg(String sysMsg) {
-        this.sysMsg = sysMsg;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 
-    public static Result Success() {
-        return Result.Success(null);
+    public static Result success() {
+        return Result.success(null);
     }
 
-    public static <T> Result Success(T obj) {
+    public static <T> Result success(T obj) {
         Result result = new Result();
         result.setSuccess(true);
         result.setCode(ResultCodeEnum.OK.getCode());
@@ -85,32 +85,32 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    public static Result Failure(ResultCodeEnum resultCodeEnum) {
-        return Result.Failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg());
+    public static Result failure(ResultCodeEnum resultCodeEnum) {
+        return Result.failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg());
     }
 
-    public static Result Failure(ResultCodeEnum resultCodeEnum, String sysMsg) {
-        return Result.Failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg(), sysMsg);
+    public static Result failure(ResultCodeEnum resultCodeEnum, String sysMsg) {
+        return Result.failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg(), sysMsg);
     }
 
-    public static Result Failure(String code, String msg) {
-        return Result.Failure(code, msg, null);
+    public static Result failure(String code, String msg) {
+        return Result.failure(code, msg, null);
     }
 
-    public static Result Failure(BizException e) {
-        return Result.Failure(e.getCode(), e.getMsg(), e.getMessage());
+    public static Result failure(BizException e) {
+        return Result.failure(e.getCode(), e.getMsg(), e.getMessage());
     }
 
-    public static Result Failure(String code, String msg, String sysMsg) {
+    public static Result failure(String code, String msg, String sysMsg) {
         Result result = new Result();
         result.setCode(code);
         result.setSuccess(false);
         result.setMsg(msg);
-        result.setSysMsg(sysMsg);
+        result.setErrorMsg(sysMsg);
         return result;
     }
 
-    public static Result Failure(BindingResult result) {
+    public static Result failure(BindingResult result) {
         if (null != result && result.hasErrors()) {
             Map<String, String> map = new HashMap();
             List<FieldError> list = result.getFieldErrors();
@@ -121,9 +121,9 @@ public class Result<T> implements Serializable {
                 map.put(error.getField(), error.getDefaultMessage());
             }
 
-            return Failure(ResultCodeEnum.ParamError.getCode(), ResultCodeEnum.ParamError.getMsg(), map.toString());
+            return failure(ResultCodeEnum.PARAM_ERROR.getCode(), ResultCodeEnum.PARAM_ERROR.getMsg(), map.toString());
         } else {
-            return Failure(ResultCodeEnum.InternalServerError.getCode(), ResultCodeEnum.InternalServerError.getMsg());
+            return failure(ResultCodeEnum.INTERNAL_SERVER_ERROR.getCode(), ResultCodeEnum.INTERNAL_SERVER_ERROR.getMsg());
         }
     }
 
