@@ -13,33 +13,6 @@
     'use strict';
     var _my_admin_api = {
         /**
-         * 权限判断
-         * @param name
-         */
-        hasPermission: function (name) {
-            for (var i in PERMISSIONS) {
-                var p = PERMISSIONS[i];
-                if (p == name) {
-                    return true;
-                }
-                var symbol = p.indexOf(":");
-                if (p.substring(0, symbol) == name.substring(0, symbol)) {
-                    if (p.substring(symbol + 1) == name.substring(symbol + 1)) {
-                        return true;
-                    }
-                    if (p.substring(symbol + 1) == "*") {
-                        return true;
-                    }
-                }
-                if (p.substring(0, symbol) == "*") {
-                    if (p.substring(symbol + 1) == name.substring(symbol + 1)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        },
-        /**
          * 如果参数是 false，它就会用 HTTP 头 If-Modified-Since 来检测服务器上的文档是否已改变,否则就绕过缓存刷新页面
          * @param forceget 是否绕过缓存
          */

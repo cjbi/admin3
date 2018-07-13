@@ -2,6 +2,9 @@
     font-style: normal;
     color: red;
 }
+.admin-hide {
+    display: none;
+}
 .records {
     color: red;
     font-weight: bold;

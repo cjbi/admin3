@@ -161,7 +161,11 @@
         </div>
     </div>
 </div>
-
+<div id="actionButtons" class="admin-hide">
+    <a class="like" href="javascript:void(0)" data-toggle="tooltip" title="Like"><i class="glyphicon glyphicon-heart"></i></a>　
+    <a shiro:hasPermission="role:update" class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="编辑"><i class="glyphicon glyphicon-edit"></i></a>　
+    <a shiro:hasPermission="role:delete" class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="删除"><i class="glyphicon glyphicon-remove"></i></a>　
+</div>
 <!-- zTree -->
 <div id="menuContent" class="menuContent" style="display:none;z-index:1989101600;position: absolute;">
     <ul id="tree" class="ztree" style="margin-top:0;"></ul>
@@ -218,15 +222,7 @@
     }
 
     function actionFormatter(value, row, index) {
-        var item = [];
-        item.push('<a class="like" href="javascript:void(0)" data-toggle="tooltip" title="Like"><i class="glyphicon glyphicon-heart"></i></a>');
-        if ($.myAdmin.hasPermission("role:update")) {
-            item.push('<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="编辑"><i class="glyphicon glyphicon-edit"></i></a>');
-        }
-        if ($.myAdmin.hasPermission("role:delete")) {
-            item.push('<a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="删除"><i class="glyphicon glyphicon-remove"></i></a>');
-        }
-        return item.join('　');
+        return $('#actionButtons').html();
     }
 
     window.actionEvents = {
