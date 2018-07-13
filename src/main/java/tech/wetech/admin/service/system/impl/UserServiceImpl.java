@@ -69,11 +69,10 @@ public class UserServiceImpl implements UserService {
         StringBuilder s = new StringBuilder();
         for (Long roleId : roleIds) {
             Role role = roleService.findOne(roleId);
-            if (role == null) {
-                return "";
+            if (role != null) {
+                s.append(role.getDescription());
+                s.append(",");
             }
-            s.append(role.getDescription());
-            s.append(",");
         }
 
         if (s.length() > 0) {
