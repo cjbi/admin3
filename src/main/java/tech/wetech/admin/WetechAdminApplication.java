@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @author cjbi
+ */
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {QuartzAutoConfiguration.class})
 @EnableTransactionManagement
