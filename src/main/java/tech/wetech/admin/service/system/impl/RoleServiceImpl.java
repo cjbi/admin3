@@ -59,11 +59,10 @@ public class RoleServiceImpl implements RoleService {
         StringBuilder s = new StringBuilder();
         for (Long resourceId : resourceIds) {
             Resource resource = resourceService.findOne(resourceId);
-            if (resource == null) {
-                return "";
+            if (resource != null) {
+                s.append(resource.getName());
+                s.append(",");
             }
-            s.append(resource.getName());
-            s.append(",");
         }
         if (s.length() > 0) {
             s.deleteCharAt(s.length() - 1);
