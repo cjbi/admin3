@@ -60,8 +60,9 @@ public class DefaultExceptionHandler {
     @ResponseBody
     @ExceptionHandler({BizException.class})
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Result processBizException(NativeWebRequest request, BizException e) {
-        return Result.failure(e.getCode(), e.getMsg(), e.getMessage());
+    public Result processBizException(HttpServletRequest request, BizException e) {
+        LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
+        return Result.failure(e);
     }
 
     /**
@@ -75,15 +76,8 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({BindException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result processBindException(HttpServletRequest request, BindException e, BindingResult br) {
-        StringBuilder msg = new StringBuilder();
-        br.getAllErrors().forEach(error -> {
-            msg.append(error.getDefaultMessage());
-            msg.append(",");
-        });
-        if (msg.length() > 0) {
-            msg.deleteCharAt(msg.length() - 1);
-        }
-        return Result.failure(ResultCodeEnum.BADREQUEST.getCode(), msg.toString(), e.getMessage());
+        LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
+        return Result.failure(br);
     }
 
 }

@@ -1,5 +1,6 @@
 package tech.wetech.admin.common.base;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import tech.wetech.admin.common.exception.BizException;
@@ -23,6 +24,7 @@ public class Result<T> implements Serializable {
 
     private String msg;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String errorMsg;
 
     private T data;
@@ -71,6 +73,30 @@ public class Result<T> implements Serializable {
         return Result.success(null);
     }
 
+    public static Result failure(ResultCodeEnum resultCodeEnum) {
+        return Result.failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg());
+    }
+
+    public static Result failure(ResultCodeEnum resultCodeEnum, String errorMsg) {
+        return Result.failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg(), errorMsg);
+    }
+
+    public static Result failure(String code, String msg) {
+        return Result.failure(code, msg, null);
+    }
+
+    public static Result failure(BizException e) {
+        return Result.failure(e.getCode(), e.getMsg(), e.getMessage());
+    }
+
+    public static Result failure(String code, String msg, String errorMsg) {
+        return failure(null, code, msg, errorMsg);
+    }
+
+    public static <T> Result failure(T obj, String code, String msg) {
+        return failure(null, code, msg, null);
+    }
+
     public static <T> Result success(T obj) {
         Result result = new Result();
         result.setSuccess(true);
@@ -85,35 +111,20 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    public static Result failure(ResultCodeEnum resultCodeEnum) {
-        return Result.failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg());
-    }
-
-    public static Result failure(ResultCodeEnum resultCodeEnum, String sysMsg) {
-        return Result.failure(resultCodeEnum.getCode(), resultCodeEnum.getMsg(), sysMsg);
-    }
-
-    public static Result failure(String code, String msg) {
-        return Result.failure(code, msg, null);
-    }
-
-    public static Result failure(BizException e) {
-        return Result.failure(e.getCode(), e.getMsg(), e.getMessage());
-    }
-
-    public static Result failure(String code, String msg, String sysMsg) {
+    public static <T> Result failure(T obj, String code, String msg, String errorMsg) {
         Result result = new Result();
+        result.setData(obj);
         result.setCode(code);
         result.setSuccess(false);
         result.setMsg(msg);
-        result.setErrorMsg(sysMsg);
+        result.setErrorMsg(errorMsg);
         return result;
     }
 
-    public static Result failure(BindingResult result) {
-        if (null != result && result.hasErrors()) {
+    public static Result failure(BindingResult br) {
+        if (null != br && br.hasErrors()) {
             Map<String, String> map = new HashMap();
-            List<FieldError> list = result.getFieldErrors();
+            List<FieldError> list = br.getFieldErrors();
             Iterator var3 = list.iterator();
 
             while (var3.hasNext()) {
@@ -121,9 +132,9 @@ public class Result<T> implements Serializable {
                 map.put(error.getField(), error.getDefaultMessage());
             }
 
-            return failure(ResultCodeEnum.PARAM_ERROR.getCode(), ResultCodeEnum.PARAM_ERROR.getMsg(), map.toString());
+            return failure(map, ResultCodeEnum.PARAM_ERROR.getCode(), ResultCodeEnum.PARAM_ERROR.getMsg());
         } else {
-            return failure(ResultCodeEnum.INTERNAL_SERVER_ERROR.getCode(), ResultCodeEnum.INTERNAL_SERVER_ERROR.getMsg());
+            return failure(ResultCodeEnum.INTERNAL_SERVER_ERROR);
         }
     }
 
