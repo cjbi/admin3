@@ -171,10 +171,6 @@
 			<!-- 可选依赖 -->
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
