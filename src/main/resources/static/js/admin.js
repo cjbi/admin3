@@ -394,7 +394,7 @@
 
     // 动态高度
     function getHeight() {
-        return $(window).height() - 215;
+        return $(window).height() - 250;
     }
 
 
@@ -425,7 +425,7 @@
         paginationLoop: false,
         classes: 'table table-hover table-no-bordered',
         sidePagination: 'server',
-        //silentSort: false,
+        silentSort: false,
         smartDisplay: false,
         escape: true,
         searchOnEnterKey: true,
