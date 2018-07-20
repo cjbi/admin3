@@ -35,9 +35,11 @@ public class RoleServiceImpl implements RoleService {
         }
         Weekend<Role> weekend = Weekend.of(Role.class);
         WeekendCriteria<Role, Object> criteria = weekend.weekendCriteria();
-        if (!StringUtils.isEmpty(role.getSearch())) {
-            criteria.andLike(Role::getRole, "%" + role.getSearch() + "%")
-                    .orLike(Role::getDescription, "%" + role.getSearch() + "%");
+        if(!StringUtils.isEmpty(role.getRole())) {
+            criteria.andLike(Role::getRole,"%" + role.getRole() + "%");
+        }
+        if(!StringUtils.isEmpty(role.getDescription())) {
+            criteria.andLike(Role::getDescription,"%" + role.getDescription() + "%");
         }
         PageResultSet<RoleDto> resultSet = new PageResultSet<>();
         List<RoleDto> dtoList = new ArrayList<>();

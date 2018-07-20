@@ -20,6 +20,9 @@
             window.location.reload(forceget);
         },
         //刷新表格
+        /**
+         * 刷新远程服务器数据，可以设置{silent: true}以静默方式刷新数据，并设置{url: newUrl}更改URL。 要提供特定于此请求的查询参数，请设置{query: {foo: 'bar'}}。
+         */
         refreshTable: function () {
             $('.modal').modal('hide');
             //以静默方式刷新数据
@@ -142,6 +145,17 @@
 
                                 } else {
                                     error('[data-action]参数有误，请检查参数form和table是否存在');
+                                }
+                                break;
+                            //搜索模式
+                            case 'search':
+                                if(obj.form && obj.table) {
+                                    var query = {};
+                                    var arr = $(obj.form).serializeArray();
+                                    for(var i in arr) {
+                                        eval('query.'+arr[i].name+'="'+arr[i].value+'"');
+                                    }
+                                    $(obj.table).bootstrapTable('refresh', {silent: true, query: query});
                                 }
                                 break;
                             default :
@@ -398,7 +412,7 @@
     $.extend($.fn.bootstrapTable.defaults, {
         height: getHeight(),
         striped: true,
-        search: true,
+        search: false,
         showPaginationSwitch: false,
         showRefresh: true,
         showToggle: false,

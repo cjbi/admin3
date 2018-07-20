@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
         }
         Weekend<User> weekend = Weekend.of(User.class);
         WeekendCriteria<User, Object> criteria = weekend.weekendCriteria();
-        if (!StringUtils.isEmpty(user.getSearch())) {
-            criteria.andLike(User::getUsername, "%" + user.getSearch() + "%");
+        if (!StringUtils.isEmpty(user.getUsername())) {
+            criteria.andLike(User::getUsername, "%" + user.getUsername() + "%");
         }
         List<UserDto> dtoList = new ArrayList<>();
         userMapper.selectByExample(weekend).forEach(u -> {

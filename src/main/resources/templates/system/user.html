@@ -20,6 +20,22 @@
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <form class="form-inline" id="searchForm">
+                        <div class="form-group">
+                            <label for="searchName">用户名</label>
+                            <input type="text" class="form-control input-sm" name="username" id="searchName" placeholder="请输入用户名">
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm" data-action="{type:'search',form:'#searchForm',table:'#table'}">
+                                <i class="glyphicon glyphicon-search"></i>
+                                查询
+                            </button>
+                            <button type="reset" class="btn btn-default btn-sm">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                清空
+                            </button>
+                        </div>
+                    </form>
                     <div class="btn-group btn-group-sm" id="toolbar">
                         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
                         <button shiro:hasPermission="user:create" type="button" id="addBtn" class="btn btn-default"
@@ -200,7 +216,6 @@
         $table.bootstrapTable({
             url: CONTEXT_PATH + '/user/list',
             idField: 'id',
-            searchOnEnterKey: false,
             columns: [
                 {field: 'state', checkbox: true},
                 {field: 'id', title: '编号', sortable: true, halign: 'left'},
@@ -219,6 +234,10 @@
             ]
         });
     });
+
+    function onSearch() {
+        $('table').bootstrapTable('refresh', {silent: true, query: {foo: 'bar',user:'222'}});
+    }
 
     // 数据表格展开内容
     function detailFormatter(index, row) {

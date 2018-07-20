@@ -20,6 +20,30 @@
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <form class="form-inline" id="searchForm">
+                        <div class="form-group">
+                            <label for="searchUsername">用户名</label>
+                            <input type="text" class="form-control input-sm" name="username" id="searchUsername" placeholder="请输入用户名">
+                            <label for="searchIp">IP</label>
+                            <input type="text" class="form-control input-sm" name="ip" id="searchIp" placeholder="请输入IP">
+                            <label for="searchReqMethod">请求方法</label>
+                            <input type="text" class="form-control input-sm" name="reqMethod" id="searchReqMethod" placeholder="请输入请求方法">
+                            <label for="searchExecMethod">执行方法</label>
+                            <input type="text" class="form-control input-sm" name="execMethod" id="searchExecMethod" placeholder="请输入执行方法">
+                            <label for="searchStatus">状态</label>
+                            <input type="text" class="form-control input-sm" name="status" id="searchStatus" placeholder="请输入执行方法">
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm" data-action="{type:'search',form:'#searchForm',table:'#table'}">
+                                <i class="glyphicon glyphicon-search"></i>
+                                查询
+                            </button>
+                            <button type="reset" class="btn btn-default btn-sm">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                清空
+                            </button>
+                        </div>
+                    </form>
                     <table id="table"></table>
                 </div>
                 <!-- /.box-body -->

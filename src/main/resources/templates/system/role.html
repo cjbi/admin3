@@ -29,6 +29,24 @@
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <form class="form-inline" id="searchForm">
+                        <div class="form-group">
+                            <label for="searchRole">角色名称</label>
+                            <input type="text" class="form-control input-sm" name="role" id="searchRole" placeholder="请输入角色名称">
+                            <label for="searchDescription">角色描述</label>
+                            <input type="text" class="form-control input-sm" name="description" id="searchDescription" placeholder="请输入角色描述">
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm" data-action="{type:'search',form:'#searchForm',table:'#table'}">
+                                <i class="glyphicon glyphicon-search"></i>
+                                查询
+                            </button>
+                            <button type="reset" class="btn btn-default btn-sm">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                清空
+                            </button>
+                        </div>
+                    </form>
                     <div class="btn-group btn-group-sm" id="toolbar">
                         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
                         <button shiro:hasPermission="role:create" type="button" id="addBtn" class="btn btn-default" data-toggle="modal"
