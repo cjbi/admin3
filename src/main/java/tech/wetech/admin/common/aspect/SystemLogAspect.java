@@ -1,5 +1,6 @@
 package tech.wetech.admin.common.aspect;
 
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.common.Constants;
 import tech.wetech.admin.common.annotation.SystemLog;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
 import tech.wetech.admin.model.system.entity.Log;
-import tech.wetech.admin.model.system.entity.User;
 import tech.wetech.admin.service.system.LogService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +54,8 @@ public class SystemLogAspect{
         // 获取相关参数
         WebUtil wu = WebUtil.getInstance();
         HttpServletRequest req = wu.getRequest();// 请求对象
-        User user = (User) req.getAttribute(Constants.CURRENT_USER);// 用户
+        // 当前用户
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
         String qs = req.getQueryString();// 查询参数
         String url = req.getRequestURL().append(qs == null ? "" : "?" + qs).toString();// url
         String ip = wu.getIpAddress();// IP地址
@@ -93,9 +93,7 @@ public class SystemLogAspect{
         // 构造入库参数
         Log log = new Log();
         // 用户信息
-        if (user != null) {
-            log.setUsername(user.getUsername());
-        }
+        log.setUsername(username);
         // 请求信息
         log.setIp(ip);
         log.setReqMethod(method + " " + protocol);

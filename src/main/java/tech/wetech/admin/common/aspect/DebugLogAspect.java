@@ -1,5 +1,6 @@
 package tech.wetech.admin.common.aspect;
 
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -59,7 +60,8 @@ public class DebugLogAspect {
             // 获取相关参数
             WebUtil wu = WebUtil.getInstance();
             HttpServletRequest req = wu.getRequest();// 请求对象
-            User user = (User) req.getAttribute(Constants.CURRENT_USER);// 用户
+            // 当前用户
+            String username = (String) SecurityUtils.getSubject().getPrincipal();
             String qs = req.getQueryString();// 查询参数
             String url = req.getRequestURL().append(qs == null ? "" : "?" + qs).toString();// url
             String ip = wu.getIpAddress();// IP地址
@@ -97,7 +99,7 @@ public class DebugLogAspect {
             builder.append("\n");
             builder.append("/*******************************************************\\");
             builder.append("\n");
-            builder.append(String.format(info, user, ip, sid, method, url, sign, time));
+            builder.append(String.format(info, username, ip, sid, method, url, sign, time));
             if (!StringUtils.isEmpty(status) && !StringUtils.isEmpty(msg)) {
                 builder.append(" | ").append(status + ":" + msg);
             } else if (!StringUtils.isEmpty(status)) {
