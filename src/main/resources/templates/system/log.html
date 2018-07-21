@@ -48,7 +48,7 @@
                                 <i class="glyphicon glyphicon-search"></i>
                                 查询
                             </button>
-                            <button type="reset" class="btn btn-default btn-sm">
+                            <button type="reset" class="btn btn-default btn-sm" id="reset" onclick="javascript:document.querySelectorAll('#startDate, #endDate').forEach(d=> d.value='')">
                                 <i class="glyphicon glyphicon-trash"></i>
                                 清空
                             </button>
@@ -88,14 +88,14 @@
                 monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
             }
         }, function(start, end, label) {
-            $('#startDate').val(this.startDate.format(this.locale.format));
-            $('#endDate').val(this.endDate.format(this.locale.format))
             if(!this.startDate){
                 this.element.val('');
             }else{
+                $('#startDate').val(this.startDate.format(this.locale.format));
+                $('#endDate').val(this.endDate.format(this.locale.format));
                 this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
             }
-        })
+        });
         // bootstrap table初始化
         // http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
         $table.bootstrapTable({

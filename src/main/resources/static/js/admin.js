@@ -149,11 +149,11 @@
                                 break;
                             //搜索模式
                             case 'search':
-                                if(obj.form && obj.table) {
+                                if (obj.form && obj.table) {
                                     var query = {};
                                     var arr = $(obj.form).serializeArray();
-                                    for(var i in arr) {
-                                        eval('query.'+arr[i].name+'="'+arr[i].value+'"');
+                                    for (var i in arr) {
+                                        eval('query.' + arr[i].name + '="' + arr[i].value + '"');
                                     }
                                     $(obj.table).bootstrapTable('refresh', {silent: true, query: query});
                                 }
@@ -203,7 +203,7 @@
 
                 });
                 //初始化表单验证
-                $('form').validator({'disable':false});
+                $('form').validator({'disable': false});
                 //chosen
                 $(".chosen-select").chosen({width: '100%', no_results_text: '没找到你要的选项！'});
             };
@@ -431,7 +431,12 @@
         searchOnEnterKey: true,
         idField: 'id',
         maintainSelected: true,
-        toolbar: '#toolbar'
+        toolbar: '#toolbar',
+        ajaxOptions: {
+            data: {
+                test:12122232323
+            }
+        }
     });
 
     // 数据表格动态高度
