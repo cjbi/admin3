@@ -147,17 +147,6 @@
                                     error('[data-action]参数有误，请检查参数form和table是否存在');
                                 }
                                 break;
-                            //搜索模式
-                            case 'search':
-                                if (obj.form && obj.table) {
-                                    var query = {};
-                                    var arr = $(obj.form).serializeArray();
-                                    for (var i in arr) {
-                                        eval('query.' + arr[i].name + '="' + arr[i].value + '"');
-                                    }
-                                    $(obj.table).bootstrapTable('refresh', {silent: true, query: query});
-                                }
-                                break;
                             default :
                                 error('[data-action]参数有误，请检查参数type是否有误');
                         }
@@ -432,10 +421,14 @@
         idField: 'id',
         maintainSelected: true,
         toolbar: '#toolbar',
-        ajaxOptions: {
-            data: {
-                test:12122232323
+        queryParams:function(params) {
+            var form = $(this.toolbar).find('form');
+            var arr = form.serializeArray();
+            for (var i in arr) {
+                eval('params.' + arr[i].name + '="' + arr[i].value + '"');
             }
+            console.log(params);
+            return params;
         }
     });
 

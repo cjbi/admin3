@@ -29,41 +29,43 @@
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <form class="form-inline" id="searchForm">
-                        <div class="form-group">
-                            <label for="searchRole">角色名称</label>
-                            <input type="text" class="form-control input-sm" name="role" id="searchRole" placeholder="请输入角色名称">
-                            <label for="searchDescription">角色描述</label>
-                            <input type="text" class="form-control input-sm" name="description" id="searchDescription" placeholder="请输入角色描述">
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm" data-action="{type:'search',form:'#searchForm',table:'#table'}">
-                                <i class="glyphicon glyphicon-search"></i>
-                                查询
+                    <div id="toolbar">
+                        <form class="form-inline" id="searchForm">
+                            <div class="form-group">
+                                <label for="searchRole">角色名称</label>
+                                <input type="text" class="form-control input-sm" name="role" id="searchRole" placeholder="请输入角色名称">
+                                <label for="searchDescription">角色描述</label>
+                                <input type="text" class="form-control input-sm" name="description" id="searchDescription" placeholder="请输入角色描述">
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm" onclick="javascript:$('table').bootstrapTable('refresh', {silent: true});">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    查询
+                                </button>
+                                <button type="reset" class="btn btn-default btn-sm">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    清空
+                                </button>
+                            </div>
+                        </form>
+                        <div class="btn-group btn-group-sm">
+                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                            <button shiro:hasPermission="role:create" type="button" id="addBtn" class="btn btn-default" data-toggle="modal"
+                                    data-target="#addModal" data-action="{before:'addBefore'}"><i class="glyphicon glyphicon glyphicon-plus"></i> 新增
                             </button>
-                            <button type="reset" class="btn btn-default btn-sm">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                清空
+                            <!-- Indicates caution should be taken with this action -->
+                            <button shiro:hasPermission="role:update" type="button" id="editBtn" class="btn btn-default" data-toggle="modal"
+                                    data-target="#editModal"
+                                    data-action="{type:'editable',form:'#editForm',table:'#table',after:'editAfter'}"
+                                    disabled><i class="glyphicon glyphicon glyphicon-edit"></i> 修改
+                            </button>
+                            <!-- Indicates a dangerous or potentially negative action -->
+                            <button shiro:hasPermission="role:delete" type="button" id="deleteBtn" class="btn btn-default" data-toggle="modal"
+                                    data-target="#deleteModal"
+                                    data-action="{type:'delete',form:'#deleteForm',idField:'id',table:'#table'}" disabled><i
+                                    class="glyphicon glyphicon-remove"></i> 删除
                             </button>
                         </div>
-                    </form>
-                    <div class="btn-group btn-group-sm" id="toolbar">
-                        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                        <button shiro:hasPermission="role:create" type="button" id="addBtn" class="btn btn-default" data-toggle="modal"
-                                data-target="#addModal" data-action="{before:'addBefore'}"><i class="glyphicon glyphicon glyphicon-plus"></i> 新增
-                        </button>
-                        <!-- Indicates caution should be taken with this action -->
-                        <button shiro:hasPermission="role:update" type="button" id="editBtn" class="btn btn-default" data-toggle="modal"
-                                data-target="#editModal"
-                                data-action="{type:'editable',form:'#editForm',table:'#table',after:'editAfter'}"
-                                disabled><i class="glyphicon glyphicon glyphicon-edit"></i> 修改
-                        </button>
-                        <!-- Indicates a dangerous or potentially negative action -->
-                        <button shiro:hasPermission="role:delete" type="button" id="deleteBtn" class="btn btn-default" data-toggle="modal"
-                                data-target="#deleteModal"
-                                data-action="{type:'delete',form:'#deleteForm',idField:'id',table:'#table'}" disabled><i
-                                class="glyphicon glyphicon-remove"></i> 删除
-                        </button>
                     </div>
                     <table id="table"></table>
                 </div>
@@ -283,9 +285,10 @@
     };
     var resourceList = [[${resourceList}]];
     var zNodes = [];
-    for(var i in resourceList) {
-        zNodes.push({id:resourceList[i].id, pId:resourceList[i].parentId, name: resourceList[i].name});
+    for (var i in resourceList) {
+        zNodes.push({id: resourceList[i].id, pId: resourceList[i].parentId, name: resourceList[i].name});
     }
+
     function onCheck(e, treeId, treeNode) {
         var zTree = $.fn.zTree.getZTreeObj("tree"),
             nodes = zTree.getCheckedNodes(true),

@@ -32,7 +32,7 @@ public class BaseEntity implements Serializable {
      * 升序、降序
      */
     @Transient
-    private Order order;
+    private String order;
 
     /**
      * 数据库排序
@@ -55,10 +55,6 @@ public class BaseEntity implements Serializable {
     @Transient
     private int limit = 10;
 
-    public enum Order {
-        asc, desc;
-    }
-
 
     public Long getId() {
         return id;
@@ -77,30 +73,21 @@ public class BaseEntity implements Serializable {
         if (sort != null && sort.length() > 0 && this.order != null) {
             EntityColumn entityColumn = EntityHelper.getColumns(this.getClass()).stream().filter(column -> column.getProperty().equals(sort)).findFirst().orElse(null);
             if (entityColumn != null) {
-                this.orderBy = entityColumn.getColumn() + " " + this.order.name();
+                this.orderBy = entityColumn.getColumn() + " " + this.order;
             }
         }
     }
 
-    public Order getOrder() {
+    public String getOrder() {
         return order;
     }
 
     public void setOrder(String order) {
-        boolean contain = Arrays.stream(Order.values()).anyMatch(item -> item.name().equals(order));
-        if (contain) {
-            this.order = Order.valueOf(order);
-            if (sort != null && sort.length() > 0 && this.order != null) {
-                EntityColumn entityColumn = EntityHelper.getColumns(this.getClass()).stream().filter(column -> column.getProperty().equals(sort)).findFirst().orElse(null);
-                if (entityColumn != null) {
-                    this.orderBy = entityColumn.getColumn() + " " + this.order.name();
-                }
-            }
-        }
+        this.order = order;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 
     public String getOrderBy() {
