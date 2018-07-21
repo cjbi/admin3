@@ -15,7 +15,7 @@ import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
-import tech.wetech.admin.model.system.User;
+import tech.wetech.admin.model.system.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;

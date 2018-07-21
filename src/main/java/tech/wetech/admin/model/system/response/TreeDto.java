@@ -1,4 +1,4 @@
-package tech.wetech.admin.model.system;
+package tech.wetech.admin.model.system.response;
 
 /**
  *

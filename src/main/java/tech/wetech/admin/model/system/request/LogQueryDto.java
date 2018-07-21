@@ -1,15 +1,15 @@
-package tech.wetech.admin.model.system;
+package tech.wetech.admin.model.system.request;
 
-import tech.wetech.admin.model.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+import tech.wetech.admin.common.utils.DateUtil;
+import tech.wetech.admin.model.BaseDto;
 
-import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @author cjbi
  */
-@Table(name="sys_log")
-public class Log extends BaseEntity {
+public class LogQueryDto extends BaseDto {
 
     /**
      * 用户名
@@ -67,29 +67,11 @@ public class Log extends BaseEntity {
      */
     private String returnVal;
 
-    public String getReqUri() {
-        return reqUri;
-    }
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
 
-    public void setReqUri(String reqUri) {
-        this.reqUri = reqUri;
-    }
-
-    public String getArgs() {
-        return args;
-    }
-
-    public void setArgs(String args) {
-        this.args = args;
-    }
-
-    public String getReturnVal() {
-        return returnVal;
-    }
-
-    public void setReturnVal(String returnVal) {
-        this.returnVal = returnVal;
-    }
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
 
     public String getUsername() {
         return username;
@@ -153,5 +135,45 @@ public class Log extends BaseEntity {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getReqUri() {
+        return reqUri;
+    }
+
+    public void setReqUri(String reqUri) {
+        this.reqUri = reqUri;
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
+    }
+
+    public String getReturnVal() {
+        return returnVal;
+    }
+
+    public void setReturnVal(String returnVal) {
+        this.returnVal = returnVal;
+    }
+
+    public Date getStartDate() {
+        return DateUtil.toStartTime(startDate);
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return DateUtil.toEndTime(endDate);
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

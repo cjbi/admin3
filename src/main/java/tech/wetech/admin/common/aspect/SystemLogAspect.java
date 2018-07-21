@@ -14,8 +14,8 @@ import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.common.utils.JsonUtil;
 import tech.wetech.admin.common.utils.WebUtil;
-import tech.wetech.admin.model.system.Log;
-import tech.wetech.admin.model.system.User;
+import tech.wetech.admin.model.system.entity.Log;
+import tech.wetech.admin.model.system.entity.User;
 import tech.wetech.admin.service.system.LogService;
 
 import javax.servlet.http.HttpServletRequest;

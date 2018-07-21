@@ -1,4 +1,4 @@
-package tech.wetech.admin.config;
+package tech.wetech.admin.common.config;
 
 import net.sf.ehcache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

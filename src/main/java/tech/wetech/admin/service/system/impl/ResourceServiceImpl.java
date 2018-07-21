@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.system.ResourceMapper;
-import tech.wetech.admin.model.system.Resource;
+import tech.wetech.admin.model.system.entity.Resource;
 import tech.wetech.admin.service.system.ResourceService;
 import tk.mybatis.mapper.weekend.Weekend;
 

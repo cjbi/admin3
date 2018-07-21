@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.controller.BaseController;
-import tech.wetech.admin.model.system.Log;
+import tech.wetech.admin.model.system.entity.Log;
+import tech.wetech.admin.model.system.request.LogQueryDto;
 import tech.wetech.admin.service.system.LogService;
 
 /**
@@ -33,7 +34,7 @@ public class LogController extends BaseController{
     @ResponseBody
     @RequestMapping("/list")
     @RequiresPermissions("log:view")
-    public PageResultSet<Log> list(Log log) {
+    public PageResultSet<Log> list(LogQueryDto log) {
         return logService.findByPage(log);
     }
 

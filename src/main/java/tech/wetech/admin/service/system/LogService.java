@@ -1,7 +1,8 @@
 package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.common.base.PageResultSet;
-import tech.wetech.admin.model.system.Log;
+import tech.wetech.admin.model.system.entity.Log;
+import tech.wetech.admin.model.system.request.LogQueryDto;
 
 public interface LogService {
 
@@ -12,6 +13,11 @@ public interface LogService {
      */
     int create(Log log);
 
-    PageResultSet<Log> findByPage(Log log);
+    /**
+     * 分页查询日志
+     * @param log
+     * @return
+     */
+    PageResultSet<Log> findByPage(LogQueryDto log);
 
 }

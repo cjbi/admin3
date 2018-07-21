@@ -1,4 +1,6 @@
-package tech.wetech.admin.model.system;
+package tech.wetech.admin.model.system.response;
+
+import tech.wetech.admin.model.system.entity.User;
 
 import java.util.List;
 

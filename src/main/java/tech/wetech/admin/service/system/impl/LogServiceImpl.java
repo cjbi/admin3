@@ -7,13 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.mapper.system.LogMapper;
-import tech.wetech.admin.model.system.Log;
+import tech.wetech.admin.model.system.entity.Log;
+import tech.wetech.admin.model.system.request.LogQueryDto;
 import tech.wetech.admin.service.system.LogService;
 import tk.mybatis.mapper.weekend.Weekend;
 import tk.mybatis.mapper.weekend.WeekendCriteria;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 日志服务
@@ -33,7 +33,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public PageResultSet<Log> findByPage(Log log) {
+    public PageResultSet<Log> findByPage(LogQueryDto log) {
         PageHelper.offsetPage(log.getOffset(), log.getLimit());
         if (!StringUtils.isEmpty(log.getOrderBy())) {
             PageHelper.orderBy(log.getOrderBy());
@@ -54,6 +54,9 @@ public class LogServiceImpl implements LogService {
         }
         if (!StringUtils.isEmpty(log.getStatus())) {
             criteria.andLike(Log::getStatus, "%" + log.getStatus() + "%");
+        }
+        if (!StringUtils.isEmpty(log.getStartDate()) && !StringUtils.isEmpty(log.getEndDate())) {
+            criteria.andGreaterThanOrEqualTo(Log::getCreateTime, log.getStartDate()).andLessThanOrEqualTo(Log::getCreateTime, log.getEndDate());
         }
         PageResultSet<Log> resultSet = new PageResultSet<>();
         List<Log> list = logMapper.selectByExample(weekend);

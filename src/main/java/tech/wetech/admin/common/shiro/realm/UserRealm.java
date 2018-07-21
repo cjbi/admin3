@@ -8,7 +8,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.model.system.User;
+import tech.wetech.admin.model.system.entity.User;
 import tech.wetech.admin.service.system.UserService;
 
 public class UserRealm extends AuthorizingRealm {

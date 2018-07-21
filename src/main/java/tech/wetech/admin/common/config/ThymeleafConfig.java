@@ -1,4 +1,4 @@
-package tech.wetech.admin.config;
+package tech.wetech.admin.common.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
 package tech.wetech.admin.service.system;
 
-import tech.wetech.admin.model.system.Resource;
+import tech.wetech.admin.model.system.entity.Resource;
 import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.List;

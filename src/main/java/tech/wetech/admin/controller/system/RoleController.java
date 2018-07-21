@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.common.annotation.SystemLog;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.base.Result;
-import tech.wetech.admin.model.system.Role;
+import tech.wetech.admin.model.system.entity.Role;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.controller.BaseController;
-import tech.wetech.admin.model.system.RoleDto;
+import tech.wetech.admin.model.system.response.RoleDto;
 
 import javax.validation.Valid;
 import java.util.Arrays;

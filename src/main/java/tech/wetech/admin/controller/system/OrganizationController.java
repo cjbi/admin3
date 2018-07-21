@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.common.annotation.SystemLog;
 import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.controller.BaseController;
-import tech.wetech.admin.model.system.Organization;
-import tech.wetech.admin.model.system.TreeDto;
+import tech.wetech.admin.model.system.entity.Organization;
+import tech.wetech.admin.model.system.response.TreeDto;
 import tech.wetech.admin.service.system.OrganizationService;
 import tk.mybatis.mapper.weekend.Weekend;
 

@@ -32,6 +32,16 @@
                             <input type="text" class="form-control input-sm" name="execMethod" id="searchExecMethod" placeholder="请输入执行方法">
                             <label for="searchStatus">状态</label>
                             <input type="text" class="form-control input-sm" name="status" id="searchStatus" placeholder="请输入执行方法">
+                            <!-- Date range -->
+                            <label for="reservation">时间</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control input-sm" id="reservation">
+                                <input type="hidden" name="startDate" id="startDate">
+                                <input type="hidden" name="endDate" id="endDate">
+                            </div>
                         </div>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-sm" data-action="{type:'search',form:'#searchForm',table:'#table'}">
@@ -61,6 +71,31 @@
     var $table = $('#table');
 
     $(function () {
+        //Date range picker
+        var beginTimeTake;
+        $('#reservation').daterangepicker({
+            "timePicker": false,
+            "timePicker24Hour": true,
+            "linkedCalendars": false,
+            "autoUpdateInput": false,
+            "locale": {
+                format: 'YYYY-MM-DD',
+                separator: ' ~ ',
+                applyLabel: "应用",
+                cancelLabel: "取消",
+                resetLabel: "重置",
+                daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+                monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            }
+        }, function(start, end, label) {
+            $('#startDate').val(this.startDate.format(this.locale.format));
+            $('#endDate').val(this.endDate.format(this.locale.format))
+            if(!this.startDate){
+                this.element.val('');
+            }else{
+                this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
+            }
+        })
         // bootstrap table初始化
         // http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
         $table.bootstrapTable({
@@ -90,7 +125,7 @@
     }
 
     function execTimeFormatter(value, row, index) {
-        return value +' ms';
+        return value + ' ms';
     }
 
     // 数据表格展开内容

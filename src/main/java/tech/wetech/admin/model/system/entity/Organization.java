@@ -1,4 +1,4 @@
-package tech.wetech.admin.model.system;
+package tech.wetech.admin.model.system.entity;
 
 import tech.wetech.admin.model.BaseEntity;
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
@@ -12,6 +13,7 @@ import java.io.IOException;
  *
  * @author cjbi
  */
+@Resource
 public class CustomObjectMapper extends ObjectMapper {
 
     public CustomObjectMapper() {

@@ -1,8 +1,8 @@
 package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.common.base.PageResultSet;
-import tech.wetech.admin.model.system.Role;
-import tech.wetech.admin.model.system.RoleDto;
+import tech.wetech.admin.model.system.entity.Role;
+import tech.wetech.admin.model.system.response.RoleDto;
 
 import java.util.List;
 import java.util.Set;

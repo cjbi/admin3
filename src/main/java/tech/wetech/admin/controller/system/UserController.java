@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.base.Result;
 import tech.wetech.admin.common.base.ResultCodeEnum;
-import tech.wetech.admin.model.system.User;
+import tech.wetech.admin.model.system.entity.User;
 import tech.wetech.admin.service.system.OrganizationService;
 import tech.wetech.admin.service.system.RoleService;
 import tech.wetech.admin.service.system.UserService;
 import tech.wetech.admin.common.annotation.SystemLog;
 import tech.wetech.admin.controller.BaseController;
-import tech.wetech.admin.model.system.UserDto;
+import tech.wetech.admin.model.system.response.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

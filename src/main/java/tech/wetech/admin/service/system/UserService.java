@@ -2,8 +2,8 @@ package tech.wetech.admin.service.system;
 
 import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.exception.BizException;
-import tech.wetech.admin.model.system.User;
-import tech.wetech.admin.model.system.UserDto;
+import tech.wetech.admin.model.system.entity.User;
+import tech.wetech.admin.model.system.response.UserDto;
 
 import java.util.List;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package tech.wetech.admin.config;
+package tech.wetech.admin.common.config;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
