@@ -5,6 +5,7 @@ import tk.mybatis.mapper.mapperhelper.EntityHelper;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Arrays;
  *
  * @author cjbi
  */
-public class BaseDto implements Serializable {
+public class BaseDto<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +46,20 @@ public class BaseDto implements Serializable {
      */
     private int limit = 10;
 
+    /**
+     * 创建一个Class的对象来获取泛型的class
+     */
+    private Class<?> clz;
+
+    public Class<?> getClz() {
+        if(clz==null) {
+            //获取泛型的Class对象
+            clz = ((Class<?>)
+                    (((ParameterizedType)(this.getClass().getGenericSuperclass())).getActualTypeArguments()[0]));
+        }
+        return clz;
+    }
+
 
     public Long getId() {
         return id;
@@ -61,7 +76,7 @@ public class BaseDto implements Serializable {
     public void setSort(String sort) {
         this.sort = sort;
         if (sort != null && sort.length() > 0 && this.order != null) {
-            EntityColumn entityColumn = EntityHelper.getColumns(this.getClass()).stream().filter(column -> column.getProperty().equals(sort)).findFirst().orElse(null);
+            EntityColumn entityColumn = EntityHelper.getColumns(getClz()).stream().filter(column -> column.getProperty().equals(sort)).findFirst().orElse(null);
             if (entityColumn != null) {
                 this.orderBy = entityColumn.getColumn() + " " + this.order;
             }

@@ -3,13 +3,14 @@ package tech.wetech.admin.model.system.request;
 import org.springframework.format.annotation.DateTimeFormat;
 import tech.wetech.admin.common.utils.DateUtil;
 import tech.wetech.admin.model.BaseDto;
+import tech.wetech.admin.model.system.entity.Log;
 
 import java.util.Date;
 
 /**
  * @author cjbi
  */
-public class LogQueryDto extends BaseDto {
+public class LogQueryDto extends BaseDto<Log> {
 
     /**
      * 用户名
