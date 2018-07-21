@@ -383,7 +383,7 @@
 
     // 动态高度
     function getHeight() {
-        return $(window).height() - 250;
+        return $(window).height() - 215;
     }
 
 
@@ -421,7 +421,7 @@
         idField: 'id',
         maintainSelected: true,
         toolbar: '#toolbar',
-        queryParams:function(params) {
+        queryParams: function (params) {
             var form = $(this.toolbar).find('form');
             var arr = form.serializeArray();
             for (var i in arr) {
