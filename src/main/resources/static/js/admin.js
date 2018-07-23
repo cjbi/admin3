@@ -183,6 +183,16 @@
                                     break;
                             }
                         }
+                        if (obj && obj.selection) {
+                            switch (obj.selection) {
+                                case 'single':
+                                    $(this).prop('disabled', !($table.bootstrapTable('getSelections').length === 1));
+                                    break;
+                                case 'multi':
+                                    $(this).prop('disabled', !$table.bootstrapTable('getSelections').length);
+                                    break;
+                            }
+                        }
                     });
                 });
                 //表格事件
