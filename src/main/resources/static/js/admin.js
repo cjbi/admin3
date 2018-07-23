@@ -383,7 +383,7 @@
 
     // 动态高度
     function getHeight() {
-        return $(window).height() - 215;
+        return $('.bootstrap-table').height();
     }
 
 
