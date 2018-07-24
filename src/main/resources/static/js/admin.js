@@ -123,6 +123,9 @@
                                         eval(obj.after + '(obj,data[0])');
                                     }
                                     $(obj.form).validator('validate');
+                                    //select2
+                                    //Initialize Select2 Elements
+                                    $('.select2').select2({width: '100%'})
                                 } else {
                                     error('[data-action]参数有误，请检查参数form和table是否存在');
                                 }
@@ -156,6 +159,9 @@
                 $('.modal').on('hidden.bs.modal', function (e) {
                     $(this).find('form').clear();
                     $('table').bootstrapTable('uncheckAll');
+                    //select2
+                    //Initialize Select2 Elements
+                    $('.select2').select2({width: '100%'});
                 });
                 //模态框调用事件
                 $('.modal').on('show.bs.modal', function (e) {
@@ -203,8 +209,9 @@
                 });
                 //初始化表单验证
                 $('form').validator({'disable': false});
-                //chosen
-                $(".chosen-select").chosen({width: '100%', no_results_text: '没找到你要的选项！'});
+                //select2
+                //Initialize Select2 Elements
+                $('.select2').select2({width: '100%'});
             };
         }
 
@@ -238,7 +245,6 @@
     //清除表单内容
     var _clear = function () {
         $(this).get(0).reset();
-        $(".chosen-select").trigger("chosen:updated");
     };
     //处理异步验证结果
     var _is_form_valid = function () {
@@ -437,7 +443,6 @@
             for (var i in arr) {
                 eval('params.' + arr[i].name + '="' + arr[i].value + '"');
             }
-            console.log(params);
             return params;
         }
     });
