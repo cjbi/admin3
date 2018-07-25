@@ -999,7 +999,7 @@
     }
     if (!XR) {
         alert("Error Initializing XMLHttpRequest!")
-    };
+    }
 
     //这里确定了插件的名称
     window.Utils = {};
