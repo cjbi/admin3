@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -12,8 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @author cjbi
  */
-@SpringBootApplication
-@EnableAutoConfiguration(exclude = {QuartzAutoConfiguration.class})
+@SpringBootApplication(exclude = {QuartzAutoConfiguration.class})
 @EnableTransactionManagement
 public class WetechAdminApplication implements CommandLineRunner {
 

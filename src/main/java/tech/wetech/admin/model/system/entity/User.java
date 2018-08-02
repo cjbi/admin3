@@ -39,6 +39,9 @@ public class User extends BaseEntity {
     private String roleIds;
     @Transient
     private List<Long> roleIdList;
+
+    private String groupId;
+
     private Boolean locked = Boolean.FALSE;
 
     public User() {
@@ -118,6 +121,14 @@ public class User extends BaseEntity {
         }
         this.roleIds = s.toString();
         this.roleIdList = roleIdList;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     public Boolean getLocked() {

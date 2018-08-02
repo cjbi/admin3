@@ -135,6 +135,19 @@ INSERT INTO `sys_role` VALUES (1,'admin','超级管理员','11,21,31,41,69,70',0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sys_group`
+--
+
+DROP TABLE IF EXISTS `sys_group`;
+CREATE TABLE `sys_group` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(100) DEFAULT NULL COMMENT '组名称',
+  `type` varchar(50) DEFAULT NULL COMMENT '组类型',
+  `description` varchar(100) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT '用户组表';
+
+--
 -- Table structure for table `sys_user`
 --
 
@@ -148,10 +161,12 @@ CREATE TABLE `sys_user` (
   `password` varchar(100) DEFAULT NULL COMMENT '密码',
   `salt` varchar(100) DEFAULT NULL COMMENT '盐值',
   `role_ids` varchar(100) DEFAULT NULL COMMENT '角色列表',
+  `group_id` bigint(20) DEFAULT NULL COMMENT '用户组',
   `locked` tinyint(1) DEFAULT '0' COMMENT '是否锁定',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_sys_user_username` (`username`),
-  KEY `idx_sys_user_organization_id` (`organization_id`)
+  KEY `idx_sys_user_organization_id` (`organization_id`),
+  KEY `idx_sys_user_group_id` (`organization_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

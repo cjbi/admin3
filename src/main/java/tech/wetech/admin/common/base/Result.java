@@ -94,7 +94,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result failure(T obj, String code, String msg) {
-        return failure(null, code, msg, null);
+        return failure(obj, code, msg, null);
     }
 
     public static <T> Result success(T obj) {

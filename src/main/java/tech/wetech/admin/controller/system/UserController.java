@@ -64,7 +64,7 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     @RequiresPermissions("user:update")
     @SystemLog("用户管理更新用户")
-    public Result update(User user) {
+    public Result update(@Valid User user) {
         userService.updateUser(user);
         return Result.success();
     }

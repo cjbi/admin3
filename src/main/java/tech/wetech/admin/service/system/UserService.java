@@ -16,11 +16,11 @@ public interface UserService {
      * 创建用户
      * @param user
      */
-    public int createUser(User user) throws BizException;
+    int createUser(User user) throws BizException;
 
-    public int updateUser(User user);
+    int updateUser(User user);
 
-    public void deleteUser(Long userId);
+    void deleteUser(Long userId);
 
     /**
      * 修改密码
