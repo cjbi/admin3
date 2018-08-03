@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author cjbi
  */
-@Table(name="sys_user")
+@Table(name = "sys_user")
 public class User extends BaseEntity {
     /**
      * 所属公司
@@ -37,10 +37,14 @@ public class User extends BaseEntity {
      * 拥有的角色列表
      */
     private String roleIds;
+
     @Transient
     private List<Long> roleIdList;
 
-    private String groupId;
+    private String groupIds;
+
+    @Transient
+    private List<Long> groupIdList;
 
     private Boolean locked = Boolean.FALSE;
 
@@ -116,19 +120,46 @@ public class User extends BaseEntity {
             s.append(roleId);
             s.append(",");
         }
-        if(s.length() >0) {
-            s.deleteCharAt(s.length()-1);
+        if (s.length() > 0) {
+            s.deleteCharAt(s.length() - 1);
         }
         this.roleIds = s.toString();
         this.roleIdList = roleIdList;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public String getGroupIds() {
+        return groupIds;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setGroupIds(String groupIds) {
+        String[] groupIdStrs = groupIds.split(",");
+        for (String groupId : groupIdStrs) {
+            if (StringUtils.isEmpty(groupId)) {
+                continue;
+            }
+            getGroupIdList().add(Long.valueOf(groupId));
+        }
+        this.groupIds = groupIds;
+    }
+
+    public List<Long> getGroupIdList() {
+        if (groupIdList == null) {
+            groupIdList = new ArrayList<>();
+        }
+        return groupIdList;
+    }
+
+    public void setGroupIdList(List<Long> groupIdList) {
+        StringBuilder s = new StringBuilder();
+        for (Long groupId : groupIdList) {
+            s.append(groupId);
+            s.append(",");
+        }
+        if (s.length() > 0) {
+            s.deleteCharAt(s.length() - 1);
+        }
+        this.groupIds = s.toString();
+        this.groupIdList = groupIdList;
     }
 
     public Boolean getLocked() {

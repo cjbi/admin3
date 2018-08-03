@@ -42,6 +42,16 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public List<Group> findAll() {
+        return groupMapper.selectAll();
+    }
+
+    @Override
+    public Group findOne(Long groupId) {
+        return groupMapper.selectByPrimaryKey(groupId);
+    }
+
+    @Override
     public void createGroup(Group group) {
         groupMapper.insertSelective(group);
     }

@@ -42,6 +42,7 @@ public class DefaultExceptionHandler {
         mv.setViewName("system/unauthorized");
         return mv;
     }*/
+
     @ResponseBody
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)

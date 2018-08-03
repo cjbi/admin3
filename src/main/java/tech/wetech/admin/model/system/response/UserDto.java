@@ -11,8 +11,12 @@ public class UserDto {
     private String username; //用户名
     private String roleIds; //拥有的角色列表
     private List<Long> roleIdList;
-    private Boolean locked;
     private String roleNames;
+    private String groupIds;
+    private List<Long> groupIdList;
+    private String groupNames;
+
+    private Boolean locked;
     private String organizationName;
 
     public UserDto() {
@@ -25,7 +29,33 @@ public class UserDto {
         this.username = user.getUsername();
         this.roleIds = user.getRoleIds();
         this.roleIdList = user.getRoleIdList();
+        this.groupIds = user.getGroupIds();
+        this.groupIdList = user.getGroupIdList();
         this.locked = user.getLocked();
+    }
+
+    public String getGroupIds() {
+        return groupIds;
+    }
+
+    public void setGroupIds(String groupIds) {
+        this.groupIds = groupIds;
+    }
+
+    public List<Long> getGroupIdList() {
+        return groupIdList;
+    }
+
+    public void setGroupIdList(List<Long> groupIdList) {
+        this.groupIdList = groupIdList;
+    }
+
+    public String getGroupNames() {
+        return groupNames;
+    }
+
+    public void setGroupNames(String groupNames) {
+        this.groupNames = groupNames;
     }
 
     public Long getId() {

@@ -119,6 +119,16 @@
                         </select>
                         <div class="help-block with-errors"></div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label" for="groupIds"><span class="asterisk">*</span>角色列表:</label>
+                        <select name="groupIds" id="groupIds" multiple class="form-control select2"
+                                data-placeholder="请从列表选择一项" required>
+                            <option th:each="group : ${groupList}" th:value="${group.id}" th:text="${group.name}">
+                                用户组不存在
+                            </option>
+                        </select>
+                        <div class="help-block with-errors"></div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -161,6 +171,16 @@
                         <select name="roleIds" id="editRoleIds" multiple class="form-control select2"
                                 data-placeholder="请从列表选择一项" required>
                             <option th:each="role: ${roleList}" th:value="${role.id}" th:text="${role.description}">角色不存在</option>
+                        </select>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="editGroupIds"><span class="asterisk">*</span>角色列表:</label>
+                        <select name="groupIds" id="editGroupIds" multiple class="form-control select2"
+                                data-placeholder="请从列表选择一项" required>
+                            <option th:each="group : ${groupList}" th:value="${group.id}" th:text="${group.name}">
+                                用户组不存在
+                            </option>
                         </select>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -224,6 +244,7 @@
                 {field: 'username', title: '用户名', sortable: true, halign: 'left'},
                 {field: 'organizationName', title: '所属组织', sortable: true, halign: 'left'},
                 {field: 'roleNames', title: '角色列表', sortable: true, halign: 'left'},
+                {field: 'groupNames', title: '组列表', sortable: true, halign: 'left'},
                 {
                     field: 'action',
                     title: '操作',
@@ -248,9 +269,14 @@
 
     function editAfter(obj, row) {
         var roleIdList = row.roleIdList;
+        var groupIdList = row.groupIdList;
         for (i in roleIdList) {
             var roleId = roleIdList[i];
             $('#editForm').find('[name=roleIds]').find('option[value=' + roleId + ']').prop('selected', true);
+        }
+        for(i in groupIdList) {
+            var groupId = groupIdList[i];
+            $('#editForm').find('[name=groupIds]').find('option[value=' + groupId + ']').prop('selected', true);
         }
     }
 

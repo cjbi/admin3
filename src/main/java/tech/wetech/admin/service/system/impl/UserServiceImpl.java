@@ -10,14 +10,12 @@ import tech.wetech.admin.common.base.PageResultSet;
 import tech.wetech.admin.common.base.ResultCodeEnum;
 import tech.wetech.admin.common.exception.BizException;
 import tech.wetech.admin.mapper.system.UserMapper;
+import tech.wetech.admin.model.system.entity.Group;
 import tech.wetech.admin.model.system.entity.Organization;
 import tech.wetech.admin.model.system.entity.Role;
 import tech.wetech.admin.model.system.entity.User;
 import tech.wetech.admin.model.system.response.UserDto;
-import tech.wetech.admin.service.system.OrganizationService;
-import tech.wetech.admin.service.system.PasswordHelper;
-import tech.wetech.admin.service.system.RoleService;
-import tech.wetech.admin.service.system.UserService;
+import tech.wetech.admin.service.system.*;
 import tk.mybatis.mapper.weekend.Weekend;
 import tk.mybatis.mapper.weekend.WeekendCriteria;
 
@@ -31,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private GroupService groupService;
 
     @Autowired
     private OrganizationService organizationService;
@@ -54,6 +55,7 @@ public class UserServiceImpl implements UserService {
             UserDto dto = new UserDto(u);
             dto.setOrganizationName(getOrganizationName(Long.valueOf(dto.getOrganizationId())));
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
+            dto.setGroupNames(getGroupNames(dto.getGroupIdList()));
             dtoList.add(dto);
         });
 
@@ -64,13 +66,35 @@ public class UserServiceImpl implements UserService {
         return resultSet;
     }
 
-    private String getRoleNames(Collection<Long> roleIds) {
-        if (CollectionUtils.isEmpty(roleIds)) {
+    private String getGroupNames(Collection<Long> groupIds) {
+        if (CollectionUtils.isEmpty(groupIds)) {
             return "";
         }
 
         StringBuilder s = new StringBuilder();
-        for (Long roleId : roleIds) {
+        for (Long groupId : groupIds) {
+            Group role = groupService.findOne(groupId);
+            if (role != null) {
+                s.append(role.getName());
+                s.append(",");
+            }
+        }
+
+        if (s.length() > 0) {
+            s.deleteCharAt(s.length() - 1);
+        }
+
+        return s.toString();
+    }
+
+
+    private String getRoleNames(Collection<Long> groupIds) {
+        if (CollectionUtils.isEmpty(groupIds)) {
+            return "";
+        }
+
+        StringBuilder s = new StringBuilder();
+        for (Long roleId : groupIds) {
             Role role = roleService.findOne(roleId);
             if (role != null) {
                 s.append(role.getDescription());

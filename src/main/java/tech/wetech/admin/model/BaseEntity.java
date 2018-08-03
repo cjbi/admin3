@@ -1,11 +1,11 @@
 package tech.wetech.admin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import tk.mybatis.mapper.entity.EntityColumn;
 import tk.mybatis.mapper.mapperhelper.EntityHelper;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * 基础信息
@@ -27,32 +27,38 @@ public class BaseEntity implements Serializable {
      * 排序字段
      */
     @Transient
+    @JsonIgnore
     private String sort;
     /**
      * 升序、降序
      */
     @Transient
+    @JsonIgnore
     private String order;
 
     /**
      * 数据库排序
      */
     @Transient
+    @JsonIgnore
     private String orderBy;
     /**
      * 搜索
      */
     @Transient
+    @JsonIgnore
     private String search;
     /**
      * 偏移量
      */
     @Transient
+    @JsonIgnore
     private int offset = 0;
     /**
      * 条数
      */
     @Transient
+    @JsonIgnore
     private int limit = 10;
 
 

@@ -1,12 +1,11 @@
 package tech.wetech.admin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import tk.mybatis.mapper.entity.EntityColumn;
 import tk.mybatis.mapper.mapperhelper.EntityHelper;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.Arrays;
 
 /**
  * 基础传输对象
@@ -22,28 +21,33 @@ public class BaseDto<T> implements Serializable {
     /**
      * 排序字段
      */
+    @JsonIgnore
     private String sort;
     /**
      * 升序、降序
      */
+    @JsonIgnore
     private String order;
 
     /**
      * 数据库排序
      */
+    @JsonIgnore
     private String orderBy;
     /**
      * 搜索
      */
-    
+    @JsonIgnore
     private String search;
     /**
      * 偏移量
      */
+    @JsonIgnore
     private int offset = 0;
     /**
      * 条数
      */
+    @JsonIgnore
     private int limit = 10;
 
     /**
