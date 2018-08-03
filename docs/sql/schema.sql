@@ -12,7 +12,7 @@ create table sys_user (
   password varchar(100) COMMENT '密码',
   salt varchar(100) COMMENT '盐值',
   role_ids varchar(100) COMMENT '角色列表',
-  group_id bigint COMMENT '组编号',
+  group_ids varchar(100) COMMENT '组列表',
   locked bool default false COMMENT '是否锁定',
   constraint pk_sys_user primary key(id)
 ) charset=utf8 ENGINE=InnoDB COMMENT '用户表';
@@ -25,6 +25,8 @@ create table sys_organization (
   parent_id bigint COMMENT '父编号',
   parent_ids varchar(100) COMMENT '父编号列表',
   available bool default false  COMMENT '是否有效',
+  priority int(11) COMMENT '优先级',
+  leaf bool default false COMMENT '叶子节点',
   constraint pk_sys_organization primary key(id)
 ) charset=utf8 ENGINE=InnoDB  COMMENT '组织机构表';
 create index idx_sys_organization_parent_id on sys_organization(parent_id);
