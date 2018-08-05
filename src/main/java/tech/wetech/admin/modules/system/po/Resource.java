@@ -65,17 +65,6 @@ public class Resource {
      */
     private Boolean leaf = Boolean.FALSE;
 
-    @Transient
-    private List<Resource> children;
-
-    public List<Resource> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Resource> children) {
-        this.children = children;
-    }
-
     public Long getId() {
         return id;
     }

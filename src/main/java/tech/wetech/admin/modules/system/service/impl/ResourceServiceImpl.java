@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import tech.wetech.admin.modules.system.dto.ResourceDto;
 import tech.wetech.admin.modules.system.mapper.ResourceMapper;
 import tech.wetech.admin.modules.system.po.Resource;
 import tech.wetech.admin.modules.system.enums.ResourceType;
@@ -54,13 +55,21 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> find(Weekend example) {
-        return resourceMapper.selectByExample(example);
+    public List<ResourceDto> find(Weekend example) {
+        List<ResourceDto> resourceDtoList = new ArrayList<>();
+        resourceMapper.selectByExample(example).forEach(resource-> {
+            resourceDtoList.add(new ResourceDto(resource));
+        });
+        return resourceDtoList;
     }
 
     @Override
-    public List<Resource> findAll() {
-        return resourceMapper.selectAll();
+    public List<ResourceDto> findAll() {
+        List<ResourceDto> resourceDtoList = new ArrayList<>();
+        resourceMapper.selectAll().forEach(resource-> {
+            resourceDtoList.add(new ResourceDto(resource));
+        });
+        return resourceDtoList;
     }
 
     @Override
@@ -76,11 +85,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> findMenus(Set<String> permissions) {
+    public List<ResourceDto> findMenus(Set<String> permissions) {
         Weekend weekend = Weekend.of(Resource.class);
         weekend.setOrderByClause("priority");
         List<Resource> allResources = resourceMapper.selectByExample(weekend);
-        List<Resource> menus = new ArrayList<>();
+        List<ResourceDto> menus = new ArrayList<>();
         for (Resource resource : allResources) {
             if (resource.isRootNode()) {
                 continue;
@@ -91,7 +100,7 @@ public class ResourceServiceImpl implements ResourceService {
             if (!hasPermission(permissions, resource)) {
                 continue;
             }
-            menus.add(resource);
+            menus.add(new ResourceDto(resource));
         }
         return menus;
     }

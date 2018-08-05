@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import tech.wetech.admin.core.utils.Constants;
-import tech.wetech.admin.modules.system.po.Resource;
+import tech.wetech.admin.modules.system.dto.ResourceDto;
 import tech.wetech.admin.modules.system.service.ResourceService;
 import tech.wetech.admin.modules.system.service.UserService;
 
@@ -29,15 +29,15 @@ public class IndexController {
     public String index(Model model) {
         String username = (String) SecurityUtils.getSubject().getPrincipal();
         Set<String> permissions = userService.findPermissions(username);
-        List<Resource> menus = resourceService.findMenus(permissions);
+        List<ResourceDto> menus = resourceService.findMenus(permissions);
         StringBuilder dom = new StringBuilder();
         getMenuTree(menus, Constants.MENU_ROOT_ID, dom);
         model.addAttribute(Constants.MENU_TREE, dom);
         return "base/main";
     }
 
-    private List<Resource> getMenuTree(List<Resource> source, Long pid, StringBuilder dom) {
-        List<Resource> target = getChildResourceByPid(source, pid);
+    private List<ResourceDto> getMenuTree(List<ResourceDto> source, Long pid, StringBuilder dom) {
+        List<ResourceDto> target = getChildResourceByPid(source, pid);
         target.forEach(res -> {
             dom.append("<li class='treeview'>");
             dom.append("<a href='" + res.getUrl() + "'>");
@@ -55,8 +55,8 @@ public class IndexController {
         return target;
     }
 
-    private List<Resource> getChildResourceByPid(List<Resource> source, Long pId) {
-        List<Resource> child = new ArrayList<>();
+    private List<ResourceDto> getChildResourceByPid(List<ResourceDto> source, Long pId) {
+        List<ResourceDto> child = new ArrayList<>();
         source.forEach(res -> {
             if (pId.equals(res.getParentId())) {
                 child.add(res);

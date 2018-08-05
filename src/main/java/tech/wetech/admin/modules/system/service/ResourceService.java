@@ -1,5 +1,6 @@
 package tech.wetech.admin.modules.system.service;
 
+import tech.wetech.admin.modules.system.dto.ResourceDto;
 import tech.wetech.admin.modules.system.po.Resource;
 import tk.mybatis.mapper.weekend.Weekend;
 
@@ -16,9 +17,9 @@ public interface ResourceService {
 
     Resource findOne(Long resourceId);
 
-    List<Resource> find(Weekend example);
+    List<ResourceDto> find(Weekend example);
 
-    List<Resource> findAll();
+    List<ResourceDto> findAll();
 
     /**
      * 得到资源对应的权限字符串
@@ -32,6 +33,6 @@ public interface ResourceService {
      * @param permissions
      * @return
      */
-    List<Resource> findMenus(Set<String> permissions);
+    List<ResourceDto> findMenus(Set<String> permissions);
 
 }

@@ -1,28 +1,20 @@
 package tech.wetech.admin.modules.system.dto;
 
-import org.apache.ibatis.type.JdbcType;
 import tech.wetech.admin.modules.system.enums.ResourceType;
-import tk.mybatis.mapper.annotation.ColumnType;
+import tech.wetech.admin.modules.system.po.Resource;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
  * @author cjbi
  */
-@Table(name = "sys_resource")
 public class ResourceDto {
 
     /**
      * 编号
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "资源名称不能为空")
     /**
      * 资源名称
      */
@@ -30,8 +22,6 @@ public class ResourceDto {
     /**
      * 资源类型
      */
-    @NotNull(message = "资源类型不能为空")
-    @ColumnType(jdbcType = JdbcType.VARCHAR)
     private ResourceType type = ResourceType.MENU;
     /**
      * 资源路径
@@ -44,7 +34,6 @@ public class ResourceDto {
     /**
      * 父编号
      */
-    @NotNull(message = "父编号不能为空")
     private Long parentId;
     /**
      * 父编号列表
@@ -63,10 +52,23 @@ public class ResourceDto {
     /**
      * 叶子节点
      */
-    private Boolean leaf = Boolean.FALSE;
+    private Boolean leaf;
 
-    @Transient
     private List<ResourceDto> children;
+
+    public ResourceDto(Resource resource) {
+        this.id = resource.getId();
+        this.name = resource.getName();
+        this.type = resource.getType();
+        this.url = resource.getUrl();
+        this.permission = resource.getPermission();
+        this.parentId = resource.getParentId();
+        this.parentIds = resource.getParentIds();
+        this.available = resource.getAvailable();
+        this.icon = resource.getIcon();
+        this.priority = resource.getPriority();
+        this.leaf = resource.getLeaf();
+    }
 
     public List<ResourceDto> getChildren() {
         return children;
@@ -171,4 +173,9 @@ public class ResourceDto {
     public void setLeaf(Boolean leaf) {
         this.leaf = leaf;
     }
+
+    public String getTypeName() {
+        return type.getInfo();
+    }
+
 }
