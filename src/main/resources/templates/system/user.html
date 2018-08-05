@@ -120,7 +120,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="groupIds"><span class="asterisk">*</span>角色列表:</label>
+                        <label class="control-label" for="groupIds"><span class="asterisk">*</span>组列表:</label>
                         <select name="groupIds" id="groupIds" multiple class="form-control select2"
                                 data-placeholder="请从列表选择一项" required>
                             <option th:each="group : ${groupList}" th:value="${group.id}" th:text="${group.name}">
@@ -175,7 +175,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="editGroupIds"><span class="asterisk">*</span>角色列表:</label>
+                        <label class="control-label" for="editGroupIds"><span class="asterisk">*</span>组列表:</label>
                         <select name="groupIds" id="editGroupIds" multiple class="form-control select2"
                                 data-placeholder="请从列表选择一项" required>
                             <option th:each="group : ${groupList}" th:value="${group.id}" th:text="${group.name}">
