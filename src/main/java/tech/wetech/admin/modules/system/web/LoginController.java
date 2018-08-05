@@ -36,7 +36,7 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping("/main")
-    public String toMain() throws Exception {
+    public String main() throws Exception {
         logger.info("begin to main");
         return "/system/main";
     }
