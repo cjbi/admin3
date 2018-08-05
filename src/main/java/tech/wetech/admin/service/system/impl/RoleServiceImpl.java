@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.core.base.PageResultSet;
 import tech.wetech.admin.mapper.system.RoleMapper;
 import tech.wetech.admin.model.system.entity.Resource;
 import tech.wetech.admin.model.system.entity.Role;

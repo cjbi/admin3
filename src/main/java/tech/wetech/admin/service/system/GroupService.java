@@ -1,6 +1,6 @@
 package tech.wetech.admin.service.system;
 
-import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.core.base.PageResultSet;
 import tech.wetech.admin.model.system.entity.Group;
 
 import java.util.List;

@@ -5,7 +5,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.core.base.PageResultSet;
 import tech.wetech.admin.mapper.system.GroupMapper;
 import tech.wetech.admin.model.system.entity.Group;
 import tech.wetech.admin.service.system.GroupService;

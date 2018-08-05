@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.common.base.PageResultSet;
+import tech.wetech.admin.core.base.PageResultSet;
 import tech.wetech.admin.mapper.system.LogMapper;
 import tech.wetech.admin.model.system.entity.Log;
 import tech.wetech.admin.model.system.request.LogQueryDto;

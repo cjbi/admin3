@@ -31,7 +31,7 @@ mybatis:
 
 mapper:
     mappers:
-        - tech.wetech.admin.common.utils.MyMapper
+        - tech.wetech.admin.core.utils.MyMapper
     not-empty: false
     identity: MYSQL
 

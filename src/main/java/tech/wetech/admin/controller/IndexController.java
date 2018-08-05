@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import tech.wetech.admin.common.Constants;
+import tech.wetech.admin.core.Constants;
 import tech.wetech.admin.model.system.entity.Resource;
 import tech.wetech.admin.service.system.ResourceService;
 import tech.wetech.admin.service.system.UserService;
