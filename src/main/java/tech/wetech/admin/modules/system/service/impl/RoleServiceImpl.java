@@ -1,6 +1,7 @@
 package tech.wetech.admin.modules.system.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,8 @@ public class RoleServiceImpl implements RoleService {
         if(!StringUtils.isEmpty(roleQuery.getOrderBy())) {
             PageHelper.orderBy(roleQuery.getOrderBy());
         }
-        Weekend<Role> weekend = Weekend.of(Role.class);
-        WeekendCriteria<Role, Object> criteria = weekend.weekendCriteria();
+        Weekend<Role> example = Weekend.of(Role.class);
+        WeekendCriteria<Role, Object> criteria = example.weekendCriteria();
         if(!StringUtils.isEmpty(roleQuery.getRole())) {
             criteria.andLike(Role::getRole,"%" + roleQuery.getRole() + "%");
         }
@@ -44,14 +45,14 @@ public class RoleServiceImpl implements RoleService {
         }
         PageResultSet<RoleDto> resultSet = new PageResultSet<>();
         List<RoleDto> dtoList = new ArrayList<>();
-        roleMapper.selectByExample(weekend).forEach(r -> {
+        roleMapper.selectByExample(example).forEach(r -> {
             RoleDto dto = new RoleDto(r);
             dto.setResourceNames(getResourceNames(r.getResourceIdList()));
             dtoList.add(dto);
         });
-        long count = roleMapper.selectCountByExample(weekend);
+        long total = roleMapper.selectCountByExample(example);
         resultSet.setRows(dtoList);
-        resultSet.setTotal(count);
+        resultSet.setTotal(total);
         return resultSet;
     }
 
@@ -75,14 +76,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public int createRole(Role role) {
-        return roleMapper.insertSelective(role);
+    public void createRole(Role role) {
+        roleMapper.insertSelective(role);
     }
 
     @Override
     @Transactional
-    public int updateRole(Role role) {
-        return roleMapper.updateByPrimaryKeySelective(role);
+    public void updateRole(Role role) {
+        roleMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override

@@ -449,7 +449,7 @@
                 eval('params.' + arr[i].name + '="' + arr[i].value + '"');
             }
             return params;
-        }
+        },
     });
 
     // 数据表格动态高度

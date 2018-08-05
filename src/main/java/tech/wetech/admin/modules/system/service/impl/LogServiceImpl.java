@@ -1,6 +1,8 @@
 package tech.wetech.admin.modules.system.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,18 +30,20 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @Transactional
-    public int create(Log log) {
-        return logMapper.insertSelective(log);
+    public void create(Log log) {
+        logMapper.insertSelective(log);
     }
 
     @Override
     public PageResultSet<Log> findByPage(LogQuery log) {
-        PageHelper.offsetPage(log.getOffset(), log.getLimit());
+
         if (!StringUtils.isEmpty(log.getOrderBy())) {
             PageHelper.orderBy(log.getOrderBy());
         }
-        Weekend weekend = Weekend.of(Log.class);
-        WeekendCriteria<Log, Object> criteria = weekend.weekendCriteria();
+
+        Weekend example = Weekend.of(Log.class);
+        WeekendCriteria<Log, Object> criteria = example.weekendCriteria();
+
         if (!StringUtils.isEmpty(log.getUsername())) {
             criteria.andLike(Log::getUsername, "%" + log.getUsername() + "%");
         }
@@ -61,11 +65,12 @@ public class LogServiceImpl implements LogService {
         if (!StringUtils.isEmpty(log.getStartDate()) && !StringUtils.isEmpty(log.getEndDate())) {
             criteria.andGreaterThanOrEqualTo(Log::getCreateTime, log.getStartDate()).andLessThanOrEqualTo(Log::getCreateTime, log.getEndDate());
         }
+
         PageResultSet<Log> resultSet = new PageResultSet<>();
-        List<Log> list = logMapper.selectByExample(weekend);
-        long count = logMapper.selectCountByExample(weekend);
-        resultSet.setRows(list);
-        resultSet.setTotal(count);
+        Page page = PageHelper.offsetPage(log.getOffset(), log.getLimit()).doSelectPage(()-> logMapper.selectByExample(example));
+
+        resultSet.setRows(page.getResult());
+        resultSet.setTotal(page.getTotal());
         return resultSet;
     }
 }

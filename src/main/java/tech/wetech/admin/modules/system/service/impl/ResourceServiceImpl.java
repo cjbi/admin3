@@ -24,7 +24,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     @Transactional
-    public int createResource(Resource resource) {
+    public void createResource(Resource resource) {
         Resource parent = findOne(resource.getParentId());
         resource.setParentIds(parent.makeSelfAsParentIds());
         resource.setAvailable(true);
@@ -33,13 +33,13 @@ public class ResourceServiceImpl implements ResourceService {
                 resource.setUrl("#");
             }
         }
-        return resourceMapper.insertSelective(resource);
+        resourceMapper.insertSelective(resource);
     }
 
     @Override
     @Transactional
-    public int updateResource(Resource resource) {
-        return resourceMapper.updateByPrimaryKeySelective(resource);
+    public void updateResource(Resource resource) {
+        resourceMapper.updateByPrimaryKeySelective(resource);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> find(Weekend weekend) {
-        return resourceMapper.selectByExample(weekend);
+    public List<Resource> find(Weekend example) {
+        return resourceMapper.selectByExample(example);
     }
 
     @Override

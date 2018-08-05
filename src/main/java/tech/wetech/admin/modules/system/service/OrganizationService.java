@@ -11,15 +11,15 @@ import java.util.List;
  */
 public interface OrganizationService {
 
-    int createOrganization(Organization organization);
+    void createOrganization(Organization organization);
 
-    int updateOrganization(Organization organization);
+    void updateOrganization(Organization organization);
 
     void deleteOrganization(Long organizationId);
 
     Organization findOne(Long organizationId);
 
-    List<Organization> find(Weekend weekend);
+    List<Organization> find(Weekend example);
 
     List<TreeDto> findOrgTree(Long pId);
 

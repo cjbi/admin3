@@ -11,7 +11,7 @@ public interface LogService {
      * @param log
      * @return
      */
-    int create(Log log);
+    void create(Log log);
 
     /**
      * 分页查询日志

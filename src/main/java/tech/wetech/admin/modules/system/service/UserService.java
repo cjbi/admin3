@@ -17,9 +17,9 @@ public interface UserService {
      * 创建用户
      * @param user
      */
-    int createUser(User user) throws BizException;
+    void createUser(User user) throws BizException;
 
-    int updateUser(User user);
+    void updateUser(User user);
 
     void deleteUser(Long userId);
 

@@ -8,15 +8,15 @@ import java.util.Set;
 
 public interface ResourceService {
 
-    int createResource(Resource resource);
+    void createResource(Resource resource);
 
-    int updateResource(Resource resource);
+    void updateResource(Resource resource);
 
     void deleteResource(Long resourceId);
 
     Resource findOne(Long resourceId);
 
-    List<Resource> find(Weekend weekend);
+    List<Resource> find(Weekend example);
 
     List<Resource> findAll();
 

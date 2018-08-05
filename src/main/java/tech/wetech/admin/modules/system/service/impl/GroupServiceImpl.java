@@ -23,7 +23,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public PageResultSet<Group> findByPage(GroupQuery groupQuery) {
-        PageHelper.offsetPage(groupQuery.getOffset(), groupQuery.getLimit());
+
         if (!StringUtils.isEmpty(groupQuery.getOrderBy())) {
             PageHelper.orderBy(groupQuery.getOrderBy());
         }
@@ -32,10 +32,11 @@ public class GroupServiceImpl implements GroupService {
         if (!StringUtils.isEmpty(groupQuery.getName())) {
             criteria.andLike(Group::getName, groupQuery.getName());
         }
+
         PageResultSet<Group> resultSet = new PageResultSet<>();
-        Page list = (Page) groupMapper.selectByExample(weekend);
-        resultSet.setRows(list);
-        resultSet.setTotal(list.getTotal());
+        Page page = PageHelper.offsetPage(groupQuery.getOffset(), groupQuery.getLimit()).doSelectPage(() -> groupMapper.selectByExample(weekend));
+        resultSet.setRows(page);
+        resultSet.setTotal(page.getTotal());
         return resultSet;
     }
 

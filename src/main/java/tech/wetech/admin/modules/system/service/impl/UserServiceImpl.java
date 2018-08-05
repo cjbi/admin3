@@ -42,20 +42,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageResultSet<UserDto> findByPage(UserQuery userQuery) {
-        PageHelper.offsetPage(userQuery.getOffset(), userQuery.getLimit());
+
         if(!StringUtils.isEmpty(userQuery.getOrderBy())) {
             PageHelper.orderBy(userQuery.getOrderBy());
         }
-        Weekend<User> weekend = Weekend.of(User.class);
-        WeekendCriteria<User, Object> criteria = weekend.weekendCriteria();
+
+        Weekend<User> example = Weekend.of(User.class);
+        WeekendCriteria<User, Object> criteria = example.weekendCriteria();
+
         if (!StringUtils.isEmpty(userQuery.getUsername())) {
             criteria.andLike(User::getUsername, "%" + userQuery.getUsername() + "%");
         }
         if(userQuery.getLocked() != null) {
             criteria.andEqualTo(User::getLocked,userQuery.getLocked());
         }
+
         List<UserDto> dtoList = new ArrayList<>();
-        userMapper.selectByExample(weekend).forEach(u -> {
+
+        PageHelper.offsetPage(userQuery.getOffset(), userQuery.getLimit());
+        userMapper.selectByExample(example).forEach(u -> {
             UserDto dto = new UserDto(u);
             dto.setOrganizationName(getOrganizationName(Long.valueOf(dto.getOrganizationId())));
             dto.setRoleNames(getRoleNames(dto.getRoleIdList()));
@@ -63,10 +68,10 @@ public class UserServiceImpl implements UserService {
             dtoList.add(dto);
         });
 
-        long count = userMapper.selectCountByExample(weekend);
+        long total = userMapper.selectCountByExample(example);
         PageResultSet<UserDto> resultSet = new PageResultSet<>();
         resultSet.setRows(dtoList);
-        resultSet.setTotal(count);
+        resultSet.setTotal(total);
         return resultSet;
     }
 
@@ -123,20 +128,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public int createUser(User user) {
+    public void createUser(User user) {
         User u = findByUsername(user.getUsername());
         if (u != null) {
             throw new BizException(ResultCodeEnum.FAILED_USER_ALREADY_EXIST);
         }
         // 加密密码
         passwordHelper.encryptPassword(user);
-        return userMapper.insertSelective(user);
+        userMapper.insertSelective(user);
     }
 
     @Override
     @Transactional
-    public int updateUser(User user) {
-        return userMapper.updateByPrimaryKeySelective(user);
+    public void updateUser(User user) {
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override

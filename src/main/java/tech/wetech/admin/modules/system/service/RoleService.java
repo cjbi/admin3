@@ -12,9 +12,9 @@ public interface RoleService {
 
     PageResultSet<RoleDto> findByPage(RoleQuery roleQuery);
 
-    int createRole(Role role);
+    void createRole(Role role);
 
-    int updateRole(Role role);
+    void updateRole(Role role);
 
     void deleteRole(Long roleId);
 

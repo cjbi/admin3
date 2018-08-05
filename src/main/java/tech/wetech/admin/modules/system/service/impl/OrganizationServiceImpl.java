@@ -23,17 +23,17 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public int createOrganization(Organization organization) {
+    public void createOrganization(Organization organization) {
         Organization parent = findOne(organization.getParentId());
         organization.setParentIds(parent.makeSelfAsParentIds());
         organization.setAvailable(true);
-        return organizationMapper.insertSelective(organization);
+        organizationMapper.insertSelective(organization);
     }
 
     @Override
     @Transactional
-    public int updateOrganization(Organization organization) {
-        return organizationMapper.updateByPrimaryKeySelective(organization);
+    public void updateOrganization(Organization organization) {
+        organizationMapper.updateByPrimaryKeySelective(organization);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public List<Organization> find(Weekend weekend) {
-        return organizationMapper.selectByExample(weekend);
+    public List<Organization> find(Weekend example) {
+        return organizationMapper.selectByExample(example);
     }
 
     @Override
@@ -63,10 +63,10 @@ public class OrganizationServiceImpl implements OrganizationService {
             pId = Constants.ORG_ROOT_ID;
         }
         List<TreeDto> tds = new ArrayList<>();
-        Weekend weekend = Weekend.of(Organization.class);
-        WeekendCriteria<Organization, Object> criteria = weekend.weekendCriteria();
+        Weekend example = Weekend.of(Organization.class);
+        WeekendCriteria<Organization, Object> criteria = example.weekendCriteria();
         criteria.andEqualTo(Organization::getParentId, pId);
-        organizationMapper.selectByExample(weekend).forEach(o -> tds.add(new TreeDto(o.getId(), o.getParentId(), o.getName(), Boolean.FALSE.equals(o.getLeaf()), o)));
+        organizationMapper.selectByExample(example).forEach(o -> tds.add(new TreeDto(o.getId(), o.getParentId(), o.getName(), Boolean.FALSE.equals(o.getLeaf()), o)));
         return tds;
     }
 
