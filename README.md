@@ -2,10 +2,6 @@
 
 Wetech-Admin 是基于 Spring Boot 2.0 + Mybatis 的轻量级后台管理系统，适用于中小型项目的管理后台，支持按钮级别的权限控制，系统具有最基本的用户管理、角色管理、资源管理、组织机构管理、系统日志、代码生成器等通用性功能，企业或个人可直接在此基础上进行开发，扩展，添加各自的需求和业务功能！http://wetech.tech/wetech-admin/
 
-[获取spring mvc版本](https://gitee.com/cjbi/wetech-admin/tree/AdminLTE-Version-1.5.x "获取spring mvc版本")
-
-[获取AmazeUI版本](https://gitee.com/cjbi/wetech-admin/tree/1.2.x "获取AmazeUI版本")
-
 
 ## 技术选型
 
@@ -83,9 +79,7 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 ## 代码生成器
 
-通过freemarker模板技术配合mybatis generator插件机制可以直接生成model、mapper、service、controller、service、jsp，单表增删改查不需要写任何代码，你也可以自定义模板，生成想要的代码。(此版本暂不支持该功能，后续支持...)
-
-[代码生成器文档](docs/wetech-admin/CodeGenerator.md)
+敬请期待。。。
 
 ## 在线访问
 
