@@ -442,7 +442,6 @@
             $actionButtons.find('.add').attr('onclick', 'createChild("' + treeNode.tId + '")');
             $actionButtons.find('.edit').attr('onclick', 'update("' + treeNode.tId + '")');
             $actionButtons.find('.delete').attr('onclick', 'remove("' + treeNode.tId + '")');
-            debugger;
             if (treeNode.isParent == true) {
                 $actionButtons.find('.delete').remove();
             }

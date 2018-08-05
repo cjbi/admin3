@@ -46,11 +46,16 @@
          * @param callback 回调
          */
         loadContent: function (href, callback) {
-            if (href) {
-                //重写url，定位content
-                history.pushState('', 0, href);
+            if(href) {
+                if(href.startsWith('http')) {
+                    window.open(href);
+                    return;
+                } else {
+                    //重写url，定位content
+                    window.history.pushState('', 0, href);
+                }
             }
-            var url = location.href;
+            var url = window.location.href;
             if (url.indexOf('#') > 0 && url.substr(url.indexOf('#') + 1).length > 0) {
                 var s = url.indexOf('#');
                 if (url.substr(s - 1, 1) === '/' || url.substr(s + 1, 1) === '/') {
