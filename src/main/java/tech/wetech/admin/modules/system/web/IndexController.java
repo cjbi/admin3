@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.controller;
+package tech.wetech.admin.modules.system.web;
 
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;

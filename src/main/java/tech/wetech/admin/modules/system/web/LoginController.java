@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.controller;
+package tech.wetech.admin.modules.system.web;
 
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;

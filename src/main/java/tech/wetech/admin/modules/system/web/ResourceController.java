@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.controller;
+package tech.wetech.admin.modules.system.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ResourceController extends BaseController{
 
     @RequiresPermissions("resource:view")
     @GetMapping
-    public String toPage(Model model) {
+    public String page(Model model) {
         Weekend weekend = Weekend.of(Resource.class);
         weekend.setOrderByClause("priority");
         model.addAttribute("resourceList", resourceService.find(weekend));

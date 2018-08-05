@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.controller;
+package tech.wetech.admin.modules.system.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class RoleController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("role:view")
-    public String toPage(Model model) {
+    public String page(Model model) {
         setCommonData(model);
         return "system/role";
     }

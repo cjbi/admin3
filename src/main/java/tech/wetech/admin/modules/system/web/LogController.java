@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.controller;
+package tech.wetech.admin.modules.system.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class LogController extends BaseController{
 
     @RequiresPermissions("log:view")
     @GetMapping
-    public String toPage(Model model) {
+    public String page(Model model) {
         return "system/log";
     }
 

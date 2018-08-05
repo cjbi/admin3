@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.controller;
+package tech.wetech.admin.modules.system.web;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -44,7 +44,7 @@ public class UserController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("user:view")
-    public String toPage(Model model) {
+    public String page(Model model) {
         setCommonData(model);
         return "system/user";
     }
