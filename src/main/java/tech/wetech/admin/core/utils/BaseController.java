@@ -1,4 +1,4 @@
-package tech.wetech.admin.core.controller;
+package tech.wetech.admin.core.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

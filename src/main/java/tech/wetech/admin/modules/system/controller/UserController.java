@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.core.controller.BaseController;
+import tech.wetech.admin.core.utils.BaseController;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.PageResultSet;
 import tech.wetech.admin.core.utils.Result;
