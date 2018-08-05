@@ -72,7 +72,6 @@ INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`p
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (50,'资源管理','menu','#resource',31,'0/1/','resource:*',1,'fa fa-cubes',NULL,1);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (69,'系统管理','menu','#',1,'0/1/','system:*',1,'fa fa-wrench',4,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (70,'系统日志','menu','#log',69,'0/1/69/','log:*',1,'fa fa-history',NULL,1);
-INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (71,'代码生成器','menu','#generator',69,'0/1/69/','',1,'fa fa-code',NULL,1);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (73,'一级菜单','menu','#',1,'0/1/','',1,'',999,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (74,'二级菜单','menu','#',73,'0/1/73/','',1,'',NULL,1);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (83,'用户组管理','menu','#group',21,'0/1/21/','group:*',1,'fa fa-users',3,0);
