@@ -10,12 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.core.annotation.SystemLog;
-import tech.wetech.admin.core.base.PageResultSet;
-import tech.wetech.admin.core.base.Result;
+import tech.wetech.admin.core.utils.PageResultSet;
+import tech.wetech.admin.core.utils.Result;
 import tech.wetech.admin.core.utils.JsonUtil;
 import tech.wetech.admin.core.utils.WebUtil;
-import tech.wetech.admin.model.system.entity.Log;
-import tech.wetech.admin.service.system.LogService;
+import tech.wetech.admin.modules.system.po.Log;
+import tech.wetech.admin.modules.system.service.LogService;
 
 import javax.servlet.http.HttpServletRequest;
 

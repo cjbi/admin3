@@ -8,8 +8,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.model.system.entity.User;
-import tech.wetech.admin.service.system.UserService;
+import tech.wetech.admin.modules.system.po.User;
+import tech.wetech.admin.modules.system.service.UserService;
 
 public class UserRealm extends AuthorizingRealm {
 

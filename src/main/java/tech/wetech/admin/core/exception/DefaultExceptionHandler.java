@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import tech.wetech.admin.core.base.Result;
-import tech.wetech.admin.core.base.ResultCodeEnum;
+import tech.wetech.admin.core.utils.Result;
+import tech.wetech.admin.core.utils.ResultCodeEnum;
 
 import javax.servlet.http.HttpServletRequest;
 

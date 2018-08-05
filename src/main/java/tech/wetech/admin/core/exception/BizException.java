@@ -1,6 +1,6 @@
 package tech.wetech.admin.core.exception;
 
-import tech.wetech.admin.core.base.ResultCodeEnum;
+import tech.wetech.admin.core.utils.ResultCodeEnum;
 
 public class BizException extends RuntimeException {
 

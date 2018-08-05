@@ -1,0 +1,29 @@
+spring:
+  mvc:
+    view: # 视图相关
+      prefix: /templates/
+      suffix: .html
+  output:
+    ansi:
+      enabled: ALWAYS # 输出带颜色的日志信息
+  profiles:
+    active: dev # 设置激活的环境
+
+mybatis: # mybatis 配置
+  mapper-locations: classpath:tech/wetech/admin/modules/**/mapper/*.xml
+  type-aliases-package: tech.wetech.admin.modules.*.po
+
+mapper: # 通用 Mapper 配置
+  identity: MYSQL
+  mappers: tech.wetech.admin.core.utils.MyMapper
+  not-empty: false
+
+pagehelper: # 分页插件配置
+  helperDialect: mysql
+  params: count=countSql
+  reasonable: true
+  supportMethodsArguments: true
+
+password: #shiro
+  algorithmName: md5
+  hashIterations: 2

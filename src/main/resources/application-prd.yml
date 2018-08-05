@@ -1,0 +1,22 @@
+logging:
+  level:
+    root: info
+server:
+  port: 8080
+  servlet:
+    context-path: /wetech-admin
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      stat-view-servlet:
+        allow: true
+      test-on-borrow: true
+    password: 123456
+    url: jdbc:mysql://localhost:3306/wetech_admin
+    username: root
+  thymeleaf:
+    cache: true

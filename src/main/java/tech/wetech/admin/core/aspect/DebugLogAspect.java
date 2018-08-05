@@ -11,8 +11,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.core.base.PageResultSet;
-import tech.wetech.admin.core.base.Result;
+import tech.wetech.admin.core.utils.PageResultSet;
+import tech.wetech.admin.core.utils.Result;
 import tech.wetech.admin.core.utils.JsonUtil;
 import tech.wetech.admin.core.utils.WebUtil;
 
