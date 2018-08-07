@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController extends BaseController {
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String showLoginForm(HttpServletRequest req, Model model) {
         String exceptionClassName = (String)req.getAttribute("shiroLoginFailure");
         logger.info("begin to login");
