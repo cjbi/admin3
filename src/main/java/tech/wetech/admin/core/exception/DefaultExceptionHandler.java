@@ -23,9 +23,9 @@ public class DefaultExceptionHandler {
     @ResponseBody
     @ExceptionHandler({Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result<Object> processThrowable(HttpServletRequest request, Throwable e) {
+    public Result<Object> handleThrowable(HttpServletRequest request, Throwable e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
-        return Result.failure(ResultCodeEnum.INTERNAL_SERVER_ERROR, e.getMessage());
+        return Result.failure(e, ResultCodeEnum.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -35,7 +35,7 @@ public class DefaultExceptionHandler {
      *//*
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
+    public ModelAndView handleUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("exception", e);
         mv.setViewName("system/unauthorized");
@@ -45,7 +45,7 @@ public class DefaultExceptionHandler {
     @ResponseBody
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Result processUnauthenticatedException(HttpServletRequest request, UnauthorizedException e) {
+    public Result handleUnauthenticatedException(HttpServletRequest request, UnauthorizedException e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
         return Result.failure(ResultCodeEnum.UNAUTHORIZED, e.getMessage());
     }
@@ -60,7 +60,7 @@ public class DefaultExceptionHandler {
     @ResponseBody
     @ExceptionHandler({BizException.class})
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Result processBizException(HttpServletRequest request, BizException e) {
+    public Result handleBizException(HttpServletRequest request, BizException e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
         return Result.failure(e);
     }
@@ -75,7 +75,7 @@ public class DefaultExceptionHandler {
     @ResponseBody
     @ExceptionHandler({BindException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Result processBindException(HttpServletRequest request, BindException e, BindingResult br) {
+    public Result handleBindException(HttpServletRequest request, BindException e, BindingResult br) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
         return Result.failure(br);
     }

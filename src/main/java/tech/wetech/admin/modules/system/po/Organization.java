@@ -1,6 +1,7 @@
 package tech.wetech.admin.modules.system.po;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,7 +20,7 @@ public class Organization {
     /**
      * 组织机构名称
      */
-    @NotNull(message = "组织机构名称不能为空")
+    @NotBlank(message = "组织机构名称不能为空")
     private String name;
     /**
      * 父编号

@@ -462,7 +462,7 @@
     //出错提示
     $(document).ajaxError(function (event, request, settings) {
         debugger;
-        var responseJSON = request.responseJSON, msg;
+        var responseJSON = JSON.parse(request.responseText), msg;
         if (responseJSON) {
             msg = responseJSON.msg;
 

@@ -3,6 +3,7 @@ package tech.wetech.admin.modules.system.po;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +24,17 @@ public class Role {
     /**
      * 角色标识 程序中判断使用,如"admin"
      */
-    @NotNull(message = "角色标识不能为空")
+    @NotBlank(message = "角色标识不能为空")
     private String role;
     /**
      * 角色描述,UI界面显示使用
      */
-    @NotNull(message = "角色描述不能为空")
+    @NotBlank(message = "角色描述不能为空")
     private String description;
     /**
      * 拥有的资源
      */
-    @NotNull(message = "拥有的资源不能为空")
+    @NotBlank(message = "拥有的资源不能为空")
     private String resourceIds;
     /**
      * 拥有的资料列表

@@ -5,6 +5,7 @@ import tech.wetech.admin.modules.system.enums.ResourceType;
 import tk.mybatis.mapper.annotation.ColumnType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Resource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "资源名称不能为空")
+    @NotBlank(message = "资源名称不能为空")
     /**
      * 资源名称
      */

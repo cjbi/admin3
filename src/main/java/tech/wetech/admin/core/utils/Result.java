@@ -86,7 +86,11 @@ public class Result<T> implements Serializable {
     }
 
     public static Result failure(BizException e) {
-        return Result.failure(e.getCode(), e.getMsg(), e.getMessage());
+        return Result.failure(e, e.getCode(), e.getMsg(), e.getMessage());
+    }
+
+    public static Result failure(Throwable e, ResultCodeEnum resultCodeEnum) {
+        return failure(e, resultCodeEnum.getCode(), resultCodeEnum.getMsg(), e.getMessage());
     }
 
     public static Result failure(String code, String msg, String errorMsg) {
@@ -123,16 +127,19 @@ public class Result<T> implements Serializable {
 
     public static Result failure(BindingResult br) {
         if (null != br && br.hasErrors()) {
-            Map<String, String> map = new HashMap();
+            Map<String, String> map = new HashMap(16);
             List<FieldError> list = br.getFieldErrors();
             Iterator var3 = list.iterator();
-
+            StringBuilder s = new StringBuilder();
             while (var3.hasNext()) {
                 FieldError error = (FieldError) var3.next();
                 map.put(error.getField(), error.getDefaultMessage());
+                s.append(error.getDefaultMessage()).append("，");
             }
-
-            return failure(map, ResultCodeEnum.PARAM_ERROR.getCode(), ResultCodeEnum.PARAM_ERROR.getMsg());
+            if (s.length() > 0) {
+                s.deleteCharAt(s.length() - 1);
+            }
+            return failure(map, ResultCodeEnum.PARAM_ERROR.getCode(), s.toString());
         } else {
             return failure(ResultCodeEnum.INTERNAL_SERVER_ERROR);
         }
