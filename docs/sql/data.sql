@@ -52,7 +52,7 @@ INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`p
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (13,'组织机构修改','BUTTON','',11,'0/1/11/','organization:update',1,NULL,NULL,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (14,'组织机构删除','BUTTON','',11,'0/1/11/','organization:delete',1,NULL,NULL,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (15,'组织机构查看','BUTTON','',11,'0/1/11/','organization:view',1,NULL,NULL,0);
-INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (21,'用户管理','MENU','#',1,'0/1/','user:*',1,'fa fa-user',1,0);
+INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (21,'用户管理','MENU','#',1,'0/1/','',1,'fa fa-user',1,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (22,'用户新增','BUTTON','',46,'0/1/21/','user:create',1,NULL,NULL,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (23,'用户修改','BUTTON','',46,'0/1/21/','user:update',1,'',NULL,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (24,'用户删除','BUTTON','',46,'0/1/21/','user:delete',1,NULL,NULL,0);
@@ -68,7 +68,7 @@ INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`p
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (44,'角色删除','BUTTON','',41,'0/1/41/','role:delete',1,NULL,NULL,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (45,'角色查看','BUTTON','',41,'0/1/41/','role:view',1,NULL,NULL,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (46,'系统用户','MENU','#user',21,'0/1/11/','user:*',1,'fa fa-wrench',1,1);
-INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (47,'组织机构','MENU','#organization',11,'0/1/11/','user:*',1,'fa fa-suitcase',NULL,1);
+INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (47,'组织机构','MENU','#organization',11,'0/1/11/','organization:*',1,'fa fa-suitcase',NULL,1);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (50,'资源管理','MENU','#resource',31,'0/1/','resource:*',1,'fa fa-cubes',NULL,1);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (69,'系统管理','MENU','#',1,'0/1/','system:*',1,'fa fa-wrench',4,0);
 INSERT INTO `sys_resource` (`id`,`name`,`type`,`url`,`parent_id`,`parent_ids`,`permission`,`available`,`icon`,`priority`,`leaf`) VALUES (70,'系统日志','MENU','#log',69,'0/1/69/','log:*',1,'fa fa-history',NULL,1);
