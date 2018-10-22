@@ -73,9 +73,9 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 ![](docs/preview/6.gif)
 
-> 代码生成器
+> 自适应测试
 
-![](docs/preview/7.png)
+![](docs/preview/8.gif)
 
 ## 代码生成器
 
