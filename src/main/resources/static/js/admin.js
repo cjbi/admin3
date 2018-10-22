@@ -130,7 +130,7 @@
                                     $(obj.form).validator('validate');
                                     //select2
                                     //Initialize Select2 Elements
-                                    $('.select2').select2({width: '100%'})
+                                    $('.select2').select2({width: '100%'});
                                 } else {
                                     error('[data-action]参数有误，请检查参数form和table是否存在');
                                 }
@@ -289,6 +289,9 @@
                 $form.find("[name='" + key + "']").val(value);
             }
         })
+        //select2
+        //Initialize Select2 Elements
+        $('.select2').select2({width: '100%'});
     }
 
     // url 链接地址
