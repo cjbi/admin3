@@ -53,14 +53,20 @@ public class SystemLogAspect{
 
         // 获取相关参数
         WebUtil wu = WebUtil.getInstance();
-        HttpServletRequest req = wu.getRequest();// 请求对象
+        // 请求对象
+        HttpServletRequest req = wu.getRequest();
         // 当前用户
         String username = (String) SecurityUtils.getSubject().getPrincipal();
-        String qs = req.getQueryString();// 查询参数
-        String url = req.getRequestURL().append(qs == null ? "" : "?" + qs).toString();// url
-        String ip = wu.getIpAddress();// IP地址
-        String method = req.getMethod();// 方法
-        String protocol = req.getProtocol();// 协议
+        // 查询参数
+        String qs = req.getQueryString();
+        // url
+        String url = req.getRequestURL().append(qs == null ? "" : "?" + qs).toString();
+        // IP地址
+        String ip = wu.getIpAddress();
+        // 方法
+        String method = req.getMethod();
+        // 协议
+        String protocol = req.getProtocol();
         String status = null;
         String msg = null;
         String desc = !StringUtils.isEmpty(systemLog.desc()) ? systemLog.desc() : systemLog.value();
