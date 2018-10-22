@@ -120,11 +120,8 @@
                 {field: 'args', title: '参数', sortable: true, halign: 'left'},
                 {field: 'returnVal', title: '返回值', sortable: true, halign: 'left'}
             ],
-            queryParams: function getParams(params) {
-                params.sortName = 'createTime';
-                params.sortOrder = 'desc';
-                return params;
-            }
+            sortName : 'createTime',
+            sortOrder: 'desc'
         });
     });
 
