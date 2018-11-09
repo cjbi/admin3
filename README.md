@@ -41,8 +41,9 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 - 通过git下载源码
 - 创建数据库wetech_admin，数据库编码为UTF-8
-- 执行docs/sql/init.sql文件，初始化数据
-- 修改config.properties文件，更新MySQL账号和密码
+- 依次执行docs/sql/schema.sql和docs/sql/data.sql文件，初始化数据
+- 修改application-dev.properties文件，更新MySQL账号和密码
+- 运行Maven命令mvn install
 - 运行WetechAdminApplication类
 - 项目访问路径：http://localhost:8888/wetech-admin
 - 账号密码：admin/123456
