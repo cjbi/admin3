@@ -10,7 +10,7 @@ spring:
     active: dev # 设置激活的环境
 
 mybatis: # mybatis 配置
-  mapper-locations: classpath:tech/wetech/admin/modules/**/mapper/*.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: tech.wetech.admin.modules.*.po
 
 mapper: # 通用 Mapper 配置
