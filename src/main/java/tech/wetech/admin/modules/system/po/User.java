@@ -66,126 +66,97 @@ public class User {
         this.password = password;
     }
 
+    public String getCredentialsSalt() {
+        return username + salt;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public User setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public Long getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(Long organizationId) {
+    public User setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
+        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getSalt() {
         return salt;
     }
 
-    public void setSalt(String salt) {
+    public User setSalt(String salt) {
         this.salt = salt;
-    }
-
-    public String getCredentialsSalt() {
-        return username + salt;
+        return this;
     }
 
     public String getRoleIds() {
         return roleIds;
     }
 
-    public void setRoleIds(String roleIds) {
-        String[] roleIdStrs = roleIds.split(",");
-        for (String roleId : roleIdStrs) {
-            if (StringUtils.isEmpty(roleId)) {
-                continue;
-            }
-            getRoleIdList().add(Long.valueOf(roleId));
-        }
+    public User setRoleIds(String roleIds) {
         this.roleIds = roleIds;
+        return this;
     }
 
     public List<Long> getRoleIdList() {
-        if (roleIdList == null) {
-            roleIdList = new ArrayList<>();
-        }
         return roleIdList;
     }
 
-    public void setRoleIdList(List<Long> roleIdList) {
-        StringBuilder s = new StringBuilder();
-        for (Long roleId : roleIdList) {
-            s.append(roleId);
-            s.append(",");
-        }
-        if (s.length() > 0) {
-            s.deleteCharAt(s.length() - 1);
-        }
-        this.roleIds = s.toString();
+    public User setRoleIdList(List<Long> roleIdList) {
         this.roleIdList = roleIdList;
+        return this;
     }
 
     public String getGroupIds() {
         return groupIds;
     }
 
-    public void setGroupIds(String groupIds) {
-        String[] groupIdStrs = groupIds.split(",");
-        for (String groupId : groupIdStrs) {
-            if (StringUtils.isEmpty(groupId)) {
-                continue;
-            }
-            getGroupIdList().add(Long.valueOf(groupId));
-        }
+    public User setGroupIds(String groupIds) {
         this.groupIds = groupIds;
+        return this;
     }
 
     public List<Long> getGroupIdList() {
-        if (groupIdList == null) {
-            groupIdList = new ArrayList<>();
-        }
         return groupIdList;
     }
 
-    public void setGroupIdList(List<Long> groupIdList) {
-        StringBuilder s = new StringBuilder();
-        for (Long groupId : groupIdList) {
-            s.append(groupId);
-            s.append(",");
-        }
-        if (s.length() > 0) {
-            s.deleteCharAt(s.length() - 1);
-        }
-        this.groupIds = s.toString();
+    public User setGroupIdList(List<Long> groupIdList) {
         this.groupIdList = groupIdList;
+        return this;
     }
 
     public Boolean getLocked() {
         return locked;
     }
 
-    public void setLocked(Boolean locked) {
+    public User setLocked(Boolean locked) {
         this.locked = locked;
+        return this;
     }
-
 }

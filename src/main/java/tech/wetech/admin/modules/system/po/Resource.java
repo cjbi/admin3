@@ -66,99 +66,110 @@ public class Resource {
      */
     private Boolean leaf = Boolean.FALSE;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ResourceType getType() {
-        return type;
-    }
-
-    public void setType(ResourceType type) {
-        this.type = type;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getParentIds() {
-        return parentIds;
-    }
-
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public String makeSelfAsParentIds() {
+        return getParentIds() + getId() + "/";
     }
 
     public boolean isRootNode() {
         return parentId == 0;
     }
 
-    public String makeSelfAsParentIds() {
-        return getParentIds() + getId() + "/";
+    public Long getId() {
+        return id;
+    }
+
+    public Resource setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Resource setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public Resource setType(ResourceType type) {
+        this.type = type;
+        return this;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public Resource setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public Resource setPermission(String permission) {
+        this.permission = permission;
+        return this;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public Resource setParentId(Long parentId) {
+        this.parentId = parentId;
+        return this;
+    }
+
+    public String getParentIds() {
+        return parentIds;
+    }
+
+    public Resource setParentIds(String parentIds) {
+        this.parentIds = parentIds;
+        return this;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public Resource setAvailable(Boolean available) {
+        this.available = available;
+        return this;
     }
 
     public String getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public Resource setIcon(String icon) {
         this.icon = icon;
+        return this;
     }
 
     public Long getPriority() {
         return priority;
     }
 
-    public void setPriority(Long priority) {
+    public Resource setPriority(Long priority) {
         this.priority = priority;
+        return this;
     }
 
     public Boolean getLeaf() {
         return leaf;
     }
 
-    public void setLeaf(Boolean leaf) {
+    public Resource setLeaf(Boolean leaf) {
         this.leaf = leaf;
+        return this;
     }
 }

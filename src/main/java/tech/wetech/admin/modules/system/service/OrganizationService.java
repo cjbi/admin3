@@ -9,23 +9,13 @@ import java.util.List;
 /**
  * @author cjbi
  */
-public interface OrganizationService {
+public interface OrganizationService extends IService<Organization> {
 
     void createOrganization(Organization organization);
 
-    void updateOrganization(Organization organization);
+    List<TreeDto> queryOrgTree(Long pId);
 
-    void deleteOrganization(Long organizationId);
-
-    Organization findOne(Long organizationId);
-
-    List<Organization> find(Weekend example);
-
-    List<TreeDto> findOrgTree(Long pId);
-
-    List<Organization> findAll();
-
-    List<Organization> findAllWithExclude(Organization excludeOraganization);
+    List<Organization> queryAllWithExclude(Organization excludeOraganization);
 
     void move(Organization source, Organization target);
 }

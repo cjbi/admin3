@@ -76,95 +76,107 @@ public class Log {
         return id;
     }
 
-    public void setId(Long id) {
+    public Log setId(Long id) {
         this.id = id;
-    }
-
-    public String getReqUri() {
-        return reqUri;
-    }
-
-    public void setReqUri(String reqUri) {
-        this.reqUri = reqUri;
-    }
-
-    public String getArgs() {
-        return args;
-    }
-
-    public void setArgs(String args) {
-        this.args = args;
-    }
-
-    public String getReturnVal() {
-        return returnVal;
-    }
-
-    public void setReturnVal(String returnVal) {
-        this.returnVal = returnVal;
+        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public Log setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     public String getIp() {
         return ip;
     }
 
-    public void setIp(String ip) {
+    public Log setIp(String ip) {
         this.ip = ip;
+        return this;
     }
 
     public String getReqMethod() {
         return reqMethod;
     }
 
-    public void setReqMethod(String reqMethod) {
+    public Log setReqMethod(String reqMethod) {
         this.reqMethod = reqMethod;
+        return this;
     }
 
     public String getExecMethod() {
         return execMethod;
     }
 
-    public void setExecMethod(String execMethod) {
+    public Log setExecMethod(String execMethod) {
         this.execMethod = execMethod;
+        return this;
     }
 
     public Long getExecTime() {
         return execTime;
     }
 
-    public void setExecTime(Long execTime) {
+    public Log setExecTime(Long execTime) {
         this.execTime = execTime;
+        return this;
     }
 
     public String getExecDesc() {
         return execDesc;
     }
 
-    public void setExecDesc(String execDesc) {
+    public Log setExecDesc(String execDesc) {
         this.execDesc = execDesc;
+        return this;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public Log setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public Log setCreateTime(Date createTime) {
         this.createTime = createTime;
+        return this;
+    }
+
+    public String getReqUri() {
+        return reqUri;
+    }
+
+    public Log setReqUri(String reqUri) {
+        this.reqUri = reqUri;
+        return this;
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public Log setArgs(String args) {
+        this.args = args;
+        return this;
+    }
+
+    public String getReturnVal() {
+        return returnVal;
+    }
+
+    public Log setReturnVal(String returnVal) {
+        this.returnVal = returnVal;
+        return this;
     }
 }

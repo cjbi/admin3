@@ -22,55 +22,8 @@ import java.util.List;
  * Created by cjbi on 2017/12/14.
  */
 @Service
-public class LogServiceImpl implements LogService {
+public class LogServiceImpl extends BaseService<Log> implements LogService {
 
     @Autowired
     private LogMapper logMapper;
-
-
-    @Override
-    @Transactional
-    public void create(Log log) {
-        logMapper.insertSelective(log);
-    }
-
-    @Override
-    public PageResultSet<Log> findByPage(LogQuery log) {
-
-        if (!StringUtils.isEmpty(log.getOrderBy())) {
-            PageHelper.orderBy(log.getOrderBy());
-        }
-
-        Weekend example = Weekend.of(Log.class);
-        WeekendCriteria<Log, Object> criteria = example.weekendCriteria();
-
-        if (!StringUtils.isEmpty(log.getUsername())) {
-            criteria.andLike(Log::getUsername, "%" + log.getUsername() + "%");
-        }
-        if (!StringUtils.isEmpty(log.getIp())) {
-            criteria.andLike(Log::getIp, "%" + log.getIp() + "%");
-        }
-        if (!StringUtils.isEmpty(log.getReqMethod())) {
-            criteria.andLike(Log::getReqMethod, "%" + log.getReqMethod() + "%");
-        }
-        if (!StringUtils.isEmpty(log.getExecMethod())) {
-            criteria.andLike(Log::getExecMethod, "%" + log.getExecMethod() + "%");
-        }
-        if (!StringUtils.isEmpty(log.getExecDesc())) {
-            criteria.andLike(Log::getExecDesc, "%" + log.getExecDesc() + "%");
-        }
-        if (!StringUtils.isEmpty(log.getStatus())) {
-            criteria.andLike(Log::getStatus, "%" + log.getStatus() + "%");
-        }
-        if (!StringUtils.isEmpty(log.getStartDate()) && !StringUtils.isEmpty(log.getEndDate())) {
-            criteria.andGreaterThanOrEqualTo(Log::getCreateTime, log.getStartDate()).andLessThanOrEqualTo(Log::getCreateTime, log.getEndDate());
-        }
-
-        PageResultSet<Log> resultSet = new PageResultSet<>();
-        Page page = PageHelper.offsetPage(log.getOffset(), log.getLimit()).doSelectPage(()-> logMapper.selectByExample(example));
-
-        resultSet.setRows(page.getResult());
-        resultSet.setTotal(page.getTotal());
-        return resultSet;
-    }
 }

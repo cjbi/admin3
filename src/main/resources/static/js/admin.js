@@ -46,8 +46,8 @@
          * @param callback 回调
          */
         loadContent: function (href, callback) {
-            if(href) {
-                if(href.startsWith('http')) {
+            if (href) {
+                if (href.startsWith('http')) {
                     window.open(href);
                     return;
                 } else {
@@ -282,7 +282,7 @@
             // 如果类型为单选框
             if ($form.find('[name="' + key + '"]').attr('type') == 'radio') {
                 $form.find('[name="' + key + '"][value="' + value + '"]').prop('checked', true);
-            } else if (typeof(value) === "boolean") {
+            } else if (typeof (value) === "boolean") {
                 //布尔类型转换为数值0和1
                 $('#editForm [name="' + key + '"]').val(value + 0);
             } else {
@@ -423,6 +423,12 @@
     });
     //bootstrap-table默认设置
     $.extend($.fn.bootstrapTable.defaults, {
+        responseHandler: function (res) {
+            res.rows = res.data;
+            res.extra = res.extra || {};
+            res.total = res.extra.total || 0;
+            return res;
+        },
         height: getHeight(),
         striped: true,
         search: false,
@@ -445,10 +451,14 @@
         idField: 'id',
         maintainSelected: true,
         toolbar: '#toolbar',
+        queryParamsType: '',
         queryParams: function (params) {
             var form = $(this.toolbar).find('form');
             var arr = form.serializeArray();
             for (var i in arr) {
+                if (arr[i].value === '') {
+                    continue;
+                }
                 eval('params.' + arr[i].name + '="' + arr[i].value + '"');
             }
             return params;

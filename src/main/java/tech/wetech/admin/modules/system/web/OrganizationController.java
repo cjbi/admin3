@@ -3,9 +3,7 @@ package tech.wetech.admin.modules.system.web;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.core.utils.BaseController;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
 import tech.wetech.admin.modules.system.dto.TreeDto;
@@ -18,14 +16,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/organization")
-public class OrganizationController extends BaseController{
+public class OrganizationController extends BaseCrudController<Organization> {
 
     @Autowired
     private OrganizationService organizationService;
 
     @GetMapping
     @RequiresPermissions("organization:view")
-    public String page() {
+    public String organizationPage() {
         Weekend example = Weekend.of(Organization.class);
         example.setOrderByClause("priority");
         return "system/organization";
@@ -34,14 +32,14 @@ public class OrganizationController extends BaseController{
     @ResponseBody
     @RequestMapping("/tree")
     public List<TreeDto> findOrgTree(Long pId) {
-        return organizationService.findOrgTree(pId);
+        return organizationService.queryOrgTree(pId);
     }
 
     @ResponseBody
     @RequiresPermissions("organization:view")
     @RequestMapping(value = "{id}/load", method = RequestMethod.POST)
     public Result load(@PathVariable Long id) {
-        Organization organization = organizationService.findOne(id);
+        Organization organization = organizationService.queryOne(new Organization().setId(id));
         return Result.success(organization);
     }
 
@@ -49,6 +47,7 @@ public class OrganizationController extends BaseController{
     @RequiresPermissions("organization:create")
     @SystemLog("组织管理创建组织")
     @PostMapping("/create")
+    @Override
     public Result create(@Valid Organization organization) {
         organizationService.createOrganization(organization);
         return Result.success();
@@ -58,8 +57,9 @@ public class OrganizationController extends BaseController{
     @RequiresPermissions("organization:update")
     @SystemLog("组织管理更新组织")
     @PostMapping("/update")
+    @Override
     public Result update(@Valid Organization organization) {
-        organizationService.updateOrganization(organization);
+        organizationService.updateNotNull(organization);
         return Result.success();
     }
 
@@ -67,8 +67,9 @@ public class OrganizationController extends BaseController{
     @RequiresPermissions("organization:delete")
     @SystemLog("组织管理删除组织")
     @PostMapping("/delete")
-    public Result delete(Long id) {
-        organizationService.deleteOrganization(id);
+    @Override
+    public Result delete(Object id) {
+        super.delete(id);
         return Result.success();
     }
 

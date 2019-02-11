@@ -4,18 +4,17 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.utils.BaseController;
 import tech.wetech.admin.core.annotation.SystemLog;
-import tech.wetech.admin.core.utils.PageResultSet;
 import tech.wetech.admin.core.utils.Result;
-import tech.wetech.admin.modules.system.dto.RoleDto;
 import tech.wetech.admin.modules.system.po.Role;
-import tech.wetech.admin.modules.system.query.RoleQuery;
 import tech.wetech.admin.modules.system.service.ResourceService;
 import tech.wetech.admin.modules.system.service.RoleService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
 /**
@@ -23,7 +22,7 @@ import java.util.Arrays;
  */
 @Controller
 @RequestMapping("/role")
-public class RoleController extends BaseController {
+public class RoleController extends BaseCrudController<Role> {
 
     @Autowired
     private RoleService roleService;
@@ -33,24 +32,17 @@ public class RoleController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("role:view")
-    public String page(Model model) {
-        setCommonData(model);
+    public String rolePage(Model model) {
+        model.addAttribute("resourceList", resourceService.queryAll());
         return "system/role";
-    }
-
-    @ResponseBody
-    @RequestMapping("/list")
-    @RequiresPermissions("role:view")
-    public PageResultSet<RoleDto> list(RoleQuery roleQuery) {
-        return roleService.findByPage(roleQuery);
     }
 
     @ResponseBody
     @RequiresPermissions("role:create")
     @SystemLog("角色管理创建角色")
     @PostMapping("/create")
-    public Result create(@Valid Role role) {
-        roleService.createRole(role);
+    public Result create(@RequestBody @Validated Role role) {
+        roleService.create(role);
         return Result.success();
     }
 
@@ -58,22 +50,19 @@ public class RoleController extends BaseController {
     @RequiresPermissions("role:update")
     @SystemLog("角色管理更新角色")
     @PostMapping("/update")
-    public Result update(@Valid Role role) {
-        roleService.updateRole(role);
+    public Result update(@RequestBody @Validated Role role) {
+        roleService.updateNotNull(role);
         return Result.success();
     }
 
     @ResponseBody
     @RequiresPermissions("role:delete")
     @SystemLog("角色管理删除角色")
-    @PostMapping("/delete")
-    public Result delete(@RequestParam("id") Long[] ids) {
-        Arrays.asList(ids).forEach(id-> roleService.deleteRole(id));
+    @PostMapping("/delete-batch")
+    @Override
+    public Result deleteBatchByIds(@RequestBody @NotNull Object[] ids) {
+        super.deleteBatchByIds(ids);
         return Result.success();
-    }
-
-    private void setCommonData(Model model) {
-        model.addAttribute("resourceList", resourceService.findAll());
     }
 
 }

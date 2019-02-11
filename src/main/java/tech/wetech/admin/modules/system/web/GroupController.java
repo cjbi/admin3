@@ -3,66 +3,57 @@ package tech.wetech.admin.modules.system.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.annotation.SystemLog;
-import tech.wetech.admin.core.utils.PageResultSet;
 import tech.wetech.admin.core.utils.Result;
-import tech.wetech.admin.modules.system.po.Group;
 import tech.wetech.admin.modules.system.enums.GroupType;
-import tech.wetech.admin.modules.system.query.GroupQuery;
+import tech.wetech.admin.modules.system.po.Group;
 import tech.wetech.admin.modules.system.service.GroupService;
 
-import javax.validation.Valid;
-import java.util.Arrays;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author cjbi
  */
 @Controller
 @RequestMapping("/group")
-public class GroupController {
+public class GroupController extends BaseCrudController<Group> {
 
     @Autowired
     private GroupService groupService;
 
     @GetMapping
-    public String page(Model model) {
-        setCommonData(model);
+    public String groupPage(Model model) {
+        model.addAttribute("groupTypeList", GroupType.values());
         return "system/group";
-    }
-
-    @ResponseBody
-    @RequestMapping("/list")
-    public PageResultSet<Group> list(GroupQuery groupQuery) {
-        return groupService.findByPage(groupQuery);
     }
 
     @ResponseBody
     @PostMapping("/create")
     @SystemLog("用户管理创建用户组")
-    public Result create(@Valid Group group) {
-        groupService.createGroup(group);
+    @Override
+    public Result create(@RequestBody @Validated Group group) {
+        groupService.create(group);
         return Result.success();
     }
 
     @ResponseBody
     @PostMapping("/update")
     @SystemLog("用户管理更新用户组")
-    public Result update(@Valid Group group) {
-        groupService.updateGroup(group);
+    @Override
+    public Result update(@RequestBody @Validated Group group) {
+        groupService.updateNotNull(group);
         return Result.success();
     }
 
     @ResponseBody
-    @PostMapping("/delete")
+    @PostMapping("/delete-batch")
     @SystemLog("用户管理删除用户组")
-    public Result delete(@RequestParam("id") Long[] ids) {
-        Arrays.asList(ids).forEach(id -> groupService.deleteGroup(id));
+    @Override
+    public Result deleteBatchByIds(@RequestBody @NotNull Object[] ids) {
+        super.deleteBatchByIds(ids);
         return Result.success();
-    }
-
-    private void setCommonData(Model model) {
-        model.addAttribute("groupTypeList", GroupType.values());
     }
 
 }

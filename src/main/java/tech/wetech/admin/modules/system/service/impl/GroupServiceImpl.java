@@ -16,52 +16,8 @@ import tk.mybatis.mapper.weekend.WeekendCriteria;
 import java.util.List;
 
 @Service
-public class GroupServiceImpl implements GroupService {
+public class GroupServiceImpl extends BaseService<Group> implements GroupService {
 
     @Autowired
     private GroupMapper groupMapper;
-
-    @Override
-    public PageResultSet<Group> findByPage(GroupQuery groupQuery) {
-
-        if (!StringUtils.isEmpty(groupQuery.getOrderBy())) {
-            PageHelper.orderBy(groupQuery.getOrderBy());
-        }
-        Weekend<Group> weekend = Weekend.of(Group.class);
-        WeekendCriteria<Group, Object> criteria = weekend.weekendCriteria();
-        if (!StringUtils.isEmpty(groupQuery.getName())) {
-            criteria.andLike(Group::getName, groupQuery.getName());
-        }
-
-        PageResultSet<Group> resultSet = new PageResultSet<>();
-        Page page = PageHelper.offsetPage(groupQuery.getOffset(), groupQuery.getLimit()).doSelectPage(() -> groupMapper.selectByExample(weekend));
-        resultSet.setRows(page);
-        resultSet.setTotal(page.getTotal());
-        return resultSet;
-    }
-
-    @Override
-    public List<Group> findAll() {
-        return groupMapper.selectAll();
-    }
-
-    @Override
-    public Group findOne(Long groupId) {
-        return groupMapper.selectByPrimaryKey(groupId);
-    }
-
-    @Override
-    public void createGroup(Group group) {
-        groupMapper.insertSelective(group);
-    }
-
-    @Override
-    public void updateGroup(Group group) {
-        groupMapper.updateByPrimaryKeySelective(group);
-    }
-
-    @Override
-    public void deleteGroup(Long groupId) {
-        groupMapper.deleteByPrimaryKey(groupId);
-    }
 }

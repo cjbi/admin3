@@ -1,10 +1,10 @@
-package tech.wetech.admin.modules.system.dto;
+package tech.wetech.admin.modules.system.vo;
 
 import tech.wetech.admin.modules.system.po.User;
 
 import java.util.List;
 
-public class UserDto {
+public class UserVO {
 
     private Long id; //编号
     private Long organizationId; //所属公司
@@ -19,11 +19,11 @@ public class UserDto {
     private Boolean locked;
     private String organizationName;
 
-    public UserDto() {
+    public UserVO() {
 
     }
 
-    public UserDto(User user) {
+    public UserVO(User user) {
         this.id = user.getId();
         this.organizationId = user.getOrganizationId();
         this.username = user.getUsername();

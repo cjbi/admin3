@@ -21,7 +21,7 @@ import tk.mybatis.mapper.weekend.WeekendCriteria;
 import java.util.*;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Autowired
     private RoleMapper roleMapper;
@@ -30,83 +30,10 @@ public class RoleServiceImpl implements RoleService {
     private ResourceService resourceService;
 
     @Override
-    public PageResultSet<RoleDto> findByPage(RoleQuery roleQuery) {
-        PageHelper.offsetPage(roleQuery.getOffset(), roleQuery.getLimit());
-        if(!StringUtils.isEmpty(roleQuery.getOrderBy())) {
-            PageHelper.orderBy(roleQuery.getOrderBy());
-        }
-        Weekend<Role> example = Weekend.of(Role.class);
-        WeekendCriteria<Role, Object> criteria = example.weekendCriteria();
-        if(!StringUtils.isEmpty(roleQuery.getRole())) {
-            criteria.andLike(Role::getRole,"%" + roleQuery.getRole() + "%");
-        }
-        if(!StringUtils.isEmpty(roleQuery.getDescription())) {
-            criteria.andLike(Role::getDescription,"%" + roleQuery.getDescription() + "%");
-        }
-        PageResultSet<RoleDto> resultSet = new PageResultSet<>();
-        List<RoleDto> dtoList = new ArrayList<>();
-        roleMapper.selectByExample(example).forEach(r -> {
-            RoleDto dto = new RoleDto(r);
-            dto.setResourceNames(getResourceNames(r.getResourceIdList()));
-            dtoList.add(dto);
-        });
-        long total = roleMapper.selectCountByExample(example);
-        resultSet.setRows(dtoList);
-        resultSet.setTotal(total);
-        return resultSet;
-    }
-
-    private String getResourceNames(Collection<Long> resourceIds) {
-        if (CollectionUtils.isEmpty(resourceIds)) {
-            return "";
-        }
-        StringBuilder s = new StringBuilder();
-        for (Long resourceId : resourceIds) {
-            Resource resource = resourceService.findOne(resourceId);
-            if (resource != null) {
-                s.append(resource.getName());
-                s.append(",");
-            }
-        }
-        if (s.length() > 0) {
-            s.deleteCharAt(s.length() - 1);
-        }
-        return s.toString();
-    }
-
-    @Override
-    @Transactional
-    public void createRole(Role role) {
-        roleMapper.insertSelective(role);
-    }
-
-    @Override
-    @Transactional
-    public void updateRole(Role role) {
-        roleMapper.updateByPrimaryKeySelective(role);
-    }
-
-    @Override
-    @Transactional
-    public void deleteRole(Long roleId) {
-        roleMapper.deleteByPrimaryKey(roleId);
-    }
-
-    @Override
-    public Role findOne(Long roleId) {
-        return roleMapper.selectByPrimaryKey(roleId);
-    }
-
-    @Override
-    public List<Role> findAll() {
-        return roleMapper.selectAll();
-    }
-
-    @Override
-    public Set<String> findRoles(Long... roleIds) {
+    public Set<String> queryRoles(Long... roleIds) {
         Set<String> roles = new HashSet<>();
         for (Long roleId : roleIds) {
-            Role role = findOne(roleId);
+            Role role = roleMapper.selectByPrimaryKey(roleId);
             if (role != null) {
                 roles.add(role.getRole());
             }
@@ -115,10 +42,10 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Set<String> findPermissions(Long[] roleIds) {
+    public Set<String> queryPermissions(Long[] roleIds) {
         Set<Long> resourceIds = new HashSet<>();
         for (Long roleId : roleIds) {
-            Role role = findOne(roleId);
+            Role role = roleMapper.selectByPrimaryKey(roleId);
             if (role != null) {
                 resourceIds.addAll(role.getResourceIdList());
             }

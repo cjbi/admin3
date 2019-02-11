@@ -46,64 +46,66 @@ public class Organization {
         return id;
     }
 
-    public void setId(Long id) {
+    public Organization setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Organization setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public Organization setParentId(Long parentId) {
         this.parentId = parentId;
+        return this;
     }
 
     public String getParentIds() {
         return parentIds;
     }
 
-    public void setParentIds(String parentIds) {
+    public Organization setParentIds(String parentIds) {
         this.parentIds = parentIds;
+        return this;
     }
 
     public Boolean getAvailable() {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
+    public Organization setAvailable(Boolean available) {
         this.available = available;
-    }
-
-    public boolean isRootNode() {
-        return parentId == 0;
+        return this;
     }
 
     public Boolean getLeaf() {
         return leaf;
     }
 
-    public void setLeaf(Boolean leaf) {
+    public Organization setLeaf(Boolean leaf) {
         this.leaf = leaf;
-    }
-
-    public String makeSelfAsParentIds() {
-        return getParentIds() + getId() + "/";
+        return this;
     }
 
     public Long getPriority() {
         return priority;
     }
 
-    public void setPriority(Long priority) {
+    public Organization setPriority(Long priority) {
         this.priority = priority;
+        return this;
     }
 
+    public String makeSelfAsParentIds() {
+        return getParentIds() + getId() + "/";
+    }
 }

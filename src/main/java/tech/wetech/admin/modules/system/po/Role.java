@@ -59,67 +59,53 @@ public class Role {
         return id;
     }
 
-    public void setId(Long id) {
+    public Role setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public Role setRole(String role) {
         this.role = role;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Role setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public String getResourceIds() {
         return resourceIds;
     }
 
-    public void setResourceIds(String resourceIds) {
-        String[] resourceIdStrs = resourceIds.split(",");
-        for (String resourceId : resourceIdStrs) {
-            if (StringUtils.isEmpty(resourceId)) {
-                continue;
-            }
-            getResourceIdList().add(Long.valueOf(resourceId));
-        }
+    public Role setResourceIds(String resourceIds) {
         this.resourceIds = resourceIds;
+        return this;
     }
 
     public List<Long> getResourceIdList() {
-        if (resourceIdList == null) {
-            resourceIdList = new ArrayList<>();
-        }
         return resourceIdList;
     }
 
-    public void setResourceIdList(List<Long> resourceIdList) {
-        StringBuilder s = new StringBuilder();
-        for (Long resourceId : resourceIdList) {
-            s.append(resourceId);
-            s.append(",");
-        }
-        if (s.length() > 0) {
-            s.deleteCharAt(s.length() - 1);
-        }
-        this.resourceIds = s.toString();
+    public Role setResourceIdList(List<Long> resourceIdList) {
         this.resourceIdList = resourceIdList;
+        return this;
     }
 
     public Boolean getAvailable() {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
+    public Role setAvailable(Boolean available) {
         this.available = available;
+        return this;
     }
-
 }

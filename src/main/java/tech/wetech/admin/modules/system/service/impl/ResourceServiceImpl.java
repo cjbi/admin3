@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class ResourceServiceImpl implements ResourceService {
+public class ResourceServiceImpl extends BaseService<Resource> implements ResourceService {
 
     @Autowired
     private ResourceMapper resourceMapper;
@@ -26,7 +26,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     @Transactional
     public void createResource(Resource resource) {
-        Resource parent = findOne(resource.getParentId());
+        Resource parent = resourceMapper.selectOne(new Resource().setParentId(resource.getParentId()));
         resource.setParentIds(parent.makeSelfAsParentIds());
         resource.setAvailable(true);
         if (resource.getType() == ResourceType.MENU) {
@@ -38,45 +38,10 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    @Transactional
-    public void updateResource(Resource resource) {
-        resourceMapper.updateByPrimaryKeySelective(resource);
-    }
-
-    @Override
-    @Transactional
-    public void deleteResource(Long resourceId) {
-        resourceMapper.deleteByPrimaryKey(resourceId);
-    }
-
-    @Override
-    public Resource findOne(Long resourceId) {
-        return resourceMapper.selectByPrimaryKey(resourceId);
-    }
-
-    @Override
-    public List<ResourceDto> find(Weekend example) {
-        List<ResourceDto> resourceDtoList = new ArrayList<>();
-        resourceMapper.selectByExample(example).forEach(resource-> {
-            resourceDtoList.add(new ResourceDto(resource));
-        });
-        return resourceDtoList;
-    }
-
-    @Override
-    public List<ResourceDto> findAll() {
-        List<ResourceDto> resourceDtoList = new ArrayList<>();
-        resourceMapper.selectAll().forEach(resource-> {
-            resourceDtoList.add(new ResourceDto(resource));
-        });
-        return resourceDtoList;
-    }
-
-    @Override
     public Set<String> findPermissions(Set<Long> resourceIds) {
         Set<String> permissions = new HashSet<>();
         for (Long resourceId : resourceIds) {
-            Resource resource = findOne(resourceId);
+            Resource resource = resourceMapper.selectOne(new Resource().setParentId(resourceId));
             if (resource != null && !StringUtils.isEmpty(resource.getPermission())) {
                 permissions.add(resource.getPermission());
             }

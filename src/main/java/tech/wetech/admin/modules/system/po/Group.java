@@ -43,31 +43,35 @@ public class Group {
         return id;
     }
 
-    public void setId(Long id) {
+    public Group setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Group setName(String name) {
         this.name = name;
+        return this;
     }
 
     public GroupType getType() {
         return type;
     }
 
-    public void setType(GroupType type) {
+    public Group setType(GroupType type) {
         this.type = type;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Group setDescription(String description) {
         this.description = description;
+        return this;
     }
 }
