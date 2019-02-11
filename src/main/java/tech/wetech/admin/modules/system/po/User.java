@@ -48,15 +48,9 @@ public class User {
      */
     private String roleIds;
 
-    @Transient
-    private List<Long> roleIdList;
-
     private String groupIds;
 
-    @Transient
-    private List<Long> groupIdList;
-
-    private Boolean locked = Boolean.FALSE;
+    private Boolean locked;
 
     public User() {
     }
@@ -124,30 +118,12 @@ public class User {
         return this;
     }
 
-    public List<Long> getRoleIdList() {
-        return roleIdList;
-    }
-
-    public User setRoleIdList(List<Long> roleIdList) {
-        this.roleIdList = roleIdList;
-        return this;
-    }
-
     public String getGroupIds() {
         return groupIds;
     }
 
     public User setGroupIds(String groupIds) {
         this.groupIds = groupIds;
-        return this;
-    }
-
-    public List<Long> getGroupIdList() {
-        return groupIdList;
-    }
-
-    public User setGroupIdList(List<Long> groupIdList) {
-        this.groupIdList = groupIdList;
         return this;
     }
 

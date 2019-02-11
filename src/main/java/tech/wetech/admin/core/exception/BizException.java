@@ -8,39 +8,27 @@ public class BizException extends RuntimeException {
 
     private String msg;
 
-    public BizException(String msg) {
-        super(msg);
-    }
-
     public BizException(ResultCodeEnum resultCodeEnum) {
-        this(resultCodeEnum.getCode(), resultCodeEnum.getMsg());
-    }
-
-    public BizException(ResultCodeEnum resultCodeEnum, String msg) {
-        super(msg);
+        super(resultCodeEnum.getMsg());
         this.code = resultCodeEnum.getCode();
-        this.msg = resultCodeEnum.getCode();
-    }
-
-    public BizException(String code, String msg) {
-        super(msg);
-        this.code = code;
-        this.msg = msg;
+        this.msg = resultCodeEnum.getMsg();
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public BizException setCode(String code) {
         this.code = code;
+        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public BizException setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 }

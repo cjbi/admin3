@@ -1,24 +1,15 @@
 package tech.wetech.admin.modules.system.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-import tech.wetech.admin.core.utils.PageResultSet;
 import tech.wetech.admin.modules.system.mapper.RoleMapper;
-import tech.wetech.admin.modules.system.po.Resource;
 import tech.wetech.admin.modules.system.po.Role;
-import tech.wetech.admin.modules.system.dto.RoleDto;
-import tech.wetech.admin.modules.system.query.RoleQuery;
 import tech.wetech.admin.modules.system.service.ResourceService;
 import tech.wetech.admin.modules.system.service.RoleService;
 import tk.mybatis.mapper.weekend.Weekend;
-import tk.mybatis.mapper.weekend.WeekendCriteria;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl extends BaseService<Role> implements RoleService {
@@ -43,13 +34,12 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     public Set<String> queryPermissions(Long[] roleIds) {
-        Set<Long> resourceIds = new HashSet<>();
-        for (Long roleId : roleIds) {
-            Role role = roleMapper.selectByPrimaryKey(roleId);
-            if (role != null) {
-                resourceIds.addAll(role.getResourceIdList());
-            }
-        }
-        return resourceService.findPermissions(resourceIds);
+        Weekend<Role> weekend = Weekend.of(Role.class);
+        weekend.weekendCriteria().andIn(Role::getId, Arrays.asList(roleIds));
+        return resourceService.queryPermissions(
+                roleMapper.selectByExample(weekend).stream().flatMap(r ->
+                        Arrays.asList(r.getResourceIds().split(",")).stream()
+                ).map(Long::valueOf).collect(Collectors.toSet())
+        );
     }
 }

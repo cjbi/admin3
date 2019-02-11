@@ -41,7 +41,7 @@ public class RoleController extends BaseCrudController<Role> {
     @RequiresPermissions("role:create")
     @SystemLog("角色管理创建角色")
     @PostMapping("/create")
-    public Result create(@RequestBody @Validated Role role) {
+    public Result create(@Validated Role role) {
         roleService.create(role);
         return Result.success();
     }
@@ -50,7 +50,7 @@ public class RoleController extends BaseCrudController<Role> {
     @RequiresPermissions("role:update")
     @SystemLog("角色管理更新角色")
     @PostMapping("/update")
-    public Result update(@RequestBody @Validated Role role) {
+    public Result update(@Validated Role role) {
         roleService.updateNotNull(role);
         return Result.success();
     }
@@ -60,7 +60,7 @@ public class RoleController extends BaseCrudController<Role> {
     @SystemLog("角色管理删除角色")
     @PostMapping("/delete-batch")
     @Override
-    public Result deleteBatchByIds(@RequestBody @NotNull Object[] ids) {
+    public Result deleteBatchByIds(@NotNull Object[] ids) {
         super.deleteBatchByIds(ids);
         return Result.success();
     }

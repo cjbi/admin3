@@ -33,7 +33,7 @@ public class Resource {
      */
     @NotNull(message = "资源类型不能为空")
     @ColumnType(jdbcType = JdbcType.VARCHAR)
-    private ResourceType type = ResourceType.MENU;
+    private ResourceType type;
     /**
      * 资源路径
      */
@@ -51,7 +51,7 @@ public class Resource {
      * 父编号列表
      */
     private String parentIds;
-    private Boolean available = Boolean.FALSE;
+    private Boolean available;
     /**
      * 图标
      */
@@ -64,7 +64,7 @@ public class Resource {
     /**
      * 叶子节点
      */
-    private Boolean leaf = Boolean.FALSE;
+    private Boolean leaf;
 
     public String makeSelfAsParentIds() {
         return getParentIds() + getId() + "/";

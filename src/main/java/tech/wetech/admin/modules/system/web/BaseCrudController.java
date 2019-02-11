@@ -41,7 +41,7 @@ public abstract class BaseCrudController<T> extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新增数据")
     @ResponseBody
-    public Result create(@RequestBody @Validated T entity) {
+    public Result create(@Validated T entity) {
         service.create(entity);
         return Result.success();
     }
@@ -49,7 +49,7 @@ public abstract class BaseCrudController<T> extends BaseController {
     @PostMapping("/update")
     @ApiOperation("更新数据")
     @ResponseBody
-    public Result update(@RequestBody @Validated T entity) {
+    public Result update(@Validated T entity) {
         service.updateNotNull(entity);
         return Result.success();
     }
@@ -64,7 +64,7 @@ public abstract class BaseCrudController<T> extends BaseController {
 
     @PostMapping("/delete-batch")
     @ApiOperation("删除多条数据")
-    public Result deleteBatchByIds(@RequestBody @NotNull Object[] ids) {
+    public Result deleteBatchByIds(@NotNull @RequestParam("id")  Object[] ids) {
         Stream.of(ids).parallel().forEach(id -> service.deleteById(id));
         return Result.success();
     }

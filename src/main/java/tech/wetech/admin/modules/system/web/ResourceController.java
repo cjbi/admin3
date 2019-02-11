@@ -5,6 +5,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.utils.BaseController;
 import tech.wetech.admin.core.annotation.SystemLog;
@@ -44,7 +45,7 @@ public class ResourceController extends BaseCrudController<Resource> {
     @SystemLog("资源管理创建资源")
     @PostMapping("/create")
     @Override
-    public Result create(@Valid Resource resource) {
+    public Result create(@Validated Resource resource) {
         resourceService.createResource(resource);
         return Result.success();
     }
@@ -54,7 +55,7 @@ public class ResourceController extends BaseCrudController<Resource> {
     @SystemLog("资源管理更新资源")
     @PostMapping("/update")
     @Override
-    public Result update(@Valid Resource resource) {
+    public Result update(@Validated Resource resource) {
         resourceService.updateNotNull(resource);
         return Result.success();
     }

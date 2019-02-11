@@ -2,7 +2,9 @@ package tech.wetech.admin.modules.system.vo;
 
 import tech.wetech.admin.modules.system.po.User;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserVO {
 
@@ -28,9 +30,9 @@ public class UserVO {
         this.organizationId = user.getOrganizationId();
         this.username = user.getUsername();
         this.roleIds = user.getRoleIds();
-        this.roleIdList = user.getRoleIdList();
+        this.roleIdList = Arrays.asList(user.getRoleIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList());
         this.groupIds = user.getGroupIds();
-        this.groupIdList = user.getGroupIdList();
+        this.groupIdList = Arrays.asList(user.getGroupIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList());
         this.locked = user.getLocked();
     }
 

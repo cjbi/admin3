@@ -31,12 +31,12 @@ public class Organization {
      * 父编号列表，如1/2/
      */
     private String parentIds;
-    private Boolean available = Boolean.FALSE;
+    private Boolean available;
 
     /**
      * 叶子节点
      */
-    private Boolean leaf = Boolean.FALSE;
+    private Boolean leaf;
     /**
      * 排序
      */

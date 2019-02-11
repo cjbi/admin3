@@ -2,7 +2,9 @@ package tech.wetech.admin.modules.system.dto;
 
 import tech.wetech.admin.modules.system.po.Role;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoleDto {
 
@@ -23,10 +25,9 @@ public class RoleDto {
         this.role = role.getRole();
         this.description = role.getDescription();
         this.resourceIds = role.getResourceIds();
-        this.resourceIdList = role.getResourceIdList();
+        this.resourceIdList = Arrays.asList(role.getResourceIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList());
         this.available = role.getAvailable();
     }
-
 
 
     public String getResourceNames() {

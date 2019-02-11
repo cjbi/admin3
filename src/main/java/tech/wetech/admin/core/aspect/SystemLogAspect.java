@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -26,10 +27,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Aspect
 @Component
-public class SystemLogAspect{
+public class SystemLogAspect {
 
     @Autowired
-    private LogService logService;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Pointcut("@annotation(systemLog)")
     public void systemLogPointcut(SystemLog systemLog) {
@@ -117,7 +118,7 @@ public class SystemLogAspect{
         log.setReturnVal(text);
         try {
             // 入库
-            logService.create(log);
+            applicationEventPublisher.publishEvent(log);
         } catch (Exception e) {
 
         }

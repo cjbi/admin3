@@ -38,10 +38,10 @@ public class ResourceServiceImpl extends BaseService<Resource> implements Resour
     }
 
     @Override
-    public Set<String> findPermissions(Set<Long> resourceIds) {
+    public Set<String> queryPermissions(Set<Long> resourceIds) {
         Set<String> permissions = new HashSet<>();
         for (Long resourceId : resourceIds) {
-            Resource resource = resourceMapper.selectOne(new Resource().setParentId(resourceId));
+            Resource resource = resourceMapper.selectOne(new Resource().setId(resourceId));
             if (resource != null && !StringUtils.isEmpty(resource.getPermission())) {
                 permissions.add(resource.getPermission());
             }

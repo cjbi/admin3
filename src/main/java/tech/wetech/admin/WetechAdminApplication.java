@@ -19,16 +19,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableCaching
 @EnableSwagger2
-public class WetechAdminApplication implements CommandLineRunner {
-
-    private Logger logger = LoggerFactory.getLogger(WetechAdminApplication.class);
+public class WetechAdminApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WetechAdminApplication.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        logger.info("服务启动完成!");
     }
 }

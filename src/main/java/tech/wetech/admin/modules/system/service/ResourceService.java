@@ -16,7 +16,7 @@ public interface ResourceService extends IService<Resource> {
      * @param resourceIds
      * @return
      */
-    Set<String> findPermissions(Set<Long> resourceIds);
+    Set<String> queryPermissions(Set<Long> resourceIds);
 
     /**
      * 根据用户权限得到菜单

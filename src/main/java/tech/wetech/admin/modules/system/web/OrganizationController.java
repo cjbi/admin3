@@ -3,6 +3,7 @@ package tech.wetech.admin.modules.system.web;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
@@ -12,6 +13,7 @@ import tech.wetech.admin.modules.system.service.OrganizationService;
 import tk.mybatis.mapper.weekend.Weekend;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Controller
@@ -48,7 +50,7 @@ public class OrganizationController extends BaseCrudController<Organization> {
     @SystemLog("组织管理创建组织")
     @PostMapping("/create")
     @Override
-    public Result create(@Valid Organization organization) {
+    public Result create(@Validated Organization organization) {
         organizationService.createOrganization(organization);
         return Result.success();
     }
@@ -58,7 +60,7 @@ public class OrganizationController extends BaseCrudController<Organization> {
     @SystemLog("组织管理更新组织")
     @PostMapping("/update")
     @Override
-    public Result update(@Valid Organization organization) {
+    public Result update(@Validated Organization organization) {
         organizationService.updateNotNull(organization);
         return Result.success();
     }
@@ -68,7 +70,7 @@ public class OrganizationController extends BaseCrudController<Organization> {
     @SystemLog("组织管理删除组织")
     @PostMapping("/delete")
     @Override
-    public Result delete(Object id) {
+    public Result delete(@NotNull @RequestParam("id") Object id) {
         super.delete(id);
         return Result.success();
     }

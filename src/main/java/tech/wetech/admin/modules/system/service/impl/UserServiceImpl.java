@@ -10,6 +10,7 @@ import tech.wetech.admin.modules.system.po.User;
 import tech.wetech.admin.modules.system.service.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends BaseService<User> implements UserService {
@@ -50,7 +51,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (user == null) {
             return Collections.EMPTY_SET;
         }
-        return roleService.queryRoles(user.getRoleIdList().toArray(new Long[0]));
+        return roleService.queryRoles(
+                Arrays.asList(user.getRoleIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList()).toArray(new Long[0])
+        );
     }
 
     @Override
@@ -59,6 +62,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (user == null) {
             return Collections.EMPTY_SET;
         }
-        return roleService.queryPermissions(user.getRoleIdList().toArray(new Long[0]));
+        return roleService.queryPermissions(
+                Arrays.asList(user.getRoleIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList()).toArray(new Long[0])
+        );
     }
 }

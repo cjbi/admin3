@@ -33,7 +33,7 @@ public class GroupController extends BaseCrudController<Group> {
     @PostMapping("/create")
     @SystemLog("用户管理创建用户组")
     @Override
-    public Result create(@RequestBody @Validated Group group) {
+    public Result create(@Validated Group group) {
         groupService.create(group);
         return Result.success();
     }
@@ -42,7 +42,7 @@ public class GroupController extends BaseCrudController<Group> {
     @PostMapping("/update")
     @SystemLog("用户管理更新用户组")
     @Override
-    public Result update(@RequestBody @Validated Group group) {
+    public Result update(@Validated Group group) {
         groupService.updateNotNull(group);
         return Result.success();
     }
@@ -51,7 +51,7 @@ public class GroupController extends BaseCrudController<Group> {
     @PostMapping("/delete-batch")
     @SystemLog("用户管理删除用户组")
     @Override
-    public Result deleteBatchByIds(@RequestBody @NotNull Object[] ids) {
+    public Result deleteBatchByIds(@NotNull @RequestParam("id")  Object[] ids) {
         super.deleteBatchByIds(ids);
         return Result.success();
     }

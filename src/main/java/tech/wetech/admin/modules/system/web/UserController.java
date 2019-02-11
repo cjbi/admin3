@@ -62,16 +62,16 @@ public class UserController extends BaseCrudController<User> {
     @RequiresPermissions("user:view")
     @Override
     public Result<List<UserVO>> queryList(User user, PageQuery pageQuery) {
-        Page<User> userList = (Page<User>) userService.queryList(user, pageQuery);
+        Page<User> page = (Page<User>) userService.queryList(user, pageQuery);
         List<UserVO> userVOS = new ArrayList<>();
-        userList.forEach(u -> {
+        page.forEach(u -> {
             UserVO userVO = new UserVO(u);
             userVO.setOrganizationName(getOrganizationName(Long.valueOf(userVO.getOrganizationId())));
             userVO.setRoleNames(getRoleNames(userVO.getRoleIdList()));
             userVO.setGroupNames(getGroupNames(userVO.getGroupIdList()));
             userVOS.add(userVO);
         });
-        return Result.success(userVOS);
+        return Result.success(userVOS).addExtra("total", page.getTotal());
     }
 
     private String getGroupNames(Collection<Long> groupIds) {
@@ -130,7 +130,7 @@ public class UserController extends BaseCrudController<User> {
     @RequiresPermissions("user:create")
     @SystemLog("用户管理创建用户")
     @Override
-    public Result create(@RequestBody @Validated User user) {
+    public Result create(@Validated User user) {
         userService.createUser(user);
         return Result.success();
     }
@@ -140,7 +140,7 @@ public class UserController extends BaseCrudController<User> {
     @RequiresPermissions("user:update")
     @SystemLog("用户管理更新用户")
     @Override
-    public Result update(@RequestBody @Validated User user) {
+    public Result update(@Validated User user) {
         userService.updateNotNull(user);
         return Result.success();
     }
@@ -150,7 +150,7 @@ public class UserController extends BaseCrudController<User> {
     @RequiresPermissions("user:delete")
     @SystemLog("用户管理删除用户")
     @Override
-    public Result deleteBatchByIds(@RequestBody @NotNull Object[] ids) {
+    public Result deleteBatchByIds(@NotNull Object[] ids) {
         // 当前用户
         String username = (String) SecurityUtils.getSubject().getPrincipal();
         User user = userService.queryOne(new User().setUsername(username));

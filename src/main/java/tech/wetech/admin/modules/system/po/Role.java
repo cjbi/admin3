@@ -37,14 +37,9 @@ public class Role {
     @NotBlank(message = "拥有的资源不能为空")
     private String resourceIds;
     /**
-     * 拥有的资料列表
-     */
-    @Transient
-    private List<Long> resourceIdList;
-    /**
      * 是否可用,如果不可用将不会添加给用户
      */
-    private Boolean available = Boolean.FALSE;
+    private Boolean available;
 
     public Role() {
     }
@@ -88,15 +83,6 @@ public class Role {
 
     public Role setResourceIds(String resourceIds) {
         this.resourceIds = resourceIds;
-        return this;
-    }
-
-    public List<Long> getResourceIdList() {
-        return resourceIdList;
-    }
-
-    public Role setResourceIdList(List<Long> resourceIdList) {
-        this.resourceIdList = resourceIdList;
         return this;
     }
 
