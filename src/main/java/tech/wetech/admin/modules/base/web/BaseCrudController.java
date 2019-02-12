@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.web;
+package tech.wetech.admin.modules.base.web;
 
 import com.github.pagehelper.Page;
 import io.swagger.annotations.ApiOperation;

@@ -5,17 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.core.utils.BaseController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
+import tech.wetech.admin.modules.base.web.BaseCrudController;
 import tech.wetech.admin.modules.system.po.Role;
 import tech.wetech.admin.modules.system.service.ResourceService;
 import tech.wetech.admin.modules.system.service.RoleService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 
 /**
  * @author cjbi

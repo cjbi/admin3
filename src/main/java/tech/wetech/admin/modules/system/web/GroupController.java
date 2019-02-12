@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
+import tech.wetech.admin.modules.base.web.BaseCrudController;
 import tech.wetech.admin.modules.system.enums.GroupType;
 import tech.wetech.admin.modules.system.po.Group;
 import tech.wetech.admin.modules.system.service.GroupService;

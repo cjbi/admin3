@@ -7,15 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.core.utils.BaseController;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
-import tech.wetech.admin.modules.system.po.Resource;
+import tech.wetech.admin.modules.base.web.BaseCrudController;
 import tech.wetech.admin.modules.system.enums.ResourceType;
+import tech.wetech.admin.modules.system.po.Resource;
 import tech.wetech.admin.modules.system.service.ResourceService;
-import tk.mybatis.mapper.weekend.Weekend;
-
-import javax.validation.Valid;
 
 /**
  * @author cjbi

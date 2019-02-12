@@ -13,6 +13,7 @@ import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
 import tech.wetech.admin.core.utils.ResultCodeEnum;
 import tech.wetech.admin.modules.base.query.PageQuery;
+import tech.wetech.admin.modules.base.web.BaseCrudController;
 import tech.wetech.admin.modules.system.po.Group;
 import tech.wetech.admin.modules.system.po.Organization;
 import tech.wetech.admin.modules.system.po.Role;

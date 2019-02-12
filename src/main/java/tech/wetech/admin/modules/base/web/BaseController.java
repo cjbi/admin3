@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.web;
+package tech.wetech.admin.modules.base.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
