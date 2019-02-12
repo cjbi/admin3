@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.utils.Result;
-import tech.wetech.admin.modules.system.query.PageQuery;
-import tech.wetech.admin.modules.system.service.IService;
+import tech.wetech.admin.modules.base.query.PageQuery;
+import tech.wetech.admin.modules.base.service.IService;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

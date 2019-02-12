@@ -1,4 +1,4 @@
-package tech.wetech.admin.modules.system.query;
+package tech.wetech.admin.modules.base.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

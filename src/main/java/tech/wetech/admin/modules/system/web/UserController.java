@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
 import tech.wetech.admin.core.utils.ResultCodeEnum;
-import tech.wetech.admin.modules.system.vo.UserVO;
+import tech.wetech.admin.modules.base.query.PageQuery;
 import tech.wetech.admin.modules.system.po.Group;
 import tech.wetech.admin.modules.system.po.Organization;
 import tech.wetech.admin.modules.system.po.Role;
 import tech.wetech.admin.modules.system.po.User;
-import tech.wetech.admin.modules.system.query.PageQuery;
 import tech.wetech.admin.modules.system.service.GroupService;
 import tech.wetech.admin.modules.system.service.OrganizationService;
 import tech.wetech.admin.modules.system.service.RoleService;
 import tech.wetech.admin.modules.system.service.UserService;
+import tech.wetech.admin.modules.system.vo.UserVO;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 package tech.wetech.admin.modules.system.service;
 
+import tech.wetech.admin.modules.base.service.IService;
 import tech.wetech.admin.modules.system.po.Role;
 
 import java.util.Set;

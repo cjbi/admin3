@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tech.wetech.admin.core.utils.Result;
+import tech.wetech.admin.modules.base.query.PageQuery;
 import tech.wetech.admin.modules.system.po.Log;
-import tech.wetech.admin.modules.system.query.PageQuery;
 /**
  * @author cjbi
  * @date 2017/12/16

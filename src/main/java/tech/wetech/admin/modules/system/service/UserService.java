@@ -1,6 +1,7 @@
 package tech.wetech.admin.modules.system.service;
 
 import tech.wetech.admin.core.exception.BizException;
+import tech.wetech.admin.modules.base.service.IService;
 import tech.wetech.admin.modules.system.po.User;
 
 import java.util.Set;

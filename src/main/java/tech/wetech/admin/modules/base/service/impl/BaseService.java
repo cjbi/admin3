@@ -1,11 +1,11 @@
-package tech.wetech.admin.modules.system.service.impl;
+package tech.wetech.admin.modules.base.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import tech.wetech.admin.modules.system.query.PageQuery;
-import tech.wetech.admin.modules.system.service.IService;
+import tech.wetech.admin.modules.base.query.PageQuery;
+import tech.wetech.admin.modules.base.service.IService;
 import tk.mybatis.mapper.code.Style;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.util.StringUtil;

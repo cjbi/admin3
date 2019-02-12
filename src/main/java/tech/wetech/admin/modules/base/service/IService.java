@@ -1,6 +1,6 @@
-package tech.wetech.admin.modules.system.service;
+package tech.wetech.admin.modules.base.service;
 
-import tech.wetech.admin.modules.system.query.PageQuery;
+import tech.wetech.admin.modules.base.query.PageQuery;
 
 import java.util.List;
 

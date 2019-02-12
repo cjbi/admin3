@@ -15,7 +15,7 @@ mybatis: # mybatis 配置
 
 mapper: # 通用 Mapper 配置
   identity: MYSQL
-  mappers: tech.wetech.admin.core.utils.MyMapper
+  mappers: tech.wetech.admin.modules.base.mapper.MyMapper
   not-empty: false
 
 pagehelper: # 分页插件配置

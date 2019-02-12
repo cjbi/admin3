@@ -2,13 +2,16 @@ package tech.wetech.admin.modules.system.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.wetech.admin.modules.base.service.impl.BaseService;
 import tech.wetech.admin.modules.system.mapper.RoleMapper;
 import tech.wetech.admin.modules.system.po.Role;
 import tech.wetech.admin.modules.system.service.ResourceService;
 import tech.wetech.admin.modules.system.service.RoleService;
 import tk.mybatis.mapper.weekend.Weekend;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

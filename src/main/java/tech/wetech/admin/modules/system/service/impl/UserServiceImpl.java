@@ -3,13 +3,18 @@ package tech.wetech.admin.modules.system.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tech.wetech.admin.core.utils.ResultCodeEnum;
 import tech.wetech.admin.core.exception.BizException;
+import tech.wetech.admin.core.utils.ResultCodeEnum;
+import tech.wetech.admin.modules.base.service.impl.BaseService;
 import tech.wetech.admin.modules.system.mapper.UserMapper;
 import tech.wetech.admin.modules.system.po.User;
-import tech.wetech.admin.modules.system.service.*;
+import tech.wetech.admin.modules.system.service.PasswordHelper;
+import tech.wetech.admin.modules.system.service.RoleService;
+import tech.wetech.admin.modules.system.service.UserService;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

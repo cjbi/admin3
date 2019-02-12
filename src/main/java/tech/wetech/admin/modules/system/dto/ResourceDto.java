@@ -22,7 +22,7 @@ public class ResourceDto {
     /**
      * 资源类型
      */
-    private ResourceType type = ResourceType.MENU;
+    private ResourceType type;
     /**
      * 资源路径
      */
@@ -39,7 +39,7 @@ public class ResourceDto {
      * 父编号列表
      */
     private String parentIds;
-    private Boolean available = Boolean.FALSE;
+    private Boolean available;
     /**
      * 图标
      */
