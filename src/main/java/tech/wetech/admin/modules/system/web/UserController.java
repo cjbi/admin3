@@ -59,7 +59,7 @@ public class UserController extends BaseCrudController<User> {
     }
 
     @ResponseBody
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("user:view")
     @Override
     public Result<List<UserVO>> queryList(User user, PageQuery pageQuery) {

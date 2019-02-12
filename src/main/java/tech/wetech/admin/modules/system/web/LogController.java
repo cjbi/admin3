@@ -25,7 +25,7 @@ public class LogController extends BaseCrudController<Log> {
     }
 
     @ResponseBody
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("log:view")
     @Override
     public Result queryList(Log log, PageQuery pageQuery) {

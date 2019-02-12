@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import tech.wetech.admin.core.utils.BaseController;
 import tech.wetech.admin.core.utils.Constants;
 import tech.wetech.admin.modules.system.dto.ResourceDto;
@@ -32,7 +32,8 @@ public class HomeController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
+    @PostMapping("/login")
     public String showLoginForm(HttpServletRequest req, Model model) {
         String exceptionClassName = (String)req.getAttribute("shiroLoginFailure");
         logger.info("begin to login");

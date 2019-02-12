@@ -20,6 +20,7 @@ Apache Shiro | 安全框架 | 1.2.2 |  [http://shiro.apache.org](http://www.myba
 Logback | 日志组件 | 1.1.3 |  [https://logback.qos.ch](https://logback.qos.ch/)
 Druid | 数据库连接池 | 0.2.23 |  [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
 Hibernate Validator | 后端校验框架 | 5.4.2.Final | [http://hibernate.org/validator/](http://hibernate.org/validator/)
+swagger2 | 在线文档生成 |  2.9.2 | [https://swagger.io/](https://swagger.io/) 
 
 ### 前端技术
 
@@ -45,7 +46,7 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 - 修改application-dev.properties文件，更新MySQL账号和密码
 - 运行Maven命令mvn install
 - 运行WetechAdminApplication类
-- 项目访问路径：http://localhost:8888/wetech-admin
+- 项目访问路径：http://localhost:8888/wetech-admin Swagger文档路径：http://localhost:8888/wetech-admin/swagger-ui.html
 - 账号密码：admin/123456
 
 ## 预览图
