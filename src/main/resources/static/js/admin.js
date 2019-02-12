@@ -461,6 +461,9 @@
                 }
                 eval('params.' + arr[i].name + '="' + arr[i].value + '"');
             }
+            if (params.sortName) {
+                params.orderBy = params.sortName + " " + params.sortOrder;
+            }
             return params;
         },
     });
@@ -474,6 +477,9 @@
 
     //出错提示
     $(document).ajaxError(function (event, request, settings) {
+        if (!request.responseText) {
+            return;
+        }
         debugger;
         var responseJSON = JSON.parse(request.responseText), msg;
         if (responseJSON) {
