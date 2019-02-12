@@ -1,13 +1,9 @@
 package tech.wetech.admin.modules.system.po;
 
-import org.springframework.util.StringUtils;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author cjbi
@@ -21,6 +17,7 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(groups = UserUpdateChecks.class)
     private Long id;
     /**
      * 所属公司
@@ -31,13 +28,13 @@ public class User {
      * 用户名
      */
     @NotBlank(message = "用户名不能为空")
-    @Min(value = 3,message = "用户名不能低于3位")
+    @Min(value = 3, message = "用户名不能低于3位")
     private String username;
     /**
      * 密码
      */
-    @NotBlank(message = "密码不能为空")
-    @Min(value = 6,message = "密码不能低于6位")
+    @NotBlank(message = "密码不能为空", groups = UserCreateChecks.class)
+    @Min(value = 6, message = "密码不能低于6位", groups = UserCreateChecks.class)
     private String password;
     /**
      * 加密密码的盐
@@ -51,6 +48,14 @@ public class User {
     private String groupIds;
 
     private Boolean locked;
+
+    public interface UserCreateChecks {
+
+    }
+
+    public interface UserUpdateChecks {
+
+    }
 
     public User() {
     }

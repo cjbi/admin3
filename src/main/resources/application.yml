@@ -12,6 +12,8 @@ spring:
 mybatis: # mybatis 配置
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: tech.wetech.admin.modules.*.po
+  configuration:
+    map-underscore-to-camel-case: true
 
 mapper: # 通用 Mapper 配置
   identity: MYSQL

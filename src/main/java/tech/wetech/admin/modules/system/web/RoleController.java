@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.core.annotation.SystemLog;
 import tech.wetech.admin.core.utils.Result;
 import tech.wetech.admin.modules.base.web.BaseCrudController;
@@ -61,7 +58,7 @@ public class RoleController extends BaseCrudController<Role> {
     @SystemLog("角色管理删除角色")
     @PostMapping("/delete-batch")
     @Override
-    public Result deleteBatchByIds(@NotNull Object[] ids) {
+    public Result deleteBatchByIds(@NotNull @RequestParam("id") Object[] ids) {
         super.deleteBatchByIds(ids);
         return Result.success();
     }
