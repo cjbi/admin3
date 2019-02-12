@@ -2,10 +2,7 @@ package tech.wetech.admin.modules.system.service;
 
 import tech.wetech.admin.core.exception.BizException;
 import tech.wetech.admin.modules.system.po.User;
-import tech.wetech.admin.modules.system.vo.UserVO;
-import tech.wetech.admin.modules.system.query.UserQuery;
 
-import java.util.List;
 import java.util.Set;
 
 public interface UserService extends IService<User> {
