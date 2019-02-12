@@ -5,7 +5,7 @@
 
 	<groupId>tech.wetech</groupId>
 	<artifactId>wetech-admin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <version>1.8.0-RELEASE</version>
 	<packaging>jar</packaging>
 
 	<name>wetech-admin</name>
