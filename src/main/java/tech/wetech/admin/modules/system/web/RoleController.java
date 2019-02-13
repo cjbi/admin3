@@ -39,6 +39,7 @@ public class RoleController extends BaseCrudController<Role> {
     @RequiresPermissions("role:create")
     @SystemLog("角色管理创建角色")
     @PostMapping("/create")
+    @Override
     public Result create(@Validated Role role) {
         roleService.create(role);
         return Result.success();
@@ -48,6 +49,7 @@ public class RoleController extends BaseCrudController<Role> {
     @RequiresPermissions("role:update")
     @SystemLog("角色管理更新角色")
     @PostMapping("/update")
+    @Override
     public Result update(@Validated Role role) {
         roleService.updateNotNull(role);
         return Result.success();
