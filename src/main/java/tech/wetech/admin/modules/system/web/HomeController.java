@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import tech.wetech.admin.core.utils.BaseController;
 import tech.wetech.admin.core.utils.Constants;
 import tech.wetech.admin.modules.system.dto.ResourceDto;
@@ -32,8 +33,7 @@ public class HomeController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
-    @PostMapping("/login")
+    @RequestMapping("/login")
     public String showLoginForm(HttpServletRequest req, Model model) {
         String exceptionClassName = (String)req.getAttribute("shiroLoginFailure");
         logger.info("begin to login");
