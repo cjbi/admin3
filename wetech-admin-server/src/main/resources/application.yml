@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: wetech-admin
+  mvc:
+    view: # 视图相关
+      prefix: /templates/
+      suffix: .html
+  output:
+    ansi:
+      enabled: ALWAYS # 输出带颜色的日志信息
+  profiles:
+    active: dev # 设置激活的环境
+
+mybatis: # mybatis 配置
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: tech.wetech.admin.modules.*.po
+  configuration:
+    map-underscore-to-camel-case: true
+
+password: #shiro
+  algorithmName: md5
+  hashIterations: 2
