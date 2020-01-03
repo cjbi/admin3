@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>wetech-admin</artifactId>
+    <groupId>tech.wetech.admin</groupId>
+    <version>2.0.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>wetech-admin-ui</artifactId>
+
+  <properties>
+    <yarn.build.skip>false</yarn.build.skip>
+    <yarn.install.skip>false</yarn.install.skip>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <!-- NB! Set <version> to the latest released version of frontend-maven-plugin, like in README.md -->
+        <version>1.9.0</version>
+
+        <configuration>
+          <installDirectory>target</installDirectory>
+          <nodeVersion>v13.5.0</nodeVersion>
+          <yarnVersion>v1.21.1</yarnVersion>
+          <nodeDownloadRoot>https://npm.taobao.org/dist/</nodeDownloadRoot>
+          <!--<npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>-->
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and yarn</id>
+            <goals>
+              <goal>install-node-and-yarn</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>yarn install</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>install</arguments>
+              <skip>${yarn.install.skip}</skip>
+            </configuration>
+          </execution>
+          <execution>
+            <id>yarn build</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>build</arguments>
+              <skip>${yarn.build.skip}</skip>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>target/dist</directory>
+        <targetPath>META-INF/wetech-admin-ui</targetPath>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+  </build>
+
+</project>

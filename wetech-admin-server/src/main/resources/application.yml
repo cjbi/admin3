@@ -13,7 +13,7 @@ spring:
 
 mybatis: # mybatis 配置
   mapper-locations: classpath:mybatis/mapper/*.xml
-  type-aliases-package: tech.wetech.admin.modules.*.po
+  type-aliases-package: tech.wetech.admin.model.entity
   configuration:
     map-underscore-to-camel-case: true
 

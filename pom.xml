@@ -8,6 +8,7 @@
     <version>2.0.0</version>
     <modules>
         <module>wetech-admin-server</module>
+        <module>wetech-admin-ui</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -31,6 +32,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>tech.wetech.admin</groupId>
+                <artifactId>wetech-admin-ui</artifactId>
+                <version>2.0.0</version>
+            </dependency>
             <dependency>
                 <groupId>com.github.theborakompanioni</groupId>
                 <artifactId>thymeleaf-extras-shiro</artifactId>
@@ -72,7 +78,7 @@
             <dependency>
                 <groupId>tech.wetech.mybatis</groupId>
                 <artifactId>mybatis-ext-spring-boot-starter</artifactId>
-                <version>1.4.0</version>
+                <version>1.4.1</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>

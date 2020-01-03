@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableCaching
 @EnableSwagger2
-@MapperScan(basePackages = "tech.wetech.admin.modules.*.mapper")
+@MapperScan(basePackages = "tech.wetech.admin.mapper")
 public class WetechAdminApplication {
 
     public static void main(String[] args) {
