@@ -1,4 +1,4 @@
-package tech.wetech.admin.cache;
+package tech.wetech.admin.config.cache;
 
 import net.sf.ehcache.CacheManager;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import tech.wetech.admin.shiro.spring.SpringCacheManagerWrapper;
 
 /**
  * @author cjbi

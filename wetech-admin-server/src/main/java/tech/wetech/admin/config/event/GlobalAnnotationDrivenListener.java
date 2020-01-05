@@ -1,4 +1,4 @@
-package tech.wetech.admin.event;
+package tech.wetech.admin.config.event;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

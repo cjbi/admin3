@@ -1,4 +1,4 @@
-package tech.wetech.admin.shiro;
+package tech.wetech.admin.config.shiro;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -18,9 +18,9 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import tech.wetech.admin.shiro.credentials.RetryLimitHashedCredentialsMatcher;
-import tech.wetech.admin.shiro.realm.UserRealm;
-import tech.wetech.admin.shiro.spring.SpringCacheManagerWrapper;
+import tech.wetech.admin.config.shiro.credentials.RetryLimitHashedCredentialsMatcher;
+import tech.wetech.admin.config.shiro.realm.UserRealm;
+import tech.wetech.admin.config.shiro.spring.SpringCacheManagerWrapper;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;

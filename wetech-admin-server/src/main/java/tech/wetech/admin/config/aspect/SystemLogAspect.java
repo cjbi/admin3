@@ -1,4 +1,4 @@
-package tech.wetech.admin.aspect;
+package tech.wetech.admin.config.aspect;
 
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
