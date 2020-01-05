@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.annotation.SystemLog;
-import tech.wetech.admin.model.query.PageQuery;
+import tech.wetech.admin.config.aspect.SystemLog;
 import tech.wetech.admin.model.Result;
-import tech.wetech.admin.model.enumeration.GroupType;
 import tech.wetech.admin.model.entity.Group;
+import tech.wetech.admin.model.enumeration.GroupType;
+import tech.wetech.admin.model.query.PageQuery;
 import tech.wetech.admin.service.GroupService;
 import tech.wetech.mybatis.domain.Page;
 

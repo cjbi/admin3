@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.annotation.SystemLog;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Log;
 import tech.wetech.admin.utils.JsonUtil;

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.annotation.SystemLog;
+import tech.wetech.admin.config.aspect.SystemLog;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.dto.TreeDTO;
 import tech.wetech.admin.model.entity.Organization;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.annotation.SystemLog;
+import tech.wetech.admin.config.aspect.SystemLog;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Role;
 import tech.wetech.admin.service.ResourceService;
