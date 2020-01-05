@@ -6,7 +6,6 @@ import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * @author cjbi@outlook.com
@@ -117,23 +116,11 @@ public class Result<T> implements Serializable {
                 .setMsg(resultStatus.getMsg());
     }
 
-    public static Result failure(String code, String msg) {
+    public static Result failure(ResultStatus resultStatus, String message) {
         return new Result()
                 .setSuccess(false)
-                .setCode(code)
-                .setMsg(msg);
-    }
-
-    public <X extends Throwable> T orElseThrow(Supplier<? extends X> s) throws X {
-        if (this.isSuccess()) {
-            return this.getData();
-        } else {
-            throw s.get();
-        }
-    }
-
-    public T orElseGetData(Supplier<? extends T> other) {
-        return this.getData() != null ? this.getData() : other.get();
+                .setCode(resultStatus.getCode())
+                .setMsg(message);
     }
 
 

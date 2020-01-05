@@ -7,13 +7,14 @@ import tech.wetech.admin.model.ResultStatus;
  */
 public enum CommonResultStatus implements ResultStatus {
 
-    OK("200", "处理成功"),
-    PARAM_ERROR("603", "参数非法"),
-    INTERNAL_SERVER_ERROR("606", "服务器内部错误"),
-    RECORD_NOT_EXIST("608", "记录不存在"),
-    REMOTE_SERVICE_ERROR("609", "远程服务调用失败"),
-    FAILED_DEL_OWN("485", "不能删除自己"),
-    FAILED_USER_ALREADY_EXIST("486", "该用户已存在"),
+    OK("1000", "成功"),
+    PARAM_ERROR("1001", "参数非法"),
+    LOGIN_ERROR("1002", "登录失败"),
+    INTERNAL_SERVER_ERROR("1003", "服务异常"),
+    RECORD_NOT_EXIST("1005", "记录不存在"),
+    FAILED_DEL_OWN("1006", "不能删除自己"),
+    FAILED_USER_ALREADY_EXIST("1007", "该用户已存在"),
+
     ;
 
     private String code;

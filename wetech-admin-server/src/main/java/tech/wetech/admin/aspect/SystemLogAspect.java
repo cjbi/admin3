@@ -7,15 +7,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.annotation.SystemLog;
-import tech.wetech.admin.utils.PageResultSet;
 import tech.wetech.admin.model.Result;
+import tech.wetech.admin.model.entity.Log;
 import tech.wetech.admin.utils.JsonUtil;
 import tech.wetech.admin.utils.WebUtil;
-import tech.wetech.admin.model.entity.Log;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -74,11 +72,6 @@ public class SystemLogAspect {
             Result result = (Result) returns;
             status = result.getCode();
             msg = result.getMsg();
-        }
-
-        if (returns != null && returns instanceof PageResultSet) {
-            msg = "查询成功";
-            status = HttpStatus.OK.toString();
         }
 
         String text = null;
