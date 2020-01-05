@@ -1,7 +1,7 @@
 package tech.wetech.admin.model.entity;
 
 import lombok.Data;
-import tech.wetech.admin.model.enums.GroupType;
+import tech.wetech.admin.model.enumeration.GroupType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

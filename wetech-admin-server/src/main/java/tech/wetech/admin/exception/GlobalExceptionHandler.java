@@ -10,8 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import tech.wetech.admin.utils.Result;
-import tech.wetech.admin.utils.ResultCodeEnum;
+import tech.wetech.admin.model.Result;
+import tech.wetech.admin.model.enumeration.CommonResultStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Object> handleThrowable(HttpServletRequest request, Throwable e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
-        return Result.failure(ResultCodeEnum.INTERNAL_SERVER_ERROR)
+        return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR)
                 .addExtra("stackTrace", e.getStackTrace())
                 .addExtra("exceptionMessage", e.getClass().getName() + ": " + e.getMessage());
     }
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({BizException.class})
     public Result handleBizException(HttpServletRequest request, BizException e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
-        return Result.failure(ResultCodeEnum.PARAM_ERROR)
+        return Result.failure(CommonResultStatus.PARAM_ERROR)
                 .addExtra("stackTrace", e.getStackTrace())
                 .addExtra("exceptionMessage", e.getClass().getName() + ": " + e.getMessage());
     }
@@ -68,8 +68,8 @@ public class GlobalExceptionHandler {
         BindingResult br = null;
         Result result = new Result()
                 .setSuccess(false)
-                .setCode(ResultCodeEnum.PARAM_ERROR.getCode())
-                .setMsg(ResultCodeEnum.PARAM_ERROR.getMsg())
+                .setCode(CommonResultStatus.PARAM_ERROR.getCode())
+                .setMsg(CommonResultStatus.PARAM_ERROR.getMsg())
                 .addExtra("stackTrace", e.getStackTrace())
                 .addExtra("exceptionMessage", e.getClass().getName() + ": " + e.getMessage());
 

@@ -49,35 +49,8 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 - 项目访问路径：http://localhost:8888/wetech-admin Swagger文档路径：http://localhost:8888/wetech-admin/swagger-ui.html
 - 账号密码：admin/123456
 
+
 ## 预览图
-
-> 登陆界面
-
-![](docs/preview/1.gif)
-
-> 菜单树切换
-
-![](docs/preview/2.gif)
-
-> 表格浏览
-
-![](docs/preview/3.gif)
-
-> 增删改查
-
-![](docs/preview/4.gif)
-
-> 组织机构
-
-![](docs/preview/5.gif)
-
-> 资源管理
-
-![](docs/preview/6.gif)
-
-> 自适应测试
-
-![](docs/preview/8.gif)
 
 ## 代码生成器
 

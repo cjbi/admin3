@@ -1,4 +1,4 @@
-package tech.wetech.admin.config;
+package tech.wetech.admin.event;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

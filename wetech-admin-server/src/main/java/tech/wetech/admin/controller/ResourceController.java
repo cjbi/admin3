@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.annotation.SystemLog;
-import tech.wetech.admin.utils.Result;
-import tech.wetech.admin.model.enums.ResourceType;
+import tech.wetech.admin.model.Result;
+import tech.wetech.admin.model.enumeration.ResourceType;
 import tech.wetech.admin.model.entity.Resource;
 import tech.wetech.admin.service.ResourceService;
 

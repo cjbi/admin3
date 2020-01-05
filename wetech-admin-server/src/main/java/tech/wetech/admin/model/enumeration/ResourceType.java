@@ -1,4 +1,4 @@
-package tech.wetech.admin.model.enums;
+package tech.wetech.admin.model.enumeration;
 
 public enum ResourceType {
     MENU("菜单"), BUTTON("按钮");

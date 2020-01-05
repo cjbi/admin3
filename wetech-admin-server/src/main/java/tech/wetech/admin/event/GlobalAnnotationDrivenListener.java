@@ -17,8 +17,6 @@ public class GlobalAnnotationDrivenListener {
     @EventListener
     public void handleApplicationStarted(ApplicationStartedEvent ase) {
         logger.info("Handling application {} started event.", ase);
-        logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>服务启动完成！");
-        logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        logger.info(">>>>>>>>>>>>>>>服务启动完成！");
     }
 }

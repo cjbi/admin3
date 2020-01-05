@@ -1,4 +1,4 @@
-package tech.wetech.admin.config;
+package tech.wetech.admin.shiro;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -26,7 +26,7 @@ import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class ShiroConfig {
 
     @Bean

@@ -1,4 +1,4 @@
-package tech.wetech.admin.config;
+package tech.wetech.admin.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("tech.wetech.admin.modules.system.web"))
+                .apis(RequestHandlerSelectors.basePackage("tech.wetech.admin.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

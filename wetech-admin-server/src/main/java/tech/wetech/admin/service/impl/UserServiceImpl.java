@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.wetech.admin.exception.BizException;
-import tech.wetech.admin.utils.ResultCodeEnum;
+import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.mapper.UserMapper;
 import tech.wetech.admin.model.entity.User;
@@ -34,7 +34,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public void createUser(User user) {
         User u = userMapper.createCriteria().andEqualTo(User::getUsername, user.getUsername()).selectOne();
         if (u != null) {
-            throw new BizException(ResultCodeEnum.FAILED_USER_ALREADY_EXIST);
+            throw new BizException(CommonResultStatus.FAILED_USER_ALREADY_EXIST);
         }
         // 加密密码
         passwordHelper.encryptPassword(user);

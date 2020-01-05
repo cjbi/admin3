@@ -1,4 +1,4 @@
-package tech.wetech.admin.model.enums;
+package tech.wetech.admin.model.enumeration;
 
 public enum GroupType {
     GROUP_1,

@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.model.query.PageQuery;
 import tech.wetech.admin.service.LogService;
-import tech.wetech.admin.utils.Result;
+import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Log;
 import tech.wetech.mybatis.domain.Page;
 

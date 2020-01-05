@@ -1,7 +1,7 @@
 package tech.wetech.admin.model.entity;
 
 import lombok.Data;
-import tech.wetech.admin.model.enums.ResourceType;
+import tech.wetech.admin.model.enumeration.ResourceType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

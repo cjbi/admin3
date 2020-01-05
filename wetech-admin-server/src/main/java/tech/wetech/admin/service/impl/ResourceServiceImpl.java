@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.model.dto.ResourceDTO;
-import tech.wetech.admin.model.enums.ResourceType;
+import tech.wetech.admin.model.enumeration.ResourceType;
 import tech.wetech.admin.mapper.ResourceMapper;
 import tech.wetech.admin.model.entity.Resource;
 import tech.wetech.admin.service.ResourceService;

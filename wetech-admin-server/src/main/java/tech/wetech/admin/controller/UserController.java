@@ -9,18 +9,18 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.annotation.SystemLog;
-import tech.wetech.admin.utils.Result;
-import tech.wetech.admin.utils.ResultCodeEnum;
-import tech.wetech.admin.model.query.PageQuery;
+import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Group;
 import tech.wetech.admin.model.entity.Organization;
 import tech.wetech.admin.model.entity.Role;
 import tech.wetech.admin.model.entity.User;
+import tech.wetech.admin.model.enumeration.CommonResultStatus;
+import tech.wetech.admin.model.query.PageQuery;
+import tech.wetech.admin.model.vo.UserVO;
 import tech.wetech.admin.service.GroupService;
 import tech.wetech.admin.service.OrganizationService;
 import tech.wetech.admin.service.RoleService;
 import tech.wetech.admin.service.UserService;
-import tech.wetech.admin.model.vo.UserVO;
 import tech.wetech.mybatis.domain.Page;
 
 import javax.validation.constraints.NotNull;
@@ -156,7 +156,7 @@ public class UserController {
         User user = userService.queryOne(user1);
         boolean isSelf = Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));
         if (isSelf) {
-            return Result.failure(ResultCodeEnum.FAILED_DEL_OWN);
+            return Result.failure(CommonResultStatus.FAILED_DEL_OWN);
         }
         Arrays.stream(ids).forEach(userService::deleteById);
         return Result.success();

@@ -1,7 +1,7 @@
 package tech.wetech.admin.model.dto;
 
 import lombok.Data;
-import tech.wetech.admin.model.enums.ResourceType;
+import tech.wetech.admin.model.enumeration.ResourceType;
 import tech.wetech.admin.model.entity.Resource;
 
 import java.util.List;

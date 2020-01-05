@@ -1,34 +1,31 @@
 package tech.wetech.admin.exception;
 
-import tech.wetech.admin.utils.ResultCodeEnum;
+import tech.wetech.admin.model.ResultStatus;
 
 public class BizException extends RuntimeException {
 
-    private String code;
+    private final String code;
 
-    private String msg;
+    private final String msg;
 
-    public BizException(ResultCodeEnum resultCodeEnum) {
-        super(resultCodeEnum.getMsg());
-        this.code = resultCodeEnum.getCode();
-        this.msg = resultCodeEnum.getMsg();
+    public BizException(ResultStatus resultStatus) {
+        super(resultStatus.getMsg());
+        this.code = resultStatus.getCode();
+        this.msg = resultStatus.getMsg();
+    }
+
+    public BizException(ResultStatus resultStatus, String message) {
+        super(message);
+        this.code = resultStatus.getCode();
+        this.msg = message;
     }
 
     public String getCode() {
         return code;
     }
 
-    public BizException setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
     public String getMsg() {
         return msg;
     }
 
-    public BizException setMsg(String msg) {
-        this.msg = msg;
-        return this;
-    }
 }

@@ -1,11 +1,12 @@
-package tech.wetech.admin.utils;
+package tech.wetech.admin.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import tech.wetech.admin.model.enumeration.CommonResultStatus;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author cjbi@outlook.com
@@ -29,8 +30,10 @@ public class Result<T> implements Serializable {
     @ApiModelProperty("额外数据")
     private Map<String, Object> extra;
 
-    public Result<T> addExtraIfTrue(boolean val, String key, Object value) {
-        if (val) {
+    private static final Result EMPTY_SUCCESS_RESULT = Result.success(null);
+
+    public Result<T> addExtraIfTrue(boolean bool, String key, Object value) {
+        if (bool) {
             addExtra(key, value);
         }
         return this;
@@ -88,23 +91,50 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> success() {
-        return Result.success(null);
-    }
-
-    public static Result failure(ResultCodeEnum resultCodeEnum) {
-        return new Result()
-                .setSuccess(false)
-                .setCode(resultCodeEnum.getCode())
-                .setMsg(resultCodeEnum.getMsg());
+        return EMPTY_SUCCESS_RESULT;
     }
 
     public static <T> Result<T> success(T obj) {
         return new Result()
-                //为null统一给前端{}
-                .setData(obj == null ? Collections.EMPTY_MAP : obj)
-                .setCode(ResultCodeEnum.OK.getCode())
-                .setMsg(ResultCodeEnum.OK.getMsg())
+                .setData(obj)
+                .setCode(CommonResultStatus.OK.getCode())
+                .setMsg(CommonResultStatus.OK.getMsg())
                 .setSuccess(true);
     }
+
+    public static Result failure(ResultStatus resultStatus) {
+        return new Result()
+                .setSuccess(false)
+                .setCode(resultStatus.getCode())
+                .setMsg(resultStatus.getMsg());
+    }
+
+    public static Result failure(ResultStatus resultStatus, Throwable e) {
+        return new Result()
+                .setSuccess(false)
+                .setData(e)
+                .setCode(resultStatus.getCode())
+                .setMsg(resultStatus.getMsg());
+    }
+
+    public static Result failure(String code, String msg) {
+        return new Result()
+                .setSuccess(false)
+                .setCode(code)
+                .setMsg(msg);
+    }
+
+    public <X extends Throwable> T orElseThrow(Supplier<? extends X> s) throws X {
+        if (this.isSuccess()) {
+            return this.getData();
+        } else {
+            throw s.get();
+        }
+    }
+
+    public T orElseGetData(Supplier<? extends T> other) {
+        return this.getData() != null ? this.getData() : other.get();
+    }
+
 
 }
