@@ -1,4 +1,4 @@
-package tech.wetech.admin.config.aspect;
+package tech.wetech.admin.aspect;
 
 import java.lang.annotation.*;
 

@@ -1,4 +1,4 @@
-package tech.wetech.admin.config.shiro.credentials;
+package tech.wetech.admin.shiro.credentials;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

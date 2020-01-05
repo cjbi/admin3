@@ -1,4 +1,4 @@
-package tech.wetech.admin.config.swagger;
+package tech.wetech.admin.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

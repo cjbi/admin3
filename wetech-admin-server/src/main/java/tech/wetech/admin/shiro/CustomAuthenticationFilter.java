@@ -1,4 +1,4 @@
-package tech.wetech.admin.config.shiro;
+package tech.wetech.admin.shiro;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;

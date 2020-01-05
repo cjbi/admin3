@@ -1,4 +1,4 @@
-package tech.wetech.admin.config;
+package tech.wetech.admin;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
