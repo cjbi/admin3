@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Object> handleThrowable(HttpServletRequest request, Throwable e) {
-        LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
+        LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
         return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({BizException.class})
     public Result handleBizException(HttpServletRequest request, BizException e) {
-        LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
+        LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
         return Result.failure(CommonResultStatus.PARAM_ERROR);
     }
 
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class, ConstraintViolationException.class})
     public Result handleJSR303Exception(HttpServletRequest request, Exception e) {
-        LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
+        LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
         BindingResult br = null;
         Result result = Result.builder()
                 .success(false)
