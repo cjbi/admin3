@@ -21,9 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class IndexController {
 
-    @RequestMapping("/auth/login")
+//    @RequestMapping("/auth/login")
     public Result showLoginForm(HttpServletRequest request) {
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
+        Subject subject = SecurityUtils.getSubject();
         log.info("Begin to login");
         String error = null;
         if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
@@ -35,13 +36,8 @@ public class IndexController {
         } else if (exceptionClassName != null) {
             error = "其他错误：" + exceptionClassName;
         }
-        if (error != null) {
-            return Result.failure(CommonResultStatus.LOGIN_ERROR, error);
-        }
-        Subject subject = SecurityUtils.getSubject();
-        if (!subject.isAuthenticated()) {
-            return Result.failure(CommonResultStatus.LOGIN_ERROR, "未登录");
-        }
-        return Result.success();
+        boolean loginSuccess = error == null && subject.isAuthenticated();
+        String loginErrorMsg = error == null ? "未登录" : error;
+        return loginSuccess ? Result.success() : Result.failure(CommonResultStatus.LOGIN_ERROR, loginErrorMsg);
     }
 }

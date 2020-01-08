@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.aspect.SystemLog;
+import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Group;
 import tech.wetech.admin.model.entity.Organization;
@@ -60,7 +61,7 @@ public class UserController {
     @ResponseBody
     @GetMapping("/list")
     @RequiresPermissions("user:view")
-    public Result<List<UserVO>> queryList(User user, PageQuery pageQuery) {
+    public Result queryList(User user, PageQuery pageQuery) {
         Page<User> page = (Page<User>) userService.queryList(user, pageQuery);
         List<UserVO> userVOS = new ArrayList<>();
         page.forEach(u -> {
@@ -70,7 +71,7 @@ public class UserController {
             userVO.setGroupNames(getGroupNames(userVO.getGroupIdList()));
             userVOS.add(userVO);
         });
-        return Result.success(userVOS).addExtra("total", page.getTotal());
+        return Result.success(new PageWrapper(userVOS, page.getTotal()));
     }
 
     private String getGroupNames(Collection<Long> groupIds) {

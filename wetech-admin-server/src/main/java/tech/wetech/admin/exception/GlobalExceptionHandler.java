@@ -31,9 +31,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Object> handleThrowable(HttpServletRequest request, Throwable e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
-        return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR)
-                .addExtra("stackTrace", e.getStackTrace())
-                .addExtra("exceptionMessage", e.getClass().getName() + ": " + e.getMessage());
+        return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -46,9 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({BizException.class})
     public Result handleBizException(HttpServletRequest request, BizException e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
-        return Result.failure(CommonResultStatus.PARAM_ERROR)
-                .addExtra("stackTrace", e.getStackTrace())
-                .addExtra("exceptionMessage", e.getClass().getName() + ": " + e.getMessage());
+        return Result.failure(CommonResultStatus.PARAM_ERROR);
     }
 
     /**
@@ -66,12 +62,11 @@ public class GlobalExceptionHandler {
     public Result handleJSR303Exception(HttpServletRequest request, Exception e) {
         LOGGER.error("execute methond exception error.url is {}", request.getRequestURI(), e);
         BindingResult br = null;
-        Result result = new Result()
-                .setSuccess(false)
-                .setCode(CommonResultStatus.PARAM_ERROR.getCode())
-                .setMsg(CommonResultStatus.PARAM_ERROR.getMsg())
-                .addExtra("stackTrace", e.getStackTrace())
-                .addExtra("exceptionMessage", e.getClass().getName() + ": " + e.getMessage());
+        Result result = Result.builder()
+                .success(false)
+                .code(CommonResultStatus.PARAM_ERROR.getCode())
+                .msg(CommonResultStatus.PARAM_ERROR.getMsg())
+                .build();
 
         if (e instanceof BindException) {
             br = ((BindException) e).getBindingResult();
@@ -80,22 +75,23 @@ public class GlobalExceptionHandler {
             br = ((MethodArgumentNotValidException) e).getBindingResult();
         }
         if (br != null) {
-            return result.setData(
+            result.setData(
                     br.getFieldErrors().stream()
                             .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage, (oldValue, newValue) -> oldValue.concat(",").concat(newValue)))
-            ).setMsg(
+            );
+            result.setMsg(
                     br.getFieldErrors().stream()
                             .map(f -> f.getField().concat(f.getDefaultMessage()))
                             .collect(Collectors.joining(","))
             );
+            return result;
         }
         if (e instanceof ConstraintViolationException) {
             Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) e).getConstraintViolations();
-            return result
-                    .setData(
-                            constraintViolations.stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage))
-                    )
-                    .setMsg(e.getMessage());
+            result.setData(
+                    constraintViolations.stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage))
+            );
+            result.setMsg(e.getMessage());
         }
         return result;
     }

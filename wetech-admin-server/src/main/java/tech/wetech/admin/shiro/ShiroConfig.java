@@ -35,7 +35,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //shiro自定义过滤器
         Map<String, Filter> filters = new LinkedHashMap<>();
-        filters.put("authc", new CustomAuthenticationFilter());
+        filters.put("authc", new JsonAuthenticationFilter());
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         shiroFilterFactoryBean.setFilters(filters);
         //配置记住我或认证通过可以访问的地址
@@ -55,6 +55,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/loading/**", "anon");
         filterChainDefinitionMap.put("/avatar2.jpg", "anon");
         filterChainDefinitionMap.put("/index.html", "anon");
+//        filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/logo.png", "anon");
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "user");

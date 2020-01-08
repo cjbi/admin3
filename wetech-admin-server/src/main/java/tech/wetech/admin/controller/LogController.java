@@ -7,10 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.model.query.PageQuery;
-import tech.wetech.admin.service.LogService;
+import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Log;
+import tech.wetech.admin.model.query.PageQuery;
+import tech.wetech.admin.service.LogService;
 import tech.wetech.mybatis.domain.Page;
 
 import javax.validation.constraints.NotNull;
@@ -39,8 +40,7 @@ public class LogController {
     @ResponseBody
     public Result queryList(Log entity, PageQuery pageQuery) {
         List<Log> list = logService.queryList(entity, pageQuery);
-        return Result.success(list)
-                .addExtraIfTrue(pageQuery.isCountSql(), "total", ((Page) list).getTotal());
+        return Result.success(new PageWrapper((Page) list));
     }
 
     @GetMapping("/{id}")

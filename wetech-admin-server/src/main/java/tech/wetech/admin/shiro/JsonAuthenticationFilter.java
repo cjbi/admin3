@@ -12,6 +12,7 @@ import tech.wetech.admin.utils.JsonUtil;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -20,7 +21,7 @@ import java.io.PrintWriter;
  * @author cjbi
  */
 @Slf4j
-public class CustomAuthenticationFilter extends FormAuthenticationFilter {
+public class JsonAuthenticationFilter extends FormAuthenticationFilter {
 
     /**
      * 登录成功
@@ -34,10 +35,18 @@ public class CustomAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) {
-        if(log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug("用户{}登录成功", token.getPrincipal());
         }
-        return true;
+        HttpServletResponse res = (HttpServletResponse) response;
+        res.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            JsonUtil json = JsonUtil.getInstance();
+            out.println(json.obj2json(Result.success()));
+            out.flush();
+        } catch (IOException e) {
+        }
+        return false;
     }
 
     /**
@@ -51,8 +60,17 @@ public class CustomAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
-        if(log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug("用户{}登录失败", token.getPrincipal(), e);
+        }
+        HttpServletResponse res = (HttpServletResponse) response;
+        res.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            Result failureResult = Result.failure(CommonResultStatus.LOGIN_ERROR, "请先登录再操作");
+            JsonUtil json = JsonUtil.getInstance();
+            out.println(json.obj2json(failureResult));
+            out.flush();
+        } catch (IOException ex) {
         }
         return false;
     }
@@ -65,25 +83,17 @@ public class CustomAuthenticationFilter extends FormAuthenticationFilter {
                 if (log.isTraceEnabled()) {
                     log.trace("Login submission detected.  Attempting to execute login.");
                 }
-
                 return this.executeLogin(request, response);
-            } else {
-                if (log.isTraceEnabled()) {
-                    log.trace("Login page view.");
-                }
-                return true;
             }
-        } else {
-            HttpServletResponse res = (HttpServletResponse) response;
-            PrintWriter out = response.getWriter();
-            res.setCharacterEncoding("UTF-8");
-            res.setContentType("application/json");
-            Result failureResult = Result.failure(CommonResultStatus.LOGIN_ERROR, "请先登录再操作");
-            JsonUtil json = JsonUtil.getInstance();
-            out.println(json.obj2json(failureResult));
-            return false;
         }
-
+        HttpServletResponse res = (HttpServletResponse) response;
+        res.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            Result failureResult = Result.failure(CommonResultStatus.LOGIN_ERROR, "请先登录再操作");
+            out.println(JsonUtil.getInstance().obj2json(failureResult));
+            out.flush();
+        }
+        return false;
 
     }
 }

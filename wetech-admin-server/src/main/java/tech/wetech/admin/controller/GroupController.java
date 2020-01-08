@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.aspect.SystemLog;
+import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Group;
 import tech.wetech.admin.model.enumeration.GroupType;
@@ -48,8 +49,7 @@ public class GroupController {
     @ResponseBody
     public Result queryList(Group entity, PageQuery pageQuery) {
         List<Group> list = groupService.queryList(entity, pageQuery);
-        return Result.success(list)
-                .addExtraIfTrue(pageQuery.isCountSql(), "total", ((Page) list).getTotal());
+        return Result.success(new PageWrapper((Page) list));
     }
 
     @GetMapping("/{id}")
