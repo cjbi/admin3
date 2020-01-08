@@ -43,8 +43,6 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/auth/login", "authc");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/auth/logout", "logout");
-        //未授权界面;
-        filterChainDefinitionMap.put("/auth/authenticated", "authc");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         filterChainDefinitionMap.put("swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
