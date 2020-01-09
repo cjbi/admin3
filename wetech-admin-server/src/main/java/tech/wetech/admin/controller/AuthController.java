@@ -1,16 +1,21 @@
 package tech.wetech.admin.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.dto.ResourceDTO;
+import tech.wetech.admin.model.dto.UserDTO;
+import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import tech.wetech.admin.service.ResourceService;
 import tech.wetech.admin.service.UserService;
-import tech.wetech.admin.utils.Constants;
+import tech.wetech.admin.model.constant.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -19,9 +24,10 @@ import java.util.List;
 /**
  * @author cjbi
  */
-//@Controller
+@RestController
 @Slf4j
-public class HomeController {
+@RequestMapping("auth")
+public class AuthController {
 
     @Autowired
     private ResourceService resourceService;
@@ -29,8 +35,8 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
-    public String showLoginForm(HttpServletRequest req, Model model) {
+    @RequestMapping("login")
+    public Result<UserDTO> showLoginForm(HttpServletRequest req) {
         String exceptionClassName = (String) req.getAttribute("shiroLoginFailure");
         log.info("begin to login");
         String error = null;
@@ -43,8 +49,16 @@ public class HomeController {
         } else if (exceptionClassName != null) {
             error = "其他错误：" + exceptionClassName;
         }
-        model.addAttribute("error", error);
-        return "system/login";
+        if (error != null) {
+            return Result.failure(CommonResultStatus.LOGIN_ERROR, error);
+        }
+        Subject subject = SecurityUtils.getSubject();
+        if (!subject.isAuthenticated()) {
+            return Result.failure(CommonResultStatus.LOGIN_ERROR, "请先登录");
+        }
+        String username = (String) subject.getPrincipal();
+        UserDTO user = userService.queryUserInfo(username);
+        return Result.success(user);
     }
 
 //    @GetMapping("/")

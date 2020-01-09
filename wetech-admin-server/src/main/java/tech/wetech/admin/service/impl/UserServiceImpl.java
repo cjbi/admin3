@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.wetech.admin.exception.BizException;
+import tech.wetech.admin.mapper.UserMapper;
+import tech.wetech.admin.model.dto.UserDTO;
+import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import tech.wetech.admin.service.BaseService;
-import tech.wetech.admin.mapper.UserMapper;
-import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.service.PasswordHelper;
 import tech.wetech.admin.service.RoleService;
 import tech.wetech.admin.service.UserService;
@@ -51,7 +52,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public Set<String> findRoles(String username) {
+    public Set<String> queryRoles(String username) {
         User user = userMapper.createCriteria().andEqualTo(User::getUsername, username).selectOne();
         if (user == null) {
             return Collections.EMPTY_SET;
@@ -62,7 +63,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public Set<String> findPermissions(String username) {
+    public Set<String> queryPermissions(String username) {
         User user = userMapper.createCriteria().andEqualTo(User::getUsername, username).selectOne();
         if (user == null) {
             return Collections.EMPTY_SET;
@@ -70,5 +71,18 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         return roleService.queryPermissions(
                 Arrays.asList(user.getRoleIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList()).toArray(new Long[0])
         );
+    }
+
+    @Override
+    public UserDTO queryUserInfo(String username) {
+        User user = userMapper.createCriteria()
+                .andEqualTo(User::getUsername, username)
+                .selectOne();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setOrganizationId(user.getOrganizationId());
+        userDTO.setRoleIds(user.getRoleIds());
+        return userDTO;
     }
 }

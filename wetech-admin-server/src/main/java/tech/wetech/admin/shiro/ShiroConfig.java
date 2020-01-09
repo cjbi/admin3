@@ -1,6 +1,9 @@
 package tech.wetech.admin.shiro;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
@@ -70,98 +73,18 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public DefaultWebSecurityManager securityManager(UserRealm userRealm, DefaultWebSessionManager sessionManager, SpringCacheManagerWrapper cacheManager) {
+    public DefaultWebSecurityManager securityManager(UserRealm userRealm, SpringCacheManagerWrapper cacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
-        securityManager.setSessionManager(sessionManager);
         securityManager.setCacheManager(cacheManager);
-        securityManager.setRememberMeManager(rememberMeManager());
+
+        //关闭shiro自带的session
+        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
+        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
+        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
+        securityManager.setSubjectDAO(subjectDAO);
         return securityManager;
-    }
-
-    /**
-     * 会话Cookie模板
-     *
-     * @return
-     */
-    @Bean
-    public SimpleCookie sessionIdCookie() {
-        SimpleCookie simpleCookie = new SimpleCookie("sid");
-        simpleCookie.setHttpOnly(true);
-        simpleCookie.setMaxAge(-1);
-        return simpleCookie;
-    }
-
-    /**
-     * 自动登陆自动登陆cookie
-     *
-     * @return
-     */
-    @Bean
-    public SimpleCookie rememberMeCookie() {
-        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-        simpleCookie.setHttpOnly(true);
-        simpleCookie.setMaxAge(2592000);
-        return simpleCookie;
-    }
-
-    /**
-     * rememberMe管理器
-     *
-     * @return
-     */
-    @Bean
-    public CookieRememberMeManager rememberMeManager() {
-        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
-        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
-        cookieRememberMeManager.setCookie(rememberMeCookie());
-        return cookieRememberMeManager;
-    }
-
-    /**
-     * 会话DAO
-     *
-     * @return
-     */
-    @Bean
-    public EnterpriseCacheSessionDAO sessionDAO() {
-        //会话ID生成器
-        JavaUuidSessionIdGenerator javaUuidSessionIdGenerator = new JavaUuidSessionIdGenerator();
-        EnterpriseCacheSessionDAO enterpriseCacheSessionDAO = new EnterpriseCacheSessionDAO();
-        enterpriseCacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
-        enterpriseCacheSessionDAO.setSessionIdGenerator(javaUuidSessionIdGenerator);
-
-        return enterpriseCacheSessionDAO;
-    }
-
-    /**
-     * 会话管理器
-     *
-     * @return
-     */
-    @Bean
-    public DefaultWebSessionManager sessionManager() {
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        sessionManager.setGlobalSessionTimeout(1800000);
-        sessionManager.setDeleteInvalidSessions(true);
-//        sessionManager.setSessionValidationScheduler(sessionValidationScheduler);
-        sessionManager.setSessionDAO(sessionDAO());
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionIdCookie(sessionIdCookie());
-        return sessionManager;
-    }
-
-    /**
-     * 会话验证调度器
-     *
-     * @return
-     */
-    @Bean
-    public QuartzSessionValidationScheduler sessionValidationScheduler(DefaultWebSessionManager sessionManager) {
-        QuartzSessionValidationScheduler sessionValidationScheduler = new QuartzSessionValidationScheduler();
-        sessionValidationScheduler.setSessionValidationInterval(1800000);
-        sessionValidationScheduler.setSessionManager(sessionManager);
-        return sessionValidationScheduler;
     }
 
     /**

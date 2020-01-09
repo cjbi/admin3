@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import tech.wetech.admin.utils.Constants;
+import tech.wetech.admin.model.constant.Constants;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.model.dto.TreeDTO;
 import tech.wetech.admin.mapper.OrganizationMapper;

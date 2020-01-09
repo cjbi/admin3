@@ -39,7 +39,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     public Set<String> queryPermissions(Long[] roleIds) {
         Example<Role> weekend = Example.of(Role.class);
         weekend.createCriteria().andIn(Role::getId, Arrays.asList(roleIds));
-        return resourceService.findPermissions(
+        return resourceService.queryPermissions(
                 roleMapper.selectByExample(weekend).stream().flatMap(r ->
                         Arrays.asList(r.getResourceIds().split(",")).stream()
                 ).map(Long::valueOf).collect(Collectors.toSet())

@@ -39,7 +39,7 @@ public class ResourceServiceImpl extends BaseService<Resource> implements Resour
     }
 
     @Override
-    public Set<String> findPermissions(Set<Long> resourceIds) {
+    public Set<String> queryPermissions(Set<Long> resourceIds) {
         Set<String> permissions = new HashSet<>();
         for (Long resourceId : resourceIds) {
             Resource resource = resourceMapper.createCriteria().andEqualTo(Resource::getId, resourceId).selectOne();
@@ -51,7 +51,7 @@ public class ResourceServiceImpl extends BaseService<Resource> implements Resour
     }
 
     @Override
-    public List<ResourceDTO> findMenus(Set<String> permissions) {
+    public List<ResourceDTO> queryMenus(Set<String> permissions) {
         Example example = Example.of(Resource.class);
         example.setOrderByClause("priority");
         List<Resource> allResources = resourceMapper.selectByExample(example);
@@ -72,7 +72,7 @@ public class ResourceServiceImpl extends BaseService<Resource> implements Resour
     }
 
     @Override
-    public List<Resource> findOrderByPriority() {
+    public List<Resource> queryOrderByPriority() {
         Example<Resource> example = Example.of(Resource.class);
         example.setOrderByClause("priority");
         return resourceMapper.selectByExample(example);

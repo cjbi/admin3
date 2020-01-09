@@ -30,7 +30,7 @@ public class ResourceController {
     @RequiresPermissions("resource:view")
     @GetMapping
     public String resourcePage(Model model) {
-        model.addAttribute("resourceList", resourceService.findOrderByPriority());
+        model.addAttribute("resourceList", resourceService.queryOrderByPriority());
         return "system/resource";
     }
 

@@ -1,6 +1,7 @@
 package tech.wetech.admin.service;
 
 import tech.wetech.admin.exception.BizException;
+import tech.wetech.admin.model.dto.UserDTO;
 import tech.wetech.admin.model.entity.User;
 
 import java.util.Set;
@@ -26,7 +27,7 @@ public interface UserService extends IService<User> {
      * @param username
      * @return
      */
-    Set<String> findRoles(String username);
+    Set<String> queryRoles(String username);
 
     /**
      * 根据用户名查找其权限
@@ -34,6 +35,8 @@ public interface UserService extends IService<User> {
      * @param username
      * @return
      */
-    Set<String> findPermissions(String username);
+    Set<String> queryPermissions(String username);
+
+    UserDTO queryUserInfo(String username);
 
 }

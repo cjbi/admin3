@@ -1,7 +1,6 @@
 package tech.wetech.admin.service;
 
 
-import tech.wetech.admin.service.IService;
 import tech.wetech.admin.model.dto.ResourceDTO;
 import tech.wetech.admin.model.entity.Resource;
 
@@ -18,7 +17,7 @@ public interface ResourceService extends IService<Resource> {
      * @param resourceIds
      * @return
      */
-    Set<String> findPermissions(Set<Long> resourceIds);
+    Set<String> queryPermissions(Set<Long> resourceIds);
 
     /**
      * 根据用户权限得到菜单
@@ -26,8 +25,8 @@ public interface ResourceService extends IService<Resource> {
      * @param permissions
      * @return
      */
-    List<ResourceDTO> findMenus(Set<String> permissions);
+    List<ResourceDTO> queryMenus(Set<String> permissions);
 
-    List<Resource> findOrderByPriority();
+    List<Resource> queryOrderByPriority();
 
 }

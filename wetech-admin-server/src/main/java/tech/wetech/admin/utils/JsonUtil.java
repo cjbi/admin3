@@ -1,76 +1,51 @@
 package tech.wetech.admin.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
 
 public class JsonUtil {
-	private static JsonUtil ju;
-	private static JsonFactory jf;
-	private static ObjectMapper mapper;
-	private JsonUtil(){}
-	
-	public static JsonUtil getInstance() {
-		if(ju==null) {
-			ju = new JsonUtil();
-		}
-		return ju;
+
+	private static final ObjectMapper JSON = new ObjectMapper();
+
+	static {
+		JSON.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		JSON.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
+		//不显示为null的字段
+		JSON.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		//序列化枚举是以ordinal()来输出
+		JSON.configure(SerializationFeature.WRITE_ENUMS_USING_INDEX, true);
+		SimpleModule simpleModule = new SimpleModule();
+//        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
+//        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+		JSON.registerModule(simpleModule);
+		//不校验未知属性com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "modelName" (class tech.wetech.admin.web.dto.system.GeneratorDto), not marked as ignorable (31 known properties: "jspTargetFolder", "controllerName", "generateKeys", "controllerPackage", "domainObjectName", "daoTargetFolder", "daoPackage", "moduleName", "controllerTargetFolder", "modelPackageTargetFolder", "modelPackage", "comment", "serviceImplName", "projectFolder", "mappingXMLTargetFolder", "ignoredColumns", "mapperName", "annotation", "columnOverrides", "jspName", "serviceImplTargetFolder", "tableName", "useTableNameAlias", "serviceImplPackage", "mappingXMLPackage", "serviceName", "offsetLimit", "serviceTargetFolder", "needToStringHashcodeEquals", "useActualColumnNames", "servicePackage"])
+		JSON.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
-	
-	public static ObjectMapper getMapper() {
-		if(mapper==null) {
-			mapper = new ObjectMapper();
-			//不校验未知属性com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "modelName" (class tech.wetech.admin.web.dto.system.GeneratorDto), not marked as ignorable (31 known properties: "jspTargetFolder", "controllerName", "generateKeys", "controllerPackage", "domainObjectName", "daoTargetFolder", "daoPackage", "moduleName", "controllerTargetFolder", "modelPackageTargetFolder", "modelPackage", "comment", "serviceImplName", "projectFolder", "mappingXMLTargetFolder", "ignoredColumns", "mapperName", "annotation", "columnOverrides", "jspName", "serviceImplTargetFolder", "tableName", "useTableNameAlias", "serviceImplPackage", "mappingXMLPackage", "serviceName", "offsetLimit", "serviceTargetFolder", "needToStringHashcodeEquals", "useActualColumnNames", "servicePackage"])
-			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		}
-		return mapper;
-	}
-	
-	public static JsonFactory getFactory() {
-		if(jf==null) {
-			jf = new JsonFactory();
-		}
-		return jf;
-	}
-	
-	public String obj2json(Object obj) {
-		JsonGenerator jg = null;
+
+	public static String toJson(Object obj) {
 		try {
-			jf = getFactory();
-			mapper = getMapper();
-			StringWriter out = new StringWriter();
-			jg = jf.createGenerator(out);
-			mapper.writeValue(jg, obj);
-			return out.toString();
-		} catch (IOException e) {
+			return JSON.writeValueAsString(obj);
+		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if(jg!=null) {
-					jg.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		return null;
 	}
-	
-	public Object json2obj(String json,Class<?> clz) {
+
+	public static <T> T toObject(String json, Class<T> clz) {
 		try {
-			mapper = getMapper();
-			return mapper.readValue(json,clz);
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
+			return JSON.readValue(json, clz);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
