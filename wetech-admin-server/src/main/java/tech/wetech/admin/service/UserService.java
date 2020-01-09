@@ -3,6 +3,7 @@ package tech.wetech.admin.service;
 import tech.wetech.admin.exception.BizException;
 import tech.wetech.admin.model.dto.UserDTO;
 import tech.wetech.admin.model.entity.User;
+import tech.wetech.admin.model.vo.LoginDTO;
 
 import java.util.Set;
 
@@ -38,5 +39,7 @@ public interface UserService extends IService<User> {
     Set<String> queryPermissions(String username);
 
     UserDTO queryUserInfo(String username);
+
+    UserDTO login(LoginDTO loginDTO);
 
 }

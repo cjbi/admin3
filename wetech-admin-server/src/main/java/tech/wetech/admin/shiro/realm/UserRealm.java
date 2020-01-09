@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.service.UserService;
+import tech.wetech.admin.shiro.JwtToken;
+import tech.wetech.admin.shiro.JwtUtil;
+import tech.wetech.admin.shiro.SecurityConsts;
 
 public class UserRealm extends AuthorizingRealm {
 
@@ -17,9 +20,13 @@ public class UserRealm extends AuthorizingRealm {
     private UserService userService;
 
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = (String) principals.getPrimaryPrincipal();
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof JwtToken;
+    }
 
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        String username = JwtUtil.getClaim(principals.toString(), SecurityConsts.ACCOUNT);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setRoles(userService.queryRoles(username));
         authorizationInfo.setStringPermissions(userService.queryPermissions(username));
@@ -28,8 +35,8 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-
-        String username = (String) token.getPrincipal();
+        String principal = (String) token.getPrincipal();
+        String username = JwtUtil.getClaim(principal, SecurityConsts.ACCOUNT);
         User user = null;
         if (!StringUtils.isEmpty(username)) {
             User user1 = new User();

@@ -8,6 +8,7 @@ import tech.wetech.admin.mapper.UserMapper;
 import tech.wetech.admin.model.dto.UserDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
+import tech.wetech.admin.model.vo.LoginDTO;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PasswordHelper;
 import tech.wetech.admin.service.RoleService;
@@ -84,5 +85,15 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         userDTO.setOrganizationId(user.getOrganizationId());
         userDTO.setRoleIds(user.getRoleIds());
         return userDTO;
+    }
+
+    @Override
+    public UserDTO login(LoginDTO loginDTO) {
+        User user = userMapper.createCriteria().andEqualTo(User::getUsername, loginDTO.getUsername()).selectOne();
+        if (user == null) {
+            throw new BizException(CommonResultStatus.LOGIN_ERROR, "用户不存在");
+        }
+
+        return null;
     }
 }
