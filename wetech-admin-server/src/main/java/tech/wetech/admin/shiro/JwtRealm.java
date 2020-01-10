@@ -12,10 +12,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.wetech.admin.service.UserService;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
 @Slf4j
 public class JwtRealm extends AuthorizingRealm {
 

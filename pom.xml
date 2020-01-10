@@ -28,18 +28,18 @@
 
     <profiles>
         <profile>
-            <id>env-dev</id>
+            <id>env-development</id>
             <properties>
-                <spring.application.proflies>dev</spring.application.proflies>
+                <spring.application.proflies>development</spring.application.proflies>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
         <profile>
-            <id>env-prd</id>
+            <id>env-production</id>
             <properties>
-                <spring.application.proflies>prd</spring.application.proflies>
+                <spring.application.proflies>production</spring.application.proflies>
             </properties>
         </profile>
     </profiles>
