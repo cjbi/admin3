@@ -3,19 +3,19 @@ package tech.wetech.admin.shiro;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.mgt.SubjectFactory;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import tech.wetech.admin.shiro.credentials.RetryLimitHashedCredentialsMatcher;
-import tech.wetech.admin.shiro.realm.UserRealm;
-import tech.wetech.admin.shiro.spring.SpringCacheManagerWrapper;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -30,15 +30,15 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //shiro自定义过滤器
         Map<String, Filter> filters = new LinkedHashMap<>();
-//        filters.put("authc", new JsonAuthenticationFilter());
+        filters.put("authc", new JwtFilter());
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         shiroFilterFactoryBean.setFilters(filters);
         //配置记住我或认证通过可以访问的地址
         // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/auth/login", "authc");
+        filterChainDefinitionMap.put("/auth/login", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/auth/logout", "logout");
-        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
+        filterChainDefinitionMap.put("/auth/logout", "anon");
+        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->
         filterChainDefinitionMap.put("swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/assets/**", "anon");
@@ -48,10 +48,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/loading/**", "anon");
         filterChainDefinitionMap.put("/avatar2.jpg", "anon");
         filterChainDefinitionMap.put("/index.html", "anon");
-//        filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/logo.png", "anon");
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinitionMap.put("/**", "user");
+        filterChainDefinitionMap.put("/**", "authc");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/auth/login");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -59,16 +58,46 @@ public class ShiroConfig {
     }
 
     /**
-     * 安全管理器
+     * 会话管理器
      *
-     * @param userRealm
      * @return
      */
     @Bean
-    public DefaultWebSecurityManager securityManager(UserRealm userRealm, SpringCacheManagerWrapper cacheManager) {
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager defaultSessionManager = new DefaultWebSessionManager();
+        defaultSessionManager.setSessionValidationSchedulerEnabled(false);
+        return defaultSessionManager;
+    }
+
+    /**
+     * Subject工厂
+     *
+     * @return
+     */
+    @Bean
+    public DefaultWebSubjectFactory subjectFactory() {
+        return new JwtSubjectFactory();
+    }
+
+    @Bean
+    public JwtRealm jwtRealm() {
+        JwtRealm jwtRealm = new JwtRealm();
+//        jwtRealm.setCachingEnabled(false);
+        //token匹配
+//        jwtRealm.setCredentialsMatcher(new JwtCredentialsMatcher());
+        return jwtRealm;
+    }
+
+    /**
+     * 安全管理器
+     *
+     * @param jwtRealm
+     * @return
+     */
+    @Bean
+    public DefaultWebSecurityManager securityManager(JwtRealm jwtRealm, SubjectFactory subjectFactory, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(userRealm);
-        securityManager.setCacheManager(cacheManager);
+        securityManager.setRealm(jwtRealm);
 
         //关闭shiro自带的session
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
@@ -76,46 +105,10 @@ public class ShiroConfig {
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         securityManager.setSubjectDAO(subjectDAO);
+
+        securityManager.setSubjectFactory(subjectFactory);
+        securityManager.setSessionManager(sessionManager);
         return securityManager;
-    }
-
-    /**
-     * 缓存管理器
-     *
-     * @return
-     */
-    @Bean
-    public SpringCacheManagerWrapper cacheManager(EhCacheCacheManager springCacheManager) {
-        SpringCacheManagerWrapper cacheManager = new SpringCacheManagerWrapper();
-        cacheManager.setCacheManager(springCacheManager);
-        return cacheManager;
-    }
-
-    /**
-     * 凭证匹配器
-     *
-     * @return
-     */
-    @Bean
-    public RetryLimitHashedCredentialsMatcher credentialsMatcher(SpringCacheManagerWrapper cacheManager) {
-        RetryLimitHashedCredentialsMatcher credentialsMatcher = new RetryLimitHashedCredentialsMatcher(cacheManager);
-        credentialsMatcher.setHashAlgorithmName("md5");
-        credentialsMatcher.setHashIterations(2);
-        credentialsMatcher.setStoredCredentialsHexEncoded(true);
-        return credentialsMatcher;
-    }
-
-    /**
-     * Realm实现
-     *
-     * @return
-     */
-    @Bean
-    public UserRealm userRealm(RetryLimitHashedCredentialsMatcher credentialsMatcher) {
-        UserRealm userRealm = new UserRealm();
-        userRealm.setCredentialsMatcher(credentialsMatcher);
-        userRealm.setCachingEnabled(false);
-        return userRealm;
     }
 
     /**

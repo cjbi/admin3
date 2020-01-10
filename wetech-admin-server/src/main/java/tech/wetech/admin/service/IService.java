@@ -28,8 +28,6 @@ public interface IService<T> {
 
     int updateNotNull(T entity);
 
-    int delete(T entity);
-
     int deleteById(Long id);
 
     int count(T entity);

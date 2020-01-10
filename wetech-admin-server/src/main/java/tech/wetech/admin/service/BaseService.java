@@ -16,8 +16,6 @@ import java.util.List;
  */
 public abstract class BaseService<T> implements IService<T> {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     protected BaseMapper<T> mapper;
 
@@ -64,11 +62,6 @@ public abstract class BaseService<T> implements IService<T> {
     @Override
     public int updateNotNull(T entity) {
         return mapper.updateByPrimaryKeySelective(entity);
-    }
-
-    @Override
-    public int delete(T entity) {
-        throw new UnsupportedOperationException("未支持");
     }
 
     @Override

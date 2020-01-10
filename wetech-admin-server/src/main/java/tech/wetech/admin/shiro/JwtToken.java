@@ -7,19 +7,19 @@ import org.apache.shiro.authc.AuthenticationToken;
  */
 public class JwtToken implements AuthenticationToken {
 
-    private final String token;
+    private final String credentials;
 
-    public JwtToken(String token) {
-        this.token = token;
+    public JwtToken(String credentials) {
+        this.credentials = credentials;
     }
 
     @Override
     public Object getPrincipal() {
-        return token;
+        throw new UnsupportedOperationException("Unsupported principal.");
     }
 
     @Override
     public Object getCredentials() {
-        return token;
+        return credentials;
     }
 }

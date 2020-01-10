@@ -59,14 +59,6 @@ create table sys_role (
 ) charset=utf8 ENGINE=InnoDB COMMENT='角色表';
 create index idx_sys_role_resource_ids on sys_role(resource_ids);
 
-CREATE TABLE sys_group (
-  id bigint AUTO_INCREMENT COMMENT '编号',
-  name varchar(100) COMMENT '组名称',
-  type varchar(50) COMMENT '组类型',
-  description varchar(100) COMMENT '描述',
-  constraint pk_sys_group PRIMARY KEY (id)
-  ) CHARSET=utf8 ENGINE=InnoDB COMMENT='用户组表';
-
 CREATE TABLE sys_log (
   id bigint AUTO_INCREMENT COMMENT '主键',
   username varchar(100) COMMENT '用户名',

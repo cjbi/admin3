@@ -8,11 +8,12 @@ import tech.wetech.admin.mapper.UserMapper;
 import tech.wetech.admin.model.dto.UserDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
-import tech.wetech.admin.model.vo.LoginDTO;
+import tech.wetech.admin.model.dto.LoginDTO;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PasswordHelper;
 import tech.wetech.admin.service.RoleService;
 import tech.wetech.admin.service.UserService;
+import tech.wetech.admin.shiro.JwtUtil;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -93,7 +94,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (user == null) {
             throw new BizException(CommonResultStatus.LOGIN_ERROR, "用户不存在");
         }
-
-        return null;
+        if (!passwordHelper.verifyPassword(user, loginDTO.getPassword())) {
+            throw new BizException(CommonResultStatus.LOGIN_ERROR, "密码错误");
+        }
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setOrganizationId(user.getOrganizationId());
+        userDTO.setRoleIds(user.getRoleIds());
+        userDTO.setToken(JwtUtil.sign(user.getUsername(), String.valueOf(System.currentTimeMillis())));
+        return userDTO;
     }
+
 }

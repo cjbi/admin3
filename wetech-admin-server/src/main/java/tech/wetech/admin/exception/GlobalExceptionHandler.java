@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Object> handleThrowable(HttpServletRequest request, Throwable e) {
         LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
-        return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR,e);
+        return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR, e);
     }
 
     /**
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({BizException.class})
     public Result handleBizException(HttpServletRequest request, BizException e) {
         LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
-        return Result.failure(CommonResultStatus.PARAM_ERROR);
+        return Result.failure(e.getStatus(), e.getMessage());
     }
 
     /**

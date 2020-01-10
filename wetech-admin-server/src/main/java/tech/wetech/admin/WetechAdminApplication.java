@@ -12,10 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * @author cjbi
  */
-@SpringBootApplication(exclude = {QuartzAutoConfiguration.class})
-@EnableTransactionManagement
-@EnableWebMvc
-@EnableCaching
+@SpringBootApplication
 @EnableSwagger2
 @MapperScan(basePackages = "tech.wetech.admin.mapper")
 public class WetechAdminApplication {

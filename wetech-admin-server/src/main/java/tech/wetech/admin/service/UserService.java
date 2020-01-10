@@ -3,7 +3,7 @@ package tech.wetech.admin.service;
 import tech.wetech.admin.exception.BizException;
 import tech.wetech.admin.model.dto.UserDTO;
 import tech.wetech.admin.model.entity.User;
-import tech.wetech.admin.model.vo.LoginDTO;
+import tech.wetech.admin.model.dto.LoginDTO;
 
 import java.util.Set;
 

@@ -27,10 +27,6 @@ INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VA
 INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VALUES (5,'test','测试角色','12,13,14,43,47',0);
 INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VALUES (6,'测试1','222','73',0);
 
-INSERT INTO `sys_group` (`id`,`name`,`type`,`description`) VALUES (1,'第一组','GROUP_1','第一组描述');
-INSERT INTO `sys_group` (`id`,`name`,`type`,`description`) VALUES (2,'第二组','GROUP_2','第二组描述');
-INSERT INTO `sys_group` (`id`,`name`,`type`,`description`) VALUES (3,'第三组','GROUP_3','第三组描述');
-
 INSERT INTO `sys_organization` (`id`,`name`,`parent_id`,`parent_ids`,`available`,`priority`,`leaf`) VALUES (1,'总公司',0,'0/',1,0,0);
 INSERT INTO `sys_organization` (`id`,`name`,`parent_id`,`parent_ids`,`available`,`priority`,`leaf`) VALUES (2,'分公司',1,'0/1/',1,1,0);
 INSERT INTO `sys_organization` (`id`,`name`,`parent_id`,`parent_ids`,`available`,`priority`,`leaf`) VALUES (3,'分公司33',1,'0/1/',1,23,0);

@@ -47,4 +47,15 @@ public class PasswordHelper {
 
         user.setPassword(newPassword);
     }
+
+    public boolean verifyPassword(User user, String password) {
+        String hash = new SimpleHash(
+                algorithmName,
+                password,
+                ByteSource.Util.bytes(user.getCredentialsSalt()),
+                hashIterations
+        ).toHex();
+        user.getPassword();
+        return user.getPassword().equals(hash);
+    }
 }

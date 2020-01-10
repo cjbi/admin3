@@ -18,7 +18,6 @@ import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import tech.wetech.admin.model.query.PageQuery;
 import tech.wetech.admin.model.vo.UserVO;
-import tech.wetech.admin.service.GroupService;
 import tech.wetech.admin.service.OrganizationService;
 import tech.wetech.admin.service.RoleService;
 import tech.wetech.admin.service.UserService;
@@ -46,15 +45,12 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private GroupService groupService;
 
     @GetMapping
     @RequiresPermissions("user:view")
     public String userPage(Model model) {
         model.addAttribute("organizationList", organizationService.queryAll());
         model.addAttribute("roleList", roleService.queryAll());
-        model.addAttribute("groupList", groupService.queryAll());
         return "system/user";
     }
 
@@ -68,31 +64,9 @@ public class UserController {
             UserVO userVO = new UserVO(u);
             userVO.setOrganizationName(getOrganizationName(userVO.getOrganizationId()));
             userVO.setRoleNames(getRoleNames(userVO.getRoleIdList()));
-            userVO.setGroupNames(getGroupNames(userVO.getGroupIdList()));
             userVOS.add(userVO);
         });
         return Result.success(new PageWrapper(userVOS, page.getTotal()));
-    }
-
-    private String getGroupNames(Collection<Long> groupIds) {
-        if (CollectionUtils.isEmpty(groupIds)) {
-            return "";
-        }
-
-        StringBuilder s = new StringBuilder();
-        for (Long groupId : groupIds) {
-            Group role = groupService.queryById(groupId);
-            if (role != null) {
-                s.append(role.getName());
-                s.append(",");
-            }
-        }
-
-        if (s.length() > 0) {
-            s.deleteCharAt(s.length() - 1);
-        }
-
-        return s.toString();
     }
 
 

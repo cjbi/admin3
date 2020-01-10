@@ -6,13 +6,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author cjbi
  */
 @Table(name = "sys_user")
 @Data
-public class User {
+public class User implements Serializable {
 
     /**
      * 编号
