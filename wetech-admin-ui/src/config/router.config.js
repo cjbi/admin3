@@ -1,6 +1,6 @@
 // eslint-disable-next-line
-import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView } from '@/layouts'
-import { bxAnaalyse } from '@/core/icons'
+import {BasicLayout, BlankLayout, PageView, RouteView, UserLayout} from '@/layouts'
+import {bxAnaalyse} from '@/core/icons'
 
 export const asyncRouterMap = [
 
@@ -11,6 +11,22 @@ export const asyncRouterMap = [
     meta: { title: '首页' },
     redirect: '/dashboard/workplace',
     children: [
+      // user
+      {
+        path: '/user',
+        name: 'user',
+        component: PageView,
+        redirect: '/user/sys-user',
+        meta: { title: '用户管理', icon: 'check-circle-o', permission: [ 'result' ] },
+        children: [
+          {
+            path: '/user/sys-user',
+            name: 'UserList',
+            component: () => import(/* webpackChunkName: "result" */ '@/views/user/UserList'),
+            meta: { title: '系统用户', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
+          }
+        ]
+      },
       // dashboard
       {
         path: '/dashboard',

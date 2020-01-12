@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Log;
-import tech.wetech.admin.model.query.PageQuery;
 import tech.wetech.admin.service.LogService;
 import tech.wetech.mybatis.domain.Page;
 
@@ -38,7 +37,7 @@ public class LogController {
     @GetMapping("/list")
     @ApiOperation("分页查询数据")
     @ResponseBody
-    public Result queryList(Log entity, PageQuery pageQuery) {
+    public Result queryList(Log entity, Page pageQuery) {
         List<Log> list = logService.queryList(entity, pageQuery);
         return Result.success(new PageWrapper((Page) list));
     }

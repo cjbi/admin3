@@ -5,8 +5,8 @@ import store from './store'
 import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import notification from 'ant-design-vue/es/notification'
-import { setDocumentTitle, domTitle } from '@/utils/domUtil'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
+import {domTitle, setDocumentTitle} from '@/utils/domUtil'
+import {ACCESS_TOKEN} from '@/store/mutation-types'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
         store
           .dispatch('GetInfo')
           .then(res => {
-            const roles = res.data && res.data.role
+            const roles = res.result && res.result.role
             store.dispatch('GenerateRoutes', { roles }).then(() => {
               // 根据roles权限生成可访问的路由表
               // 动态添加可访问路由表

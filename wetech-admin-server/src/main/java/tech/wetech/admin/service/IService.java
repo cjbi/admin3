@@ -1,6 +1,6 @@
 package tech.wetech.admin.service;
 
-import tech.wetech.admin.model.query.PageQuery;
+import tech.wetech.mybatis.domain.Page;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface IService<T> {
 
     T queryById(Object id);
 
-    List<T> queryList(T entity, PageQuery pageQuery);
+    List<T> queryList(T entity, Page page);
 
     int create(T entity);
 

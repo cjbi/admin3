@@ -8,40 +8,65 @@ import java.util.List;
 /**
  * @author cjbi
  */
-public class PageWrapper implements Serializable {
+public class PageWrapper<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private List list;
+    private List<T> data;
 
-    private long total;
+    private int totalCount;
+
+    private int pageNo;
+
+    private int pageSize;
+
 
     public PageWrapper() {
     }
 
-    public PageWrapper(Page page) {
-        this.list = page;
-        this.total = page.getTotal();
+    public PageWrapper(Page<T> page) {
+        this.data = page;
+        this.totalCount = page.getTotal();
+        this.pageSize = page.getPageSize();
+        this.pageNo = page.getPageNumber();
     }
 
-    public PageWrapper(List list, long total) {
-        this.list = list;
-        this.total = total;
+    public PageWrapper(List<T> data, int totalCount, int pageNo, int pageSize) {
+        this.data = data;
+        this.totalCount = totalCount;
+        this.pageNo = pageNo;
+        this.pageSize = pageSize;
     }
 
-    public List getList() {
-        return list;
+    public List<T> getData() {
+        return data;
     }
 
-    public void setList(List list) {
-        this.list = list;
+    public void setData(List<T> data) {
+        this.data = data;
     }
 
-    public long getTotal() {
-        return total;
+    public int getTotalCount() {
+        return totalCount;
     }
 
-    public void setTotal(long total) {
-        this.total = total;
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
     }
 }

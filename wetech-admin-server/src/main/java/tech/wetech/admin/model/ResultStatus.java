@@ -7,7 +7,7 @@ public interface ResultStatus {
     /**
      * 错误码
      */
-    String getCode();
+    int getCode();
 
     /**
      * 错误信息

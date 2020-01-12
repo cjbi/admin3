@@ -7,26 +7,26 @@ import tech.wetech.admin.model.ResultStatus;
  */
 public enum CommonResultStatus implements ResultStatus {
 
-    OK("1000", "成功"),
-    PARAM_ERROR("1001", "参数非法"),
-    LOGIN_ERROR("1002", "登录失败"),
-    INTERNAL_SERVER_ERROR("1003", "服务异常"),
-    RECORD_NOT_EXIST("1005", "记录不存在"),
-    FAILED_DEL_OWN("1006", "不能删除自己"),
-    FAILED_USER_ALREADY_EXIST("1007", "该用户已存在"),
+    OK(1000, "成功"),
+    PARAM_ERROR(1001, "参数非法"),
+    LOGIN_ERROR(1002, "登录失败"),
+    INTERNAL_SERVER_ERROR(1003, "服务异常"),
+    RECORD_NOT_EXIST(1005, "记录不存在"),
+    FAILED_DEL_OWN(1006, "不能删除自己"),
+    FAILED_USER_ALREADY_EXIST(1007, "该用户已存在"),
 
     ;
 
-    private String code;
+    private int code;
     private String msg;
 
-    CommonResultStatus(String code, String msg) {
+    CommonResultStatus(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
     @Override
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 

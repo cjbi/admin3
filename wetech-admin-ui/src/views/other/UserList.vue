@@ -52,10 +52,10 @@
       </div>
       <span slot="action" slot-scope="text, record">
         <a @click="handleEdit(record)">编辑</a>
-        <a-divider type="vertical" />
+        <a-divider type="vertical"/>
         <a-dropdown>
           <a class="ant-dropdown-link">
-            更多 <a-icon type="down" />
+            更多 <a-icon type="down"/>
           </a>
           <a-menu slot="overlay">
             <a-menu-item>
@@ -88,7 +88,7 @@
           hasFeedback
           validateStatus="success"
         >
-          <a-input placeholder="唯一识别码" v-model="mdl.id" id="no" disabled="disabled" />
+          <a-input placeholder="唯一识别码" v-model="mdl.id" id="no" disabled="disabled"/>
         </a-form-item>
 
         <a-form-item
@@ -98,7 +98,7 @@
           hasFeedback
           validateStatus="success"
         >
-          <a-input placeholder="起一个名字" v-model="mdl.name" id="role_name" />
+          <a-input placeholder="起一个名字" v-model="mdl.name" id="role_name"/>
         </a-form-item>
 
         <a-form-item
@@ -123,7 +123,7 @@
           <a-textarea :rows="5" v-model="mdl.describe" placeholder="..." id="describe"/>
         </a-form-item>
 
-        <a-divider />
+        <a-divider/>
 
         <a-form-item
           :labelCol="labelCol"
@@ -149,8 +149,8 @@
 </template>
 
 <script>
-import { STable } from '@/components'
-import { getRoleList, getServiceList } from '@/api/manage'
+import {STable} from '@/components'
+import {getUserList} from '@/api/manage'
 
 export default {
   name: 'TableList',
@@ -204,9 +204,9 @@ export default {
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return getRoleList(parameter)
+        return getUserList(parameter)
           .then(res => {
-            console.log('getRoleList', res)
+            console.log('getUserList', res)
             return res.result
           })
       },
@@ -216,12 +216,8 @@ export default {
     }
   },
   created () {
-    getServiceList().then(res => {
-      console.log('getServiceList.call()', res)
-    })
-
-    getRoleList().then(res => {
-      console.log('getRoleList.call()', res)
+    getUserList().then(res => {
+      console.log('getUserList.call()', res)
     })
   },
   methods: {

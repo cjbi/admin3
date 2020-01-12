@@ -134,6 +134,7 @@ export default {
      */
     loadData (pagination, filters, sorter) {
       this.localLoading = true
+      debugger
       const parameter = Object.assign({
         pageNo: (pagination && pagination.current) ||
           this.showPagination && this.localPagination.current || this.pageNum,

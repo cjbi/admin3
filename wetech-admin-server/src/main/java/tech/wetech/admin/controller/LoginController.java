@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.wetech.admin.model.Result;
-import tech.wetech.admin.model.dto.UserDTO;
 import tech.wetech.admin.model.dto.LoginDTO;
+import tech.wetech.admin.model.dto.UserInfoDTO;
 import tech.wetech.admin.service.ResourceService;
 import tech.wetech.admin.service.UserService;
 
@@ -25,9 +25,9 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("auth/login")
-    public Result<UserDTO> login(@RequestBody LoginDTO loginDTO) {
-        UserDTO userDTO = userService.login(loginDTO);
-        return Result.success(userDTO);
+    public Result<UserInfoDTO> login(@RequestBody LoginDTO loginDTO) {
+        UserInfoDTO userInfoDTO = userService.login(loginDTO);
+        return Result.success(userInfoDTO);
     }
 
     @PostMapping("auth/logout")

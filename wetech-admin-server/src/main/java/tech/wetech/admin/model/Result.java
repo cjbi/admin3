@@ -1,6 +1,5 @@
 package tech.wetech.admin.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
@@ -16,17 +15,13 @@ public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("是否成功")
     private boolean success;
 
-    @ApiModelProperty("编码")
-    private String code;
+    private int code;
 
-    @ApiModelProperty("消息")
-    private String msg;
+    private String message;
 
-    @ApiModelProperty("数据")
-    private T data;
+    private T result;
 
     private static final Result EMPTY_SUCCESS_RESULT = Result.success(null);
 
@@ -37,9 +32,9 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> success(T obj) {
         ResultBuilder<T> resultBuilder = new ResultBuilder<T>();
         return resultBuilder
-                .data(obj)
+                .result(obj)
                 .code(CommonResultStatus.OK.getCode())
-                .msg(CommonResultStatus.OK.getMsg())
+                .message(CommonResultStatus.OK.getMsg())
                 .success(true).build();
     }
 
@@ -47,22 +42,22 @@ public class Result<T> implements Serializable {
         return Result.builder()
                 .success(false)
                 .code(resultStatus.getCode())
-                .msg(resultStatus.getMsg()).build();
+                .message(resultStatus.getMsg()).build();
     }
 
     public static Result failure(ResultStatus resultStatus, Throwable e) {
         return Result.builder()
                 .success(false)
-                .data(e)
+                .result(e)
                 .code(resultStatus.getCode())
-                .msg(resultStatus.getMsg()).build();
+                .message(resultStatus.getMsg()).build();
     }
 
     public static Result failure(ResultStatus resultStatus, String message) {
         return Result.builder()
                 .success(false)
                 .code(resultStatus.getCode())
-                .msg(message).build();
+                .message(message).build();
     }
 
 

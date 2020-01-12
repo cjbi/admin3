@@ -69,8 +69,8 @@ public class SystemLogAspect {
         String desc = !StringUtils.isEmpty(systemLog.desc()) ? systemLog.desc() : systemLog.value();
         if (returns != null && returns instanceof Result) {
             Result result = (Result) returns;
-            status = result.getCode();
-            msg = result.getMsg();
+            status = String.valueOf(result.getCode());
+            msg = result.getMessage();
         }
 
         String text = null;

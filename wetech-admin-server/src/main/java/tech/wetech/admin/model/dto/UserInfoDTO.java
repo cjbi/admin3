@@ -3,7 +3,7 @@ package tech.wetech.admin.model.dto;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserInfoDTO {
 
     private Long id; //编号
     private String username; //用户名

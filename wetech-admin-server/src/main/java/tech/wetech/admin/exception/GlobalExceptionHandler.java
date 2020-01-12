@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
         Result result = Result.builder()
                 .success(false)
                 .code(CommonResultStatus.PARAM_ERROR.getCode())
-                .msg(CommonResultStatus.PARAM_ERROR.getMsg())
+                .message(CommonResultStatus.PARAM_ERROR.getMsg())
                 .build();
 
         if (e instanceof BindException) {
@@ -75,11 +75,11 @@ public class GlobalExceptionHandler {
             br = ((MethodArgumentNotValidException) e).getBindingResult();
         }
         if (br != null) {
-            result.setData(
+            result.setResult(
                     br.getFieldErrors().stream()
                             .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage, (oldValue, newValue) -> oldValue.concat(",").concat(newValue)))
             );
-            result.setMsg(
+            result.setMessage(
                     br.getFieldErrors().stream()
                             .map(f -> f.getField().concat(f.getDefaultMessage()))
                             .collect(Collectors.joining(","))
@@ -88,10 +88,10 @@ public class GlobalExceptionHandler {
         }
         if (e instanceof ConstraintViolationException) {
             Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) e).getConstraintViolations();
-            result.setData(
+            result.setResult(
                     constraintViolations.stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage))
             );
-            result.setMsg(e.getMessage());
+            result.setMessage(e.getMessage());
         }
         return result;
     }

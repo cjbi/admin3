@@ -1,9 +1,12 @@
 package tech.wetech.admin.service;
 
 import tech.wetech.admin.exception.BizException;
-import tech.wetech.admin.model.dto.UserDTO;
-import tech.wetech.admin.model.entity.User;
+import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.dto.LoginDTO;
+import tech.wetech.admin.model.dto.UserInfoDTO;
+import tech.wetech.admin.model.dto.UserPageDTO;
+import tech.wetech.admin.model.entity.User;
+import tech.wetech.admin.model.query.UserQuery;
 
 import java.util.Set;
 
@@ -11,12 +14,14 @@ public interface UserService extends IService<User> {
 
     /**
      * 创建用户
+     *
      * @param user
      */
     void createUser(User user) throws BizException;
 
     /**
      * 修改密码
+     *
      * @param userId
      * @param newPassword
      */
@@ -38,8 +43,10 @@ public interface UserService extends IService<User> {
      */
     Set<String> queryPermissions(String username);
 
-    UserDTO queryUserInfo(String username);
+    UserInfoDTO queryUserInfo(String username);
 
-    UserDTO login(LoginDTO loginDTO);
+    UserInfoDTO login(LoginDTO loginDTO);
+
+    PageWrapper<UserPageDTO> queryUserList(UserQuery userQuery);
 
 }
