@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import { login, getInfo, logout } from '@/api/login'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
-import { welcome } from '@/utils/util'
+import {getInfo, login, logout} from '@/api/login'
+import {ACCESS_TOKEN} from '@/store/mutation-types'
+import {welcome} from '@/utils/util'
 
 const user = {
   state: {
@@ -80,7 +80,6 @@ const user = {
 
     // 登出
     Logout ({ commit, state }) {
-      debugger
       return new Promise((resolve) => {
         logout(state.token).then(() => {
           resolve()

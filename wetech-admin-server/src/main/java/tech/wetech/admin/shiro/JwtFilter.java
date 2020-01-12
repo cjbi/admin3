@@ -20,9 +20,6 @@ public class JwtFilter extends AccessControlFilter {
 
     protected static final String AUTHORIZATION_HEADER = "Access-Token";
 
-    /**
-     * 检测Header里Authorization字段
-     */
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
         String authorization = req.getHeader(AUTHORIZATION_HEADER);
@@ -38,9 +35,8 @@ public class JwtFilter extends AccessControlFilter {
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest req = (HttpServletRequest) request;
         if (isLoginAttempt(request, response)) {
-            String authorization = req.getHeader(AUTHORIZATION_HEADER);
             //生成jwt token
-            JwtToken token = new JwtToken(authorization);
+            JwtToken token = new JwtToken(req.getHeader(AUTHORIZATION_HEADER));
             //委托给Realm进行验证
             try {
                 getSubject(request, response).login(token);
@@ -48,12 +44,17 @@ public class JwtFilter extends AccessControlFilter {
             } catch (Exception e) {
             }
         }
-        sendLoginFail(response);
+        onLoginFail(response);
         return false;
     }
 
-    //登录失败时默认返回401状态码
-    private void sendLoginFail(ServletResponse response) throws IOException {
+    /**
+     * 登录失败时默认返回401状态码
+     *
+     * @param response
+     * @throws IOException
+     */
+    private void onLoginFail(ServletResponse response) throws IOException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpResponse.setContentType("application/json;charset=utf-8");
