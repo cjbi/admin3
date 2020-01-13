@@ -116,19 +116,19 @@
 </template>
 
 <script>
-  import {Ellipsis, STable} from '@/components'
-  import {getUserList} from '@/api/manage'
+import { Ellipsis, STable } from '@/components'
+import { getUserList } from '@/api/manage'
 
-  const statusMap = {
-    true: {
-      status: 'true',
-      text: '禁用'
-    },
-    false: {
-      status: 'false',
-      text: '启用'
-    }
+const statusMap = {
+  true: {
+    status: 'true',
+    text: '禁用'
+  },
+  false: {
+    status: 'false',
+    text: '启用'
   }
+}
 
 export default {
   name: 'UserList',
@@ -136,7 +136,7 @@ export default {
     STable,
     Ellipsis
   },
-  data() {
+  data () {
     return {
       mdl: {},
       // 高级搜索 展开/关闭
@@ -147,7 +147,7 @@ export default {
       columns: [
         {
           title: '#',
-          scopedSlots: {customRender: 'serial'}
+          scopedSlots: { customRender: 'serial' }
         },
         {
           title: '用户编号',
@@ -159,18 +159,18 @@ export default {
         }, {
           title: '拥有的角色列表',
           dataIndex: 'roleNames',
-          scopedSlots: {customRender: 'roleNames'}
+          scopedSlots: { customRender: 'roleNames' }
         },
         {
           title: '是否锁定',
           dataIndex: 'locked',
-          scopedSlots: {customRender: 'locked'}
+          scopedSlots: { customRender: 'locked' }
         },
         {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
-          scopedSlots: {customRender: 'action'}
+          scopedSlots: { customRender: 'action' }
         }
       ],
       // 加载数据方法 必须为 Promise 对象
@@ -201,14 +201,14 @@ export default {
     }
   },
   filters: {
-    statusFilter(type) {
+    statusFilter (type) {
       return statusMap[type].text
     },
-    statusTypeFilter(type) {
+    statusTypeFilter (type) {
       return statusMap[type].status
     }
   },
-  created() {
+  created () {
     // this.tableOption()
     // getRoleList({ t: new Date() })
   },
@@ -238,23 +238,23 @@ export default {
     //   }
     // },
 
-    handleEdit(record) {
+    handleEdit (record) {
       console.log(record)
       this.$refs.modal.edit(record)
     },
-    handleSub(record) {
+    handleSub (record) {
     },
-    handleOk() {
+    handleOk () {
       this.$refs.table.refresh()
     },
-    onSelectChange(selectedRowKeys, selectedRows) {
+    onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     },
-    resetSearchForm() {
+    resetSearchForm () {
 
     }
   }
