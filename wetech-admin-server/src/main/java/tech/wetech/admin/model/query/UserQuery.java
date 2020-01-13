@@ -6,10 +6,9 @@ import lombok.Data;
  * @author cjbi
  */
 @Data
-public class UserQuery {
+public class UserQuery extends BaseQuery {
     private Long id;
     private String username;
     private Integer locked;
-    private int pageNo;
-    private int pageSize;
+
 }

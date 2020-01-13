@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping
     @RequiresPermissions("user:view")
     public Result<PageWrapper<UserPageDTO>> queryUserList(UserQuery userQuery) {
-        return Result.success(userService.queryUserList(userQuery));
+        return Result.success(userService.queryUserPage(userQuery));
     }
 
     @PostMapping("create")
@@ -53,25 +53,37 @@ public class UserController {
     @RequiresPermissions("user:delete")
     @SystemLog("用户管理删除用户")
     public Result deleteBatchByIds(@NotNull @RequestParam("id") Long[] ids) {
-        // 当前用户
-        String username = (String) SecurityUtils.getSubject().getPrincipal();
-        User user = userService.queryByUsername(username);
-        boolean isSelf = Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));
-        if (isSelf) {
+        if (isSelf(ids)) {
             return Result.failure(CommonResultStatus.FAILED_DEL_OWN);
         }
         Arrays.stream(ids).forEach(userService::deleteById);
         return Result.success();
     }
 
-    @GetMapping
+    private boolean isSelf(@RequestParam("id") @NotNull @NotNull Long[] ids) {
+        // 当前用户
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        User user = userService.queryByUsername(username);
+        return Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));
+    }
 
-    public Result lockUser(Integer locked) {
+    @RequiresPermissions("user:update")
+    @PutMapping("lock")
+    public Result lockUser(@RequestParam("id") Long[] ids, @RequestParam("locked") Integer locked) {
+        if (isSelf(ids)) {
+            return Result.failure(CommonResultStatus.FAILED_LOCK_OWN);
+        }
+        for (Long id : ids) {
+            User user = new User();
+            user.setId(id);
+            user.setLocked(locked);
+            userService.updateNotNull(user);
+        }
         return Result.success();
     }
 
     @RequiresPermissions("user:update")
-    @PostMapping("/{id}/change/password")
+    @PostMapping("{id}/change/password")
     @SystemLog("用户管理更改用户密码")
     public Result changePassword(@PathVariable("id") Long id, String newPassword) {
         userService.changePassword(id, newPassword);

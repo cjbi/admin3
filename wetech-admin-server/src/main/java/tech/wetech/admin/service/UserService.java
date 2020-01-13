@@ -49,6 +49,6 @@ public interface UserService extends IService<User> {
 
     UserInfoDTO login(LoginDTO loginDTO);
 
-    PageWrapper<UserPageDTO> queryUserList(UserQuery userQuery);
+    PageWrapper<UserPageDTO> queryUserPage(UserQuery userQuery);
 
 }

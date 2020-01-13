@@ -1,4 +1,4 @@
-import { axios } from '@/utils/request'
+import {axios} from '@/utils/request'
 
 const api = {
   user: '/user',
@@ -11,7 +11,7 @@ const api = {
 
 export default api
 
-export function getUserList(parameter) {
+export function getUserList (parameter) {
   return axios({
     url: api.user,
     method: 'get',
@@ -19,15 +19,25 @@ export function getUserList(parameter) {
   })
 }
 
-export function deleteUser(parameter) {
-  return axios.delete(api.user, {
+export function deleteUser (parameter) {
+  return axios({
+    method: 'delete',
+    url: api.user,
+    params: parameter
+  })
+}
+
+export function lockUser (parameter) {
+  return axios({
+    url: api.user + '/lock',
+    method: 'put',
     params: parameter
   })
 }
 
 // 以下方法准备删除
 
-export function getRoleList(parameter) {
+export function getRoleList (parameter) {
   return axios({
     url: api.role,
     method: 'get',
@@ -35,7 +45,7 @@ export function getRoleList(parameter) {
   })
 }
 
-export function getServiceList(parameter) {
+export function getServiceList (parameter) {
   return axios({
     url: api.service,
     method: 'get',

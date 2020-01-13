@@ -14,6 +14,7 @@ public enum CommonResultStatus implements ResultStatus {
     RECORD_NOT_EXIST(1005, "记录不存在"),
     FAILED_DEL_OWN(1006, "不能删除自己"),
     FAILED_USER_ALREADY_EXIST(1007, "该用户已存在"),
+    FAILED_LOCK_OWN(1008,"不能禁用自己"),
 
     ;
 

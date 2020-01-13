@@ -85,12 +85,23 @@
 
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleEdit(record)">修改</a>
+          <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
-          <a @click="handleDelete(record)">删除</a>
-          <a-divider type="vertical"/>
-          <a @click="handleEdit(record)">锁定</a>
-          <a-divider type="vertical"/>
+          <a-dropdown>
+            <a class="ant-dropdown-link">
+              更多 <a-icon type="down"/>
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item>
+                <a href="javascript:;" @click="handleLocked(record)">
+                  {{ record.locked?'启用':'禁用' }}
+                </a>
+              </a-menu-item>
+              <a-menu-item>
+                <a href="javascript:;">删除</a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
         </template>
       </span>
     </s-table>
@@ -98,19 +109,20 @@
 </template>
 
 <script>
-  import {Ellipsis, STable} from '@/components'
-  import {deleteUser, getUserList} from '@/api/manage'
+import {Ellipsis, STable} from '@/components'
+import {deleteUser, getUserList, lockUser} from '@/api/manage'
+import {message} from 'ant-design-vue'
 
-  const lockedMap = {
-    1: {
-      status: 'error',
-      text: '禁用'
-    },
-    0: {
-      status: 'success',
-      text: '启用'
-    }
+const lockedMap = {
+  1: {
+    status: 'error',
+    text: '禁用'
+  },
+  0: {
+    status: 'success',
+    text: '启用'
   }
+}
 
 export default {
   name: 'UserList',
@@ -133,11 +145,13 @@ export default {
         },
         {
           title: '用户编号',
-          dataIndex: 'id'
+          dataIndex: 'id',
+          sorter: true
         },
         {
           title: '用户名',
-          dataIndex: 'username'
+          dataIndex: 'username',
+          sorter: true
         }, {
           title: '拥有的角色列表',
           dataIndex: 'roleNames',
@@ -183,10 +197,10 @@ export default {
     }
   },
   filters: {
-    lockedFilter(type) {
+    lockedFilter (type) {
       return lockedMap[type].text
     },
-    lockedTypeFilter(type) {
+    lockedTypeFilter (type) {
       return lockedMap[type].status
     }
   },
@@ -195,7 +209,7 @@ export default {
     // getRoleList({ t: new Date() })
   },
   methods: {
-    tableOption() {
+    tableOption () {
       if (!this.optionAlertShow) {
         this.options = {
           alert: {
@@ -224,22 +238,32 @@ export default {
         this.optionAlertShow = false
       }
     },
-    handleEdit(record) {
+    handleEdit (record) {
       console.log(record)
       this.$refs.modal.edit(record)
     },
-    handleDelete(record) {
+    handleDelete (record) {
       console.log(record)
-      deleteUser({id: record.id})
+      deleteUser({ id: record.id })
     },
-    handleOk() {
+    handleOk () {
       this.$refs.table.refresh()
     },
-    onSelectChange(selectedRowKeys, selectedRows) {
+    handleLocked (record) {
+      lockUser({ id: record.id, locked: record.locked ? 0 : 1 })
+        .then(r => {
+          if (r.success) {
+            this.$refs.table.refresh()
+          } else {
+            message.warning(r.message)
+          }
+        })
+    },
+    onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     },
     resetSearchForm () {

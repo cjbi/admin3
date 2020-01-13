@@ -11,6 +11,7 @@ import tech.wetech.admin.model.dto.UserInfoDTO;
 import tech.wetech.admin.model.dto.UserPageDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
+import tech.wetech.admin.model.query.BaseQuery;
 import tech.wetech.admin.model.query.UserQuery;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PasswordHelper;
@@ -21,6 +22,7 @@ import tech.wetech.mybatis.ThreadContext;
 import tech.wetech.mybatis.domain.Page;
 import tech.wetech.mybatis.example.Criteria;
 import tech.wetech.mybatis.example.Example;
+import tech.wetech.mybatis.example.Sort;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -123,19 +125,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public PageWrapper<UserPageDTO> queryUserList(UserQuery userQuery) {
-        ThreadContext.setPage(userQuery.getPageNo(), userQuery.getPageSize(), true);
-        Example<User> example = Example.of(User.class);
-        Criteria<User> criteria = example.createCriteria();
-        if (userQuery.getId() != null) {
-            criteria.andEqualTo(User::getId, userQuery.getId());
-        }
-        if (userQuery.getUsername() != null) {
-            criteria.andEqualTo(User::getUsername, userQuery.getUsername());
-        }
-        if (userQuery.getLocked() != null) {
-            criteria.andEqualTo(User::getLocked, userQuery.getLocked());
-        }
+    public PageWrapper<UserPageDTO> queryUserPage(UserQuery userQuery) {
+        Example<User> example = buildUserExample(userQuery);
         Page<User> users = (Page<User>) userMapper.selectByExample(example);
         List<UserPageDTO> list = new ArrayList<>();
         for (User user : users) {
@@ -148,6 +139,30 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
             list.add(userDTO);
         }
         return new PageWrapper<>(list, users.getTotal(), users.getPageNumber(), users.getPageSize());
+    }
+
+    private Example<User> buildUserExample(UserQuery userQuery) {
+        Example<User> example = Example.of(User.class);
+        if (userQuery.getSortField() != null && userQuery.getSortOrder() != null) {
+            if (userQuery.getSortOrder() == BaseQuery.SortOrder.ascend) {
+                example.setSort(new Sort(Sort.Direction.ASC, userQuery.getSortField()));
+            }
+            if (userQuery.getSortOrder() == BaseQuery.SortOrder.descend) {
+                example.setSort(new Sort(Sort.Direction.DESC, userQuery.getSortField()));
+            }
+        }
+        Criteria<User> criteria = example.createCriteria();
+        if (userQuery.getId() != null) {
+            criteria.andEqualTo(User::getId, userQuery.getId());
+        }
+        if (userQuery.getUsername() != null) {
+            criteria.andEqualTo(User::getUsername, userQuery.getUsername());
+        }
+        if (userQuery.getLocked() != null) {
+            criteria.andEqualTo(User::getLocked, userQuery.getLocked());
+        }
+        ThreadContext.setPage(userQuery.getPageNo(), userQuery.getPageSize(), true);
+        return example;
     }
 
     private String getRoleNames(String roleIdStr) {
