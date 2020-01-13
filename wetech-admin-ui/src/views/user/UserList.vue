@@ -128,7 +128,7 @@
       status: 'false',
       text: '启用'
     }
-}
+  }
 
 export default {
   name: 'UserList',
