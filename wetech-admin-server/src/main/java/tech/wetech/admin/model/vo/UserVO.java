@@ -20,7 +20,7 @@ public class UserVO {
     private List<Long> groupIdList;
     private String groupNames;
 
-    private Boolean locked;
+    private Integer locked;
     private String organizationName;
 
     public UserVO() {

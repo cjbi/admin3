@@ -43,6 +43,8 @@ public interface UserService extends IService<User> {
      */
     Set<String> queryPermissions(String username);
 
+    User queryByUsername(String username);
+
     UserInfoDTO queryUserInfo(String username);
 
     UserInfoDTO login(LoginDTO loginDTO);

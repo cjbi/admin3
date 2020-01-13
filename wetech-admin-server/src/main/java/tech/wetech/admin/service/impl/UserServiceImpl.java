@@ -19,11 +19,16 @@ import tech.wetech.admin.service.UserService;
 import tech.wetech.admin.shiro.JwtUtil;
 import tech.wetech.mybatis.ThreadContext;
 import tech.wetech.mybatis.domain.Page;
+import tech.wetech.mybatis.example.Criteria;
+import tech.wetech.mybatis.example.Example;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @author cjbi
+ */
 @Service
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
@@ -80,6 +85,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    public User queryByUsername(String username) {
+        return userMapper.createCriteria()
+            .andEqualTo(User::getUsername, username)
+            .selectOne();
+    }
+
+    @Override
     public UserInfoDTO queryUserInfo(String username) {
         User user = userMapper.createCriteria()
             .andEqualTo(User::getUsername, username)
@@ -113,7 +125,18 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public PageWrapper<UserPageDTO> queryUserList(UserQuery userQuery) {
         ThreadContext.setPage(userQuery.getPageNo(), userQuery.getPageSize(), true);
-        Page<User> users = (Page<User>) userMapper.selectAll();
+        Example<User> example = Example.of(User.class);
+        Criteria<User> criteria = example.createCriteria();
+        if (userQuery.getId() != null) {
+            criteria.andEqualTo(User::getId, userQuery.getId());
+        }
+        if (userQuery.getUsername() != null) {
+            criteria.andEqualTo(User::getUsername, userQuery.getUsername());
+        }
+        if (userQuery.getLocked() != null) {
+            criteria.andEqualTo(User::getLocked, userQuery.getLocked());
+        }
+        Page<User> users = (Page<User>) userMapper.selectByExample(example);
         List<UserPageDTO> list = new ArrayList<>();
         for (User user : users) {
             UserPageDTO userDTO = new UserPageDTO();

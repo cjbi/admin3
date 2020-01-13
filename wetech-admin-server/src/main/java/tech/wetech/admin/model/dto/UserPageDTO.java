@@ -11,5 +11,5 @@ public class UserPageDTO {
     private String username; //用户名
     private String roleIds; //拥有的角色列表
     private String roleNames;
-    private Boolean locked;
+    private Integer locked;
 }

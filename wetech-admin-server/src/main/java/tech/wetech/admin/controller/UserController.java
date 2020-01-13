@@ -3,7 +3,6 @@ package tech.wetech.admin.controller;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.aspect.SystemLog;
@@ -21,21 +20,19 @@ import java.util.Arrays;
 /**
  * @author cjbi
  */
-@Controller
+@RestController
 @RequestMapping("user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @ResponseBody
     @GetMapping
     @RequiresPermissions("user:view")
     public Result<PageWrapper<UserPageDTO>> queryUserList(UserQuery userQuery) {
         return Result.success(userService.queryUserList(userQuery));
     }
 
-    @ResponseBody
     @PostMapping("create")
     @RequiresPermissions("user:create")
     @SystemLog("用户管理创建用户")
@@ -44,7 +41,6 @@ public class UserController {
         return Result.success();
     }
 
-    @ResponseBody
     @PostMapping("update")
     @RequiresPermissions("user:update")
     @SystemLog("用户管理更新用户")
@@ -53,16 +49,13 @@ public class UserController {
         return Result.success();
     }
 
-    @ResponseBody
-    @PostMapping("delete-batch")
+    @DeleteMapping
     @RequiresPermissions("user:delete")
     @SystemLog("用户管理删除用户")
     public Result deleteBatchByIds(@NotNull @RequestParam("id") Long[] ids) {
         // 当前用户
         String username = (String) SecurityUtils.getSubject().getPrincipal();
-        User user1 = new User();
-        user1.setUsername(username);
-        User user = userService.queryOne(user1);
+        User user = userService.queryByUsername(username);
         boolean isSelf = Arrays.stream(ids).anyMatch(id -> id.equals(user.getId()));
         if (isSelf) {
             return Result.failure(CommonResultStatus.FAILED_DEL_OWN);
@@ -71,7 +64,12 @@ public class UserController {
         return Result.success();
     }
 
-    @ResponseBody
+    @GetMapping
+
+    public Result lockUser(Integer locked) {
+        return Result.success();
+    }
+
     @RequiresPermissions("user:update")
     @PostMapping("/{id}/change/password")
     @SystemLog("用户管理更改用户密码")

@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Table(name = "sys_user")
 @Data
-public class User implements Serializable {
+public class User {
 
     /**
      * 编号
@@ -51,7 +51,7 @@ public class User implements Serializable {
 
     private String groupIds;
 
-    private Boolean locked;
+    private Integer locked;
 
     public interface UserCreateChecks {
 
@@ -62,11 +62,6 @@ public class User implements Serializable {
     }
 
     public User() {
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
     }
 
     public String getCredentialsSalt() {

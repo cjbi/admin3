@@ -4,46 +4,23 @@
       <a-form layout="inline">
         <a-row :gutter="48">
           <a-col :md="8" :sm="24">
-            <a-form-item label="规则编号">
+            <a-form-item label="用户编号">
               <a-input v-model="queryParam.id" placeholder=""/>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
-            <a-form-item label="使用状态">
-              <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
+            <a-form-item label="是否锁定">
+              <a-select v-model="queryParam.locked" placeholder="请选择" default-value="0">
+                <a-select-option value="">全部</a-select-option>
+                <a-select-option value="1">禁用</a-select-option>
+                <a-select-option value="0">启用</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
           <template v-if="advanced">
             <a-col :md="8" :sm="24">
-              <a-form-item label="调用次数">
-                <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="更新日期">
-                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
-                </a-select>
+              <a-form-item label="用户名">
+                <a-input v-model="queryParam.username" placeholder=""/>
               </a-form-item>
             </a-col>
           </template>
@@ -65,8 +42,9 @@
 
     <div class="table-operator">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
-      <a-button type="dashed">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
-      <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
+      <!--a-dropdown去除v-action:edit，暂时不加权限 -->
+      <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1">
             <a-icon type="delete"/>
@@ -99,15 +77,19 @@
         {{ index + 1 }}
       </span>
       <span slot="locked" slot-scope="text">
-        <a-badge :status="text | statusTypeFilter" :text="text | statusFilter"/>
+        <a-badge :status="text | lockedTypeFilter" :text="text | lockedFilter"/>
       </span>
       <span slot="roleNames" slot-scope="text">
-        <ellipsis :length="4" tooltip>{{ text }}</ellipsis>
+        <ellipsis :length="20" tooltip>{{ text }}</ellipsis>
       </span>
 
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleEdit(record)">配置</a>
+          <a @click="handleEdit(record)">修改</a>
+          <a-divider type="vertical"/>
+          <a @click="handleDelete(record)">删除</a>
+          <a-divider type="vertical"/>
+          <a @click="handleEdit(record)">锁定</a>
           <a-divider type="vertical"/>
         </template>
       </span>
@@ -116,19 +98,19 @@
 </template>
 
 <script>
-import { Ellipsis, STable } from '@/components'
-import { getUserList } from '@/api/manage'
+  import {Ellipsis, STable} from '@/components'
+  import {deleteUser, getUserList} from '@/api/manage'
 
-const statusMap = {
-  true: {
-    status: 'true',
-    text: '禁用'
-  },
-  false: {
-    status: 'false',
-    text: '启用'
+  const lockedMap = {
+    1: {
+      status: 'error',
+      text: '禁用'
+    },
+    0: {
+      status: 'success',
+      text: '启用'
+    }
   }
-}
 
 export default {
   name: 'UserList',
@@ -201,61 +183,66 @@ export default {
     }
   },
   filters: {
-    statusFilter (type) {
-      return statusMap[type].text
+    lockedFilter(type) {
+      return lockedMap[type].text
     },
-    statusTypeFilter (type) {
-      return statusMap[type].status
+    lockedTypeFilter(type) {
+      return lockedMap[type].status
     }
   },
   created () {
-    // this.tableOption()
+    this.tableOption()
     // getRoleList({ t: new Date() })
   },
   methods: {
-    // tableOption () {
-    //   if (!this.optionAlertShow) {
-    //     this.options = {
-    //       alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
-    //       rowSelection: {
-    //         selectedRowKeys: this.selectedRowKeys,
-    //         onChange: this.onSelectChange,
-    //         getCheckboxProps: record => ({
-    //           props: {
-    //             disabled: record.no === 'No 2', // Column configuration not to be checked
-    //             name: record.no
-    //           }
-    //         })
-    //       }
-    //     }
-    //     this.optionAlertShow = true
-    //   } else {
-    //     this.options = {
-    //       alert: false,
-    //       rowSelection: null
-    //     }
-    //     this.optionAlertShow = false
-    //   }
-    // },
-
-    handleEdit (record) {
+    tableOption() {
+      if (!this.optionAlertShow) {
+        this.options = {
+          alert: {
+            show: true,
+            clear: () => {
+              this.selectedRowKeys = []
+            }
+          },
+          rowSelection: {
+            selectedRowKeys: this.selectedRowKeys,
+            onChange: this.onSelectChange,
+            getCheckboxProps: record => ({
+              props: {
+                disabled: record.no === 'No 2', // Column configuration not to be checked
+                name: record.no
+              }
+            })
+          }
+        }
+        this.optionAlertShow = true
+      } else {
+        this.options = {
+          alert: false,
+          rowSelection: null
+        }
+        this.optionAlertShow = false
+      }
+    },
+    handleEdit(record) {
       console.log(record)
       this.$refs.modal.edit(record)
     },
-    handleSub (record) {
+    handleDelete(record) {
+      console.log(record)
+      deleteUser({id: record.id})
     },
-    handleOk () {
+    handleOk() {
       this.$refs.table.refresh()
     },
-    onSelectChange (selectedRowKeys, selectedRows) {
+    onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced () {
+    toggleAdvanced() {
       this.advanced = !this.advanced
     },
     resetSearchForm () {
-
     }
   }
 }
