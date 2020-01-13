@@ -12,5 +12,5 @@ public interface ResultStatus {
     /**
      * 错误信息
      */
-    String getMsg();
+    String getMessage();
 }

@@ -18,11 +18,11 @@ public enum CommonResultStatus implements ResultStatus {
     ;
 
     private int code;
-    private String msg;
+    private String message;
 
-    CommonResultStatus(int code, String msg) {
+    CommonResultStatus(int code, String message) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
     }
 
     @Override
@@ -31,8 +31,8 @@ public enum CommonResultStatus implements ResultStatus {
     }
 
     @Override
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
 }

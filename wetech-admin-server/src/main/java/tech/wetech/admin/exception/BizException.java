@@ -8,7 +8,7 @@ public class BizException extends RuntimeException {
 
     public BizException(ResultStatus status) {
         //不生成栈追踪信息
-        super(status.getMsg(), null, false, false);
+        super(status.getMessage(), null, false, false);
         this.status = status;
     }
 

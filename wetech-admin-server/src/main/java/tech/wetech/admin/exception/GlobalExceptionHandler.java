@@ -63,9 +63,9 @@ public class GlobalExceptionHandler {
         LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
         BindingResult br = null;
         Result result = Result.builder()
-                .success(false)
-                .code(CommonResultStatus.PARAM_ERROR.getCode())
-                .message(CommonResultStatus.PARAM_ERROR.getMsg())
+            .success(false)
+            .code(CommonResultStatus.PARAM_ERROR.getCode())
+            .message(CommonResultStatus.PARAM_ERROR.getMessage())
                 .build();
 
         if (e instanceof BindException) {

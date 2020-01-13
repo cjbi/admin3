@@ -1,11 +1,8 @@
 package tech.wetech.admin.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import tech.wetech.admin.model.query.PageQuery;
-import tech.wetech.admin.service.IService;
 import tech.wetech.mybatis.ThreadContext;
+import tech.wetech.mybatis.domain.Page;
 import tech.wetech.mybatis.mapper.BaseMapper;
 
 import java.util.List;
@@ -44,8 +41,8 @@ public abstract class BaseService<T> implements IService<T> {
     }
 
     @Override
-    public List<T> queryList(T entity, PageQuery pageQuery) {
-        ThreadContext.setPage(pageQuery.getPageNum(), pageQuery.getPageSize(), true);
+    public List<T> queryList(T entity, Page page) {
+        ThreadContext.setPage(page.getPageNumber(), page.getPageSize(), true);
         return mapper.selectList(entity);
     }
 

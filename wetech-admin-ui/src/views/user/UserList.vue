@@ -48,8 +48,9 @@
             </a-col>
           </template>
           <a-col :md="!advanced && 8 || 24" :sm="24">
-            <span class="table-page-search-submitButtons"
-                  :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+            <span
+              class="table-page-search-submitButtons"
+              :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
               <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
               <a @click="toggleAdvanced" style="margin-left: 8px">
@@ -115,18 +116,18 @@
 </template>
 
 <script>
-import {Ellipsis, STable} from '@/components'
-import {getUserList} from '@/api/manage'
+  import {Ellipsis, STable} from '@/components'
+  import {getUserList} from '@/api/manage'
 
-const statusMap = {
-  true: {
-    status: 'true',
-    text: '禁用'
-  },
-  false: {
-    status: 'false',
-    text: '启用'
-  }
+  const statusMap = {
+    true: {
+      status: 'true',
+      text: '禁用'
+    },
+    false: {
+      status: 'false',
+      text: '启用'
+    }
 }
 
 export default {
@@ -138,11 +139,11 @@ export default {
   data() {
     return {
       mdl: {},
-// 高级搜索 展开/关闭
+      // 高级搜索 展开/关闭
       advanced: false,
-// 查询参数
+      // 查询参数
       queryParam: {},
-// 表头
+      // 表头
       columns: [
         {
           title: '#',
@@ -154,11 +155,11 @@ export default {
         },
         {
           title: '用户名',
-          dataIndex: 'username',
+          dataIndex: 'username'
         }, {
           title: '拥有的角色列表',
           dataIndex: 'roleNames',
-          scopedSlots: {customRender: 'roleNames'},
+          scopedSlots: {customRender: 'roleNames'}
         },
         {
           title: '是否锁定',
@@ -172,21 +173,22 @@ export default {
           scopedSlots: {customRender: 'action'}
         }
       ],
-// 加载数据方法 必须为 Promise 对象
+      // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         console.log('loadData.parameter', parameter)
         return getUserList(Object.assign(parameter, this.queryParam))
           .then(res => {
-            return res.data
+            return res.result
           })
       },
       selectedRowKeys: [],
       selectedRows: [],
 
-// custom table alert & rowSelection
+      // custom table alert & rowSelection
       options: {
         alert: {
-          show: true, clear: () => {
+          show: true,
+          clear: () => {
             this.selectedRowKeys = []
           }
         },
@@ -207,34 +209,34 @@ export default {
     }
   },
   created() {
-// this.tableOption()
-// getRoleList({ t: new Date() })
+    // this.tableOption()
+    // getRoleList({ t: new Date() })
   },
   methods: {
-// tableOption () {
-//   if (!this.optionAlertShow) {
-//     this.options = {
-//       alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
-//       rowSelection: {
-//         selectedRowKeys: this.selectedRowKeys,
-//         onChange: this.onSelectChange,
-//         getCheckboxProps: record => ({
-//           props: {
-//             disabled: record.no === 'No 2', // Column configuration not to be checked
-//             name: record.no
-//           }
-//         })
-//       }
-//     }
-//     this.optionAlertShow = true
-//   } else {
-//     this.options = {
-//       alert: false,
-//       rowSelection: null
-//     }
-//     this.optionAlertShow = false
-//   }
-// },
+    // tableOption () {
+    //   if (!this.optionAlertShow) {
+    //     this.options = {
+    //       alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+    //       rowSelection: {
+    //         selectedRowKeys: this.selectedRowKeys,
+    //         onChange: this.onSelectChange,
+    //         getCheckboxProps: record => ({
+    //           props: {
+    //             disabled: record.no === 'No 2', // Column configuration not to be checked
+    //             name: record.no
+    //           }
+    //         })
+    //       }
+    //     }
+    //     this.optionAlertShow = true
+    //   } else {
+    //     this.options = {
+    //       alert: false,
+    //       rowSelection: null
+    //     }
+    //     this.optionAlertShow = false
+    //   }
+    // },
 
     handleEdit(record) {
       console.log(record)
