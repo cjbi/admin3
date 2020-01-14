@@ -106,20 +106,20 @@
 </template>
 
 <script>
-  import {Ellipsis, STable} from '@/components'
-  import CreateForm from './modules/CreateForm'
-  import {deleteUser, getUserList, lockUser} from '@/api/manage'
-  import {message} from 'ant-design-vue'
+import { Ellipsis, STable } from '@/components'
+import CreateForm from './modules/CreateForm'
+import { deleteUser, getUserList, lockUser } from '@/api/manage'
+import { message } from 'ant-design-vue'
 
-  const lockedMap = {
-    1: {
-      status: 'error',
-      text: '禁用'
-    },
-    0: {
-      status: 'success',
-      text: '启用'
-    }
+const lockedMap = {
+  1: {
+    status: 'error',
+    text: '禁用'
+  },
+  0: {
+    status: 'success',
+    text: '启用'
+  }
 }
 
 export default {
