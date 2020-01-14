@@ -11,7 +11,7 @@ import tech.wetech.admin.model.dto.UserInfoDTO;
 import tech.wetech.admin.model.dto.UserPageDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
-import tech.wetech.admin.model.query.BaseQuery;
+import tech.wetech.admin.model.query.PageQuery;
 import tech.wetech.admin.model.query.UserQuery;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PasswordHelper;
@@ -144,10 +144,10 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     private Example<User> buildUserExample(UserQuery userQuery) {
         Example<User> example = Example.of(User.class);
         if (userQuery.getSortField() != null && userQuery.getSortOrder() != null) {
-            if (userQuery.getSortOrder() == BaseQuery.SortOrder.ascend) {
+            if (userQuery.getSortOrder() == PageQuery.SortOrder.ascend) {
                 example.setSort(new Sort(Sort.Direction.ASC, userQuery.getSortField()));
             }
-            if (userQuery.getSortOrder() == BaseQuery.SortOrder.descend) {
+            if (userQuery.getSortOrder() == PageQuery.SortOrder.descend) {
                 example.setSort(new Sort(Sort.Direction.DESC, userQuery.getSortField()));
             }
         }

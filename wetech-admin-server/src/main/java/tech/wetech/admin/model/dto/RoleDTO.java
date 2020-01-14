@@ -15,7 +15,7 @@ public class RoleDTO {
     private String description; // 角色描述,UI界面显示使用
     private String resourceIds; // 拥有的资源
     private List<Long> resourceIdList;
-    private Boolean available; // 是否可用,如果不可用将不会添加给用户
+    private Integer available; // 是否可用,如果不可用将不会添加给用户
     private String resourceNames;
 
     public RoleDTO() {

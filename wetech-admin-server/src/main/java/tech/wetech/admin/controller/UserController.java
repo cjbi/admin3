@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("create")
     @RequiresPermissions("user:create")
     @SystemLog("用户管理创建用户")
-    public Result create(@Validated(User.UserCreateChecks.class) User user) {
+    public Result create(User user) {
         userService.createUser(user);
         return Result.success();
     }
@@ -44,7 +44,7 @@ public class UserController {
     @PostMapping("update")
     @RequiresPermissions("user:update")
     @SystemLog("用户管理更新用户")
-    public Result update(@Validated(User.UserUpdateChecks.class) User user) {
+    public Result update(User user) {
         userService.updateNotNull(user);
         return Result.success();
     }

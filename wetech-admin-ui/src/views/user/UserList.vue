@@ -42,7 +42,6 @@
 
     <div class="table-operator">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
-      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
       <!--a-dropdown去除v-action:edit，暂时不加权限 -->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
@@ -73,9 +72,6 @@
       :rowSelection="options.rowSelection"
       showPagination="auto"
     >
-      <span slot="serial" slot-scope="text, record, index">
-        {{ index + 1 }}
-      </span>
       <span slot="locked" slot-scope="text">
         <a-badge :status="text | lockedTypeFilter" :text="text | lockedFilter"/>
       </span>
@@ -105,28 +101,31 @@
         </template>
       </span>
     </s-table>
+    <create-form ref="createModal" @ok="handleOk"/>
   </a-card>
 </template>
 
 <script>
-import {Ellipsis, STable} from '@/components'
-import {deleteUser, getUserList, lockUser} from '@/api/manage'
-import {message} from 'ant-design-vue'
+  import {Ellipsis, STable} from '@/components'
+  import CreateForm from './modules/CreateForm'
+  import {deleteUser, getUserList, lockUser} from '@/api/manage'
+  import {message} from 'ant-design-vue'
 
-const lockedMap = {
-  1: {
-    status: 'error',
-    text: '禁用'
-  },
-  0: {
-    status: 'success',
-    text: '启用'
-  }
+  const lockedMap = {
+    1: {
+      status: 'error',
+      text: '禁用'
+    },
+    0: {
+      status: 'success',
+      text: '启用'
+    }
 }
 
 export default {
   name: 'UserList',
   components: {
+    CreateForm,
     STable,
     Ellipsis
   },
@@ -139,10 +138,6 @@ export default {
       queryParam: {},
       // 表头
       columns: [
-        {
-          title: '#',
-          scopedSlots: { customRender: 'serial' }
-        },
         {
           title: '用户编号',
           dataIndex: 'id',
@@ -192,8 +187,7 @@ export default {
           selectedRowKeys: this.selectedRowKeys,
           onChange: this.onSelectChange
         }
-      },
-      optionAlertShow: false
+      }
     }
   },
   filters: {
@@ -206,38 +200,8 @@ export default {
   },
   created () {
     this.tableOption()
-    // getRoleList({ t: new Date() })
   },
   methods: {
-    tableOption () {
-      if (!this.optionAlertShow) {
-        this.options = {
-          alert: {
-            show: true,
-            clear: () => {
-              this.selectedRowKeys = []
-            }
-          },
-          rowSelection: {
-            selectedRowKeys: this.selectedRowKeys,
-            onChange: this.onSelectChange,
-            getCheckboxProps: record => ({
-              props: {
-                disabled: record.no === 'No 2', // Column configuration not to be checked
-                name: record.no
-              }
-            })
-          }
-        }
-        this.optionAlertShow = true
-      } else {
-        this.options = {
-          alert: false,
-          rowSelection: null
-        }
-        this.optionAlertShow = false
-      }
-    },
     handleEdit (record) {
       console.log(record)
       this.$refs.modal.edit(record)

@@ -149,17 +149,17 @@
 </template>
 
 <script>
-import {STable} from '@/components'
-import {getUserList} from '@/api/manage'
+  import {STable} from '@/components'
+  import {getUserList} from '@/api/manage'
 
-export default {
-  name: 'TableList',
-  components: {
-    STable
-  },
-  data () {
-    return {
-      description: '列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。',
+  export default {
+    name: 'TableList',
+    components: {
+      STable
+    },
+    data() {
+      return {
+        description: '列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。',
 
       visible: false,
       labelCol: {

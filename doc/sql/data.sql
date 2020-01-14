@@ -21,11 +21,11 @@ INSERT INTO `sys_user` (`id`,`organization_id`,`username`,`password`,`salt`,`rol
 INSERT INTO `sys_user` (`id`,`organization_id`,`username`,`password`,`salt`,`role_ids`,`group_ids`,`locked`) VALUES (21,14,'admin333','387a1e939344d1dee392a7c02debb34b','28e95c4e30c53414e5b63cca2427e173','1,2,4','1',0);
 INSERT INTO `sys_user` (`id`,`organization_id`,`username`,`password`,`salt`,`role_ids`,`group_ids`,`locked`) VALUES (22,4,'john','e755e2c4bb208ac9665bed5b9f6b81c5','33a2c9562d191e090d83840a2920f3c1','1','1',0);
 
-INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VALUES (1,'admin','超级管理员','11,21,31,41,46,69,70,83',0);
-INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VALUES (2,'guest','访客','15,25,35,45',0);
-INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VALUES (4,'ceshi3','测试的角色','12,14,34,35',0);
-INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VALUES (5,'test','测试角色','12,13,14,43,47',0);
-INSERT INTO `sys_role` (`id`,`role`,`description`,`resource_ids`,`available`) VALUES (6,'测试1','222','73',0);
+INSERT INTO `sys_role` (`id`,`role`,description,`resource_ids`,status) VALUES (1,'admin','超级管理员','11,21,31,41,46,69,70,83',0);
+INSERT INTO `sys_role` (`id`,`role`,description,`resource_ids`,status) VALUES (2,'guest','访客','15,25,35,45',0);
+INSERT INTO `sys_role` (`id`,`role`,description,`resource_ids`,status) VALUES (4,'ceshi3','测试的角色','12,14,34,35',0);
+INSERT INTO `sys_role` (`id`,`role`,description,`resource_ids`,status) VALUES (5,'test','测试角色','12,13,14,43,47',0);
+INSERT INTO `sys_role` (`id`,`role`,description,`resource_ids`,status) VALUES (6,'测试1','222','73',0);
 
 INSERT INTO `sys_organization` (`id`,`name`,`parent_id`,`parent_ids`,`available`,`priority`,`leaf`) VALUES (1,'总公司',0,'0/',1,0,0);
 INSERT INTO `sys_organization` (`id`,`name`,`parent_id`,`parent_ids`,`available`,`priority`,`leaf`) VALUES (2,'分公司',1,'0/1/',1,1,0);
