@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.entity.Log;
-import tech.wetech.admin.utils.JsonUtil;
+import tech.wetech.admin.utils.JSONUtil;
 import tech.wetech.admin.utils.WebUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,7 +83,7 @@ public class SystemLogAspect {
                 String n = returns.getClass().getSimpleName();
                 tmp = m == null ? n : n + ": " + m;
             } else {
-                tmp = JsonUtil.toJson(returns);
+                tmp = JSONUtil.toJSON(returns);
             }
             text = tmp;
         }
@@ -101,7 +101,7 @@ public class SystemLogAspect {
         log.setExecTime(time);
         // 请求参数
         if ("POST".equals(method)) {
-            log.setArgs(JsonUtil.toJson(point.getArgs()[0]));
+            log.setArgs(JSONUtil.toJSON(point.getArgs()[0]));
         }
         log.setStatus(msg);
         log.setExecDesc(desc);

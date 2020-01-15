@@ -8,9 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.aspect.SystemLog;
 import tech.wetech.admin.model.Result;
-import tech.wetech.admin.model.entity.Resource;
-import tech.wetech.admin.model.enumeration.ResourceType;
-import tech.wetech.admin.service.ResourceService;
+import tech.wetech.admin.model.entity.Permission;
+import tech.wetech.admin.service.PermissionService;
 
 /**
  * @author cjbi
@@ -20,35 +19,30 @@ import tech.wetech.admin.service.ResourceService;
 public class ResourceController {
 
     @Autowired
-    private ResourceService resourceService;
-
-    @ModelAttribute("/types")
-    public ResourceType[] resourceTypes() {
-        return ResourceType.values();
-    }
+    private PermissionService permissionService;
 
     @RequiresPermissions("resource:view")
     @GetMapping
     public String resourcePage(Model model) {
-        model.addAttribute("resourceList", resourceService.queryOrderByPriority());
+        model.addAttribute("resourceList", permissionService.queryPermissionsByOrder());
         return "system/resource";
     }
 
     @ResponseBody
-    @RequiresPermissions("resource:create")
+    @RequiresPermissions("permission:create")
     @SystemLog("资源管理创建资源")
     @PostMapping("/create")
-    public Result create(@Validated Resource resource) {
-        resourceService.createResource(resource);
+    public Result create(@Validated Permission permission) {
+        permissionService.createPermission(permission);
         return Result.success();
     }
 
     @ResponseBody
-    @RequiresPermissions("resource:update")
+    @RequiresPermissions("permission:update")
     @SystemLog("资源管理更新资源")
     @PostMapping("/update")
-    public Result update(@Validated Resource resource) {
-        resourceService.updateNotNull(resource);
+    public Result update(@Validated Permission permission) {
+        permissionService.updateNotNull(permission);
         return Result.success();
     }
 
@@ -57,7 +51,7 @@ public class ResourceController {
     @SystemLog("资源管理删除资源")
     @PostMapping("/delete")
     public Result delete(@RequestParam("id") Long id) {
-        resourceService.deleteById(id);
+        permissionService.deleteById(id);
         return Result.success();
     }
 

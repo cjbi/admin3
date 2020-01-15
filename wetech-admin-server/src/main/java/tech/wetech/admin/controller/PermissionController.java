@@ -1,10 +1,15 @@
 package tech.wetech.admin.controller;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.wetech.admin.model.Result;
+import tech.wetech.admin.model.dto.PermissionDTO;
+import tech.wetech.admin.service.PermissionService;
+
+import java.util.List;
 
 /**
  * 权限
@@ -14,6 +19,14 @@ import tech.wetech.admin.model.Result;
 @RestController
 @RequestMapping("permission")
 public class PermissionController {
+
+    @Autowired
+    private PermissionService permissionService;
+
+    @GetMapping("tree")
+    public Result<List<PermissionDTO>> queryPermissionTree() {
+        return Result.success(permissionService.queryPermissionTree());
+    }
 
     @GetMapping("no-pager")
     public Result getPermissionNoPager() {
@@ -161,7 +174,7 @@ public class PermissionController {
             "    ]\n" +
             "  }\n" +
             "  ]";
-        return Result.success();
+        return Result.success(JSON.parseArray(json));
     }
 
 }

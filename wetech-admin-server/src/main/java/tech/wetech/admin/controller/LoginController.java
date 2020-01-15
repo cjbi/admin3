@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.dto.LoginDTO;
 import tech.wetech.admin.model.dto.UserInfoDTO;
-import tech.wetech.admin.service.ResourceService;
+import tech.wetech.admin.service.PermissionService;
 import tech.wetech.admin.service.UserService;
 
 /**
@@ -19,7 +19,7 @@ import tech.wetech.admin.service.UserService;
 public class LoginController {
 
     @Autowired
-    private ResourceService resourceService;
+    private PermissionService permissionService;
 
     @Autowired
     private UserService userService;

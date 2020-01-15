@@ -1,28 +1,24 @@
 package tech.wetech.admin.model.entity;
 
 import lombok.Data;
-import tech.wetech.admin.model.enumeration.ResourceType;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author cjbi
  */
-@Table(name = "sys_resource")
+@Table(name = "sys_permission")
 @Data
-public class Resource {
+public class Permission {
 
     /**
      * 编号
      */
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "资源名称不能为空")
     /**
      * 资源名称
      */
@@ -30,8 +26,7 @@ public class Resource {
     /**
      * 资源类型
      */
-    @NotNull(message = "资源类型不能为空")
-    private ResourceType type;
+    private Integer type;
     /**
      * 资源路径
      */
@@ -43,13 +38,12 @@ public class Resource {
     /**
      * 父编号
      */
-    @NotNull(message = "父编号不能为空")
     private Long parentId;
     /**
      * 父编号列表
      */
     private String parentIds;
-    private Boolean available;
+    private Integer status;
     /**
      * 图标
      */
@@ -57,12 +51,8 @@ public class Resource {
     /**
      * 排序
      */
-    private Long priority;
-
-    /**
-     * 叶子节点
-     */
-    private Boolean leaf;
+    @Column(name = "`order`")
+    private Long order;
 
     public String makeSelfAsParentIds() {
         return getParentIds() + getId() + "/";

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.mapper.RoleMapper;
 import tech.wetech.admin.model.entity.Role;
-import tech.wetech.admin.service.ResourceService;
+import tech.wetech.admin.service.PermissionService;
 import tech.wetech.admin.service.RoleService;
 import tech.wetech.mybatis.example.Example;
 
@@ -21,7 +21,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     private RoleMapper roleMapper;
 
     @Autowired
-    private ResourceService resourceService;
+    private PermissionService permissionService;
 
     @Override
     public Set<String> queryRoles(Long... roleIds) {
@@ -39,9 +39,9 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     public Set<String> queryPermissions(Long[] roleIds) {
         Example<Role> weekend = Example.of(Role.class);
         weekend.createCriteria().andIn(Role::getId, Arrays.asList(roleIds));
-        return resourceService.queryPermissions(
+        return permissionService.queryPermissionTree(
                 roleMapper.selectByExample(weekend).stream().flatMap(r ->
-                        Arrays.asList(r.getResourceIds().split(",")).stream()
+                        Arrays.asList(r.getPermissionIds().split(",")).stream()
                 ).map(Long::valueOf).collect(Collectors.toSet())
         );
     }

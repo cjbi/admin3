@@ -1,6 +1,6 @@
 package tech.wetech.admin.service;
 
-import tech.wetech.admin.exception.BizException;
+import tech.wetech.admin.exception.BusinessException;
 import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.dto.LoginDTO;
 import tech.wetech.admin.model.dto.UserInfoDTO;
@@ -17,7 +17,7 @@ public interface UserService extends IService<User> {
      *
      * @param user
      */
-    void createUser(User user) throws BizException;
+    void createUser(User user) throws BusinessException;
 
     /**
      * 修改密码

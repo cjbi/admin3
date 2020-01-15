@@ -26,8 +26,8 @@ public class RoleDTO {
         this.id = role.getId();
         this.role = role.getRole();
         this.description = role.getDescription();
-        this.resourceIds = role.getResourceIds();
-        this.resourceIdList = Arrays.asList(role.getResourceIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList());
-        this.available = role.getAvailable();
+        this.resourceIds = role.getPermissionIds();
+        this.resourceIdList = Arrays.asList(role.getPermissionIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList());
+        this.available = role.getStatus();
     }
 }

@@ -3,7 +3,7 @@ package tech.wetech.admin.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tech.wetech.admin.exception.BizException;
+import tech.wetech.admin.exception.BusinessException;
 import tech.wetech.admin.mapper.UserMapper;
 import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.dto.LoginDTO;
@@ -48,7 +48,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public void createUser(User user) {
         User u = userMapper.createCriteria().andEqualTo(User::getUsername, user.getUsername()).selectOne();
         if (u != null) {
-            throw new BizException(CommonResultStatus.FAILED_USER_ALREADY_EXIST);
+            throw new BusinessException(CommonResultStatus.FAILED_USER_ALREADY_EXIST);
         }
         // 加密密码
         passwordHelper.encryptPassword(user);
@@ -110,10 +110,10 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public UserInfoDTO login(LoginDTO loginDTO) {
         User user = userMapper.createCriteria().andEqualTo(User::getUsername, loginDTO.getUsername()).selectOne();
         if (user == null) {
-            throw new BizException(CommonResultStatus.LOGIN_ERROR, "用户不存在");
+            throw new BusinessException(CommonResultStatus.LOGIN_ERROR, "用户不存在");
         }
         if (!passwordHelper.verifyPassword(user, loginDTO.getPassword())) {
-            throw new BizException(CommonResultStatus.LOGIN_ERROR, "密码错误");
+            throw new BusinessException(CommonResultStatus.LOGIN_ERROR, "密码错误");
         }
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setId(user.getId());

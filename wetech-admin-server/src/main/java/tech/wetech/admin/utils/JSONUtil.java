@@ -10,13 +10,13 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.IOException;
 
 
-public class JsonUtil {
+public class JSONUtil {
 
 	private static final ObjectMapper JSON = new ObjectMapper();
 
 	static {
 		JSON.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		JSON.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
+		JSON.configure(SerializationFeature.INDENT_OUTPUT, false);
 		//不显示为null的字段
 		JSON.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		//序列化枚举是以ordinal()来输出
@@ -25,11 +25,10 @@ public class JsonUtil {
 //        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
 //        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
 		JSON.registerModule(simpleModule);
-		//不校验未知属性com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "modelName" (class tech.wetech.admin.web.dto.system.GeneratorDto), not marked as ignorable (31 known properties: "jspTargetFolder", "controllerName", "generateKeys", "controllerPackage", "domainObjectName", "daoTargetFolder", "daoPackage", "moduleName", "controllerTargetFolder", "modelPackageTargetFolder", "modelPackage", "comment", "serviceImplName", "projectFolder", "mappingXMLTargetFolder", "ignoredColumns", "mapperName", "annotation", "columnOverrides", "jspName", "serviceImplTargetFolder", "tableName", "useTableNameAlias", "serviceImplPackage", "mappingXMLPackage", "serviceName", "offsetLimit", "serviceTargetFolder", "needToStringHashcodeEquals", "useActualColumnNames", "servicePackage"])
 		JSON.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public static String toJson(Object obj) {
+	public static String toJSON(Object obj) {
 		try {
 			return JSON.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {

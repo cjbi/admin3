@@ -2,10 +2,12 @@ import { axios } from '@/utils/request'
 
 const api = {
   user: '/user',
+  lockUser: '/user/lock',
   role: '/role',
   service: '/service',
   permission: '/permission',
   permissionNoPager: '/permission/no-pager',
+  permissionTree: '/permission/tree',
   orgTree: '/org/tree'
 }
 
@@ -29,9 +31,16 @@ export function deleteUser (parameter) {
 
 export function lockUser (parameter) {
   return axios({
-    url: api.user + '/lock',
+    url: api.lockUser,
     method: 'put',
     params: parameter
+  })
+}
+
+export function getPermissionTree () {
+  return axios({
+    url: api.permissionTree,
+    method: 'get'
   })
 }
 

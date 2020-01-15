@@ -1,20 +1,15 @@
-package tech.wetech.admin.model.entity;
+package tech.wetech.admin.model.vo;
 
 import lombok.Data;
-
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * @author cjbi
  */
-@Table(name = "sys_role")
 @Data
-public class Role {
+public class RoleVO {
     /**
      * 编号
      */
-    @Id
     private Long id;
     /**
      * 角色标识 程序中判断使用,如"admin"
@@ -32,9 +27,4 @@ public class Role {
      * 状态,如果不可用将不会添加给用户。1.正常 0.禁用
      */
     private Integer status;
-    /**
-     * 拥有的资源
-     */
-    private String permissionIds;
-
 }

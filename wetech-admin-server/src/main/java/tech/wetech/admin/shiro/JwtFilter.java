@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
-import tech.wetech.admin.utils.JsonUtil;
+import tech.wetech.admin.utils.JSONUtil;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -58,7 +58,7 @@ public class JwtFilter extends AccessControlFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpResponse.setContentType("application/json;charset=utf-8");
-        httpResponse.getWriter().write(JsonUtil.toJson(Result.failure(CommonResultStatus.LOGIN_ERROR)));
+        httpResponse.getWriter().write(JSONUtil.toJSON(Result.failure(CommonResultStatus.LOGIN_ERROR)));
     }
 
 }

@@ -62,11 +62,11 @@
       </plugin>
     </plugins>
     <resources>
-      <resource>
+      <permission>
         <directory>target/dist</directory>
         <targetPath>META-INF/resources/webjars/wetech-admin-ui</targetPath>
         <filtering>false</filtering>
-      </resource>
+      </permission>
     </resources>
   </build>
 
