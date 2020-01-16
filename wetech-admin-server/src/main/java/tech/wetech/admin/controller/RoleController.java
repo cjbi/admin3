@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.aspect.SystemLog;
 import tech.wetech.admin.model.Result;
+import tech.wetech.admin.model.dto.RoleDTO;
 import tech.wetech.admin.model.entity.Role;
 import tech.wetech.admin.model.vo.RoleVO;
 import tech.wetech.admin.service.PermissionService;
@@ -26,24 +27,12 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private PermissionService permissionService;
-
     @GetMapping
     @RequiresPermissions("role:view")
-    public Result<List<RoleVO>> queryRoleList() {
-        List<Role> roles = roleService.queryAll();
-        List<RoleVO> list = new ArrayList<>();
-        for (Role role : roles) {
-            RoleVO roleVO = new RoleVO();
-            roleVO.setId(role.getId());
-            roleVO.setRole(role.getRole());
-            roleVO.setName(role.getName());
-            roleVO.setDescription(role.getDescription());
-            roleVO.setStatus(role.getStatus());
-            list.add(roleVO);
-        }
-        return Result.success(list);
+    public Result<List<RoleDTO>> queryRoleList() {
+
+        List<RoleDTO> roleDTOS = roleService.queryAllRole();
+        return Result.success(roleService.queryAllRole());
     }
 
     @RequiresPermissions("role:create")

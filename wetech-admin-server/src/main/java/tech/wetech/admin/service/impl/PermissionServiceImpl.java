@@ -85,21 +85,21 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
         Example<Permission> example = Example.of(Permission.class);
         example.setSort(new Sort("order"));
 
-        List<PermissionDTO> permissions = permissionMapper.selectByExample(example).stream()
-            .map(PermissionDTO::new)
+        List<Permission> permissions = permissionMapper.selectByExample(example).stream()
             .collect(Collectors.toList());
 
         return getPermissionTree(permissions, Constants.MENU_ROOT_ID);
     }
 
-    private List<PermissionDTO> getPermissionTree(List<PermissionDTO> list, Long parentId) {
-        List<PermissionDTO> res = list.stream()
+    private List<PermissionDTO> getPermissionTree(List<Permission> list, Long parentId) {
+        List<PermissionDTO> permissionTree = list.stream()
             .filter(p -> p.getParentId().equals(parentId))
+            .map(PermissionDTO::new)
             .collect(Collectors.toList());
-        for (PermissionDTO permission : res) {
+        for (PermissionDTO permission : permissionTree) {
             permission.setChildren(getPermissionTree(list, permission.getId()));
         }
-        return res;
+        return permissionTree;
     }
 
     private boolean hasPermission(Set<String> permissions, Permission resource) {

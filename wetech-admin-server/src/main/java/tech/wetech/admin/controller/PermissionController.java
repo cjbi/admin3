@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.dto.PermissionDTO;
+import tech.wetech.admin.model.vo.PermissionVO;
 import tech.wetech.admin.service.PermissionService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 权限
@@ -24,8 +26,12 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @GetMapping("tree")
-    public Result<List<PermissionDTO>> queryPermissionTree() {
-        return Result.success(permissionService.queryPermissionTree());
+    public Result<List<PermissionVO>> queryPermissionTree() {
+        List<PermissionDTO> permissionDTOS = permissionService.queryPermissionTree();
+        List<PermissionVO> permissionVOS = permissionDTOS.stream()
+            .map(PermissionVO::new)
+            .collect(Collectors.toList());
+        return Result.success(permissionVOS);
     }
 
     @GetMapping("no-pager")
