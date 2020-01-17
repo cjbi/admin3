@@ -29,6 +29,11 @@ export const asyncRouterMap = [
             name: 'RoleList',
             component: () => import(/* webpackChunkName: "result" */ '@/views/user/RoleList'),
             meta: { title: '角色列表', keepAlive: false, hiddenHeaderContent: true, permission: ['result'] }
+          }, {
+            path: '/user/system-permission',
+            name: 'PermissionList',
+            component: () => import(/* webpackChunkName: "result" */ '@/views/user/PermissionList'),
+            meta: { title: '权限列表', keepAlive: false, hiddenHeaderContent: true, permission: ['result'] }
           }
         ]
       },

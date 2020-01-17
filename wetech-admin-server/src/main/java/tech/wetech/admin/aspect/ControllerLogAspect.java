@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import tech.wetech.admin.utils.JSONUtil;
 
 /**
  * Controller层日志切面
@@ -28,9 +29,9 @@ public class ControllerLogAspect {
         long time = System.currentTimeMillis();
         Signature signature = point.getSignature();
         try {
-            log.info(">>> Begin execute {}, args: {}", signature, point.getArgs());
+            log.info(">>> Begin execute {}, args: {}", signature, JSONUtil.toJSON(point.getArgs()));
             Object object = point.proceed();
-            log.info("<<< End execute {} in {} ms, return: {}", signature, System.currentTimeMillis() - time, object);
+            log.info("<<< End execute {} in {} ms, return: {}", signature, System.currentTimeMillis() - time, JSONUtil.toJSON(object));
             return object;
         } catch (Throwable e) {
             log.info(">>> Execute {} has occurred exception: {}", signature, e.toString());

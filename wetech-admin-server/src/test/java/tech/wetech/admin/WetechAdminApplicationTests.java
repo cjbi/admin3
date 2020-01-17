@@ -38,7 +38,7 @@ public class WetechAdminApplicationTests {
 
     @Test
     public void queryPermissionTreeWithController() {
-        Result<List<PermissionVO>> listResult = permissionController.queryPermissionTree();
+        Result<List<PermissionDTO>> listResult = permissionController.queryPermissionTree();
         log.info("返回的json为：{}", JSONUtil.toJSON(listResult));
     }
 
