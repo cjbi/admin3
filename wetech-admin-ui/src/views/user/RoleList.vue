@@ -13,7 +13,7 @@
             </a-popconfirm>
             <a-list-item-meta :style="{ marginBottom: '0',display:'flex' }">
               <span slot="description" style="text-align: left; display: block">{{ item.description }}</span>
-              <a slot="title" style="text-align: left; display: block" @click="edit(item)">{{ item.name }}</a>
+              <a slot="title" style="text-align: left; display: block" @click="edit2(item)">{{ item.name }}</a>
             </a-list-item-meta>
           </a-list-item>
         </a-list>
@@ -48,24 +48,27 @@
             </a-form-item>
 
             <a-form-item label="拥有权限">
-              <div v-for="(item, index) in permissions2" :key="index">
+              <div v-for="(menuPermission, index) in permissions2" :key="index">
                 <a-row>
-                  <a-col :span="18" :style="{fontWeight:'bold'}">{{ item.name }}</a-col>
+                  <a-col :span="18" :style="{fontWeight:'bold'}">{{ menuPermission.name }}</a-col>
                   <a-col :span="6" :style="{textAlign:'right'}">
-                    <a-switch size="small"/>
+                    <a-switch size="small" v-model="menuPermission.checked" @change="onChangeSwitch($event,menuPermission)"/>
                   </a-col>
                 </a-row>
                 <a-divider type="horizontal" :style="{margin: '0px'}"/>
-                <a-row :gutter="16" v-for="(permission, index) in item.children" :key="index">
+                <a-row :gutter="16" v-for="(buttonPermission, index) in menuPermission.children" :key="index">
                   <a-col :xl="4" :lg="24">
-                    {{ permission.name }}：
+                    {{ buttonPermission.name }}：
                   </a-col>
                   <a-col :xl="20" :lg="24">
                     <a-checkbox
-                      :indeterminate="false"
-                      :checked="false"
-                      @change="onChangeCheckAll($event, permission)">全选</a-checkbox>
-                    <a-checkbox-group :options="loadOptions(permission.children)" @change="onChangeCheck(permission)"/>
+                      v-if="buttonPermission.actionsOptions.length > 0"
+                      :indeterminate="buttonPermission.indeterminate"
+                      :checked="buttonPermission.checkedAll"
+                      @change="onChangeCheckAll($event, buttonPermission)">
+                      全选
+                    </a-checkbox>
+                    <a-checkbox-group :options="buttonPermission.actionsOptions" v-model="buttonPermission.selected" @change="onChangeCheck(buttonPermission)"/>
                   </a-col>
                 </a-row>
               </div>
@@ -128,8 +131,8 @@ export default {
       this.roles = res.result
       // console.log('this.roles', this.roles)
     })
-    // this.loadPermissions()
     this.loadPermissions2()
+    this.loadPermissions()
   },
   methods: {
     callback (val) {
@@ -144,6 +147,30 @@ export default {
         description: '新增一个角色'
       })
       // this.edit({ id: 0 })
+    },
+    edit2 (record) {
+      this.mdl = Object.assign({}, record)
+      // 有权限表，处理勾选
+      if (this.mdl.permissionIds && this.permissions2) {
+        // 先处理要勾选的权限结构
+        this.permissions2.forEach(menuPermission => {
+          const checked = this.mdl.permissionIds.indexOf(menuPermission.id) > -1
+          this.onChangeSwitch(checked, menuPermission)
+          menuPermission.children.forEach(checkboxPermission => {
+            if (checkboxPermission.actionsOptions.length <= 0) {
+              return
+            }
+            const selected = checkboxPermission.actionsOptions.map(entity => entity.value).filter(permissionId => this.mdl.permissionIds.indexOf(permissionId) > -1)
+            checkboxPermission.selected = selected || []
+            this.onChangeCheck(checkboxPermission)
+          })
+          console.log(menuPermission.children)
+        })
+      }
+
+      this.$nextTick(() => {
+        this.form.setFieldsValue(pick(this.mdl, 'role', 'name', 'status', 'description'))
+      })
     },
     edit (record) {
       this.mdl = Object.assign({}, record)
@@ -176,6 +203,10 @@ export default {
       permission.indeterminate = !!permission.selected.length && (permission.selected.length < permission.actionsOptions.length)
       permission.checkedAll = permission.selected.length === permission.actionsOptions.length
     },
+    onChangeSwitch (checked, permission) {
+      console.log(`a-switch to ${checked}`)
+      permission.checked = checked
+    },
     onChangeCheckAll (e, permission) {
       console.log('permission:', permission)
 
@@ -184,14 +215,6 @@ export default {
         indeterminate: false,
         checkedAll: e.target.checked
       })
-    },
-    loadOptions (permissions) {
-      const options = []
-      debugger
-      permissions.forEach(permission => {
-        options.push({ label: permission.name, value: permission.id })
-      })
-      return options
     },
     loadPermissions2 () {
       getPermissionTree().then(res => {

@@ -8,12 +8,9 @@ import tech.wetech.admin.aspect.SystemLog;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.dto.RoleDTO;
 import tech.wetech.admin.model.entity.Role;
-import tech.wetech.admin.model.vo.RoleVO;
-import tech.wetech.admin.service.PermissionService;
 import tech.wetech.admin.service.RoleService;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +27,6 @@ public class RoleController {
     @GetMapping
     @RequiresPermissions("role:view")
     public Result<List<RoleDTO>> queryRoleList() {
-
-        List<RoleDTO> roleDTOS = roleService.queryAllRole();
         return Result.success(roleService.queryAllRole());
     }
 
