@@ -11,41 +11,11 @@
           @titleClick="handleTitleClick"></s-tree>
       </a-col>
       <a-col :span="19">
-        <s-table
-          ref="table"
-          size="default"
-          :columns="columns"
-          :data="loadData"
-          :alert="false"
-          :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        >
-          <span slot="action" slot-scope="text, record">
-            <template v-if="$auth('table.update')">
-              <a @click="handleEdit(record)">编辑</a>
-              <a-divider type="vertical" />
-            </template>
-            <a-dropdown>
-              <a class="ant-dropdown-link">
-                更多 <a-icon type="down" />
-              </a>
-              <a-menu slot="overlay">
-                <a-menu-item>
-                  <a href="javascript:;">详情</a>
-                </a-menu-item>
-                <a-menu-item v-if="$auth('table.disable')">
-                  <a href="javascript:;">禁用</a>
-                </a-menu-item>
-                <a-menu-item v-if="$auth('table.delete')">
-                  <a href="javascript:;">删除</a>
-                </a-menu-item>
-              </a-menu>
-            </a-dropdown>
-          </span>
-        </s-table>
+
       </a-col>
     </a-row>
 
-    <org-modal ref="modal" @ok="handleSaveOk" @close="handleSaveClose" />
+    <org-modal ref="modal" @ok="handleSaveOk" @close="handleSaveClose"/>
   </a-card>
 </template>
 
@@ -53,7 +23,7 @@
 import STree from '@/components/Tree/Tree'
 import { STable } from '@/components'
 import OrgModal from './modules/OrgModal'
-import { getPermissionTree, getServiceList } from '@/api/manage'
+import { getPermissionTree } from '@/api/manage'
 
 export default {
   name: 'TreeList',
@@ -68,65 +38,35 @@ export default {
 
       // 查询参数
       queryParam: {},
-      // 表头
-      columns: [
-        {
-          title: '#',
-          dataIndex: 'no'
-        },
-        {
-          title: '成员名称',
-          dataIndex: 'description'
-        },
-        {
-          title: '登录次数',
-          dataIndex: 'callNo',
-          sorter: true,
-          needTotal: true,
-          customRender: (text) => text + ' 次'
-        },
-        {
-          title: '状态',
-          dataIndex: 'status',
-          needTotal: true
-        },
-        {
-          title: '更新时间',
-          dataIndex: 'updatedAt',
-          sorter: true
-        },
-        {
-          title: '操作',
-          dataIndex: 'action',
-          width: '150px',
-          scopedSlots: { customRender: 'action' }
-        }
-      ],
-      // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
-        return getServiceList(Object.assign(parameter, this.queryParam))
-          .then(res => {
-            return res.result
-          })
-      },
-      orgTree: [],
-      selectedRowKeys: [],
-      selectedRows: []
+      orgTree: []
     }
   },
   created () {
     getPermissionTree().then(res => {
-      // let permissionTree = []
-      this.orgTree = res.result
+      this.orgTree = this.formatTree(res.result)
+      console.log('tree==', this.orgTree)
     })
   },
   methods: {
+    formatTree (permissionTree) {
+      const permissions = []
+      permissionTree.forEach(tree => {
+        permissions.push({
+          icon: tree.icon,
+          key: tree.id,
+          title: tree.name,
+          children: tree.children ? this.formatTree(tree.children) : [],
+          group: false
+        })
+      })
+      console.log(permissions)
+      return permissions
+    },
     handleClick (e) {
       console.log('handleClick', e)
       this.queryParam = {
         key: e.key
       }
-      this.$refs.table.refresh(true)
     },
     handleAdd (item) {
       console.log('add button, item', item)
@@ -144,11 +84,6 @@ export default {
     },
     handleSaveClose () {
 
-    },
-
-    onSelectChange (selectedRowKeys, selectedRows) {
-      this.selectedRowKeys = selectedRowKeys
-      this.selectedRows = selectedRows
     }
   }
 }
@@ -159,6 +94,7 @@ export default {
 
     /deep/ .ant-menu-item-group-title {
       position: relative;
+
       &:hover {
         .btn {
           display: block;
