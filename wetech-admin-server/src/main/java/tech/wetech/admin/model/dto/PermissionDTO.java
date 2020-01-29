@@ -25,10 +25,6 @@ public class PermissionDTO {
      */
     private Integer type;
     /**
-     * 资源路径
-     */
-    private String url;
-    /**
      * 权限字符串
      */
     private String permission;
@@ -40,15 +36,22 @@ public class PermissionDTO {
      * 父编号列表
      */
     private String parentIds;
-    private Integer status;
     /**
      * 图标
      */
     private String icon;
     /**
+     * 配置
+     */
+    private String config;
+    /**
+     * 状态
+     */
+    private Integer status;
+    /**
      * 排序
      */
-    private Long order;
+    private Long sort;
 
     private List<PermissionDTO> children;
 
@@ -56,13 +59,13 @@ public class PermissionDTO {
         this.id = permission.getId();
         this.name = permission.getName();
         this.type = permission.getType();
-        this.url = permission.getUrl();
         this.permission = permission.getPermission();
         this.parentId = permission.getParentId();
         this.parentIds = permission.getParentIds();
-        this.status = permission.getStatus();
         this.icon = permission.getIcon();
-        this.order = permission.getOrder();
+        this.config = permission.getConfig();
+        this.status = permission.getStatus();
+        this.sort = permission.getSort();
     }
 
 }

@@ -1,12 +1,12 @@
-import { axios } from '@/utils/request'
+import {axios} from '@/utils/request'
 
 const api = {
   user: '/user',
   lockUser: '/user/lock',
   role: '/role',
   service: '/service',
-  permission: '/permission',
   permissionNoPager: '/permission/no-pager',
+  permission: '/permission',
   permissionTree: '/permission/tree',
   orgTree: '/org/tree'
 }

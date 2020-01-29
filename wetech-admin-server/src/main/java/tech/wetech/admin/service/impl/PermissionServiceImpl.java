@@ -32,11 +32,6 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
         Permission parent = permissionMapper.createCriteria().andEqualTo(Permission::getParentId, permission.getParentId()).selectOne();
         permission.setParentIds(parent.makeSelfAsParentIds());
         permission.setStatus(1);
-        if (permission.getType() == 1) {
-            if (StringUtils.isEmpty(permission.getUrl())) {
-                permission.setUrl("#");
-            }
-        }
         permissionMapper.insertSelective(permission);
     }
 
@@ -55,13 +50,10 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
     @Override
     public List<PermissionDTO> queryMenus(Set<String> permissions) {
         Example example = Example.of(Permission.class);
-        example.setOrderByClause("order");
+        example.setOrderByClause("sort");
         List<Permission> allPermissions = permissionMapper.selectByExample(example);
         List<PermissionDTO> menus = new ArrayList<>();
         for (Permission permission : allPermissions) {
-            if (permission.isRootNode()) {
-                continue;
-            }
             if (permission.getType() != 1) {
                 continue;
             }
@@ -76,14 +68,14 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
     @Override
     public List<Permission> queryPermissionsByOrder() {
         Example<Permission> example = Example.of(Permission.class);
-        example.setOrderByClause("priority");
+        example.setOrderByClause("sort");
         return permissionMapper.selectByExample(example);
     }
 
     @Override
     public List<PermissionDTO> queryPermissionTree() {
         Example<Permission> example = Example.of(Permission.class);
-        example.setSort(new Sort("order"));
+        example.setSort(new Sort("sort"));
 
         List<Permission> permissions = permissionMapper.selectByExample(example).stream()
             .collect(Collectors.toList());
@@ -96,6 +88,9 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
             .filter(p -> p.getParentId().equals(parentId))
             .map(PermissionDTO::new)
             .collect(Collectors.toList());
+        if(permissionTree.isEmpty()) {
+            return null;
+        }
         for (PermissionDTO permission : permissionTree) {
             permission.setChildren(getPermissionTree(list, permission.getId()));
         }

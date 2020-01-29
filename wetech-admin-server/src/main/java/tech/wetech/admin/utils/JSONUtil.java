@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.IOException;
 
 
+/**
+ * @author cjbi
+ */
 public class JSONUtil {
 
 	private static final ObjectMapper JSON = new ObjectMapper();

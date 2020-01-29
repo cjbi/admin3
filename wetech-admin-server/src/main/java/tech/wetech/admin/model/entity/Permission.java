@@ -2,7 +2,6 @@ package tech.wetech.admin.model.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -28,10 +27,6 @@ public class Permission {
      */
     private Integer type;
     /**
-     * 资源路径
-     */
-    private String url;
-    /**
      * 权限字符串
      */
     private String permission;
@@ -43,22 +38,26 @@ public class Permission {
      * 父编号列表
      */
     private String parentIds;
-    private Integer status;
     /**
      * 图标
      */
     private String icon;
     /**
+     * 配置,json格式
+     */
+    private String config;
+    /**
+     * 状态
+     */
+    private Integer status;
+    /**
      * 排序
      */
-    @Column(name = "`order`")
-    private Long order;
+    private Long sort;
+
 
     public String makeSelfAsParentIds() {
         return getParentIds() + getId() + "/";
     }
 
-    public boolean isRootNode() {
-        return parentId == 0;
-    }
 }

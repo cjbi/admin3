@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import * as loginService from '@/api/login'
 // eslint-disable-next-line
-import { BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
+import {BasicLayout, BlankLayout, PageView, RouteView} from '@/layouts'
 
 // 前端路由表
 const constantRouterComponents = {
@@ -17,6 +17,12 @@ const constantRouterComponents = {
   // 你需要动态引入的页面组件
   'Workplace': () => import('@/views/dashboard/Workplace'),
   'Analysis': () => import('@/views/dashboard/Analysis'),
+
+  // 用户
+  'UserList': () => import('@/views/user/UserList'),
+  'RoleList': () => import('@/views/user/RoleList'),
+  'PermissionList': () => import('@/views/user/PermissionList'),
+  'PermissionList2': () => import('@/views/user/PermissionList2'),
 
   // form
   'BasicForm': () => import('@/views/form/BasicForm'),
@@ -109,7 +115,7 @@ export const generatorDynamicRouter = (token) => {
  */
 export const generator = (routerMap, parent) => {
   return routerMap.map(item => {
-    const { title, show, hideChildren, hiddenHeaderContent, target, icon } = item.meta || {}
+    const { title, show, hideChildren, target, icon } = item.meta || {}
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
       path: item.path || `${parent && parent.path || ''}/${item.key}`,
@@ -124,7 +130,7 @@ export const generator = (routerMap, parent) => {
       meta: {
         title: title,
         icon: icon || undefined,
-        hiddenHeaderContent: hiddenHeaderContent,
+        hiddenHeaderContent: false,
         target: target,
         permission: item.name
       }

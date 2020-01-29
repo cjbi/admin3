@@ -65,7 +65,7 @@
     <s-table
       ref="table"
       size="default"
-      rowKey="key"
+      rowKey="id"
       :columns="columns"
       :data="loadData"
       :alert="options.alert"
@@ -106,10 +106,10 @@
 </template>
 
 <script>
-import { Ellipsis, STable } from '@/components'
+import {Ellipsis, STable} from '@/components'
 import CreateForm from './modules/CreateForm'
-import { deleteUser, getUserList, lockUser } from '@/api/manage'
-import { message } from 'ant-design-vue'
+import {deleteUser, getUserList, lockUser} from '@/api/manage'
+import {message} from 'ant-design-vue'
 
 const lockedMap = {
   1: {
@@ -202,6 +202,30 @@ export default {
     this.tableOption()
   },
   methods: {
+    tableOption () {
+      if (!this.optionAlertShow) {
+        this.options = {
+          alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+          rowSelection: {
+            selectedRowKeys: this.selectedRowKeys,
+            onChange: this.onSelectChange,
+            getCheckboxProps: record => ({
+              props: {
+                disabled: record.no === 'No 2', // Column configuration not to be checked
+                name: record.no
+              }
+            })
+          }
+        }
+        this.optionAlertShow = true
+      } else {
+        this.options = {
+          alert: false,
+          rowSelection: null
+        }
+        this.optionAlertShow = false
+      }
+    },
     handleEdit (record) {
       console.log(record)
       this.$refs.modal.edit(record)

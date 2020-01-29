@@ -19,14 +19,8 @@ public class Constants {
     /**
      * 菜单根id
      */
-    public static final Long MENU_ROOT_ID = 1L;
-
-    /**
-     * 菜单树
-     */
-    public static final String MENU_TREE = "menuTree";
-
-    public static final String SHARP = "#";
+    public static final Long MENU_ROOT_ID = 0L;
+    
     /**
      * 组织机构根id
      */
