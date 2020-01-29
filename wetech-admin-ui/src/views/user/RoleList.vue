@@ -4,8 +4,6 @@
       <a-col :md="4">
         <a-list itemLayout="horizontal" :dataSource="roles">
           <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
-            <a-icon type="unlock"/>
-            <a-divider type="vertical"/>
             <a-popconfirm title="确定删除角色？" @confirm="del(item.id)">
               <a :style="{ display: 'flex'}">
                 <a-icon type="delete"/>

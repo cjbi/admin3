@@ -3,7 +3,6 @@ package tech.wetech.admin.controller;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.aspect.SystemLog;
 import tech.wetech.admin.model.PageWrapper;

@@ -101,7 +101,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setId(user.getId());
         userInfoDTO.setUsername(user.getUsername());
-        userInfoDTO.setOrganizationId(user.getOrganizationId());
         userInfoDTO.setRoleIds(user.getRoleIds());
         return userInfoDTO;
     }
@@ -118,7 +117,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setId(user.getId());
         userInfoDTO.setUsername(user.getUsername());
-        userInfoDTO.setOrganizationId(user.getOrganizationId());
         userInfoDTO.setRoleIds(user.getRoleIds());
         userInfoDTO.setToken(JwtUtil.sign(user.getUsername(), String.valueOf(System.currentTimeMillis())));
         return userInfoDTO;

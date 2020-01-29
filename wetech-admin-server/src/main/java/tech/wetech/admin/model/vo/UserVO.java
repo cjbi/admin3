@@ -29,7 +29,6 @@ public class UserVO {
 
     public UserVO(User user) {
         this.id = user.getId();
-        this.organizationId = user.getOrganizationId();
         this.username = user.getUsername();
         this.roleIds = user.getRoleIds();
         this.roleIdList = Arrays.asList(user.getRoleIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList());

@@ -4,3 +4,5 @@ spring:
     url: jdbc:mysql://wetech.tech:3306/wetech_admin
     username: wetech_admin
     password: 123456
+    hikari:
+        max-lifetime: 1000000

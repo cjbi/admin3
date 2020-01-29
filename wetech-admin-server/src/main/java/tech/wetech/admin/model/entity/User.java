@@ -18,10 +18,6 @@ public class User {
     @Id
     private Long id;
     /**
-     * 所属公司
-     */
-    private Long organizationId;
-    /**
      * 用户名
      */
     private String username;

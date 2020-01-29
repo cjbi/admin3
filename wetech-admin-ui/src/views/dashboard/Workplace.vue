@@ -208,40 +208,241 @@ export default {
   },
   methods: {
     getProjects () {
-      this.$http.get('/list/search/projects')
-        .then(res => {
-          this.projects = res.result && res.result.data
-          this.loading = false
-        })
+      // this.$http.get('/list/search/projects')
+      //   .then(res => {
+      //     this.projects = res.result && res.result.data
+      //     this.loading = false
+      //   })
+      this.projects = [{
+        id: 1,
+        cover: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
+        title: 'Alipay',
+        description: '那是一种内在的东西， 他们到达不了，也无法触及的',
+        status: 1,
+        updatedAt: '2018-07-26 00:00:00'
+      },
+      {
+        id: 2,
+        cover: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
+        title: 'Angular',
+        description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
+        status: 1,
+        updatedAt: '2018-07-26 00:00:00'
+      },
+      {
+        id: 3,
+        cover: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
+        title: 'Ant Design',
+        description: '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
+        status: 1,
+        updatedAt: '2018-07-26 00:00:00'
+      },
+      {
+        id: 4,
+        cover: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
+        title: 'Ant Design Pro',
+        description: '那时候我只会想自己想要什么，从不想自己拥有什么',
+        status: 1,
+        updatedAt: '2018-07-26 00:00:00'
+      },
+      {
+        id: 5,
+        cover: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
+        title: 'Bootstrap',
+        description: '凛冬将至',
+        status: 1,
+        updatedAt: '2018-07-26 00:00:00'
+      },
+      {
+        id: 6,
+        cover: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+        title: 'Vue',
+        description: '生命就像一盒巧克力，结果往往出人意料',
+        status: 1,
+        updatedAt: '2018-07-26 00:00:00'
+      }
+      ]
+      this.loading = false
     },
     getActivity () {
-      this.$http.get('/workplace/activity')
-        .then(res => {
-          this.activities = res.result
-        })
+      // this.$http.get('/workplace/activity')
+      //   .then(res => {
+      //     this.activities = res.result
+      //   })
+      this.activities = [{
+        id: 1,
+        user: {
+          nickname: '@name',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+        },
+        project: {
+          name: '白鹭酱油开发组',
+          action: '更新',
+          event: '番组计划'
+        },
+        time: '2018-08-23 14:47:00'
+      },
+      {
+        id: 1,
+        user: {
+          nickname: '蓝莓酱',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png'
+        },
+        project: {
+          name: '白鹭酱油开发组',
+          action: '更新',
+          event: '番组计划'
+        },
+        time: '2018-08-23 09:35:37'
+      },
+      {
+        id: 1,
+        user: {
+          nickname: '@name',
+          avatar: '@image(64x64)'
+        },
+        project: {
+          name: '白鹭酱油开发组',
+          action: '创建',
+          event: '番组计划'
+        },
+        time: '2017-05-27 00:00:00'
+      },
+      {
+        id: 1,
+        user: {
+          nickname: '曲丽丽',
+          avatar: '@image(64x64)'
+        },
+        project: {
+          name: '高逼格设计天团',
+          action: '更新',
+          event: '六月迭代'
+        },
+        time: '2018-08-23 14:47:00'
+      },
+      {
+        id: 1,
+        user: {
+          nickname: '@name',
+          avatar: '@image(64x64)'
+        },
+        project: {
+          name: '高逼格设计天团',
+          action: 'created',
+          event: '六月迭代'
+        },
+        time: '2018-08-23 14:47:00'
+      },
+      {
+        id: 1,
+        user: {
+          nickname: '曲丽丽',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+        },
+        project: {
+          name: '高逼格设计天团',
+          action: 'created',
+          event: '六月迭代'
+        },
+        time: '2018-08-23 14:47:00'
+      }
+      ]
     },
     getTeams () {
-      this.$http.get('/workplace/teams')
-        .then(res => {
-          this.teams = res.result
-        })
+      // this.$http.get('/workplace/teams')
+      //   .then(res => {
+      //     this.teams = res.result
+      //   })
+      this.teams = [{
+        id: 1,
+        name: '科学搬砖组',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+      },
+      {
+        id: 2,
+        name: '程序员日常',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png'
+      },
+      {
+        id: 1,
+        name: '设计天团',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png'
+      },
+      {
+        id: 1,
+        name: '中二少女团',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png'
+      },
+      {
+        id: 1,
+        name: '骗你学计算机',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png'
+      }
+      ]
     },
     initRadar () {
       this.radarLoading = true
 
-      this.$http.get('/workplace/radar')
-        .then(res => {
-          const dv = new DataSet.View().source(res.result)
-          dv.transform({
-            type: 'fold',
-            fields: ['个人', '团队', '部门'],
-            key: 'user',
-            value: 'score'
-          })
+      // this.$http.get('/workplace/radar')
+      //   .then(res => {
+      //     const dv = new DataSet.View().source(res.result)
+      //     dv.transform({
+      //       type: 'fold',
+      //       fields: ['个人', '团队', '部门'],
+      //       key: 'user',
+      //       value: 'score'
+      //     })
+      //
+      //     this.radarData = dv.rows
+      //     this.radarLoading = false
+      //   })
+      const dv = new DataSet.View().source([{
+        item: '引用',
+        '个人': 70,
+        '团队': 30,
+        '部门': 40
+      },
+      {
+        item: '口碑',
+        '个人': 60,
+        '团队': 70,
+        '部门': 40
+      },
+      {
+        item: '产量',
+        '个人': 50,
+        '团队': 60,
+        '部门': 40
+      },
+      {
+        item: '贡献',
+        '个人': 40,
+        '团队': 50,
+        '部门': 40
+      },
+      {
+        item: '热度',
+        '个人': 60,
+        '团队': 70,
+        '部门': 40
+      },
+      {
+        item: '引用',
+        '个人': 70,
+        '团队': 50,
+        '部门': 40
+      }
+      ])
+      dv.transform({
+        type: 'fold',
+        fields: ['个人', '团队', '部门'],
+        key: 'user',
+        value: 'score'
+      })
 
-          this.radarData = dv.rows
-          this.radarLoading = false
-        })
+      this.radarData = dv.rows
+      this.radarLoading = false
     }
   }
 }
