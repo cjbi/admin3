@@ -135,8 +135,8 @@
 </template>
 
 <script>
-import {getPermissionTree} from '@/api/manage'
-import {Tree} from 'ant-design-vue'
+import { getPermissionTree } from '@/api/manage'
+import { Tree } from 'ant-design-vue'
 import pick from 'lodash.pick'
 
 export default {

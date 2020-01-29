@@ -106,10 +106,10 @@
 </template>
 
 <script>
-import {Ellipsis, STable} from '@/components'
+import { Ellipsis, STable } from '@/components'
 import CreateForm from './modules/CreateForm'
-import {deleteUser, getUserList, lockUser} from '@/api/manage'
-import {message} from 'ant-design-vue'
+import { deleteUser, getUserList, lockUser } from '@/api/manage'
+import { message } from 'ant-design-vue'
 
 const lockedMap = {
   1: {

@@ -36,8 +36,8 @@
   </a-card>
 </template>
 <script>
-import {Ellipsis, STable} from '@/components'
-import {getPermissions} from '@/api/manage'
+import { Ellipsis, STable } from '@/components'
+import { getPermissions } from '@/api/manage'
 
 export default {
   name: 'PermissionList',
