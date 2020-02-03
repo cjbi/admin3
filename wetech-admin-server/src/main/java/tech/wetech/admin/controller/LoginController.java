@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.dto.LoginDTO;
-import tech.wetech.admin.model.dto.UserInfoDTO;
-import tech.wetech.admin.service.PermissionService;
+import tech.wetech.admin.model.dto.UserTokenDTO;
 import tech.wetech.admin.service.UserService;
 
 /**
@@ -19,19 +18,17 @@ import tech.wetech.admin.service.UserService;
 public class LoginController {
 
     @Autowired
-    private PermissionService permissionService;
-
-    @Autowired
     private UserService userService;
 
     @PostMapping("auth/login")
-    public Result<UserInfoDTO> login(@RequestBody LoginDTO loginDTO) {
-        UserInfoDTO userInfoDTO = userService.login(loginDTO);
+    public Result<UserTokenDTO> login(@RequestBody LoginDTO loginDTO) {
+        UserTokenDTO userInfoDTO = userService.login(loginDTO);
         return Result.success(userInfoDTO);
     }
 
     @PostMapping("auth/logout")
     public Result logout() {
+        //清除缓存
         return Result.success();
     }
 

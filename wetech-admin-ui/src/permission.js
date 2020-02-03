@@ -5,8 +5,8 @@ import store from './store'
 import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import notification from 'ant-design-vue/es/notification'
-import {domTitle, setDocumentTitle} from '@/utils/domUtil'
-import {ACCESS_TOKEN} from '@/store/mutation-types'
+import { domTitle, setDocumentTitle } from '@/utils/domUtil'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
       next({ path: defaultRoutePath })
       NProgress.done()
     } else {
-      if (store.getters.roles.length === 0) {
+      if (store.getters.permissions.length === 0) {
         store
           .dispatch('GetInfo')
           .then(res => {

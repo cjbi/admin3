@@ -9,11 +9,9 @@ import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PermissionService;
 import tech.wetech.admin.service.RoleService;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class RoleServiceImpl extends BaseService<Role> implements RoleService {
@@ -27,21 +25,29 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     @Override
     public Set<String> queryRoles(Long... roleIds) {
         Set<String> roles = new HashSet<>();
-        for (Long roleId : roleIds) {
-            Role role = roleMapper.selectByPrimaryKey(roleId);
-            if (role != null) {
-                roles.add(role.getRole());
-            }
+        List<Role> roleList = roleMapper.createCriteria().andIn(Role::getId, Arrays.asList(roleIds)).selectList();
+        for (Role role : roleList) {
+            roles.add(role.getRole());
         }
         return roles;
     }
 
     @Override
-    public Set<String> queryPermissions(Long[] roleIds) {
+    public Map<String, String> queryRoleNames(Long... roleIds) {
+        Map<String, String> roleMap = new HashMap<>();
+        List<Role> roleList = roleMapper.createCriteria().andIn(Role::getId, Arrays.asList(roleIds)).selectList();
+        for (Role role : roleList) {
+            roleMap.put(role.getRole(), role.getName());
+        }
+        return roleMap;
+    }
+
+    @Override
+    public Set<String> queryPermissions(Long... roleIds) {
         return permissionService.queryPermissionTree(
             roleMapper.createCriteria().andIn(Role::getId, Arrays.asList(roleIds)).selectList().stream().flatMap(r ->
-                Arrays.asList(r.getPermissionIds().split(",")).stream()
-            ).map(Long::valueOf).collect(Collectors.toSet())
+                Stream.of(r.getPermissionIds().split(","))
+            ).map(Long::valueOf).collect(Collectors.toSet()).toArray(new Long[]{})
         );
     }
 

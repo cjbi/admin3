@@ -14,10 +14,10 @@ public interface PermissionService extends IService<Permission> {
     /**
      * 得到资源对应的权限字符串
      *
-     * @param resourceIds
+     * @param permissionIds
      * @return
      */
-    Set<String> queryPermissionTree(Set<Long> resourceIds);
+    Set<String> queryPermissionTree(Long... permissionIds);
 
     /**
      * 根据用户权限得到菜单

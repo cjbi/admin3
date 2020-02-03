@@ -7,8 +7,8 @@ import tech.wetech.admin.exception.BusinessException;
 import tech.wetech.admin.mapper.UserMapper;
 import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.dto.LoginDTO;
-import tech.wetech.admin.model.dto.UserInfoDTO;
 import tech.wetech.admin.model.dto.UserPageDTO;
+import tech.wetech.admin.model.dto.UserTokenDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import tech.wetech.admin.model.query.PageQuery;
@@ -70,9 +70,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (user == null) {
             return Collections.EMPTY_SET;
         }
-        return roleService.queryRoles(
-            Arrays.asList(user.getRoleIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList()).toArray(new Long[0])
-        );
+        return roleService.queryRoles(getRoleIds(user));
     }
 
     @Override
@@ -81,9 +79,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (user == null) {
             return Collections.EMPTY_SET;
         }
-        return roleService.queryPermissions(
-            Arrays.asList(user.getRoleIds().split(",")).stream().map(Long::valueOf).collect(Collectors.toList()).toArray(new Long[0])
-        );
+        return roleService.queryPermissions(getRoleIds(user));
     }
 
     @Override
@@ -94,19 +90,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public UserInfoDTO queryUserInfo(String username) {
-        User user = userMapper.createCriteria()
-            .andEqualTo(User::getUsername, username)
-            .selectOne();
-        UserInfoDTO userInfoDTO = new UserInfoDTO();
-        userInfoDTO.setId(user.getId());
-        userInfoDTO.setUsername(user.getUsername());
-        userInfoDTO.setRoleIds(user.getRoleIds());
-        return userInfoDTO;
-    }
-
-    @Override
-    public UserInfoDTO login(LoginDTO loginDTO) {
+    public UserTokenDTO login(LoginDTO loginDTO) {
         User user = userMapper.createCriteria().andEqualTo(User::getUsername, loginDTO.getUsername()).selectOne();
         if (user == null) {
             throw new BusinessException(CommonResultStatus.LOGIN_ERROR, "用户不存在");
@@ -114,10 +98,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (!passwordHelper.verifyPassword(user, loginDTO.getPassword())) {
             throw new BusinessException(CommonResultStatus.LOGIN_ERROR, "密码错误");
         }
-        UserInfoDTO userInfoDTO = new UserInfoDTO();
-        userInfoDTO.setId(user.getId());
+        UserTokenDTO userInfoDTO = new UserTokenDTO();
         userInfoDTO.setUsername(user.getUsername());
-        userInfoDTO.setRoleIds(user.getRoleIds());
         userInfoDTO.setToken(JwtUtil.sign(user.getUsername(), String.valueOf(System.currentTimeMillis())));
         return userInfoDTO;
     }
@@ -131,8 +113,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
             UserPageDTO userDTO = new UserPageDTO();
             userDTO.setId(user.getId());
             userDTO.setUsername(user.getUsername());
-            userDTO.setRoleIds(user.getRoleIds());
-            userDTO.setRoleNames(getRoleNames(user.getRoleIds()));
+            userDTO.setRoleIds(Arrays.asList(getRoleIds(user)));
+            userDTO.setRoleNames(getRoleNames(user));
             userDTO.setLocked(user.getLocked());
             list.add(userDTO);
         }
@@ -163,14 +145,17 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         return example;
     }
 
-    private String getRoleNames(String roleIdStr) {
-        Long[] roleIds = Stream.of(roleIdStr.split(","))
-            .map(Long::valueOf)
-            .collect(Collectors.toSet())
-            .toArray(new Long[]{});
+    private List<String> getRoleNames(User user) {
+        Map<String, String> roleMap = roleService.queryRoleNames(getRoleIds(user));
+        return roleMap.entrySet().stream()
+            .map(Map.Entry::getValue)
+            .collect(Collectors.toList());
+    }
 
-        return roleService.queryRoles(roleIds).stream()
-            .collect(Collectors.joining(","));
+    private Long[] getRoleIds(User user) {
+        return Stream.of(user.getRoleIds().split(","))
+            .map(Long::valueOf)
+            .collect(Collectors.toList()).toArray(new Long[0]);
     }
 
 }

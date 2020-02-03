@@ -3,7 +3,7 @@ package tech.wetech.admin.service;
 import tech.wetech.admin.exception.BusinessException;
 import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.dto.LoginDTO;
-import tech.wetech.admin.model.dto.UserInfoDTO;
+import tech.wetech.admin.model.dto.UserTokenDTO;
 import tech.wetech.admin.model.dto.UserPageDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.query.UserQuery;
@@ -45,9 +45,7 @@ public interface UserService extends IService<User> {
 
     User queryByUsername(String username);
 
-    UserInfoDTO queryUserInfo(String username);
-
-    UserInfoDTO login(LoginDTO loginDTO);
+    UserTokenDTO login(LoginDTO loginDTO);
 
     PageWrapper<UserPageDTO> queryUserPage(UserQuery userQuery);
 

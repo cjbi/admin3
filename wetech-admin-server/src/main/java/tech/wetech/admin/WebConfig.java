@@ -39,9 +39,9 @@ public class WebConfig implements WebMvcConfigurer {
         ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
 
         //不显示为null的字段
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //序列化枚举是以ordinal()来输出
-        objectMapper.configure(SerializationFeature.WRITE_ENUMS_USING_INDEX, true);
+//        objectMapper.configure(SerializationFeature.WRITE_ENUMS_USING_INDEX, true);
         SimpleModule simpleModule = new SimpleModule();
 //        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
 //        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);

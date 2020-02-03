@@ -14,10 +14,7 @@ import tech.wetech.admin.service.PermissionService;
 import tech.wetech.mybatis.example.Example;
 import tech.wetech.mybatis.example.Sort;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,13 +33,14 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
     }
 
     @Override
-    public Set<String> queryPermissionTree(Set<Long> resourceIds) {
+    public Set<String> queryPermissionTree(Long... permissionIds) {
         Set<String> permissions = new HashSet<>();
-        for (Long resourceId : resourceIds) {
-            Permission permission = permissionMapper.createCriteria().andEqualTo(Permission::getId, resourceId).selectOne();
-            if (permission != null && !StringUtils.isEmpty(permission.getPermission())) {
-                permissions.add(permission.getPermission());
+        List<Permission> permissionsList = permissionMapper.createCriteria().andIn(Permission::getId, Arrays.asList(permissionIds)).selectList();
+        for (Permission permission : permissionsList) {
+            if (StringUtils.isEmpty(permission.getPermission())) {
+                continue;
             }
+            permissions.add(permission.getPermission());
         }
         return permissions;
     }
@@ -88,7 +86,7 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
             .filter(p -> p.getParentId().equals(parentId))
             .map(PermissionDTO::new)
             .collect(Collectors.toList());
-        if(permissionTree.isEmpty()) {
+        if (permissionTree.isEmpty()) {
             return null;
         }
         for (PermissionDTO permission : permissionTree) {

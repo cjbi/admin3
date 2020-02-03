@@ -41,7 +41,7 @@
     </div>
 
     <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
+      <a-button type="primary" v-action:user:* icon="plus" @click="$refs.createModal.add()">新建</a-button>
       <!--a-dropdown去除v-action:edit，暂时不加权限 -->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
@@ -75,10 +75,9 @@
       <span slot="locked" slot-scope="text">
         <a-badge :status="text | lockedTypeFilter" :text="text | lockedFilter"/>
       </span>
-      <span slot="roleNames" slot-scope="text">
-        <ellipsis :length="20" tooltip>{{ text }}</ellipsis>
+      <span slot="roleNames" slot-scope="roleNames">
+          <a-tag v-for="roleName in roleNames" :key="roleName">{{roleName}}</a-tag>
       </span>
-
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="handleEdit(record)">编辑</a>

@@ -11,7 +11,7 @@
             </a-popconfirm>
             <a-list-item-meta :style="{ marginBottom: '0',display:'flex' }">
               <span slot="description" style="text-align: left; display: block">{{ item.description }}</span>
-              <a slot="title" style="text-align: left; display: block" @click="edit(item)">{{ item.name }}</a>
+              <a slot="title" style="text-align: left; display: block; font-size: 16px;" @click="edit(item)">{{ item.name }}</a>
             </a-list-item-meta>
           </a-list-item>
         </a-list>
@@ -173,12 +173,13 @@ export default {
             checkboxPermission.indeterminate = false
             // 要选中的项
             checkboxPermission.selected = []
-            checkboxPermission.actionsOptions = checkboxPermission.children.map(option => {
+            // 多选项
+            checkboxPermission.actionsOptions = checkboxPermission.children ? checkboxPermission.children.map(option => {
               return {
                 label: option.name,
                 value: option.id
               }
-            })
+            }) : []
           })
         })
         this.permissions = permissions

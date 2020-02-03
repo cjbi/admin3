@@ -34,8 +34,6 @@ public class User {
      */
     private String roleIds;
 
-    private String groupIds;
-
     private Integer locked;
 
     public String getCredentialsSalt() {
