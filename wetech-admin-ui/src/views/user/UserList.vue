@@ -41,18 +41,13 @@
     </div>
 
     <div class="table-operator">
-      <a-button type="primary" v-action:user:* icon="plus" @click="$refs.createModal.add()">新建</a-button>
+      <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
       <!--a-dropdown去除v-action:edit，暂时不加权限 -->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
-          <a-menu-item key="1">
+          <a-menu-item key="1" @click="handleBatchDelete">
             <a-icon type="delete"/>
             删除
-          </a-menu-item>
-          <!-- lock | unlock -->
-          <a-menu-item key="2">
-            <a-icon type="lock"/>
-            锁定
           </a-menu-item>
         </a-menu>
         <a-button style="margin-left: 8px">
@@ -76,7 +71,7 @@
         <a-badge :status="text | lockedTypeFilter" :text="text | lockedFilter"/>
       </span>
       <span slot="roleNames" slot-scope="roleNames">
-          <a-tag v-for="roleName in roleNames" :key="roleName">{{roleName}}</a-tag>
+        <a-tag v-for="roleName in roleNames" :key="roleName">{{ roleName }}</a-tag>
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
@@ -93,7 +88,7 @@
                 </a>
               </a-menu-item>
               <a-menu-item>
-                <a href="javascript:;">删除</a>
+                <a href="javascript:;" @click="handleDelete(record)">删除</a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
@@ -101,12 +96,14 @@
       </span>
     </s-table>
     <create-form ref="createModal" @ok="handleOk"/>
+    <update-form ref="updateModal" @ok="handleOk"/>
   </a-card>
 </template>
 
 <script>
 import { Ellipsis, STable } from '@/components'
-import CreateForm from './modules/CreateForm'
+import CreateForm from './modules/CreateUserForm'
+import UpdateForm from './modules/UpdateUserForm'
 import { deleteUser, getUserList, lockUser } from '@/api/manage'
 import { message } from 'ant-design-vue'
 
@@ -125,6 +122,7 @@ export default {
   name: 'UserList',
   components: {
     CreateForm,
+    UpdateForm,
     STable,
     Ellipsis
   },
@@ -204,7 +202,12 @@ export default {
     tableOption () {
       if (!this.optionAlertShow) {
         this.options = {
-          alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+          alert: {
+            show: true,
+            clear: () => {
+              this.selectedRowKeys = []
+            }
+          },
           rowSelection: {
             selectedRowKeys: this.selectedRowKeys,
             onChange: this.onSelectChange,
@@ -227,11 +230,26 @@ export default {
     },
     handleEdit (record) {
       console.log(record)
-      this.$refs.modal.edit(record)
+      this.$refs.updateModal.edit(record)
     },
     handleDelete (record) {
-      console.log(record)
-      deleteUser({ id: record.id })
+      deleteUser({ ids: [record.id] }).then(r => {
+        if (r.success) {
+          this.$refs.table.refresh()
+        } else {
+          message.warning(r.message)
+        }
+      })
+    },
+    handleBatchDelete () {
+      deleteUser({ ids: this.selectedRowKeys }).then(r => {
+        if (r.success) {
+          this.$refs.table.refresh()
+          this.selectedRowKeys = []
+        } else {
+          message.warning(r.message)
+        }
+      })
     },
     handleOk () {
       this.$refs.table.refresh()

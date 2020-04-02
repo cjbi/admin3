@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tech.wetech.admin.exception.BusinessException;
 import tech.wetech.admin.mapper.UserMapper;
 import tech.wetech.admin.model.PageWrapper;
+import tech.wetech.admin.model.constant.Constants;
 import tech.wetech.admin.model.dto.LoginDTO;
 import tech.wetech.admin.model.dto.UserPageDTO;
 import tech.wetech.admin.model.dto.UserTokenDTO;
@@ -50,6 +51,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (u != null) {
             throw new BusinessException(CommonResultStatus.FAILED_USER_ALREADY_EXIST);
         }
+        //设置默认密码
+        user.setPassword(Constants.DEFAULT_PASSWORD);
         // 加密密码
         passwordHelper.encryptPassword(user);
         userMapper.insertSelective(user);
@@ -85,8 +88,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public User queryByUsername(String username) {
         return userMapper.createCriteria()
-            .andEqualTo(User::getUsername, username)
-            .selectOne();
+                .andEqualTo(User::getUsername, username)
+                .selectOne();
     }
 
     @Override
@@ -142,20 +145,21 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
             criteria.andEqualTo(User::getLocked, userQuery.getLocked());
         }
         ThreadContext.setPage(userQuery.getPageNo(), userQuery.getPageSize(), true);
+        example.setSort(new Sort(Sort.Direction.DESC, "id"));
         return example;
     }
 
     private List<String> getRoleNames(User user) {
         Map<String, String> roleMap = roleService.queryRoleNames(getRoleIds(user));
         return roleMap.entrySet().stream()
-            .map(Map.Entry::getValue)
-            .collect(Collectors.toList());
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 
     private Long[] getRoleIds(User user) {
         return Stream.of(user.getRoleIds().split(","))
-            .map(Long::valueOf)
-            .collect(Collectors.toList()).toArray(new Long[0]);
+                .map(Long::valueOf)
+                .collect(Collectors.toList()).toArray(new Long[0]);
     }
 
 }

@@ -49,10 +49,18 @@
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="tech.wetech.admin" level="DEBUG" additivity="false">
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="STDOUT"/>
-    </logger>
+    <springProfile name="development">
+        <logger name="tech.wetech.admin" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </logger>
+    </springProfile>
+    <springProfile name="production">
+        <logger name="tech.wetech.admin" level="INFO" additivity="false">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </logger>
+    </springProfile>
     <logger name="springfox.documentation" level="ERROR" additivity="false">
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>

@@ -2,7 +2,7 @@ import { axios } from '@/utils/request'
 
 const api = {
   user: '/user',
-  lockUser: '/user/lock',
+  lockUser: '/user/{id}/lock',
   role: '/role',
   service: '/service',
   permissionNoPager: '/permission/no-pager',
@@ -21,19 +21,19 @@ export function getUserList (parameter) {
   })
 }
 
-export function deleteUser (parameter) {
+export function deleteUser (data) {
   return axios({
     method: 'delete',
     url: api.user,
-    params: parameter
+    data: data
   })
 }
 
 export function lockUser (parameter) {
   return axios({
-    url: api.lockUser,
+    url: api.lockUser.replace('{id}', parameter.id),
     method: 'put',
-    params: parameter
+    params: { locked: parameter.locked }
   })
 }
 
@@ -44,8 +44,6 @@ export function getPermissionTree () {
   })
 }
 
-// 以下方法准备删除
-
 export function getRoleList (parameter) {
   return axios({
     url: api.role,
@@ -53,6 +51,24 @@ export function getRoleList (parameter) {
     params: parameter
   })
 }
+
+export function createUser (parameter) {
+  return axios({
+    url: api.user,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function updateUser (parameter) {
+  return axios({
+    url: api.user,
+    method: 'put',
+    data: parameter
+  })
+}
+
+// 以下方法准备删除
 
 export function getServiceList (parameter) {
   return axios({

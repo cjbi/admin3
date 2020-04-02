@@ -3,24 +3,24 @@ package tech.wetech.admin.controller;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin.aspect.SystemLog;
 import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.dto.UserPageDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import tech.wetech.admin.model.query.UserQuery;
+import tech.wetech.admin.model.vo.UserBatchDeleteVO;
 import tech.wetech.admin.service.UserService;
 
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
 /**
  * @author cjbi
  */
-@RestController
 @RequestMapping("user")
+@RestController
 public class UserController {
 
     @Autowired
@@ -32,26 +32,24 @@ public class UserController {
         return Result.success(userService.queryUserPage(userQuery));
     }
 
-    @PostMapping("create")
+    @PostMapping
     @RequiresPermissions("user:create")
-    @SystemLog("用户管理创建用户")
-    public Result create(User user) {
+    public Result create(@RequestBody User user) {
         userService.createUser(user);
         return Result.success();
     }
 
-    @PostMapping("update")
+    @PutMapping
     @RequiresPermissions("user:update")
-    @SystemLog("用户管理更新用户")
-    public Result update(User user) {
+    public Result update(@RequestBody User user) {
         userService.updateNotNull(user);
         return Result.success();
     }
 
     @DeleteMapping
     @RequiresPermissions("user:delete")
-    @SystemLog("用户管理删除用户")
-    public Result deleteBatchByIds(@NotNull @RequestParam("id") Long[] ids) {
+    public Result deleteBatchByIds(@RequestBody @Validated UserBatchDeleteVO userDeleteVO) {
+        Long[] ids = userDeleteVO.getIds();
         if (isSelf(ids)) {
             return Result.failure(CommonResultStatus.FAILED_DEL_OWN);
         }
@@ -59,7 +57,7 @@ public class UserController {
         return Result.success();
     }
 
-    private boolean isSelf(@RequestParam("id") @NotNull @NotNull Long[] ids) {
+    private boolean isSelf(Long[] ids) {
         // 当前用户
         String username = (String) SecurityUtils.getSubject().getPrincipal();
         User user = userService.queryByUsername(username);
@@ -67,23 +65,20 @@ public class UserController {
     }
 
     @RequiresPermissions("user:update")
-    @PutMapping("lock")
-    public Result lockUser(@RequestParam("id") Long[] ids, @RequestParam("locked") Integer locked) {
-        if (isSelf(ids)) {
+    @PutMapping("{id}/lock")
+    public Result lockUser(@PathVariable("id") Long id, @RequestParam("locked") Integer locked) {
+        if (isSelf(new Long[]{id})) {
             return Result.failure(CommonResultStatus.FAILED_LOCK_OWN);
         }
-        for (Long id : ids) {
-            User user = new User();
-            user.setId(id);
-            user.setLocked(locked);
-            userService.updateNotNull(user);
-        }
+        User user = new User();
+        user.setId(id);
+        user.setLocked(locked);
+        userService.updateNotNull(user);
         return Result.success();
     }
 
     @RequiresPermissions("user:update")
     @PostMapping("{id}/change/password")
-    @SystemLog("用户管理更改用户密码")
     public Result changePassword(@PathVariable("id") Long id, String newPassword) {
         userService.changePassword(id, newPassword);
         return Result.success();

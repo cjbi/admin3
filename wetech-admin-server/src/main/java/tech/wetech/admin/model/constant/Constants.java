@@ -25,6 +25,10 @@ public class Constants {
      * 组织机构根id
      */
     public static final Long ORG_ROOT_ID = 0L;
+    /**
+     * 新建用户使用的默认密码
+     */
+    public static final String DEFAULT_PASSWORD = "123456";
 
     /**
      * 构造函数私有化，避免被实例化
