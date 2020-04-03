@@ -13,6 +13,21 @@ const api = {
 
 export default api
 
+export function deleteRole (parameter) {
+  return axios({
+    method: 'DELETE',
+    url: api.role + '/' + parameter
+  })
+}
+
+export function saveRole (data) {
+  return axios({
+    url: api.role,
+    method: data.id ? 'put' : 'post',
+    data: data
+  })
+}
+
 export function getUserList (parameter) {
   return axios({
     url: api.user,

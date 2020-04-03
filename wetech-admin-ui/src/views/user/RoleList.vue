@@ -4,14 +4,15 @@
       <a-col :md="4">
         <a-list itemLayout="horizontal" :dataSource="roles">
           <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
-            <a-popconfirm title="确定删除角色？" @confirm="del(item.id)">
+            <a-popconfirm title="确定删除角色？" @confirm="del(item)">
               <a :style="{ display: 'flex'}">
                 <a-icon type="delete"/>
               </a>
             </a-popconfirm>
             <a-list-item-meta :style="{ marginBottom: '0',display:'flex' }">
               <span slot="description" style="text-align: left; display: block">{{ item.description }}</span>
-              <a slot="title" style="text-align: left; display: block; font-size: 16px;" @click="edit(item)">{{ item.name }}</a>
+              <a slot="title" style="text-align: left; display: block; font-size: 16px;" @click="selected(item)">{{
+                item.name }}</a>
             </a-list-item-meta>
           </a-list-item>
         </a-list>
@@ -20,18 +21,27 @@
         </span>
       </a-col>
       <a-col :md="20">
-        <div style="max-width: 800px">
+        <div style="max-width: 800px" v-if="mdl.role">
           <a-divider v-if="isMobile()"/>
-          <div v-if="mdl.id">
+          <div>
             <h3>角色：{{ mdl.name }}</h3>
           </div>
           <a-form :form="form" :layout="isMobile() ? 'vertical' : 'horizontal'">
+            <a-form-item v-show="false" label="编号">
+              <a-input
+                v-decorator="[ 'id']"
+                placeholder="请编号"/>
+            </a-form-item>
             <a-form-item label="唯一标识">
-              <a-input v-decorator="[ 'role', {rules: [{ required: true, message: 'Please input unique key!' }]} ]" placeholder="请填写唯一键"/>
+              <a-input
+                v-decorator="[ 'role', {rules: [{ required: true, message: 'Please input unique key!' }]} ]"
+                placeholder="请填写唯一键"/>
             </a-form-item>
 
             <a-form-item label="角色名称">
-              <a-input v-decorator="[ 'name', {rules: [{ required: true, message: 'Please input role name!' }]} ]" placeholder="请填写角色名称"/>
+              <a-input
+                v-decorator="[ 'name', {rules: [{ required: true, message: 'Please input role name!' }]} ]"
+                placeholder="请填写角色名称"/>
             </a-form-item>
 
             <a-form-item label="状态">
@@ -42,7 +52,10 @@
             </a-form-item>
 
             <a-form-item label="备注说明">
-              <a-textarea :row="3" v-decorator="[ 'description', {rules: [{ required: true, message: 'Please input role name!' }]} ]" placeholder="请填写角色名称"/>
+              <a-textarea
+                :row="3"
+                v-decorator="[ 'description', {rules: [{ required: true, message: '请填写!' }]} ]"
+                placeholder="请填写角色名称"/>
             </a-form-item>
 
             <a-form-item label="拥有权限">
@@ -50,7 +63,10 @@
                 <a-row>
                   <a-col :span="18" :style="{fontWeight:'bold'}">{{ menuPermission.name }}</a-col>
                   <a-col :span="6" :style="{textAlign:'right'}">
-                    <a-switch size="small" v-model="menuPermission.checked" @change="onChangeSwitch($event,menuPermission)"/>
+                    <a-switch
+                      size="small"
+                      v-model="menuPermission.checked"
+                      @change="onChangeSwitch($event,menuPermission)"/>
                   </a-col>
                 </a-row>
                 <a-divider type="horizontal" :style="{margin: '0px'}"/>
@@ -66,13 +82,16 @@
                       @change="onChangeCheckAll($event, checkboxPermission)">
                       全选
                     </a-checkbox>
-                    <a-checkbox-group :options="checkboxPermission.actionsOptions" v-model="checkboxPermission.selected" @change="onChangeCheck(checkboxPermission)"/>
+                    <a-checkbox-group
+                      :options="checkboxPermission.actionsOptions"
+                      v-model="checkboxPermission.selected"
+                      @change="onChangeCheck(checkboxPermission)"/>
                   </a-col>
                 </a-row>
               </div>
             </a-form-item>
             <a-form-item>
-              <a-button type="primary">保存</a-button>
+              <a-button type="primary" @click="save">保存</a-button>
             </a-form-item>
           </a-form>
         </div>
@@ -82,9 +101,10 @@
 </template>
 
 <script>
-import { getPermissionTree, getRoleList } from '@/api/manage'
+import { deleteRole, saveRole, getPermissionTree, getRoleList } from '@/api/manage'
 import { mixinDevice } from '@/utils/mixin'
 import pick from 'lodash.pick'
+import { message } from 'ant-design-vue'
 
 export default {
   name: 'RoleList',
@@ -108,17 +128,64 @@ export default {
     callback (val) {
       console.log(val)
     },
-    del (id) {
-      console.log(id)
+    del (item) {
+      console.log(item)
+      this.roles = this.roles.filter(role => role.role !== item.role)
+      if (item.id) {
+        deleteRole(item.id).then(r => {
+          if (r.success) {
+            getRoleList().then((res) => {
+              this.roles = res.result
+            })
+          } else {
+            message.warning(r.message)
+          }
+        })
+      }
     },
     add () {
+      const time = new Date().getTime()
       this.roles.push({
+        id: null,
+        role: 'new_role_' + time,
         name: '新增角色',
-        description: '新增一个角色'
+        description: '新增的一个角色',
+        status: 2,
+        permissionIds: []
       })
-      // this.edit({ id: 0 })
     },
-    edit (record) {
+    save () {
+      console.log(this.mdl)
+      console.log(this.permissions)
+      const permissionIds = []
+      // 选中的元素
+      this.permissions.forEach(menuPermission => {
+        if (menuPermission.checked) {
+          permissionIds.push(menuPermission.id)
+        }
+        menuPermission.children.forEach(checkboxPermission => checkboxPermission.selected.forEach(id => permissionIds.push(id)))
+      })
+      console.log(permissionIds)
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          values.permissionIds = permissionIds.join(',')
+          saveRole(values).then(r => {
+            if (r.success) {
+              getRoleList().then((res) => {
+                message.info(res.message)
+                getRoleList().then((res) => {
+                  this.roles = res.result
+                })
+              })
+            } else {
+              message.warning(r.message)
+            }
+          })
+          console.log(values)
+        }
+      })
+    },
+    selected (record) {
       this.mdl = Object.assign({}, record)
       // 有权限表，处理勾选
       if (this.mdl.permissionIds && this.permissions) {
@@ -134,12 +201,11 @@ export default {
             checkboxPermission.selected = selected || []
             this.onChangeCheck(checkboxPermission)
           })
-          console.log(menuPermission.children)
         })
       }
 
       this.$nextTick(() => {
-        this.form.setFieldsValue(pick(this.mdl, 'role', 'name', 'status', 'description'))
+        this.form.setFieldsValue(pick(this.mdl, 'id', 'role', 'name', 'status', 'description'))
       })
     },
     onChangeCheck (permission) {
@@ -151,8 +217,6 @@ export default {
       permission.checked = checked
     },
     onChangeCheckAll (e, permission) {
-      console.log('permission:', permission)
-
       Object.assign(permission, {
         selected: e.target.checked ? permission.actionsOptions.map(obj => obj.value) : [],
         indeterminate: false,

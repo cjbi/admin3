@@ -5,6 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.ServletRequestHandledEvent;
+import tech.wetech.admin.model.entity.Log;
+import tech.wetech.admin.service.LogService;
+import tech.wetech.admin.utils.SpringUtils;
+
+import java.util.Date;
 
 /**
  * @author cjbi@outlook.com
@@ -16,7 +22,7 @@ public class GlobalAnnotationDrivenListener {
 
     @EventListener
     public void handleApplicationStarted(ApplicationStartedEvent ase) {
-        log.info("Handling application {} started event.", ase);
-        log.info(">>>>>>>>>>>>>>> 服务启动完成！");
+        log.debug("Handling application {} started event.", ase);
+        log.debug(">>>>>>>>>>>>>>> 服务启动完成！");
     }
 }

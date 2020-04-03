@@ -14,7 +14,7 @@ public class PageWrapper<T> implements Serializable {
 
     private List<T> data;
 
-    private int totalCount;
+    private long totalCount;
 
     private int pageNo;
 
@@ -46,11 +46,11 @@ public class PageWrapper<T> implements Serializable {
         this.data = data;
     }
 
-    public int getTotalCount() {
+    public long getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
+    public void setTotalCount(long totalCount) {
         this.totalCount = totalCount;
     }
 

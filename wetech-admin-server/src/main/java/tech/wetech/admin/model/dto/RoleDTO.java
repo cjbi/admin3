@@ -1,8 +1,10 @@
 package tech.wetech.admin.model.dto;
 
 import lombok.Data;
+import org.springframework.util.ObjectUtils;
 import tech.wetech.admin.model.entity.Role;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -45,6 +47,9 @@ public class RoleDTO {
     }
 
     private List<Long> getPermissionIds(String permissionIdStr) {
+        if (ObjectUtils.isEmpty(permissionIdStr)) {
+            return Collections.emptyList();
+        }
         return Stream.of(permissionIdStr.split(","))
             .map(Long::valueOf)
             .collect(Collectors.toList());

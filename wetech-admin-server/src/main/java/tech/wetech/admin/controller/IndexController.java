@@ -1,6 +1,5 @@
 package tech.wetech.admin.controller;
 
-import com.alibaba.fastjson.JSON;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
