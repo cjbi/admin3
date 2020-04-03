@@ -91,7 +91,7 @@
               </div>
             </a-form-item>
             <a-form-item>
-              <a-button type="primary" @click="save">保存</a-button>
+              <a-button type="primary" @click="save" :loading="loading">保存</a-button>
             </a-form-item>
           </a-form>
         </div>
@@ -115,7 +115,8 @@ export default {
       form: this.$form.createForm(this),
       mdl: {},
       roles: [],
-      permissions: []
+      permissions: [],
+      loading: false
     }
   },
   created () {
@@ -129,7 +130,6 @@ export default {
       console.log(val)
     },
     del (item) {
-      console.log(item)
       this.roles = this.roles.filter(role => role.role !== item.role)
       if (item.id) {
         deleteRole(item.id).then(r => {
@@ -155,8 +155,6 @@ export default {
       })
     },
     save () {
-      console.log(this.mdl)
-      console.log(this.permissions)
       const permissionIds = []
       // 选中的元素
       this.permissions.forEach(menuPermission => {
@@ -165,12 +163,13 @@ export default {
         }
         menuPermission.children.forEach(checkboxPermission => checkboxPermission.selected.forEach(id => permissionIds.push(id)))
       })
-      console.log(permissionIds)
       this.form.validateFields((err, values) => {
         if (!err) {
           values.permissionIds = permissionIds.join(',')
+          this.loading = true
           saveRole(values).then(r => {
             if (r.success) {
+              this.loading = false
               getRoleList().then((res) => {
                 message.info(res.message)
                 getRoleList().then((res) => {
@@ -178,10 +177,10 @@ export default {
                 })
               })
             } else {
+              this.loading = false
               message.warning(r.message)
             }
           })
-          console.log(values)
         }
       })
     },
@@ -213,7 +212,6 @@ export default {
       permission.checkedAll = permission.selected.length === permission.actionsOptions.length
     },
     onChangeSwitch (checked, permission) {
-      console.log(`a-switch to ${checked}`)
       permission.checked = checked
     },
     onChangeCheckAll (e, permission) {
