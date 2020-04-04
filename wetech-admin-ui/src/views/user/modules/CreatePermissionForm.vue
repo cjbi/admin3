@@ -71,7 +71,7 @@
             @change="onChangeIcon"
             v-decorator="[
               'icon',
-              {rules: [{ required: true, message: '请输入图标' }]}
+              {rules: [{ required: true, message: '请输入图标' }], initialValue:'question'}
             ]"
             placeholder="菜单/按钮的图标">
             <a-icon slot="addonAfter" :type="icon"/>
@@ -124,7 +124,7 @@ export default {
       confirmLoading: false,
 
       form: this.$form.createForm(this),
-      icon: '',
+      icon: 'question',
       type: 1
     }
   },
