@@ -14,6 +14,7 @@ import tech.wetech.admin.model.query.UserQuery;
 import tech.wetech.admin.model.vo.UserBatchDeleteVO;
 import tech.wetech.admin.service.UserService;
 
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
 /**
@@ -21,6 +22,7 @@ import java.util.Arrays;
  */
 @RequestMapping("user")
 @RestController
+@Validated
 public class UserController {
 
     @Autowired
@@ -66,7 +68,7 @@ public class UserController {
 
     @RequiresPermissions("user:update")
     @PutMapping("{id}/lock")
-    public Result lockUser(@PathVariable("id") Long id, @RequestParam("locked") Integer locked) {
+    public Result lockUser(@PathVariable("id") Long id, @RequestParam("locked") @NotNull Integer locked) {
         if (isSelf(new Long[]{id})) {
             return Result.failure(CommonResultStatus.FAILED_LOCK_OWN);
         }
@@ -79,7 +81,7 @@ public class UserController {
 
     @RequiresPermissions("user:update")
     @PostMapping("{id}/change/password")
-    public Result changePassword(@PathVariable("id") Long id, String newPassword) {
+    public Result changePassword(@PathVariable("id") Long id,@NotNull String newPassword) {
         userService.changePassword(id, newPassword);
         return Result.success();
     }

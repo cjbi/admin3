@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.PermissionMapper;
+import tech.wetech.admin.model.SystemContext;
 import tech.wetech.admin.model.constant.Constants;
-import tech.wetech.admin.model.dto.PermissionDTO;
+import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.entity.Permission;
 import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PermissionService;
@@ -26,8 +27,12 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
     @Override
     @Transactional
     public void createPermission(Permission permission) {
-        Permission parent = permissionMapper.createCriteria().andEqualTo(Permission::getParentId, permission.getParentId()).selectOne();
-        permission.setParentIds(parent.makeSelfAsParentIds());
+        if (permission.getParentId() == Constants.PERMISSION_ROOT_ID) {
+            permission.setParentIds("0/");
+        } else {
+            Permission parent = permissionMapper.createCriteria().andEqualTo(Permission::getId, permission.getParentId()).selectOne();
+            permission.setParentIds(parent.makeSelfAsParentIds());
+        }
         permission.setStatus(1);
         permissionMapper.insertSelective(permission);
     }
@@ -46,11 +51,11 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
     }
 
     @Override
-    public List<PermissionDTO> queryMenus(Set<String> permissions) {
+    public List<PermissionTreeDTO> queryMenus(Set<String> permissions) {
         Example example = Example.of(Permission.class);
         example.setOrderByClause("sort");
         List<Permission> allPermissions = permissionMapper.selectByExample(example);
-        List<PermissionDTO> menus = new ArrayList<>();
+        List<PermissionTreeDTO> menus = new ArrayList<>();
         for (Permission permission : allPermissions) {
             if (permission.getType() != 1) {
                 continue;
@@ -58,7 +63,7 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
             if (!hasPermission(permissions, permission)) {
                 continue;
             }
-            menus.add(new PermissionDTO(permission));
+            menus.add(new PermissionTreeDTO(permission));
         }
         return menus;
     }
@@ -71,25 +76,24 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
     }
 
     @Override
-    public List<PermissionDTO> queryPermissionTree() {
+    public List<PermissionTreeDTO> queryPermissionTree() {
         Example<Permission> example = Example.of(Permission.class);
         example.setSort(new Sort("sort"));
-
         List<Permission> permissions = permissionMapper.selectByExample(example).stream()
             .collect(Collectors.toList());
-
-        return getPermissionTree(permissions, Constants.MENU_ROOT_ID);
+        SystemContext.putThreadCache("permissions", permissions);
+        return getPermissionTree(permissions, Constants.PERMISSION_ROOT_ID);
     }
 
-    private List<PermissionDTO> getPermissionTree(List<Permission> list, Long parentId) {
-        List<PermissionDTO> permissionTree = list.stream()
+    private List<PermissionTreeDTO> getPermissionTree(List<Permission> list, Long parentId) {
+        List<PermissionTreeDTO> permissionTree = list.stream()
             .filter(p -> p.getParentId().equals(parentId))
-            .map(PermissionDTO::new)
+            .map(PermissionTreeDTO::new)
             .collect(Collectors.toList());
         if (permissionTree.isEmpty()) {
-            return null;
+            return Collections.emptyList();
         }
-        for (PermissionDTO permission : permissionTree) {
+        for (PermissionTreeDTO permission : permissionTree) {
             permission.setChildren(getPermissionTree(list, permission.getId()));
         }
         return permissionTree;

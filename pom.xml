@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <shiro.version>1.2.2</shiro.version>
+        <shiro.version>1.5.2</shiro.version>
     </properties>
 
     <profiles>
@@ -71,7 +71,7 @@
             <dependency>
                 <groupId>tech.wetech.mybatis</groupId>
                 <artifactId>mybatis-ext-spring-boot-starter</artifactId>
-                <version>1.5.0</version>
+                <version>1.5.3</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>

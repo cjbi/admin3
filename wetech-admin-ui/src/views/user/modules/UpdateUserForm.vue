@@ -72,7 +72,6 @@ export default {
   methods: {
     edit (record) {
       this.visible = true
-      console.log('======', record)
       this.$nextTick(() => {
         this.form.setFieldsValue(pick(record, 'id', 'username'))
         this.form.setFieldsValue({ 'roleIds': record.roleIds.map(roleId => roleId + '') })

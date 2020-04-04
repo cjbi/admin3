@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="新建用户"
+    title="新增用户"
     :width="640"
     :visible="visible"
     :confirmLoading="confirmLoading"
@@ -90,6 +90,7 @@ export default {
     },
     handleCancel () {
       this.visible = false
+      this.form.resetFields()
     },
     handleRoleChange (value) {
       console.log(`selected ${value}`)

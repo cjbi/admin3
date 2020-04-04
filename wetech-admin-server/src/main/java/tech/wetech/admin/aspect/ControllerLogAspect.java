@@ -29,9 +29,9 @@ public class ControllerLogAspect {
         long time = System.currentTimeMillis();
         Signature signature = point.getSignature();
         try {
-            log.info(">>> Begin execute {}, args: {}", signature, JSONUtil.toJSON(point.getArgs()));
+            log.info(">>> Begin execute {}, args: {}", signature, point.getArgs());
             Object object = point.proceed();
-            log.info("<<< End execute {} in {} ms, return: {}", signature, System.currentTimeMillis() - time, JSONUtil.toJSON(object));
+            log.info("<<< End execute {} in {} ms, return: {}", signature, System.currentTimeMillis() - time, object);
             return object;
         } catch (Throwable e) {
             log.info(">>> Execute {} has occurred exception: {}", signature, e.toString());

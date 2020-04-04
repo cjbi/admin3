@@ -31,7 +31,7 @@ public class JSONUtil {
 		JSON.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public static String toJSON(Object obj) {
+	public static String toJSONString(Object obj) {
 		try {
 			return JSON.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {

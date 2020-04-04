@@ -83,7 +83,7 @@ public class SystemLogAspect {
                 String n = returns.getClass().getSimpleName();
                 tmp = m == null ? n : n + ": " + m;
             } else {
-                tmp = JSONUtil.toJSON(returns);
+                tmp = JSONUtil.toJSONString(returns);
             }
             text = tmp;
         }
@@ -101,7 +101,7 @@ public class SystemLogAspect {
         log.setExecTime(time);
         // 请求参数
         if ("POST".equals(method)) {
-            log.setArgs(JSONUtil.toJSON(point.getArgs()[0]));
+            log.setArgs(JSONUtil.toJSONString(point.getArgs()[0]));
         }
         log.setStatus(msg);
         log.setExecDesc(desc);

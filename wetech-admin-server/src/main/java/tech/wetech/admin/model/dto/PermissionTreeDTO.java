@@ -9,7 +9,7 @@ import java.util.List;
  * @author cjbi
  */
 @Data
-public class PermissionDTO {
+public class PermissionTreeDTO {
 
     /**
      * 编号
@@ -53,9 +53,9 @@ public class PermissionDTO {
      */
     private Long sort;
 
-    private List<PermissionDTO> children;
+    private List<PermissionTreeDTO> children;
 
-    public PermissionDTO(Permission permission) {
+    public PermissionTreeDTO(Permission permission) {
         this.id = permission.getId();
         this.name = permission.getName();
         this.type = permission.getType();

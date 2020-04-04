@@ -1,13 +1,25 @@
 <template>
   <a-card :bordered="false">
+    <div class="table-page-search-wrapper">
+      <a-form layout="inline">
+        <a-row :gutter="48">
+          <a-col :md="8" :sm="24">
+            <span class="table-page-search-submitButtons">
+              <a-button type="primary" @click="$refs.table.refresh(true)">刷新</a-button>
+            </span>
+          </a-col>
+        </a-row>
+      </a-form>
+    </div>
     <s-table
       rowKey="id"
+      ref="table"
       :columns="columns"
       :data="loadData"
       :rowSelection="rowSelection"
       showPagination="auto">
       <span slot="icon" slot-scope="text">
-        <a-icon v-if="text!=null" :type="text" /> {{ text }}
+        <a-icon v-if="text!=null" :type="text"/> {{ text }}
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
@@ -19,12 +31,12 @@
             </a>
             <a-menu slot="overlay">
               <a-menu-item>
-                <a href="javascript:;" @click="handleLocked(record)">添加同级节点</a>
+                <a href="javascript:;" @click="handleAdd(record)">添加同级节点</a>
               </a-menu-item>
               <a-menu-item>
-                <a href="javascript:;">添加下级节点</a>
+                <a href="javascript:;" @click="handleAdd(record,true)">添加下级节点</a>
               </a-menu-item>
-              <a-menu-item>
+              <a-menu-item v-show="record.children.length===0">
                 <a href="javascript:;">删除节点</a>
               </a-menu-item>
             </a-menu>
@@ -32,18 +44,22 @@
         </template>
       </span>
     </s-table>
-    <!--<create-form ref="createModal" @ok="handleOk"/>-->
+    <create-form ref="createModal" @ok="handleOk"/>
+    <update-form ref="updateModal" @ok="handleOk"/>
   </a-card>
 </template>
 <script>
+import CreateForm from './modules/CreatePermissionForm'
+import UpdateForm from './modules/UpdatePermissionForm'
 import { Ellipsis, STable } from '@/components'
 import { getPermissions } from '@/api/manage'
 
 export default {
   name: 'PermissionList',
-  components: { Ellipsis, STable },
+  components: { CreateForm, UpdateForm, Ellipsis, STable },
   data () {
     return {
+      // 表头
       columns: [
         {
           title: '权限名称',
@@ -94,6 +110,12 @@ export default {
   methods: {
     handleOk () {
       this.$refs.table.refresh()
+    },
+    handleEdit (record) {
+      this.$refs.updateModal.edit(record)
+    },
+    handleAdd (record, isChildNode = false) {
+      this.$refs.createModal.add(record, isChildNode)
     }
   }
 }

@@ -1,7 +1,7 @@
 package tech.wetech.admin.service;
 
 
-import tech.wetech.admin.model.dto.PermissionDTO;
+import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.entity.Permission;
 
 import java.util.List;
@@ -25,10 +25,10 @@ public interface PermissionService extends IService<Permission> {
      * @param permissions
      * @return
      */
-    List<PermissionDTO> queryMenus(Set<String> permissions);
+    List<PermissionTreeDTO> queryMenus(Set<String> permissions);
 
     List<Permission> queryPermissionsByOrder();
 
-    List<PermissionDTO> queryPermissionTree();
+    List<PermissionTreeDTO> queryPermissionTree();
 
 }

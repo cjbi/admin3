@@ -47,7 +47,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     @Transactional
     public void createUser(User user) {
-        User u = userMapper.createCriteria().andEqualTo(User::getUsername, user.getUsername()).selectOne();
+        User u = userMapper.selectByUsername(user.getUsername());
         if (u != null) {
             throw new BusinessException(CommonResultStatus.FAILED_USER_ALREADY_EXIST);
         }
@@ -69,7 +69,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     public Set<String> queryRoles(String username) {
-        User user = userMapper.createCriteria().andEqualTo(User::getUsername, username).selectOne();
+        User user = userMapper.selectByUsername(username);
         if (user == null) {
             return Collections.EMPTY_SET;
         }
@@ -78,7 +78,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     public Set<String> queryPermissions(String username) {
-        User user = userMapper.createCriteria().andEqualTo(User::getUsername, username).selectOne();
+        User user = userMapper.selectByUsername(username);
         if (user == null) {
             return Collections.EMPTY_SET;
         }
@@ -87,14 +87,12 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     public User queryByUsername(String username) {
-        return userMapper.createCriteria()
-                .andEqualTo(User::getUsername, username)
-                .selectOne();
+        return userMapper.selectByUsername(username);
     }
 
     @Override
     public UserTokenDTO login(LoginDTO loginDTO) {
-        User user = userMapper.createCriteria().andEqualTo(User::getUsername, loginDTO.getUsername()).selectOne();
+        User user = userMapper.selectByUsername(loginDTO.getUsername());
         if (user == null) {
             throw new BusinessException(CommonResultStatus.LOGIN_ERROR, "用户不存在");
         }

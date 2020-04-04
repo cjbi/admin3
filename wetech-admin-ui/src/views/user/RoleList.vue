@@ -21,6 +21,7 @@
         </span>
       </a-col>
       <a-col :md="20">
+        <a-empty/>
         <div style="max-width: 800px" v-if="mdl.role">
           <a-divider v-if="isMobile()"/>
           <div>
@@ -30,7 +31,7 @@
             <a-form-item v-show="false" label="编号">
               <a-input
                 v-decorator="[ 'id']"
-                placeholder="请编号"/>
+                placeholder="隐藏的编号"/>
             </a-form-item>
             <a-form-item label="唯一标识">
               <a-input

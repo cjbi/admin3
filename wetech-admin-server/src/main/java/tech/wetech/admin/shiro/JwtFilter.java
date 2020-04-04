@@ -58,7 +58,7 @@ public class JwtFilter extends AccessControlFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpResponse.setContentType("application/json;charset=utf-8");
-        httpResponse.getWriter().write(JSONUtil.toJSON(Result.failure(CommonResultStatus.LOGIN_ERROR)));
+        httpResponse.getWriter().write(JSONUtil.toJSONString(Result.failure(CommonResultStatus.LOGIN_ERROR)));
     }
 
 }

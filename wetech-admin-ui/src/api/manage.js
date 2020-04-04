@@ -13,6 +13,29 @@ const api = {
 
 export default api
 
+export function deletePermission (parameter) {
+  return axios({
+    url: api.permission + '/' + parameter,
+    method: 'delete'
+  })
+}
+
+export function updatePermission (data) {
+  return axios({
+    url: api.permission,
+    method: 'put',
+    data: data
+  })
+}
+
+export function createPermission (data) {
+  return axios({
+    url: api.permission,
+    method: 'post',
+    data: data
+  })
+}
+
 export function deleteRole (parameter) {
   return axios({
     method: 'DELETE',

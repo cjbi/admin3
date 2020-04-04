@@ -3,6 +3,7 @@ package tech.wetech.admin.exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,6 +17,8 @@ import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -66,7 +69,7 @@ public class GlobalExceptionHandler {
             .success(false)
             .code(CommonResultStatus.PARAM_ERROR.getCode())
             .message(CommonResultStatus.PARAM_ERROR.getMessage())
-                .build();
+            .build();
 
         if (e instanceof BindException) {
             br = ((BindException) e).getBindingResult();
@@ -76,24 +79,49 @@ public class GlobalExceptionHandler {
         }
         if (br != null) {
             result.setResult(
-                    br.getFieldErrors().stream()
-                            .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage, (oldValue, newValue) -> oldValue.concat(",").concat(newValue)))
+                br.getFieldErrors().stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage, (oldValue, newValue) -> oldValue.concat(",").concat(newValue)))
             );
             result.setMessage(
-                    br.getFieldErrors().stream()
-                            .map(f -> f.getField().concat(f.getDefaultMessage()))
-                            .collect(Collectors.joining(","))
+                br.getFieldErrors().stream()
+                    .map(f -> f.getField().concat(f.getDefaultMessage()))
+                    .collect(Collectors.joining(","))
             );
             return result;
         }
         if (e instanceof ConstraintViolationException) {
             Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) e).getConstraintViolations();
             result.setResult(
-                    constraintViolations.stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage))
+                constraintViolations.stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage))
             );
             result.setMessage(e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * 捕获sql语法异常，原生的Message不适合中文环境
+     *
+     * @param request
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(BadSqlGrammarException.class)
+    public Result handleSQLSyntaxErrorException(HttpServletRequest request, BadSqlGrammarException e) {
+        String message = e.getSQLException().getMessage();
+        Map<String, String> regexMap = new HashMap<>();
+        //数据表不存在
+        regexMap.put("Table '(\\S+)' doesn't exist", "表($1)不存在");
+        //唯一键
+        regexMap.put("Duplicate entry '(\\S+)' for key '(\\S+)'", "$1已经存在了");
+        for (Map.Entry<String, String> entry : regexMap.entrySet()) {
+            if (message.matches(entry.getKey())) {
+                message = message.replaceAll(entry.getKey(), entry.getValue());
+                break;
+            }
+        }
+        LOGGER.warn(">>> Handle SQLSyntaxErrorException, url is {}, message is {}", request.getRequestURI(), message);
+        return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR, message);
     }
 
 }

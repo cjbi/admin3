@@ -1,20 +1,19 @@
 package tech.wetech.admin.model.vo;
 
 import lombok.Data;
-import tech.wetech.admin.model.dto.PermissionDTO;
+import tech.wetech.admin.model.SystemContext;
+import tech.wetech.admin.model.dto.PermissionTreeDTO;
+import tech.wetech.admin.model.entity.Permission;
 import tech.wetech.admin.model.enumeration.PermissionType;
-import tech.wetech.admin.utils.JSONUtil;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
  * @author cjbi
  */
 @Data
-public class PermissionVO {
+public class PermissionTreeVO {
 
     /**
      * 编号
@@ -38,6 +37,10 @@ public class PermissionVO {
      */
     private String permission;
     /**
+     * 父名称
+     */
+    private String parentName;
+    /**
      * 父编号
      */
     private Long parentId;
@@ -52,7 +55,7 @@ public class PermissionVO {
     /**
      * 配置
      */
-    private Map<String, Object> config;
+    private String config;
 
     private Integer status;
     /**
@@ -60,35 +63,31 @@ public class PermissionVO {
      */
     private Long sort;
 
-    private List<PermissionVO> children;
+    private List<PermissionTreeVO> children;
 
-    public PermissionVO(PermissionDTO permission) {
+    public PermissionTreeVO(PermissionTreeDTO permission) {
         this.id = permission.getId();
         this.name = permission.getName();
         this.type = permission.getType();
         this.typeName = PermissionType.fromCode(permission.getType()).getName();
         this.permission = permission.getPermission();
         this.parentId = permission.getParentId();
+        //设置上级节点名称
+        List<Permission> permissions = SystemContext.getThreadCache("permissions", List.class);
+        this.parentName = permissions.stream()
+            .filter(p -> p.getId().equals(permission.getParentId()))
+            .map(Permission::getName).findFirst()
+            .orElse("根节点");
         this.parentIds = permission.getParentIds();
         this.icon = permission.getIcon();
-        if (permission.getConfig() != null) {
-            this.config = JSONUtil.toObject(permission.getConfig(), Map.class);
-        }
+        this.config = permission.getConfig();
         this.status = permission.getStatus();
         this.sort = permission.getSort();
         if (permission.getChildren() != null) {
             this.children = permission.getChildren().stream()
-                .map(PermissionVO::new)
+                .map(PermissionTreeVO::new)
                 .collect(Collectors.toList());
         }
     }
-
-    private Map<String, Object> getOption(PermissionDTO permission) {
-        Map<String, Object> map = new HashMap<>(2);
-        map.put("label", permission.getName());
-        map.put("value", permission.getId());
-        return map;
-    }
-
 
 }
