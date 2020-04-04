@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="新增权限"
+    title="更新权限"
     :width="640"
     :visible="visible"
     :confirmLoading="confirmLoading"
@@ -70,8 +70,7 @@
           <a-input
             @change="onChangeIcon"
             v-decorator="[
-              'icon',
-              {rules: [{ required: true, message: '请输入图标' }], initialValue:'question'}
+              'icon',{rules: [{ message: '请输入图标' }], initialValue:'question'}
             ]"
             placeholder="菜单/按钮的图标">
             <a-icon slot="addonAfter" :type="icon"/>

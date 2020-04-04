@@ -83,10 +83,11 @@ public class PermissionTreeVO {
         this.config = permission.getConfig();
         this.status = permission.getStatus();
         this.sort = permission.getSort();
-        if (permission.getChildren() != null) {
-            this.children = permission.getChildren().stream()
-                .map(PermissionTreeVO::new)
-                .collect(Collectors.toList());
+        this.children = permission.getChildren().stream()
+            .map(PermissionTreeVO::new)
+            .collect(Collectors.toList());
+        if (this.children.isEmpty()) {
+            this.children = null;
         }
     }
 

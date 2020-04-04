@@ -17,7 +17,6 @@ const constantRouterComponents = {
   // 你需要动态引入的页面组件
   'Workplace': () => import('@/views/dashboard/Workplace'),
   'Analysis': () => import('@/views/dashboard/Analysis'),
-
   // 用户
   'UserList': () => import('@/views/user/UserList'),
   'RoleList': () => import('@/views/user/RoleList'),
@@ -115,7 +114,7 @@ export const generatorDynamicRouter = (token) => {
  */
 export const generator = (routerMap, parent) => {
   return routerMap.map(item => {
-    const { title, show, hideChildren, target, icon } = item.meta || {}
+    const { title, show, hideChildren, hiddenHeaderContent, target, icon } = item.meta || {}
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
       path: item.path || `${parent && parent.path || ''}/${item.key}`,
@@ -130,7 +129,7 @@ export const generator = (routerMap, parent) => {
       meta: {
         title: title,
         icon: icon || undefined,
-        hiddenHeaderContent: false,
+        hiddenHeaderContent: hiddenHeaderContent,
         target: target,
         permission: item.name
       }

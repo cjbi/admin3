@@ -59,7 +59,7 @@
             @change="onChangeIcon"
             v-decorator="[
               'icon',
-              {rules: [{ required: true, message: '请输入图标' }]}
+              {rules: [{ message: '请输入图标' }]}
             ]"
             placeholder="菜单/按钮的图标">
             <a-icon slot="addonAfter" :type="icon" />

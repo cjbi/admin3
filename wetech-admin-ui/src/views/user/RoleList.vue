@@ -4,16 +4,16 @@
       <a-col :md="4">
         <a-list itemLayout="horizontal" :dataSource="roles">
           <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
-            <a-popconfirm title="确定删除角色？" @confirm="del(item)">
-              <a :style="{ display: 'flex'}">
-                <a-icon type="delete"/>
-              </a>
-            </a-popconfirm>
             <a-list-item-meta :style="{ marginBottom: '0',display:'flex' }">
               <span slot="description" style="text-align: left; display: block">{{ item.description }}</span>
               <a slot="title" style="text-align: left; display: block; font-size: 16px;" @click="selected(item)">{{
                 item.name }}</a>
             </a-list-item-meta>
+            <a-popconfirm title="确定删除角色？" @confirm="del(item)">
+              <a :style="{ display: 'flex'}">
+                <a-icon type="delete"/>
+              </a>
+            </a-popconfirm>
           </a-list-item>
         </a-list>
         <span :style="{margin: '25px',fontSize: '15px',display:'block'}">
@@ -21,8 +21,10 @@
         </span>
       </a-col>
       <a-col :md="20">
-        <a-empty/>
-        <div style="max-width: 800px" v-if="mdl.role">
+        <div style="max-width: 1000px;padding-top: 100px;" v-if="!mdl.role">
+          <a-empty/>
+        </div>
+        <div style="max-width: 1000px" v-if="mdl.role">
           <a-divider v-if="isMobile()"/>
           <div>
             <h3>角色：{{ mdl.name }}</h3>
@@ -105,12 +107,12 @@
 import { deleteRole, saveRole, getPermissionTree, getRoleList } from '@/api/manage'
 import { mixinDevice } from '@/utils/mixin'
 import pick from 'lodash.pick'
-import { message } from 'ant-design-vue'
+import { message, Empty } from 'ant-design-vue'
 
 export default {
   name: 'RoleList',
   mixins: [mixinDevice],
-  components: {},
+  components: { 'a-empty': Empty },
   data () {
     return {
       form: this.$form.createForm(this),

@@ -36,7 +36,7 @@
               <a-menu-item>
                 <a href="javascript:;" @click="handleAdd(record,true)">添加下级节点</a>
               </a-menu-item>
-              <a-menu-item v-show="record.children.length===0">
+              <a-menu-item v-show="record.children===null">
                 <a href="javascript:;">删除节点</a>
               </a-menu-item>
             </a-menu>

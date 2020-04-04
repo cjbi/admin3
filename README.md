@@ -42,29 +42,12 @@ ZTree | jQuery树插件 | 3.5.29 |  [http://www.treejs.cn](http://www.treejs.cn)
 
 - 通过git下载源码
 - 创建数据库wetech_admin，数据库编码为UTF-8
-- 依次执行docs/sql/schema.sql和docs/sql/data.sql文件，初始化数据
+- 依次执行doc/sql/schema.sql和doc/sql/data.sql文件，初始化数据
 - 修改application-dev.properties文件，更新MySQL账号和密码
-- 运行Maven命令mvn install
-- 运行WetechAdminApplication类
-- 项目访问路径：http://localhost:8888/wetech-admin Swagger文档路径：http://localhost:8888/wetech-admin/swagger-ui.html
 - 账号密码：admin/123456
 
 
 ## 预览图
-
-## 代码生成器
-
-已集成通用 Mapper 专用代码生成器Maven插件，使用该插件可以很方便的生成实体类、Mapper接口以及对应的XML文件。
-
-首先对MBG不太了解的可以先阅读下面的文档
-
-[Mybatis Geneator 详解](https://blog.csdn.net/isea533/article/details/42102297)
-
-通用 Mapper 专用代码生成器生成的 Model 会在原有基础上增加 @Table,@Id,@Column 等注解，方便自动会数据库字段进行映射。
-
-运行代码生成器需要使用命令
-
-`mvn mybatis-generator:generate`
 
 
 ## 在线访问
