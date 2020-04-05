@@ -11,7 +11,7 @@ Wetech-Admin 是基于 Spring Boot 2.0 + Mybatis 的轻量级后台管理系统�
 ----|------|----|----
 Spring Boot | 应用框架 | 2.0.0.RELEASE | [https://projects.spring.io/spring-boot/](https://projects.spring.io/spring-boot/)
 MyBatis | ORM框架 | 3.2.1 |  [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
-MyBatis-Ext | MyBatis 通用 Mapper4 | 4.0.0 |  [https://github.com/cjbi/mybatis-ext](https://gitee.com/free/Mapper)
+MyBatis-Ext | 功能强大的MyBatis增强扩展 | 4.0.0 |  [https://github.com/cjbi/mybatis-ext](https://gitee.com/free/Mapper)
 Maven | 项目构建管理 | 4.0.0 |  [http://maven.apache.org](http://maven.apache.org/)
 Apache Shiro | 安全框架 | 1.2.2 |  [http://shiro.apache.org](http://www.mybatis.org/generator/index.html)
 Logback | 日志组件 | 1.1.3 |  [https://logback.qos.ch](https://logback.qos.ch/)
