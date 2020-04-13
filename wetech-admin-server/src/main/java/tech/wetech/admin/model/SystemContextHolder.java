@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @author cjbi
  */
-public class SystemContext {
+public class SystemContextHolder {
 
     private static final ThreadLocal<Map<String, Object>> store = ThreadLocal.withInitial(() -> new HashMap<>(16));
 

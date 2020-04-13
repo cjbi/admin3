@@ -1,7 +1,7 @@
 package tech.wetech.admin.model.vo;
 
 import lombok.Data;
-import tech.wetech.admin.model.SystemContext;
+import tech.wetech.admin.model.SystemContextHolder;
 import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.entity.Permission;
 import tech.wetech.admin.model.enumeration.PermissionType;
@@ -73,7 +73,7 @@ public class PermissionTreeVO {
         this.permission = permission.getPermission();
         this.parentId = permission.getParentId();
         //设置上级节点名称
-        List<Permission> permissions = SystemContext.getThreadCache("permissions", List.class);
+        List<Permission> permissions = SystemContextHolder.getThreadCache("permissions", List.class);
         this.parentName = permissions.stream()
             .filter(p -> p.getId().equals(permission.getParentId()))
             .map(Permission::getName).findFirst()

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tech.wetech.admin.mapper.PermissionMapper;
-import tech.wetech.admin.model.SystemContext;
+import tech.wetech.admin.model.SystemContextHolder;
 import tech.wetech.admin.model.constant.Constants;
 import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.entity.Permission;
@@ -81,7 +81,7 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
         example.setSort(new Sort("sort"));
         List<Permission> permissions = permissionMapper.selectByExample(example).stream()
             .collect(Collectors.toList());
-        SystemContext.putThreadCache("permissions", permissions);
+        SystemContextHolder.putThreadCache("permissions", permissions);
         return getPermissionTree(permissions, Constants.PERMISSION_ROOT_ID);
     }
 
