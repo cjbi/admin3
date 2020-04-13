@@ -37,7 +37,7 @@
                 <a href="javascript:;" @click="handleAdd(record,true)">添加下级节点</a>
               </a-menu-item>
               <a-menu-item v-show="record.children===null">
-                <a href="javascript:;">删除节点</a>
+                <a href="javascript:;" @click="handleDel(record)">删除节点</a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
@@ -52,7 +52,7 @@
 import CreateForm from './modules/CreatePermissionForm'
 import UpdateForm from './modules/UpdatePermissionForm'
 import { Ellipsis, STable } from '@/components'
-import { getPermissions } from '@/api/manage'
+import { getPermissions, deletePermission } from '@/api/manage'
 
 export default {
   name: 'PermissionList',
@@ -116,6 +116,15 @@ export default {
     },
     handleAdd (record, isChildNode = false) {
       this.$refs.createModal.add(record, isChildNode)
+    },
+    handleDel (record) {
+      deletePermission(record.id).then(res => {
+        if (res.success) {
+          this.$refs.table.refresh()
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
     }
   }
 }
