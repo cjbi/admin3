@@ -35,11 +35,17 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilters(filters);
         //配置记住我或认证通过可以访问的地址
         // 配置不会被拦截的链接 顺序判断
+        filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/auth/login", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/auth/logout", "anon");
-        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->
-        filterChainDefinitionMap.put("swagger-ui.html", "anon");
+        //过滤链定义，从上向下顺序执行，一般将/**放在最为下边
+        //swagger start
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/v2/api-docs", "anon");
+        filterChainDefinitionMap.put("/csrf", "anon");
+        //swagger end
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/assets/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
