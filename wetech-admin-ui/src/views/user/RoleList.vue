@@ -94,7 +94,7 @@
               </div>
             </a-form-item>
             <a-form-item>
-              <a-button type="primary" @click="save" :loading="loading">保存</a-button>
+              <a-button type="primary" @click="save" :loading="loading" v-action:role:update>保存</a-button>
             </a-form-item>
           </a-form>
         </div>
