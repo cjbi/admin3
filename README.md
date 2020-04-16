@@ -38,7 +38,29 @@ Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [h
 - 依次执行doc/sql/schema.sql和doc/sql/data.sql文件，初始化数据
 - 修改application-dev.properties文件，更新MySQL账号和密码
 - 账号密码：admin/123456
+- 在根目录执行命令`mvn install`
 
+前端功能命令
+
+- 安装依赖
+```
+yarn install
+```
+
+- 开发模式运行
+```
+yarn run serve
+```
+
+- 编译项目
+```
+yarn run build
+```
+
+- Lints and fixes files
+```
+yarn run lint
+```
 
 ## 预览图
 ![](doc/image/1.JPG)
@@ -50,7 +72,7 @@ Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [h
 
 ### 预览地址
 
-[http://wetech.tech/wetech-admin](http://wetech.tech/wetech-admin "demo")
+[http://wetech.tech/wetech-admin](http://wetech.tech/wetech-admin "wetech-admin")
 
 ### 测试用户名密码
 1. admin/123456
