@@ -1,5 +1,6 @@
 package tech.wetech.admin.exception;
 
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -28,12 +29,12 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler({Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Object> handleThrowable(HttpServletRequest request, Throwable e) {
-        LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
+        log.error("execute method exception error.url is {}", request.getRequestURI(), e);
         return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR, e);
     }
 
@@ -46,7 +47,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({BusinessException.class})
     public Result handleBusinessException(HttpServletRequest request, BusinessException e) {
-        LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
+        log.error("execute method exception error.url is {}", request.getRequestURI(), e);
         return Result.failure(e.getStatus(), e.getMessage());
     }
 
@@ -63,13 +64,13 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class, ConstraintViolationException.class})
     public Result handleJSR303Exception(HttpServletRequest request, Exception e) {
-        LOGGER.error("execute method exception error.url is {}", request.getRequestURI(), e);
+        log.error("execute method exception error.url is {}", request.getRequestURI(), e);
         BindingResult br = null;
         Result result = Result.builder()
-            .success(false)
-            .code(CommonResultStatus.PARAM_ERROR.getCode())
-            .message(CommonResultStatus.PARAM_ERROR.getMessage())
-            .build();
+                .success(false)
+                .code(CommonResultStatus.PARAM_ERROR.getCode())
+                .message(CommonResultStatus.PARAM_ERROR.getMessage())
+                .build();
 
         if (e instanceof BindException) {
             br = ((BindException) e).getBindingResult();
@@ -79,20 +80,20 @@ public class GlobalExceptionHandler {
         }
         if (br != null) {
             result.setResult(
-                br.getFieldErrors().stream()
-                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage, (oldValue, newValue) -> oldValue.concat(",").concat(newValue)))
+                    br.getFieldErrors().stream()
+                            .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage, (oldValue, newValue) -> oldValue.concat(",").concat(newValue)))
             );
             result.setMessage(
-                br.getFieldErrors().stream()
-                    .map(f -> f.getField().concat(f.getDefaultMessage()))
-                    .collect(Collectors.joining(","))
+                    br.getFieldErrors().stream()
+                            .map(f -> f.getField().concat(f.getDefaultMessage()))
+                            .collect(Collectors.joining(","))
             );
             return result;
         }
         if (e instanceof ConstraintViolationException) {
             Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) e).getConstraintViolations();
             result.setResult(
-                constraintViolations.stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage))
+                    constraintViolations.stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage))
             );
             result.setMessage(e.getMessage());
         }
@@ -120,8 +121,23 @@ public class GlobalExceptionHandler {
                 break;
             }
         }
-        LOGGER.warn(">>> Handle SQLSyntaxErrorException, url is {}, message is {}", request.getRequestURI(), message);
+        log.warn(">>> Handle SQLSyntaxErrorException, url is {}, message is {}", request.getRequestURI(), message);
         return Result.failure(CommonResultStatus.INTERNAL_SERVER_ERROR, message);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public Result handleUnauthorizedException(HttpServletRequest request, UnauthorizedException e) {
+        Map<String, String> regexMap = new HashMap<>();
+        regexMap.put("Subject does not have permission (\\S+)", "操作失败，用户不存在权限$1，请检查权限配置");
+        String message = e.getMessage();
+        for (Map.Entry<String, String> entry : regexMap.entrySet()) {
+            if (message.matches(entry.getKey())) {
+                message = message.replaceAll(entry.getKey(), entry.getValue());
+                break;
+            }
+        }
+        log.error("execute method exception error.url is {}", request.getRequestURI(), e);
+        return Result.failure(CommonResultStatus.UNAUTHORIZED, message);
     }
 
 }

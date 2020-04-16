@@ -16,7 +16,6 @@ import store from '@/store'
  */
 const action = Vue.directive('action', {
   inserted: function (el, binding, vnode) {
-    debugger
     const actionName = binding.arg
     const permissions = store.getters.permissions
     // const elVal = vnode.context.$route.meta.permission

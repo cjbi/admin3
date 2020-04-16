@@ -9,14 +9,14 @@
               <a slot="title" style="text-align: left; display: block; font-size: 16px;" @click="selected(item)">{{
                 item.name }}</a>
             </a-list-item-meta>
-            <a-popconfirm title="确定删除角色？" @confirm="del(item)">
+            <a-popconfirm v-action:role:delete  title="确定删除角色？" @confirm="del(item)">
               <a :style="{ display: 'flex'}">
                 <a-icon type="delete"/>
               </a>
             </a-popconfirm>
           </a-list-item>
         </a-list>
-        <span :style="{margin: '25px',fontSize: '15px',display:'block'}">
+        <span v-action:role:create :style="{margin: '25px',fontSize: '15px',display:'block'}">
           <a @click="add()"><a-icon type="plus"/> 新增角色</a>
         </span>
       </a-col>

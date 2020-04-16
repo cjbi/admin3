@@ -23,8 +23,8 @@ const err = (error) => {
     }
     if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
       notification.error({
-        message: 'Unauthorized',
-        description: 'Authorization verification failed'
+        message: '未授权',
+        description: '授权验证失败'
       })
       if (token) {
         store.dispatch('Logout').then(() => {
@@ -33,6 +33,12 @@ const err = (error) => {
           }, 1500)
         })
       }
+    }
+    if (!error.response.data.success) {
+      notification.error({
+        message: '请求失败',
+        description: error.response.data.message
+      })
     }
   }
   return Promise.reject(error)

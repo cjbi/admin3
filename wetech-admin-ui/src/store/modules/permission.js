@@ -1,4 +1,4 @@
-import {asyncRouterMap, constantRouterMap} from '@/config/router.config'
+import { asyncRouterMap, constantRouterMap } from '@/config/router.config'
 
 /**
  * 过滤账户是否拥有某一个权限，并将菜单从加载列表移除

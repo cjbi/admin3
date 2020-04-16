@@ -23,7 +23,7 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleEdit(record)">编辑</a>
+          <a @click="handleEdit(record)" v-action:permission:update>编辑</a>
           <a-divider type="vertical"/>
           <a-dropdown>
             <a class="ant-dropdown-link">
@@ -31,13 +31,13 @@
             </a>
             <a-menu slot="overlay">
               <a-menu-item>
-                <a href="javascript:;" @click="handleAdd(record)">添加同级节点</a>
+                <a href="javascript:;" @click="handleAdd(record)" v-action:permission:create>添加同级节点</a>
               </a-menu-item>
               <a-menu-item>
-                <a href="javascript:;" @click="handleAdd(record,true)">添加下级节点</a>
+                <a href="javascript:;" @click="handleAdd(record,true)" v-action:permission:create>添加下级节点</a>
               </a-menu-item>
               <a-menu-item v-show="record.children===null">
-                <a href="javascript:;" @click="handleDel(record)">删除节点</a>
+                <a href="javascript:;" @click="handleDel(record)" v-action:permission:delete>删除节点</a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>

@@ -15,7 +15,7 @@ public enum CommonResultStatus implements ResultStatus {
     FAILED_DEL_OWN(1006, "不能删除自己"),
     FAILED_USER_ALREADY_EXIST(1007, "该用户已存在"),
     FAILED_LOCK_OWN(1008,"不能禁用自己"),
-
+    UNAUTHORIZED(1009,"未授权")
     ;
 
     private int code;

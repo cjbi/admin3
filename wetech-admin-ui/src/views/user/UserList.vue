@@ -41,11 +41,11 @@
     </div>
 
     <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
+      <a-button type="primary" v-action:user:create icon="plus" @click="$refs.createModal.add()">新建</a-button>
       <!--a-dropdown去除v-action:edit，暂时不加权限 -->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
-          <a-menu-item key="1" @click="handleBatchDelete">
+          <a-menu-item v-action:user:delete key="1" @click="handleBatchDelete">
             <a-icon type="delete"/>
             删除
           </a-menu-item>
@@ -75,7 +75,7 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleEdit(record)">编辑</a>
+          <a v-action:user:update @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
           <a-dropdown>
             <a class="ant-dropdown-link">
@@ -88,7 +88,7 @@
                 </a>
               </a-menu-item>
               <a-menu-item>
-                <a href="javascript:;" @click="handleDelete(record)">删除</a>
+                <a href="javascript:;" v-action:user:delete @click="handleDelete(record)">删除</a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
