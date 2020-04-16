@@ -9,9 +9,9 @@ Wetech-Admin 是基于 Spring Boot 2.0 + Mybatis 的轻量级后台管理系统�
 
 技术 | 名称 | 版本 | 官网
 ----|------|----|----
-Spring Boot | 应用框架 | 2.0.0.RELEASE | [https://projects.spring.io/spring-boot/](https://projects.spring.io/spring-boot/)
+Spring Boot | 应用框架 | 2.2.6.RELEASE | [https://projects.spring.io/spring-boot/](https://projects.spring.io/spring-boot/)
 MyBatis | 持久层框架 | 3.2.1 |  [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
-MyBatis-Ext | 基于MyBatis的增强扩展| 4.0.0 |  [https://github.com/cjbi/mybatis-ext](https://github.com/cjbi/mybatis-ext)
+MyBatis-Ext | 基于MyBatis的增强扩展| 1.5.3 |  [https://github.com/cjbi/mybatis-ext](https://github.com/cjbi/mybatis-ext)
 Maven | 项目构建管理 | 4.0.0 |  [http://maven.apache.org](http://maven.apache.org/)
 Apache Shiro | 安全框架 | 1.2.2 |  [http://shiro.apache.org](http://shiro.apache.org)
 Logback | 日志组件 | 1.1.3 |  [https://logback.qos.ch](https://logback.qos.ch/)
@@ -22,8 +22,8 @@ swagger2 | 在线文档生成 |  2.9.2 | [https://swagger.io/](https://swagger.i
 
 技术 | 名称 | 版本 |  官网
 ----|------|----|----
-Vue | 渐进式JavaScript 框架 | 3.2.1 |  [https://cn.vuejs.org/](https://cn.vuejs.org/)
-ANTD PRO VUE| 基于 Ant Design Vue 的 Pro 第三方实现 | 3.0.0 |  [https://pro.loacg.com/](https://pro.loacg.com/)
+Vue | 渐进式JavaScript框架 | 2.6.10 |  [https://cn.vuejs.org/](https://cn.vuejs.org/)
+Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [https://pro.loacg.com/](https://pro.loacg.com/)
 
 ## 软件需求
 
