@@ -40,7 +40,16 @@ Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [h
 - 账号密码：admin/123456
 - 在根目录执行命令`mvn install`
 
-前端功能命令
+### 服务端命令
+- 打包编译
+```
+mvn clean package
+```
+- 运行部署
+```
+nohup java -jar -Dspring.profiles.active=development wetech-admin-server-2.0.0.jar >/dev/null 2>&1 &
+```
+### 前端功能命令
 
 - 安装依赖
 ```
