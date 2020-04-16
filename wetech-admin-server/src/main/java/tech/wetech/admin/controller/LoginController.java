@@ -1,6 +1,8 @@
 package tech.wetech.admin.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,10 @@ public class LoginController {
     @PostMapping("auth/logout")
     public Result logout() {
         //清除缓存
+        Subject subject = SecurityUtils.getSubject();
+        if (subject != null) {
+            SecurityUtils.getSecurityManager().logout(subject);
+        }
         return Result.success();
     }
 

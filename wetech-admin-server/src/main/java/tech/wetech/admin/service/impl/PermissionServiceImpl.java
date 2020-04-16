@@ -10,7 +10,6 @@ import tech.wetech.admin.model.SystemContextHolder;
 import tech.wetech.admin.model.constant.Constants;
 import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.entity.Permission;
-import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PermissionService;
 import tech.wetech.mybatis.example.Example;
 import tech.wetech.mybatis.example.Sort;
@@ -19,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class PermissionServiceImpl extends BaseService<Permission> implements PermissionService {
+public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
     private PermissionMapper permissionMapper;
@@ -80,16 +79,26 @@ public class PermissionServiceImpl extends BaseService<Permission> implements Pe
         Example<Permission> example = Example.of(Permission.class);
         example.setSort(new Sort("sort"));
         List<Permission> permissions = permissionMapper.selectByExample(example).stream()
-            .collect(Collectors.toList());
+                .collect(Collectors.toList());
         SystemContextHolder.putThreadCache("permissions", permissions);
         return getPermissionTree(permissions, Constants.PERMISSION_ROOT_ID);
     }
 
+    @Override
+    public void updateNotNull(Permission permission) {
+        permissionMapper.updateByPrimaryKeySelective(permission);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        permissionMapper.deleteByPrimaryKey(id);
+    }
+
     private List<PermissionTreeDTO> getPermissionTree(List<Permission> list, Long parentId) {
         List<PermissionTreeDTO> permissionTree = list.stream()
-            .filter(p -> p.getParentId().equals(parentId))
-            .map(PermissionTreeDTO::new)
-            .collect(Collectors.toList());
+                .filter(p -> p.getParentId().equals(parentId))
+                .map(PermissionTreeDTO::new)
+                .collect(Collectors.toList());
         if (permissionTree.isEmpty()) {
             return Collections.emptyList();
         }

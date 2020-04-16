@@ -1,5 +1,6 @@
 package tech.wetech.admin.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin.model.PageWrapper;
@@ -27,6 +28,7 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @GetMapping("no-pager")
+    @RequiresPermissions("permission:view")
     public Result<PageWrapper<PermissionTreeVO>> queryPermissionTreeNoPager() {
         List<PermissionTreeDTO> permissionTreeDTOS = permissionService.queryPermissionTree();
         PageWrapper<PermissionTreeVO> objectPageWrapper = new PageWrapper<>();
@@ -35,11 +37,13 @@ public class PermissionController {
     }
 
     @GetMapping("tree")
+    @RequiresPermissions("permission:view")
     public Result queryPermissionTree() {
         return Result.success(permissionService.queryPermissionTree());
     }
 
     @PutMapping
+    @RequiresPermissions("permission:update")
     public Result updatePermission(@RequestBody Permission permission) {
         permission.setConfig(generateConfig(permission, permission.getConfig()));
         permissionService.updateNotNull(permission);
@@ -47,6 +51,7 @@ public class PermissionController {
     }
 
     @PostMapping
+    @RequiresPermissions("permission:create")
     public Result createPermission(@RequestBody Permission permission) {
         permission.setConfig(generateConfig(permission, permission.getConfig()));
         permissionService.createPermission(permission);
@@ -68,6 +73,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("{id}")
+    @RequiresPermissions("permission:delete")
     public Result deletePermission(@PathVariable Long id) {
         permissionService.deleteById(id);
         return Result.success();

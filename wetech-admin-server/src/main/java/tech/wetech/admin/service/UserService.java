@@ -3,14 +3,14 @@ package tech.wetech.admin.service;
 import tech.wetech.admin.exception.BusinessException;
 import tech.wetech.admin.model.PageWrapper;
 import tech.wetech.admin.model.dto.LoginDTO;
-import tech.wetech.admin.model.dto.UserTokenDTO;
 import tech.wetech.admin.model.dto.UserPageDTO;
+import tech.wetech.admin.model.dto.UserTokenDTO;
 import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.query.UserQuery;
 
 import java.util.Set;
 
-public interface UserService extends IService<User> {
+public interface UserService {
 
     /**
      * 创建用户
@@ -49,4 +49,7 @@ public interface UserService extends IService<User> {
 
     PageWrapper<UserPageDTO> queryUserPage(UserQuery userQuery);
 
+    void updateNotNull(User user);
+
+    void deleteById(Long id);
 }

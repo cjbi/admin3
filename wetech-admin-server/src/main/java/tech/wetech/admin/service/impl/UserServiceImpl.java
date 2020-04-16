@@ -14,7 +14,6 @@ import tech.wetech.admin.model.entity.User;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
 import tech.wetech.admin.model.query.PageQuery;
 import tech.wetech.admin.model.query.UserQuery;
-import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PasswordHelper;
 import tech.wetech.admin.service.RoleService;
 import tech.wetech.admin.service.UserService;
@@ -33,7 +32,7 @@ import java.util.stream.Stream;
  * @author cjbi
  */
 @Service
-public class UserServiceImpl extends BaseService<User> implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -120,6 +119,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
             list.add(userDTO);
         }
         return new PageWrapper<>(list, users.getTotal(), users.getPageNumber(), users.getPageSize());
+    }
+
+    @Override
+    public void updateNotNull(User user) {
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userMapper.deleteByPrimaryKey(id);
     }
 
     private Example<User> buildUserExample(UserQuery userQuery) {

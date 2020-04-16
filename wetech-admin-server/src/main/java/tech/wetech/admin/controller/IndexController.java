@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.wetech.admin.model.Result;
+import tech.wetech.admin.model.constant.Constants;
 import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.vo.UserInfoVO;
 import tech.wetech.admin.service.PermissionService;
@@ -30,7 +31,7 @@ public class IndexController {
     @Autowired
     private PermissionService permissionService;
 
-    private static final String DEFAULT_AVATAR = "/avatar2.jpg";
+
 
     @GetMapping("user/nav")
     public Result<List<Map<String, Object>>> getUserNav() {
@@ -56,7 +57,7 @@ public class IndexController {
         String username = (String) SecurityUtils.getSubject().getPrincipal();
         UserInfoVO userInfoVO = new UserInfoVO();
         userInfoVO.setName(username);
-        userInfoVO.setAvatar(DEFAULT_AVATAR);
+        userInfoVO.setAvatar(Constants.DEFAULT_AVATAR);
         userInfoVO.setPermissions(userService.queryPermissions(username));
         return Result.success(userInfoVO);
     }

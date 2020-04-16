@@ -57,11 +57,6 @@
                 <version>2.0.0</version>
             </dependency>
             <!-- shiro整合开始 -->
-            <!--<dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-ehcache</artifactId>
-                <version>${shiro.version}</version>
-            </dependency>-->
             <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring</artifactId>

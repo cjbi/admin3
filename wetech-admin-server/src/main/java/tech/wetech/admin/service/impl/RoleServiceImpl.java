@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import tech.wetech.admin.mapper.RoleMapper;
 import tech.wetech.admin.model.dto.RoleDTO;
 import tech.wetech.admin.model.entity.Role;
-import tech.wetech.admin.service.BaseService;
 import tech.wetech.admin.service.PermissionService;
 import tech.wetech.admin.service.RoleService;
 
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class RoleServiceImpl extends BaseService<Role> implements RoleService {
+public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleMapper roleMapper;
@@ -45,17 +44,32 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     @Override
     public Set<String> queryPermissions(Long... roleIds) {
         return permissionService.queryPermissionTree(
-            roleMapper.createCriteria().andIn(Role::getId, Arrays.asList(roleIds)).selectList().stream().flatMap(r ->
-                Stream.of(r.getPermissionIds().split(","))
-            ).map(Long::valueOf).collect(Collectors.toSet()).toArray(new Long[]{})
+                roleMapper.createCriteria().andIn(Role::getId, Arrays.asList(roleIds)).selectList().stream().flatMap(r ->
+                        Stream.of(r.getPermissionIds().split(","))
+                ).map(Long::valueOf).collect(Collectors.toSet()).toArray(new Long[]{})
         );
     }
 
     @Override
     public List<RoleDTO> queryAllRole() {
         return roleMapper.selectAll().stream()
-            .map(RoleDTO::new)
-            .collect(Collectors.toList());
+                .map(RoleDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void create(Role role) {
+        roleMapper.insertSelective(role);
+    }
+
+    @Override
+    public void updateNotNull(Role role) {
+        roleMapper.updateByPrimaryKeySelective(role);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        roleMapper.deleteByPrimaryKey(id);
     }
 
 }

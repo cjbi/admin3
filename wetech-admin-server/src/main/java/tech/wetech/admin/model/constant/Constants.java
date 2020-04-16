@@ -15,6 +15,10 @@ public class Constants {
      * 新建用户使用的默认密码
      */
     public static final String DEFAULT_PASSWORD = "123456";
+    /**
+     * 默认头像
+     */
+    public static final String DEFAULT_AVATAR = "/avatar2.jpg";
 
     /**
      * 构造函数私有化，避免被实例化

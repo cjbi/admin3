@@ -7,7 +7,7 @@ import tech.wetech.admin.model.entity.Permission;
 import java.util.List;
 import java.util.Set;
 
-public interface PermissionService extends IService<Permission> {
+public interface PermissionService {
 
     void createPermission(Permission permission);
 
@@ -31,4 +31,7 @@ public interface PermissionService extends IService<Permission> {
 
     List<PermissionTreeDTO> queryPermissionTree();
 
+    void updateNotNull(Permission permission);
+
+    void deleteById(Long id);
 }

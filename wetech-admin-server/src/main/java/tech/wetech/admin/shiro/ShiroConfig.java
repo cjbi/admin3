@@ -1,5 +1,8 @@
 package tech.wetech.admin.shiro;
 
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
@@ -8,6 +11,7 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.util.SoftHashMap;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -85,10 +89,24 @@ public class ShiroConfig {
         return new JwtSubjectFactory();
     }
 
+    /**
+     * 在生产环境中使用的基于简单内存的CacheManager @link CacheManager}实现。它不会导致内存泄漏，因为它会产生{@link Cache Cache}s，
+     * 由{@link SoftHashMap SoftHashMap}s支持，
+     * 后者根据运行时环境的内存*限制和垃圾收集行为自动调整大小。
+     * 此处根据实际情况可以替换成ehcache、redis等实现
+     *
+     * @return
+     */
+    @Bean
+    public MemoryConstrainedCacheManager cacheManager() {
+        return new MemoryConstrainedCacheManager();
+    }
+
     @Bean
     public JwtRealm jwtRealm() {
         JwtRealm jwtRealm = new JwtRealm();
-//        jwtRealm.setCachingEnabled(false);
+        jwtRealm.setAuthenticationCachingEnabled(true);
+        jwtRealm.setAuthorizationCachingEnabled(true);
         //token匹配
 //        jwtRealm.setCredentialsMatcher(new JwtCredentialsMatcher());
         return jwtRealm;
@@ -101,7 +119,7 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public DefaultWebSecurityManager securityManager(JwtRealm jwtRealm, SubjectFactory subjectFactory, SessionManager sessionManager) {
+    public DefaultWebSecurityManager securityManager(JwtRealm jwtRealm, SubjectFactory subjectFactory, SessionManager sessionManager, CacheManager cacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(jwtRealm);
 
@@ -111,9 +129,9 @@ public class ShiroConfig {
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         securityManager.setSubjectDAO(subjectDAO);
-
         securityManager.setSubjectFactory(subjectFactory);
         securityManager.setSessionManager(sessionManager);
+        securityManager.setCacheManager(cacheManager);
         return securityManager;
     }
 
