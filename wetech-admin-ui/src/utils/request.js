@@ -34,12 +34,6 @@ const err = (error) => {
         })
       }
     }
-    if (!error.response.data.success) {
-      notification.error({
-        message: '请求失败',
-        description: error.response.data.message
-      })
-    }
   }
   return Promise.reject(error)
 }

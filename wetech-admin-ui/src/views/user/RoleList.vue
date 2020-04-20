@@ -9,7 +9,7 @@
               <a slot="title" style="text-align: left; display: block; font-size: 16px;" @click="selected(item)">{{
                 item.name }}</a>
             </a-list-item-meta>
-            <a-popconfirm v-action:role:delete  title="确定删除角色？" @confirm="del(item)">
+            <a-popconfirm v-action:role:delete title="确定删除角色？" @confirm="del(item)">
               <a :style="{ display: 'flex'}">
                 <a-icon type="delete"/>
               </a>
@@ -73,7 +73,7 @@
                   </a-col>
                 </a-row>
                 <a-divider type="horizontal" :style="{margin: '0px'}"/>
-                <a-row :gutter="16" v-for="(checkboxPermission, index) in menuPermission.children" :key="index">
+                <a-row :gutter="16" v-for="(checkboxPermission, index2) in menuPermission.children" :key="index2">
                   <a-col :xl="4" :lg="24">
                     {{ checkboxPermission.name }}：
                   </a-col>

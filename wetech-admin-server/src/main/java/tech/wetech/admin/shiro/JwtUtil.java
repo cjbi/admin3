@@ -18,19 +18,10 @@ public class JwtUtil {
 
     //JWT-currentTimeMillis
     public final static String CURRENT_TIME_MILLIS = "currentTimeMillis";
+    //失效时间一天d
+    public static final long REFRESH_TOKEN_EXPIRE_TIME = 24 * 60 * 60 * 1000L;
 
-    public static final int REFRESH_TOKEN_EXPIRE_TIME = 1440;
-
-    public static final String SECRET_KEY = "storywebkey";
-    
-    private static JwtUtil jwtUtil = null;
-
-    public static JwtUtil getInstance() {
-        if (jwtUtil != null) {
-            return jwtUtil;
-        }
-        return new JwtUtil();
-    }
+    public static final String SECRET_KEY = "storewebkey";
 
     /**
      * 校验token是否正确
@@ -64,7 +55,7 @@ public class JwtUtil {
     }
 
     /**
-     * 生成签名,5min后过期
+     * 生成签名
      *
      * @param account
      * @param currentTimeMillis
@@ -74,7 +65,7 @@ public class JwtUtil {
         // 帐号加JWT私钥加密
         String secret = account + SECRET_KEY;
         // 此处过期时间，单位：毫秒
-        Date date = new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRE_TIME * 60 * 1000L);
+        Date date = new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
         return JWT.create()

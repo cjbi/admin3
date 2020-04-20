@@ -31,8 +31,6 @@ public class IndexController {
     @Autowired
     private PermissionService permissionService;
 
-
-
     @GetMapping("user/nav")
     public Result<List<Map<String, Object>>> getUserNav() {
         String username = (String) SecurityUtils.getSubject().getPrincipal();
