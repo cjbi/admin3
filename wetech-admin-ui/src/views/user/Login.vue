@@ -90,7 +90,16 @@
           :disabled="state.loginBtn"
         >确定</a-button>
       </a-form-item>
-
+      <!-- begin：此处重置数据待删除 -->
+      <a-popconfirm title="确定要初始化数据库？" okText="是的，我确定" cancelText="不了" @confirm="initializeDatasource">
+        <a-button
+          type="danger"
+          size="large"
+          class="login-button"
+          :loading="state.initializing"
+        >初始化数据库</a-button>
+      </a-popconfirm>
+      <!-- end：此处重置数据待删除 -->
       <div class="user-login-other">
         <span>其他登录方式</span>
         <a>
@@ -113,7 +122,7 @@
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
-import { getSmsCaptcha } from '@/api/login'
+import { getSmsCaptcha, initializeDatasource } from '@/api/login'
 
 export default {
   components: {
@@ -132,7 +141,8 @@ export default {
         loginBtn: false,
         // login type: 0 email, 1 username, 2 telephone
         loginType: 0,
-        smsSendBtn: false
+        smsSendBtn: false,
+        initializing: false
       }
     }
   },
@@ -252,6 +262,20 @@ export default {
         message: '错误',
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
         duration: 4
+      })
+    },
+    initializeDatasource () {
+      this.state.initializing = true
+      initializeDatasource().then(res => {
+        this.state.initializing = false
+        if (res.success) {
+          this.$notification.success({
+            message: '成功',
+            description: `初始化数据成功`
+          })
+        } else {
+          this.$message.warning(res.message)
+        }
       })
     }
   }

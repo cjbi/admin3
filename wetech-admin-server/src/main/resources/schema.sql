@@ -1,22 +1,3 @@
-create schema wetech_admin collate utf8mb4_unicode_ci;
-
-DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `username` varchar(100) DEFAULT NULL COMMENT '用户名',
-  `ip` varchar(45) DEFAULT NULL COMMENT '用户ip',
-  `req_method` varchar(200) DEFAULT NULL COMMENT '请求方法',
-  `req_uri` text COMMENT '请求URL',
-  `exec_method` varchar(200) DEFAULT NULL COMMENT '执行方法',
-  `exec_time` bigint(20) DEFAULT NULL COMMENT '响应时间',
-  `args` text COMMENT '参数',
-  `return_val` text COMMENT '返回值',
-  `exec_desc` varchar(200) DEFAULT NULL COMMENT '描述',
-  `status` varchar(45) DEFAULT NULL COMMENT '状态',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) COMMENT='系统日志表';
-
 DROP TABLE IF EXISTS `sys_permission`;
 CREATE TABLE `sys_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -30,15 +11,9 @@ CREATE TABLE `sys_permission` (
   `status` tinyint(1) DEFAULT '1' COMMENT '是否有效',
   `config` json DEFAULT NULL COMMENT '权限配置',
   PRIMARY KEY (`id`),
-  KEY `idx_sys_resource_parent_id` (`parent_id`),
-  KEY `idx_sys_resource_parent_ids` (`parent_ids`)
+  KEY `idx_sys_permission_parent_id` (`parent_id`),
+  KEY `idx_sys_permission_parent_ids` (`parent_ids`)
 ) COMMENT='资源表';
-
-create index idx_sys_resource_parent_id
-    on sys_permission (parent_id);
-
-create index idx_sys_resource_parent_ids
-    on sys_permission (parent_ids);
 
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (

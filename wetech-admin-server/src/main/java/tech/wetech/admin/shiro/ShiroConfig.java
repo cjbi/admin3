@@ -40,6 +40,9 @@ public class ShiroConfig {
         //配置记住我或认证通过可以访问的地址
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/", "anon");
+        // begin: 此处仅仅演示模式使用，实际开发中请删除
+        filterChainDefinitionMap.put("/datasource/initialize", "anon");
+        // end: 此处仅仅演示模式使用，实际开发中请删除
         filterChainDefinitionMap.put("/auth/login", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/auth/logout", "anon");

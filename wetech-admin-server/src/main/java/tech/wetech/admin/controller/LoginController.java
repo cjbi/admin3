@@ -24,7 +24,7 @@ public class LoginController {
 
     @PostMapping("auth/login")
     public Result<UserTokenDTO> login(@RequestBody LoginDTO loginDTO) {
-        UserTokenDTO userInfoDTO = userService.login(loginDTO);
+        UserTokenDTO  userInfoDTO = userService.login(loginDTO);
         return Result.success(userInfoDTO);
     }
 

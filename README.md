@@ -35,10 +35,9 @@ Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [h
 
 - 通过git下载源码
 - 创建数据库wetech_admin，数据库编码为UTF-8
-- 依次执行doc/sql/schema.sql和doc/sql/data.sql文件，初始化数据
+- 依次执行src/main/resources/schema.sql和dsrc/main/resources/data.sql文件，初始化数据
 - 修改application-dev.properties文件，更新MySQL账号和密码
-- 账号密码：admin/123456
-- 在根目录执行命令`mvn install`
+- 启动服务，账号密码：`admin/123456`或者`guest/123456`
 
 ### 服务端命令
 - 打包编译

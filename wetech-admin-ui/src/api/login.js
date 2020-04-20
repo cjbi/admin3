@@ -12,6 +12,13 @@ import { axios } from '@/utils/request'
  * @param parameter
  * @returns {*}
  */
+export function initializeDatasource () {
+  return axios({
+    url: '/datasource/initialize',
+    method: 'get'
+  })
+}
+
 export function login (parameter) {
   return axios({
     url: '/auth/login',
