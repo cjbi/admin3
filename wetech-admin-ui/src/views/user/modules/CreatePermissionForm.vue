@@ -69,12 +69,17 @@
           :wrapperCol="wrapperCol">
           <a-input
             @change="onChangeIcon"
+            @click="iconSelectorVisible = true"
             v-decorator="[
               'icon',{rules: [{ message: '请输入图标' }], initialValue:'question'}
             ]"
             placeholder="菜单/按钮的图标">
             <a-icon slot="addonAfter" :type="icon"/>
           </a-input>
+          <a-modal v-model="iconSelectorVisible" :footer="null">
+            <p>选择图标</p>
+            <icon-selector v-model="icon" @change="handleIconChange"/>
+          </a-modal>
         </a-form-item>
         <a-form-item
           label="排序"
@@ -107,8 +112,11 @@
 
 <script>
 import { createPermission } from '@/api/manage'
-
+import IconSelector from '@/components/IconSelector'
 export default {
+  components: {
+    IconSelector
+  },
   data () {
     return {
       labelCol: {
@@ -120,10 +128,11 @@ export default {
         sm: { span: 13 }
       },
       visible: false,
+      iconSelectorVisible: false,
       confirmLoading: false,
 
       form: this.$form.createForm(this),
-      icon: 'question',
+      icon: '',
       type: 1
     }
   },
@@ -133,6 +142,7 @@ export default {
     add (record, isChildNode) {
       this.visible = true
       this.$nextTick(() => {
+        this.icon = 'question'
         if (isChildNode) {
           this.form.setFieldsValue({ 'parentId': record.id, 'parentName': record.name })
         } else {
@@ -169,6 +179,11 @@ export default {
     handleCancel () {
       this.visible = false
       this.form.resetFields()
+    },
+    handleIconChange (icon) {
+      this.icon = icon
+      this.form.setFieldsValue({ 'icon': icon })
+      this.iconSelectorVisible = false
     }
   }
 }
