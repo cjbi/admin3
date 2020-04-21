@@ -73,19 +73,19 @@ public class PermissionTreeVO {
         this.permission = permission.getPermission();
         this.parentId = permission.getParentId();
         //设置上级节点名称
-        List<Permission> permissions = SystemContextHolder.getThreadCache("permissions", List.class);
+        List<Permission> permissions = SystemContextHolder.getThreadCache("permissions");
         this.parentName = permissions.stream()
-            .filter(p -> p.getId().equals(permission.getParentId()))
-            .map(Permission::getName).findFirst()
-            .orElse("根节点");
+                .filter(p -> p.getId().equals(permission.getParentId()))
+                .map(Permission::getName).findFirst()
+                .orElse("根节点");
         this.parentIds = permission.getParentIds();
         this.icon = permission.getIcon();
         this.config = permission.getConfig();
         this.status = permission.getStatus();
         this.sort = permission.getSort();
         this.children = permission.getChildren().stream()
-            .map(PermissionTreeVO::new)
-            .collect(Collectors.toList());
+                .map(PermissionTreeVO::new)
+                .collect(Collectors.toList());
         if (this.children.isEmpty()) {
             this.children = null;
         }

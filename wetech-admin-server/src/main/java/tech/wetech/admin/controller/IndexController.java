@@ -38,9 +38,6 @@ public class IndexController {
     @Autowired
     private PermissionService permissionService;
 
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
-
     @GetMapping("user/nav")
     public Result<List<Map<String, Object>>> getUserNav() {
         String username = (String) SecurityUtils.getSubject().getPrincipal();

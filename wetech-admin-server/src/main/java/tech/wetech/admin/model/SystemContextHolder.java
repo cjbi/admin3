@@ -14,7 +14,7 @@ public class SystemContextHolder {
         store.get().put(key, value);
     }
 
-    public static <T> T getThreadCache(String key, Class<T> t) {
+    public static <T> T getThreadCache(String key) {
         return (T) store.get().get(key);
     }
 
