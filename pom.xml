@@ -24,6 +24,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <shiro.version>1.5.2</shiro.version>
+
+        <spring.application.proflies>development</spring.application.proflies>
     </properties>
 
     <profiles>
