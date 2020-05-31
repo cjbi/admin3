@@ -18,11 +18,10 @@ import tech.wetech.admin.service.PasswordHelper;
 import tech.wetech.admin.service.RoleService;
 import tech.wetech.admin.service.UserService;
 import tech.wetech.admin.shiro.JwtUtil;
-import tech.wetech.mybatis.ThreadContext;
 import tech.wetech.mybatis.domain.Page;
+import tech.wetech.mybatis.domain.Sort;
 import tech.wetech.mybatis.example.Criteria;
 import tech.wetech.mybatis.example.Example;
-import tech.wetech.mybatis.example.Sort;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -107,7 +106,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageWrapper<UserPageDTO> queryUserPage(UserQuery userQuery) {
         Example<User> example = buildUserExample(userQuery);
-        Page<User> users = (Page<User>) userMapper.selectByExample(example);
+        Page<User> users = Page.of(userQuery.getPageNo(), userQuery.getPageSize(), true).list(() -> userMapper.selectByExample(example));
         List<UserPageDTO> list = new ArrayList<>();
         for (User user : users) {
             UserPageDTO userDTO = new UserPageDTO();
@@ -135,11 +134,13 @@ public class UserServiceImpl implements UserService {
         Example<User> example = Example.of(User.class);
         if (userQuery.getSortField() != null && userQuery.getSortOrder() != null) {
             if (userQuery.getSortOrder() == PageQuery.SortOrder.ascend) {
-                example.setSort(new Sort(Sort.Direction.ASC, userQuery.getSortField()));
+                example.setSort(Sort.by(userQuery.getSortField()).asc());
             }
             if (userQuery.getSortOrder() == PageQuery.SortOrder.descend) {
-                example.setSort(new Sort(Sort.Direction.DESC, userQuery.getSortField()));
+                example.setSort(Sort.by(userQuery.getSortField()).desc());
             }
+        } else {
+            example.setSort(Sort.by("id").desc());
         }
         Criteria<User> criteria = example.createCriteria();
         if (userQuery.getId() != null) {
@@ -151,8 +152,6 @@ public class UserServiceImpl implements UserService {
         if (userQuery.getLocked() != null) {
             criteria.andEqualTo(User::getLocked, userQuery.getLocked());
         }
-        ThreadContext.setPage(userQuery.getPageNo(), userQuery.getPageSize(), true);
-        example.setSort(new Sort(Sort.Direction.DESC, "id"));
         return example;
     }
 

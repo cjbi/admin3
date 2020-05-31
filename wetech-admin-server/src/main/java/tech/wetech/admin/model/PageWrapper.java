@@ -31,7 +31,7 @@ public class PageWrapper<T> implements Serializable {
         this.pageNo = page.getPageNumber();
     }
 
-    public PageWrapper(List<T> data, int totalCount, int pageNo, int pageSize) {
+    public PageWrapper(List<T> data, long totalCount, int pageNo, int pageSize) {
         this.data = data;
         this.totalCount = totalCount;
         this.pageNo = pageNo;

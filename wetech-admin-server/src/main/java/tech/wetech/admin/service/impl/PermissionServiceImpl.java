@@ -11,8 +11,8 @@ import tech.wetech.admin.model.constant.Constants;
 import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.entity.Permission;
 import tech.wetech.admin.service.PermissionService;
+import tech.wetech.mybatis.domain.Sort;
 import tech.wetech.mybatis.example.Example;
-import tech.wetech.mybatis.example.Sort;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,7 +77,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public List<PermissionTreeDTO> queryPermissionTree() {
         Example<Permission> example = Example.of(Permission.class);
-        example.setSort(new Sort("sort"));
+        example.setSort(Sort.by("sort"));
         List<Permission> permissions = permissionMapper.selectByExample(example).stream()
                 .collect(Collectors.toList());
         SystemContextHolder.putThreadCache("permissions", permissions);

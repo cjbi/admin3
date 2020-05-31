@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
+        <version>2.3.0.RELEASE</version>
     </parent>
 
     <properties>
@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <shiro.version>1.5.2</shiro.version>
+        <shiro.version>1.5.3</shiro.version>
 
         <spring.application.proflies>development</spring.application.proflies>
     </properties>
@@ -53,11 +53,6 @@
                 <artifactId>wetech-admin-ui</artifactId>
                 <version>2.0.0</version>
             </dependency>
-            <dependency>
-                <groupId>com.github.theborakompanioni</groupId>
-                <artifactId>thymeleaf-extras-shiro</artifactId>
-                <version>2.0.0</version>
-            </dependency>
             <!-- shiro整合开始 -->
             <dependency>
                 <groupId>org.apache.shiro</groupId>
@@ -68,7 +63,7 @@
             <dependency>
                 <groupId>tech.wetech.mybatis</groupId>
                 <artifactId>mybatis-ext-spring-boot-starter</artifactId>
-                <version>1.5.3</version>
+                <version>1.6.0</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
