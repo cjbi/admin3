@@ -63,7 +63,7 @@
             <dependency>
                 <groupId>tech.wetech.mybatis</groupId>
                 <artifactId>mybatis-ext-spring-boot-starter</artifactId>
-                <version>1.6.0</version>
+                <version>1.6.3</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
