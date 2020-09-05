@@ -1,4 +1,4 @@
-package tech.wetech.admin.utils;
+package tech.wetech.admin.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

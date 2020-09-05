@@ -9,7 +9,7 @@ import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.entity.Permission;
 import tech.wetech.admin.model.vo.PermissionTreeVO;
 import tech.wetech.admin.service.PermissionService;
-import tech.wetech.admin.utils.JSONUtil;
+import tech.wetech.admin.util.JSONUtil;
 
 import java.util.List;
 import java.util.Map;

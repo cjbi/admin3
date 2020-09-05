@@ -6,7 +6,7 @@
  * 修改时间：2014-4-3
  * 修改内容：新增
  */
-package tech.wetech.admin.utils;
+package tech.wetech.admin.util;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

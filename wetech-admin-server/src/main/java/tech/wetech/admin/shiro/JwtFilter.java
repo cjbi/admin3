@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import tech.wetech.admin.model.Result;
 import tech.wetech.admin.model.enumeration.CommonResultStatus;
-import tech.wetech.admin.utils.JSONUtil;
+import tech.wetech.admin.util.JSONUtil;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;

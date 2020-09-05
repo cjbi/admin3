@@ -3,7 +3,6 @@ package tech.wetech.admin.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -16,8 +15,8 @@ import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.model.vo.UserInfoVO;
 import tech.wetech.admin.service.PermissionService;
 import tech.wetech.admin.service.UserService;
-import tech.wetech.admin.utils.JSONUtil;
-import tech.wetech.admin.utils.SpringUtils;
+import tech.wetech.admin.util.JSONUtil;
+import tech.wetech.admin.util.SpringUtils;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;

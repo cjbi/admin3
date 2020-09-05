@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import tech.wetech.admin.controller.PermissionController;
 import tech.wetech.admin.model.dto.PermissionTreeDTO;
 import tech.wetech.admin.service.PermissionService;
-import tech.wetech.admin.utils.JSONUtil;
+import tech.wetech.admin.util.JSONUtil;
 
 import java.util.List;
 

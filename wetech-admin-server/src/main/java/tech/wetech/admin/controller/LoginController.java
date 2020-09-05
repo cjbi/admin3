@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("auth/login")
-    public Result<UserTokenDTO> login(@RequestBody LoginDTO loginDTO) {
+    public Result<UserTokenDTO> login(@Validated @RequestBody LoginDTO loginDTO) {
         UserTokenDTO  userInfoDTO = userService.login(loginDTO);
         return Result.success(userInfoDTO);
     }
