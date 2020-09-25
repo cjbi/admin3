@@ -33,7 +33,7 @@ public class ControllerLogAspect {
             log.info("<<< End execute {} in {} ms, return: {}", signature, System.currentTimeMillis() - time, object);
             return object;
         } catch (Throwable e) {
-            log.info(">>> Execute {} has occurred exception: {}", signature, e.toString());
+            log.warn(">>> Execute {} has occurred exception: {}", signature, e.toString());
             throw e;
         }
     }

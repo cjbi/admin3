@@ -2,6 +2,7 @@ package tech.wetech.admin.model.entity;
 
 import lombok.Data;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,6 +17,7 @@ public class Permission {
      * 编号
      */
     @Id
+    @GeneratedValue
     private Long id;
 
     /**

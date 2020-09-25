@@ -18,8 +18,8 @@ public class JwtUtil {
 
     //JWT-currentTimeMillis
     public final static String CURRENT_TIME_MILLIS = "currentTimeMillis";
-    //失效时间一天d
-    public static final long REFRESH_TOKEN_EXPIRE_TIME = 24 * 60 * 60 * 1000L;
+    //失效时间七天
+    public static final long REFRESH_TOKEN_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;
 
     public static final String SECRET_KEY = "storewebkey";
 
