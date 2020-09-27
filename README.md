@@ -9,14 +9,14 @@ Wetech-Admin 是基于 Spring Boot 2.0 + Mybatis + Vue 的轻量级后台管理�
 
 技术 | 名称 | 版本 | 官网
 ----|------|----|----
-Spring Boot | 应用框架 | 2.3.0.RELEASE | [https://projects.spring.io/spring-boot/](https://projects.spring.io/spring-boot/)
+Spring Boot | 应用框架 | 2.3.2.RELEASE | [https://projects.spring.io/spring-boot/](https://projects.spring.io/spring-boot/)
 MyBatis | 持久层框架 | 3.2.1 |  [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
-MyBatis-Ext | 基于MyBatis的增强扩展| 1.6.0 |  [https://github.com/cjbi/mybatis-ext](https://github.com/cjbi/mybatis-ext)
+MyBatis-Ext | 基于MyBatis的增强扩展| 1.6.5 |  [https://github.com/cjbi/mybatis-ext](https://github.com/cjbi/mybatis-ext)
 Maven | 项目构建管理 | 4.0.0 |  [http://maven.apache.org](http://maven.apache.org/)
-Apache Shiro | 安全框架 | 1.5.3 |  [http://shiro.apache.org](http://shiro.apache.org)
+Apache Shiro | 安全框架 | 1.6.0 |  [http://shiro.apache.org](http://shiro.apache.org)
 Logback | 日志组件 | 1.1.3 |  [https://logback.qos.ch](https://logback.qos.ch/)
 Hibernate Validator | 后端校验框架 | 5.4.2.Final | [http://hibernate.org/validator/](http://hibernate.org/validator/)
-swagger2 | 在线文档生成 |  2.9.2 | [https://swagger.io/](https://swagger.io/) 
+swagger | 在线文档生成 |  3.0.0 | [https://swagger.io/](https://swagger.io/) 
 
 ### 前端技术
 
@@ -38,6 +38,8 @@ Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [h
 - 依次执行src/main/resources/schema.sql和dsrc/main/resources/data.sql文件，初始化数据
 - 修改application-dev.properties文件，更新MySQL账号和密码
 - 启动服务，账号密码：`admin/123456`或者`guest/123456`
+- 管理后台地址：http://localhost:8080
+- Swagger地址：http://localhost:8080/swagger-ui/
 
 ### 服务端命令
 - 打包编译
