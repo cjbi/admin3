@@ -23,7 +23,7 @@ swagger | 在线文档生成 |  3.0.0 | [https://swagger.io/](https://swagger.io
 技术 | 名称 | 版本 |  官网
 ----|------|----|----
 Vue | 渐进式JavaScript框架 | 2.6.10 |  [https://cn.vuejs.org/](https://cn.vuejs.org/)
-Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [https://pro.loacg.com/](https://pro.loacg.com/)
+Ant Design Pro Vue | 基于 Ant Design Vue 的 Pro 第三方实现 | 1.4.2 |  [https://pro.antdv.com/)
 
 ## 软件需求
 
