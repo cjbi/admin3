@@ -1,6 +1,6 @@
 package tech.wetech.admin3.infra.service;
 
-import tech.wetech.admin3.model.UserCredential;
+import tech.wetech.admin3.sys.model.UserCredential;
 
 import java.io.Serializable;
 
@@ -14,4 +14,6 @@ public interface SessionManager {
     void invalidate(String key);
 
     Object get(String key);
+
+    void refresh();
 }

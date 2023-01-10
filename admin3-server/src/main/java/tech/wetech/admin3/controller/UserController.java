@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin3.model.User;
-import tech.wetech.admin3.service.UserService;
-import tech.wetech.admin3.service.dto.PageDTO;
+import tech.wetech.admin3.sys.model.User;
+import tech.wetech.admin3.sys.service.UserService;
+import tech.wetech.admin3.sys.service.dto.PageDTO;
 
 /**
  * @author cjbi

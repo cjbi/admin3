@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import tech.wetech.admin3.exception.BusinessException;
-import tech.wetech.admin3.exception.CommonResultStatus;
-import tech.wetech.admin3.exception.ResultStatus;
+import tech.wetech.admin3.common.BusinessException;
+import tech.wetech.admin3.common.CommonResultStatus;
+import tech.wetech.admin3.common.ResultStatus;
 
 import java.util.HashMap;
 import java.util.List;

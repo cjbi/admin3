@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import tech.wetech.admin3.service.SessionService;
-import tech.wetech.admin3.service.dto.UserInfoDTO;
+import tech.wetech.admin3.sys.service.SessionService;
+import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 
 /**
  * @author cjbi
@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    private ResponseEntity<UserInfoDTO> login(@RequestBody LoginRequest request) {
+    private ResponseEntity<UserinfoDTO> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(sessionService.login(request.username(), request.password()));
     }
 
@@ -38,7 +38,7 @@ public class LoginController {
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/userinfo")
-    public ResponseEntity<UserInfoDTO> userInfo(HttpServletRequest request) {
+    public ResponseEntity<UserinfoDTO> userInfo(HttpServletRequest request) {
         String token = request.getHeader("Authorization").replace("Bearer", "").trim();
         return ResponseEntity.ok(sessionService.getLoginUserInfo(token));
     }

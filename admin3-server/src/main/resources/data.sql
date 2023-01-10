@@ -16,7 +16,7 @@ INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) 
 
 INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (1, 'a66abb5684c45962d887564f08346e8d', 'admin', 0, 1);
 
-INSERT INTO role (id, available, description, name) VALUES (1, true, '超级管理员拥有所有资源', '超级管理员');
+INSERT INTO role (id, available, description, name) VALUES (1, true, '超级管理员可以对企业内的所有用户进行管理', '超级管理员');
 INSERT INTO role (id, available, description, name) VALUES (2, true, '项目开发人员', '开发者');
 INSERT INTO role (id, available, description, name) VALUES (3, true, '普通的用户', '普通用户');
 
@@ -33,24 +33,25 @@ INSERT INTO user_role (user_id, role_id) VALUES (10, 3);
 INSERT INTO user_role (user_id, role_id) VALUES (11, 3);
 INSERT INTO user_role (user_id, role_id) VALUES (12, 3);
 
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (null, 1, true, '根节点', null, '*', null, null);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (0, 2, true, '仪表盘', null, 'dashboard', '/dashboard', 1);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (0, 3, true, '系统管理', null, 'sys', '/sys', 1);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (0, 4, true, '用户管理', null, 'sys:user:view', '/users', 3);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (0, 5, true, '角色管理', null, 'sys:role:view', '/roles', 3);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (0, 6, true, '权限资源', null, 'sys:resource:view', '/resources', 3);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 7, true, '查看用户', null, 'sys:user:view', null, 4);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 8, true, '新增用户', null, 'sys:user:create', null, 4);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 9, true, '修改用户', null, 'sys:user:update', null, 4);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 10, true, '删除用户', null, 'sys:user:delete', null, 4);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 11, true, '查看角色', null, 'sys:role:view', null, 5);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 12, true, '新增角色', null, 'sys:role:create', null, 5);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 13, true, '修改角色', null, 'sys:role:update', null, 5);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 14, true, '删除角色', null, 'sys:role:delete', null, 5);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 15, true, '查看资源', null, 'sys:resource:view', null, 6);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 16, true, '新增资源', null, 'sys:resource:create', null, 6);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 17, true, '修改资源', null, 'sys:resource:update', null, 6);
-INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 18, true, '删除资源', null, 'sys:resource:delete', null, 6);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (1, null, '根节点', null, '*', null, null, null);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (2, 'Odometer', '仪表盘', null, 'dashboard', 0, '/dashboard', 1);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (3, 'SetUp', '系统管理', null, 'sys', 0, '/sys', 1);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (4, 'User', '用户管理', null, 'user:view', 0, '/users', 3);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (5, 'Tickets', '角色管理', null, 'role:view', 0, '/roles', 3);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (6, 'Collection', '权限资源', null, 'resource:view', 0, '/resources', 3);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (7, null, '查看用户', null, 'user:view', 1, null, 4);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (8, null, '新增用户', null, 'user:create', 1, null, 4);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (9, null, '修改用户', null, 'user:update', 1, null, 4);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (10, null, '删除用户', null, 'user:delete', 1, null, 4);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (11, null, '查看角色', null, 'role:view', 1, null, 5);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (12, null, '新增角色', null, 'role:create', 1, null, 5);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (13, null, '修改角色', null, 'role:update', 1, null, 5);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (14, null, '删除角色', null, 'role:delete', 1, null, 5);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (15, null, '查看资源', null, 'resource:view', 1, null, 6);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (16, null, '新增资源', null, 'resource:create', 1, null, 6);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (17, null, '修改资源', null, 'resource:update', 1, null, 6);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (18, null, '删除资源', null, 'resource:delete', 1, null, 6);
+
 
 
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 2);

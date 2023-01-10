@@ -5,11 +5,13 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import tech.wetech.admin3.common.JsonUtils;
-import tech.wetech.admin3.model.UserCredential;
-import tech.wetech.admin3.model.Session;
-import tech.wetech.admin3.repository.SessionRepository;
-import tech.wetech.admin3.service.dto.UserInfoDTO;
+import tech.wetech.admin3.sys.model.Session;
+import tech.wetech.admin3.sys.model.User;
+import tech.wetech.admin3.sys.model.UserCredential;
+import tech.wetech.admin3.sys.repository.SessionRepository;
+import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -90,10 +92,23 @@ public class LocalSessionManager implements SessionManager {
             session.setExpireTime(getLatestExpireTime());
             session.setActive(true);
             cache.put(key, session);
-            return JsonUtils.parseToObject(session.getData(), UserInfoDTO.class);
+            return JsonUtils.parseToObject(session.getData(), UserinfoDTO.class);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public void refresh() {
+        sessionRepository.findAllStream().forEach(session -> {
+            UserCredential credential = session.getCredential();
+            User user = credential.getUser();
+            UserinfoDTO userinfo = new UserinfoDTO(session.getToken(), user.getId(), user.getUsername(), user.getFullName(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
+            session.setData(JsonUtils.stringify(userinfo));
+            sessionRepository.saveAndFlush(session);
+        });
+        cache.invalidateAll();
     }
 }

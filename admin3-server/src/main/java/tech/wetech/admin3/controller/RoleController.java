@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.wetech.admin3.model.Role;
-import tech.wetech.admin3.model.User;
-import tech.wetech.admin3.service.RoleService;
-import tech.wetech.admin3.service.dto.PageDTO;
-import tech.wetech.admin3.service.dto.RoleDTO;
+import tech.wetech.admin3.sys.model.Role;
+import tech.wetech.admin3.sys.model.User;
+import tech.wetech.admin3.sys.service.RoleService;
+import tech.wetech.admin3.sys.service.dto.PageDTO;
+import tech.wetech.admin3.sys.service.dto.RoleDTO;
 
 import java.util.List;
 import java.util.Set;

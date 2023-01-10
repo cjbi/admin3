@@ -5,11 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.Constants;
 import tech.wetech.admin3.common.SessionItemHolder;
-import tech.wetech.admin3.model.Resource;
-import tech.wetech.admin3.service.ResourceService;
-import tech.wetech.admin3.service.dto.MenuResourceDTO;
-import tech.wetech.admin3.service.dto.ResourceTreeDTO;
-import tech.wetech.admin3.service.dto.UserInfoDTO;
+import tech.wetech.admin3.sys.model.Resource;
+import tech.wetech.admin3.sys.service.ResourceService;
+import tech.wetech.admin3.sys.service.dto.MenuResourceDTO;
+import tech.wetech.admin3.sys.service.dto.ResourceTreeDTO;
+import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class ResourceController {
 
     @GetMapping("/menu")
     public ResponseEntity<List<MenuResourceDTO>> findMenus() {
-        UserInfoDTO userInfo = (UserInfoDTO) SessionItemHolder.getItem(Constants.SESSION_CURRENT_USER);
+        UserinfoDTO userInfo = (UserinfoDTO) SessionItemHolder.getItem(Constants.SESSION_CURRENT_USER);
         return ResponseEntity.ok(resourceService.findMenus(userInfo.permissions()));
     }
 
