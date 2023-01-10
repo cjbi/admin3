@@ -53,7 +53,6 @@ INSERT INTO resource (type, id, available, name, parent_ids, permission, url, pa
 INSERT INTO resource (type, id, available, name, parent_ids, permission, url, parent_id) VALUES (1, 18, true, '删除资源', null, 'sys:resource:delete', null, 6);
 
 
-INSERT INTO role_resource (role_id, resource_id) VALUES (1, 1);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 3);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 4);

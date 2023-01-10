@@ -44,7 +44,7 @@ public class ResourceService {
             if (!PermissionHelper.hasPermission(permissions, menu.getPermission())) {
                 continue;
             }
-            list.add(new MenuResourceDTO(menu.getId(), menu.getName(), menu.getUrl(), menu.getParent().getId()));
+            list.add(new MenuResourceDTO(menu.getId(), menu.getName(), menu.getUrl(), menu.getIcon(), menu.getParent().getId()));
         }
         return list;
     }
@@ -58,27 +58,30 @@ public class ResourceService {
     private List<ResourceTreeDTO> getResourceTree(List<Resource> resources, Long parentId) {
         return resources.stream()
                 .filter(r -> r.getParent() != null && r.getParent().getId().equals(parentId))
-                .map(r -> new ResourceTreeDTO(r.getId(), r.getName(), r.getType(), r.getPermission(), r.getUrl(), getResourceTree(resources, r.getId())))
+                .map(r -> new ResourceTreeDTO(r.getId(), r.getName(), r.getType(), r.getPermission(), r.getUrl(), r.getIcon(), getResourceTree(resources, r.getId()), r.getParent().getId(), r.getParent().getName()))
                 .collect(Collectors.toList());
     }
 
-    public Resource createResource(String name, Type type, String url, String permission, Long parentId) {
+    public Resource createResource(String name, Type type, String url, String icon, String permission, Long parentId) {
         Resource resource = new Resource();
         resource.setName(name);
         resource.setType(type);
         resource.setUrl(url);
+        resource.setIcon(icon);
         resource.setPermission(permission);
         resource.setParent(findResourceById(parentId));
         resource.setAvailable(true);
         return resourceRepository.save(resource);
     }
 
-    public Resource updateResource(Long resourceId, String name, Type type, String url, String permission) {
+    public Resource updateResource(Long resourceId, String name, Type type, String url, String icon, String permission, Long parentId) {
         Resource resource = findResourceById(resourceId);
         resource.setName(name);
         resource.setType(type);
         resource.setUrl(url);
+        resource.setIcon(icon);
         resource.setPermission(permission);
+        resource.setParent(findResourceById(parentId));
         return resourceRepository.save(resource);
     }
 

@@ -35,11 +35,14 @@ public class User extends EntityBase {
     @Column
     private LocalDateTime createdTime;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = LAZY, cascade = CascadeType.DETACH)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new LinkedHashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UserCredential> credentials = new LinkedHashSet<>();
 
     @PrePersist
     protected void onCreate() {
@@ -126,5 +129,13 @@ public class User extends EntityBase {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<UserCredential> getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(Set<UserCredential> credentials) {
+        this.credentials = credentials;
     }
 }

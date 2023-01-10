@@ -2,11 +2,10 @@ package tech.wetech.admin3.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.Constants;
 import tech.wetech.admin3.common.SessionItemHolder;
+import tech.wetech.admin3.model.Resource;
 import tech.wetech.admin3.service.ResourceService;
 import tech.wetech.admin3.service.dto.MenuResourceDTO;
 import tech.wetech.admin3.service.dto.ResourceTreeDTO;
@@ -39,5 +38,30 @@ public class ResourceController {
         return ResponseEntity.ok(resourceService.findResourceTree());
     }
 
+    @PostMapping
+    public ResponseEntity<Resource> createResource(@RequestBody ResourceRequest request) {
+        return ResponseEntity.ok(resourceService.createResource(request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()));
+    }
+
+    @PutMapping("/{resourceId}")
+    public ResponseEntity<Resource> updateResource(@PathVariable Long resourceId, @RequestBody ResourceRequest request) {
+        return ResponseEntity.ok(resourceService.updateResource(resourceId, request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()));
+    }
+
+    @DeleteMapping("/{resourceId}")
+    public ResponseEntity<Void> deleteResource(@PathVariable Long resourceId) {
+        resourceService.deleteResourceById(resourceId);
+        return ResponseEntity.ok().build();
+    }
+
+
+    public record ResourceRequest(String name,
+                                  Resource.Type type,
+                                  String url,
+                                  String icon,
+                                  String permission,
+                                  Long parentId) {
+
+    }
 
 }

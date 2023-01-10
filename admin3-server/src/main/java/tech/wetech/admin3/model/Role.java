@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import static jakarta.persistence.CascadeType.DETACH;
+
 /**
  * 角色
  *
@@ -20,23 +22,17 @@ public class Role extends EntityBase {
 
     private Boolean available = Boolean.FALSE;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = DETACH)
     @JoinTable(name = "role_resource",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"))
     private Set<Resource> resources = new LinkedHashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = DETACH)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new LinkedHashSet<>();
-
-    public Role(String name, String description, Boolean available) {
-        this.name = name;
-        this.description = description;
-        this.available = available;
-    }
 
     public Role() {
 

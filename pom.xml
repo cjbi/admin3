@@ -8,25 +8,15 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>admin3-server</module>
+        <module>admin3-ui</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
-        <java.version>17</java.version>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.test.skip>true</maven.test.skip>
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/metacode-maven-packages/packages</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
 </project>
