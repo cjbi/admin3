@@ -1,6 +1,8 @@
 package tech.wetech.admin3.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.Constants;
@@ -55,12 +57,12 @@ public class ResourceController {
     }
 
 
-    public record ResourceRequest(String name,
-                                  Resource.Type type,
+    public record ResourceRequest(@NotBlank String name,
+                                  @NotNull Resource.Type type,
                                   String url,
                                   String icon,
-                                  String permission,
-                                  Long parentId) {
+                                  @NotBlank String permission,
+                                  @NotNull Long parentId) {
 
     }
 

@@ -1,6 +1,7 @@
 package tech.wetech.admin3.controller;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,12 +43,12 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<Role> createRole(@RequestBody RoleRequest request) {
+    public ResponseEntity<Role> createRole(@RequestBody @Valid RoleRequest request) {
         return ResponseEntity.ok(roleService.createRole(request.name(), request.description(), request.resourceIds()));
     }
 
     @PutMapping("/{roleId}")
-    public ResponseEntity<Role> updateRole(@PathVariable Long roleId, @RequestBody RoleRequest request) {
+    public ResponseEntity<Role> updateRole(@PathVariable Long roleId, @RequestBody @Valid RoleRequest request) {
         return ResponseEntity.ok(roleService.updateRole(roleId, request.name(), request.description(), request.resourceIds()));
     }
 
@@ -57,7 +58,7 @@ public class RoleController {
         return ResponseEntity.ok().build();
     }
 
-    public record RoleRequest(@NotNull String name, String description, Set<Long> resourceIds) {
+    public record RoleRequest(@NotBlank String name, String description, Set<Long> resourceIds) {
 
     }
 

@@ -13,7 +13,9 @@ import tech.wetech.admin3.sys.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("from User user")
-    Page<User> findUsers(Pageable pageable, Long roleId);
+    @Query("from User user where user.organization.parentIds like concat(:orgParentIds, '%')")
+    Page<User> findOrgUsers(Pageable pageable, String orgParentIds);
 
+    @Query("select count(user.id) from User user where user.organization.parentIds like concat(:orgParentIds, '%')")
+    long countOrgUsers(String orgParentIds);
 }

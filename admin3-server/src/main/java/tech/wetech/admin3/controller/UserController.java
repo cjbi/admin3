@@ -1,6 +1,8 @@
 package tech.wetech.admin3.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +31,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest request) {
         return ResponseEntity.ok(userService.createUser(request.username(), request.fullName(), request.avatar(), request.gender(), User.State.NORMAL));
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody UpdateUserRequest request) {
+    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserRequest request) {
         return ResponseEntity.ok(userService.updateUser(userId, request.fullName(), request.avatar(), request.gender(), User.State.NORMAL));
     }
 
@@ -56,12 +58,12 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    public record CreateUserRequest(@NotNull String username, @NotNull String fullName, @NotNull User.Gender gender,
-                                    @NotNull String avatar) {
+    public record CreateUserRequest(@NotBlank String username, @NotBlank String fullName, @NotNull User.Gender gender,
+                                    @NotBlank String avatar) {
     }
 
-    public record UpdateUserRequest(@NotNull String fullName, @NotNull User.Gender gender,
-                                    @NotNull String avatar) {
+    public record UpdateUserRequest(@NotBlank String fullName, @NotNull User.Gender gender,
+                                    @NotBlank String avatar) {
     }
 
 }

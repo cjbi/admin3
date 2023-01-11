@@ -1,22 +1,25 @@
 -- 关闭外键约束检查
 set foreign_key_checks = 0;
 
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (1, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '系统管理员', 0, 0, 'admin');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (2, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '及时雨', 0, 0, '宋江');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (3, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '玉麒麟', 0, 0, '卢俊义');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (4, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '智多星', 0, 0, '吴用');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (5, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '入云龙', 0, 0, '公孙胜');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (6, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '大刀', 0, 0, '关胜');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (7, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '豹子头', 0, 0, '林冲');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (8, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '霹雳火', 0, 0, '秦明');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (9, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '双鞭', 0, 1, '呼延灼');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (10, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '小李广', 0, 1, '花荣');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (11, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '小旋风', 0, 1, '柴进');
-INSERT INTO user (id, avatar, created_time, full_name, gender, state, username) VALUES (12, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '母夜叉', 1, 1, '孙二娘');
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (1, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '系统管理员', 0, 0, 'admin', 1);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (2, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '及时雨', 0, 0, '宋江', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (3, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '玉麒麟', 0, 0, '卢俊义', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (4, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '智多星', 0, 0, '吴用', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (5, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '入云龙', 0, 0, '公孙胜', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (6, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '大刀', 0, 0, '关胜', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (7, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '豹子头', 0, 0, '林冲', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (8, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '霹雳火', 0, 0, '秦明', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (9, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '双鞭', 0, 1, '呼延灼', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (10, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '小李广', 0, 1, '花荣', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (11, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '小旋风', 0, 1, '柴进', 2);
+INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (12, 'https://picsum.photos/id/237/100', '2023-01-05 17:16:11', '母夜叉', 1, 1, '孙二娘', 2);
 
 INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (1, 'a66abb5684c45962d887564f08346e8d', 'admin', 0, 1);
 
-INSERT INTO role (id, available, description, name) VALUES (1, true, '超级管理员可以对企业内的所有用户进行管理', '超级管理员');
+INSERT INTO organization (id, name, parent_ids, type, parent_id) VALUES (1, '根节点', '/', 0, null);
+INSERT INTO organization (id, name, parent_ids, type, parent_id) VALUES (2, '水浒传', '/1/', 0, 1);
+
+INSERT INTO role (id, available, description, name) VALUES (1, true, '超级管理员可以对企业内的所有用户进行管理，请谨慎修改超管权限', '超级管理员');
 INSERT INTO role (id, available, description, name) VALUES (2, true, '项目开发人员', '开发者');
 INSERT INTO role (id, available, description, name) VALUES (3, true, '普通的用户', '普通用户');
 
@@ -79,8 +82,6 @@ INSERT INTO role_resource (role_id, resource_id) VALUES (2, 15);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 16);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 17);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 18);
-
-
 INSERT INTO role_resource (role_id, resource_id) VALUES (3, 2);
 
 

@@ -41,8 +41,11 @@ public class User extends EntityBase {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new LinkedHashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id", orphanRemoval = true)
     private Set<UserCredential> credentials = new LinkedHashSet<>();
+
+    @OneToOne(fetch = LAZY)
+    private Organization organization;
 
     @PrePersist
     protected void onCreate() {
@@ -137,5 +140,13 @@ public class User extends EntityBase {
 
     public void setCredentials(Set<UserCredential> credentials) {
         this.credentials = credentials;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }
