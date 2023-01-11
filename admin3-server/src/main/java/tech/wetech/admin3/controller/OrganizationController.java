@@ -42,9 +42,9 @@ public class OrganizationController {
     }
 
     @GetMapping("/{organizationId}/users")
-    public ResponseEntity<PageDTO<User>> findOrgUsers(Pageable pageable, @PathVariable Long organizationId) {
+    public ResponseEntity<PageDTO<User>> findOrgUsers(Pageable pageable, String username, User.State state, @PathVariable Long organizationId) {
         Organization organization = organizationService.findOrganization(organizationId);
-        return ResponseEntity.ok(userService.findOrgUsers(pageable, organization));
+        return ResponseEntity.ok(userService.findOrgUsers(pageable, username, state, organization));
     }
 
     @PostMapping

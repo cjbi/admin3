@@ -51,8 +51,8 @@ public class UserService {
                 .orElseThrow(() -> new BusinessException(RECORD_NOT_EXIST));
     }
 
-    public PageDTO<User> findOrgUsers(Pageable pageable, Organization organization) {
-        Page<User> page = userRepository.findOrgUsers(pageable, organization, organization.makeSelfAsParentIds());
+    public PageDTO<User> findOrgUsers(Pageable pageable, String username, User.State state, Organization organization) {
+        Page<User> page = userRepository.findOrgUsers(pageable, username, state, organization, organization.makeSelfAsParentIds());
         return new PageDTO<>(page.getContent(), page.getTotalElements());
     }
 
