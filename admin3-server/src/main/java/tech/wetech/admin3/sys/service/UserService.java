@@ -16,6 +16,7 @@ import tech.wetech.admin3.sys.repository.UserRepository;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import static tech.wetech.admin3.common.CommonResultStatus.RECORD_NOT_EXIST;
 
@@ -44,6 +45,10 @@ public class UserService {
         user = userRepository.save(user);
         DomainEventPublisher.instance().publish(new UserCreated(user));
         return user;
+    }
+
+    public Set<User> findUserByIds(Set<Long> userIds) {
+        return userRepository.findByIds(userIds);
     }
 
     public User findUserById(Long userId) {

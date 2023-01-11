@@ -64,11 +64,11 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    public record CreateUserRequest(@NotBlank String username, @NotBlank String fullName, @NotNull User.Gender gender,
+    record CreateUserRequest(@NotBlank String username, @NotBlank String fullName, @NotNull User.Gender gender,
                                     @NotBlank String avatar, Long organizationId) {
     }
 
-    public record UpdateUserRequest(@NotBlank String fullName, @NotNull User.Gender gender,
+    record UpdateUserRequest(@NotBlank String fullName, @NotNull User.Gender gender,
                                     @NotBlank String avatar, Long organizationId) {
     }
 

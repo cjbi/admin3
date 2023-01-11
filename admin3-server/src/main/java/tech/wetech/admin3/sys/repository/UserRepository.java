@@ -8,11 +8,16 @@ import org.springframework.stereotype.Repository;
 import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
 
+import java.util.Set;
+
 /**
  * @author cjbi
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    @Query("from User where id in (:userIds)")
+    Set<User> findByIds(Set<Long> userIds);
 
     @Query("""
             from User user where (user.organization=:organization or user.organization.parentIds like concat(:orgParentIds, '%'))

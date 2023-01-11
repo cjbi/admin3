@@ -67,7 +67,7 @@ public class OrganizationController {
         return ResponseEntity.ok().build();
     }
 
-    public record OrganizationRequest(@NotBlank String name, @NotNull Type type, @NotNull Long parentId) {
+    record OrganizationRequest(@NotBlank String name, @NotNull Type type, @NotNull Long parentId) {
 
     }
 

@@ -5,9 +5,12 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.wetech.admin3.sys.model.Resource;
 import tech.wetech.admin3.sys.model.Role;
 import tech.wetech.admin3.sys.model.User;
+import tech.wetech.admin3.sys.service.ResourceService;
 import tech.wetech.admin3.sys.service.RoleService;
+import tech.wetech.admin3.sys.service.UserService;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 import tech.wetech.admin3.sys.service.dto.RoleDTO;
 
@@ -21,10 +24,14 @@ import java.util.Set;
 @RequestMapping("/roles")
 public class RoleController {
 
+    private final UserService userService;
     private final RoleService roleService;
+    private final ResourceService resourceService;
 
-    public RoleController(RoleService roleService) {
+    public RoleController(UserService userService, RoleService roleService, ResourceService resourceService) {
+        this.userService = userService;
         this.roleService = roleService;
+        this.resourceService = resourceService;
     }
 
     @GetMapping
@@ -44,12 +51,24 @@ public class RoleController {
 
     @PostMapping
     public ResponseEntity<Role> createRole(@RequestBody @Valid RoleRequest request) {
-        return ResponseEntity.ok(roleService.createRole(request.name(), request.description(), request.resourceIds()));
+        return ResponseEntity.ok(roleService.createRole(request.name(), request.description()));
+    }
+
+    @PutMapping("/{roleId}/resources")
+    public ResponseEntity<Role> changeResources(@PathVariable Long roleId, @RequestBody @Valid RoleResourceRequest request) {
+        Set<Resource> resources = resourceService.findResourceByIds(request.resourceIds());
+        return ResponseEntity.ok(roleService.changeResources(roleId, resources));
+    }
+
+    @PutMapping("/{roleId}/users")
+    public ResponseEntity<Role> changeUsers(@PathVariable Long roleId, @RequestBody @Valid RoleUserRequest request) {
+        Set<User> users = userService.findUserByIds(request.userIds());
+        return ResponseEntity.ok(roleService.changeUsers(roleId, users));
     }
 
     @PutMapping("/{roleId}")
     public ResponseEntity<Role> updateRole(@PathVariable Long roleId, @RequestBody @Valid RoleRequest request) {
-        return ResponseEntity.ok(roleService.updateRole(roleId, request.name(), request.description(), request.resourceIds()));
+        return ResponseEntity.ok(roleService.updateRole(roleId, request.name(), request.description()));
     }
 
     @DeleteMapping("/{roleId}")
@@ -58,7 +77,13 @@ public class RoleController {
         return ResponseEntity.ok().build();
     }
 
-    public record RoleRequest(@NotBlank String name, String description, Set<Long> resourceIds) {
+    record RoleUserRequest(Set<Long> userIds) {
+    }
+
+    record RoleResourceRequest(Set<Long> resourceIds) {
+    }
+
+    record RoleRequest(@NotBlank String name, String description) {
 
     }
 

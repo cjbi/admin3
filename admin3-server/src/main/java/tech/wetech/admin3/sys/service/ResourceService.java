@@ -34,6 +34,10 @@ public class ResourceService {
         this.resourceRepository = resourceRepository;
     }
 
+    public Set<Resource> findResourceByIds(Set<Long> resourceIds) {
+        return resourceRepository.findByIds(resourceIds);
+    }
+
     public Resource findResourceById(Long resourceId) {
         return resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new BusinessException(CommonResultStatus.RECORD_NOT_EXIST));

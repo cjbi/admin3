@@ -57,7 +57,7 @@ public class ResourceController {
     }
 
 
-    public record ResourceRequest(@NotBlank String name,
+    record ResourceRequest(@NotBlank String name,
                                   @NotNull Resource.Type type,
                                   String url,
                                   String icon,
