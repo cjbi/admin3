@@ -171,7 +171,6 @@ INSERT INTO role_resource (role_id, resource_id) VALUES (1, 15);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 16);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 17);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 18);
-
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 3);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 6);
