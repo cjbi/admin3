@@ -10,6 +10,7 @@ import tech.wetech.admin3.common.DomainEventPublisher;
 import tech.wetech.admin3.sys.event.UserCreated;
 import tech.wetech.admin3.sys.event.UserDeleted;
 import tech.wetech.admin3.sys.event.UserUpdated;
+import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.repository.UserRepository;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
@@ -31,7 +32,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(String username, String fullName, String avatar, User.Gender gender, User.State state) {
+    public User createUser(String username, String fullName, String avatar, User.Gender gender, User.State state, Organization organization) {
         User user = new User();
         user.setUsername(username);
         user.setFullName(fullName);
@@ -39,6 +40,7 @@ public class UserService {
         user.setGender(gender);
         user.setState(state);
         user.setCreatedTime(LocalDateTime.now());
+        user.setOrganization(organization);
         user = userRepository.save(user);
         DomainEventPublisher.instance().publish(new UserCreated(user));
         return user;
@@ -47,16 +49,27 @@ public class UserService {
     public User findUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(RECORD_NOT_EXIST));
-
     }
 
+    public PageDTO<User> findOrgUsers(Pageable pageable, Organization organization) {
+        Page<User> page = userRepository.findOrgUsers(pageable, organization, organization.makeSelfAsParentIds());
+        return new PageDTO<>(page.getContent(), page.getTotalElements());
+    }
+
+    public boolean existsUsers(Organization organization) {
+        String orgParentIds = organization.makeSelfAsParentIds();
+        return userRepository.countOrgUsers(organization, orgParentIds) > 0;
+    }
+
+
     @Transactional
-    public User updateUser(Long userId, String fullName, String avatar, User.Gender gender, User.State state) {
+    public User updateUser(Long userId, String fullName, String avatar, User.Gender gender, User.State state, Organization organization) {
         User user = findUserById(userId);
         user.setFullName(fullName);
         user.setAvatar(avatar);
         user.setGender(gender);
         user.setState(state);
+        user.setOrganization(organization);
         user = userRepository.save(user);
         DomainEventPublisher.instance().publish(new UserUpdated(user));
         return user;

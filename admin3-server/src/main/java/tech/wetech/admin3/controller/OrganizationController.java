@@ -7,9 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.wetech.admin3.common.CommonResultStatus;
+import tech.wetech.admin3.sys.exception.UserException;
 import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.service.OrganizationService;
+import tech.wetech.admin3.sys.service.UserService;
 import tech.wetech.admin3.sys.service.dto.OrgTreeDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 
@@ -25,9 +28,11 @@ import static tech.wetech.admin3.sys.model.Organization.Type;
 @RequestMapping("/organizations")
 public class OrganizationController {
 
+    private final UserService userService;
     private final OrganizationService organizationService;
 
-    public OrganizationController(OrganizationService organizationService) {
+    public OrganizationController(UserService userService, OrganizationService organizationService) {
+        this.userService = userService;
         this.organizationService = organizationService;
     }
 
@@ -38,7 +43,8 @@ public class OrganizationController {
 
     @GetMapping("/{organizationId}/users")
     public ResponseEntity<PageDTO<User>> findOrgUsers(Pageable pageable, @PathVariable Long organizationId) {
-        return ResponseEntity.ok(organizationService.findOrgUsers(pageable, organizationId));
+        Organization organization = organizationService.findOrganization(organizationId);
+        return ResponseEntity.ok(userService.findOrgUsers(pageable, organization));
     }
 
     @PostMapping
@@ -53,6 +59,10 @@ public class OrganizationController {
 
     @DeleteMapping("/{organizationId}")
     public ResponseEntity<Void> deleteOrganization(@PathVariable Long organizationId) {
+        Organization organization = organizationService.findOrganization(organizationId);
+        if (userService.existsUsers(organization)) {
+            throw new UserException(CommonResultStatus.FAIL, "节点存在用户，不能删除");
+        }
         organizationService.deleteOrganization(organizationId);
         return ResponseEntity.ok().build();
     }

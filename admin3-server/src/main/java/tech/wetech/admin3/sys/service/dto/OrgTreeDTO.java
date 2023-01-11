@@ -13,7 +13,6 @@ public class OrgTreeDTO {
     private final Organization.Type type;
     private final List<OrgTreeDTO> children;
 
-
     public OrgTreeDTO(Organization organization) {
         this.id = organization.getId();
         this.name = organization.getName();

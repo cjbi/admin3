@@ -18,5 +18,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findOrgUsers(Pageable pageable, Organization organization, String orgParentIds);
 
     @Query("select count(user.id) from User user where user.organization=:organization or user.organization.parentIds like concat(:orgParentIds, '%')")
-    long countOrgUsers(String orgParentIds);
+    long countOrgUsers(Organization organization, String orgParentIds);
 }

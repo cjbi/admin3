@@ -7,7 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
+import tech.wetech.admin3.sys.service.OrganizationService;
 import tech.wetech.admin3.sys.service.UserService;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 
@@ -19,9 +21,11 @@ import tech.wetech.admin3.sys.service.dto.PageDTO;
 @RequestMapping("/users")
 public class UserController {
 
+    private final OrganizationService organizationService;
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(OrganizationService organizationService, UserService userService) {
+        this.organizationService = organizationService;
         this.userService = userService;
     }
 
@@ -32,12 +36,14 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest request) {
-        return ResponseEntity.ok(userService.createUser(request.username(), request.fullName(), request.avatar(), request.gender(), User.State.NORMAL));
+        Organization organization = organizationService.findOrganization(request.organizationId());
+        return ResponseEntity.ok(userService.createUser(request.username(), request.fullName(), request.avatar(), request.gender(), User.State.NORMAL, organization));
     }
 
     @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserRequest request) {
-        return ResponseEntity.ok(userService.updateUser(userId, request.fullName(), request.avatar(), request.gender(), User.State.NORMAL));
+        Organization organization = organizationService.findOrganization(request.organizationId());
+        return ResponseEntity.ok(userService.updateUser(userId, request.fullName(), request.avatar(), request.gender(), User.State.NORMAL, organization));
     }
 
     @PostMapping("/{userId}:lock")
@@ -59,11 +65,11 @@ public class UserController {
     }
 
     public record CreateUserRequest(@NotBlank String username, @NotBlank String fullName, @NotNull User.Gender gender,
-                                    @NotBlank String avatar) {
+                                    @NotBlank String avatar, Long organizationId) {
     }
 
     public record UpdateUserRequest(@NotBlank String fullName, @NotNull User.Gender gender,
-                                    @NotBlank String avatar) {
+                                    @NotBlank String avatar, Long organizationId) {
     }
 
 }
