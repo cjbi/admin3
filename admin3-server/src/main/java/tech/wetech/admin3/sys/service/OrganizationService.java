@@ -9,7 +9,11 @@ import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.repository.OrganizationRepository;
 import tech.wetech.admin3.sys.repository.UserRepository;
+import tech.wetech.admin3.sys.service.dto.OrgTreeDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author cjbi
@@ -27,7 +31,7 @@ public class OrganizationService {
 
     public PageDTO<User> findOrgUsers(Pageable pageable, Long organizationId) {
         Organization organization = findOrganization(organizationId);
-        Page<User> page = userRepository.findOrgUsers(pageable, organization.makeSelfAsParentIds());
+        Page<User> page = userRepository.findOrgUsers(pageable, organization, organization.makeSelfAsParentIds());
         return new PageDTO<>(page.getContent(), page.getTotalElements());
     }
 
@@ -44,7 +48,9 @@ public class OrganizationService {
         Organization organization = new Organization();
         organization.setName(name);
         organization.setType(type);
+        Organization parent = findOrganization(parentId);
         organization.setParent(findOrganization(parentId));
+        organization.setParentIds(parent.makeSelfAsParentIds());
         organization = organizationRepository.save(organization);
         return organization;
     }
@@ -63,4 +69,9 @@ public class OrganizationService {
         organizationRepository.delete(organization);
     }
 
+    public List<OrgTreeDTO> findOrgTree(Long parentId) {
+        return organizationRepository.findByParentId(parentId).stream()
+                .map(OrgTreeDTO::new)
+                .collect(Collectors.toList());
+    }
 }

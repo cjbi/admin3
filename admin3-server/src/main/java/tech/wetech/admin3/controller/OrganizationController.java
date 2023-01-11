@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.service.OrganizationService;
+import tech.wetech.admin3.sys.service.dto.OrgTreeDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
+
+import java.util.List;
 
 import static tech.wetech.admin3.sys.model.Organization.Type;
 
@@ -26,6 +29,11 @@ public class OrganizationController {
 
     public OrganizationController(OrganizationService organizationService) {
         this.organizationService = organizationService;
+    }
+
+    @GetMapping("/tree")
+    public ResponseEntity<List<OrgTreeDTO>> findOrgTree(Long parentId) {
+        return ResponseEntity.ok(organizationService.findOrgTree(parentId));
     }
 
     @GetMapping("/{organizationId}/users")
