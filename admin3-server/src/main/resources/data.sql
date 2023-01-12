@@ -113,9 +113,9 @@ INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, 
 INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (308, 'avatar.jpg', '2023-01-05 17:16:11', '地贼星 鼓上蚤时迁', 0, 0, '鼓上蚤时迁', 2);
 INSERT INTO user (id, avatar, created_time, full_name, gender, state, username, organization_id) VALUES (309, 'avatar.jpg', '2023-01-05 17:16:11', '地狗星 金毛犬段景住', 0, 0, '金毛犬段景住', 2);
 
-INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (110, 'a66abb5684c45962d887564f08346e8d', 'admin', 0, 1);
-INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (11, '9c0967753a201ecde21ef29efa514761', 'employee', 0, 1);
-INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (1, 'fe4ceeb01d43a6c29d8f4fe93313c6c1', 'guest', 0, 1);
+INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (1, 'a66abb5684c45962d887564f08346e8d', 'admin', 0, 1);
+INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (2, '9c0967753a201ecde21ef29efa514761', 'employee', 0, 2);
+INSERT INTO user_credential (id, credential, identifier, identity_type, user_id) VALUES (3, 'fe4ceeb01d43a6c29d8f4fe93313c6c1', 'guest', 0, 3);
 
 INSERT INTO organization (id, name, parent_ids, type, parent_id) VALUES (1, '根节点', '/', 0, null);
 INSERT INTO organization (id, name, parent_ids, type, parent_id) VALUES (2, '水浒传', '/1/', 0, 1);
@@ -160,6 +160,9 @@ INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (16, null, '新增资源', null, 'resource:create', 1, null, 6);
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (17, null, '修改资源', null, 'resource:update', 1, null, 6);
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (18, null, '删除资源', null, 'resource:delete', 1, null, 6);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (19, null, '新增组织架构', null, 'organization:create', 1, null, 6);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (20, null, '修改组织架构', null, 'organization:update', 1, null, 6);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (21, null, '删除组织架构', null, 'organization:delete', 1, null, 6);
 
 
 
@@ -181,6 +184,9 @@ INSERT INTO role_resource (role_id, resource_id) VALUES (1, 15);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 16);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 17);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 18);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 19);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 20);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 21);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 3);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 6);
