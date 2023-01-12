@@ -3,9 +3,7 @@ package tech.wetech.admin3.infra;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import tech.wetech.admin3.common.EventStore;
 import tech.wetech.admin3.sys.service.SessionService;
 
@@ -32,10 +30,24 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 "/swagger-ui.html",
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
-                "favicon.ico"
+                "favicon.ico",
+                "/assets/**",
+                "/favicon.ico",
+                "/index.html",
+                "/"
         );
         InterceptorRegistration eventSubscribesInterceptor = registry.addInterceptor(new EventSubscribesInterceptor(eventStore, sessionService));
         eventSubscribesInterceptor.addPathPatterns("/**");
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("/index.html");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/webjars/admin3-ui/");
     }
 
     @Bean
