@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 /**
  * @author cjbi
- * @date 2022/7/22
  */
 @Entity
 public class StoredEvent extends EntityBase {
