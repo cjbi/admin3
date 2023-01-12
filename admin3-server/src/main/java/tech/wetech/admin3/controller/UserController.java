@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.wetech.admin3.common.authz.RequiresPermissions;
 import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.service.OrganizationService;
@@ -29,35 +30,41 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequiresPermissions("user:view")
     @GetMapping
     public ResponseEntity<PageDTO<User>> findUsers(Pageable pageable, User user) {
         return ResponseEntity.ok(userService.findUsers(pageable, user));
     }
 
+    @RequiresPermissions("user:create")
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest request) {
         Organization organization = organizationService.findOrganization(request.organizationId());
         return ResponseEntity.ok(userService.createUser(request.username(), request.fullName(), request.avatar(), request.gender(), User.State.NORMAL, organization));
     }
 
+    @RequiresPermissions("user:update")
     @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserRequest request) {
         Organization organization = organizationService.findOrganization(request.organizationId());
         return ResponseEntity.ok(userService.updateUser(userId, request.fullName(), request.avatar(), request.gender(), User.State.NORMAL, organization));
     }
 
+    @RequiresPermissions("user:update")
     @PostMapping("/{userId}:lock")
     public ResponseEntity<Void> lockUser(@PathVariable Long userId) {
         userService.lockUser(userId);
         return ResponseEntity.ok().build();
     }
 
+    @RequiresPermissions("user:update")
     @PostMapping("/{userId}:unlock")
     public ResponseEntity<Void> unlockUser(@PathVariable Long userId) {
         userService.unlockUser(userId);
         return ResponseEntity.ok().build();
     }
 
+    @RequiresPermissions("user:delete")
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.delete(userId);

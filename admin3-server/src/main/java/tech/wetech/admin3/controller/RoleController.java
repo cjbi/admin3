@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.wetech.admin3.common.authz.RequiresPermissions;
 import tech.wetech.admin3.sys.model.Resource;
 import tech.wetech.admin3.sys.model.Role;
 import tech.wetech.admin3.sys.model.User;
@@ -34,43 +35,51 @@ public class RoleController {
         this.resourceService = resourceService;
     }
 
+    @RequiresPermissions("role:view")
     @GetMapping
     public ResponseEntity<List<RoleDTO>> findRoles() {
         return ResponseEntity.ok(roleService.findRoles());
     }
 
+    @RequiresPermissions("role:view")
     @GetMapping("/{roleId}")
     public ResponseEntity<Role> findRole(@PathVariable Long roleId) {
         return ResponseEntity.ok(roleService.findRoleById(roleId));
     }
 
+    @RequiresPermissions("role:view")
     @GetMapping("/{roleId}/users")
     public ResponseEntity<PageDTO<User>> findRoleUsers(@PathVariable Long roleId, Pageable pageable) {
         return ResponseEntity.ok(roleService.findRoleUsers(roleId, pageable));
     }
 
+    @RequiresPermissions("role:create")
     @PostMapping
     public ResponseEntity<Role> createRole(@RequestBody @Valid RoleRequest request) {
         return ResponseEntity.ok(roleService.createRole(request.name(), request.description()));
     }
 
+    @RequiresPermissions("role:update")
     @PutMapping("/{roleId}/resources")
     public ResponseEntity<Role> changeResources(@PathVariable Long roleId, @RequestBody @Valid RoleResourceRequest request) {
         Set<Resource> resources = resourceService.findResourceByIds(request.resourceIds());
         return ResponseEntity.ok(roleService.changeResources(roleId, resources));
     }
 
+    @RequiresPermissions("role:update")
     @PutMapping("/{roleId}/users")
     public ResponseEntity<Role> changeUsers(@PathVariable Long roleId, @RequestBody @Valid RoleUserRequest request) {
         Set<User> users = userService.findUserByIds(request.userIds());
         return ResponseEntity.ok(roleService.changeUsers(roleId, users));
     }
 
+    @RequiresPermissions("role:update")
     @PutMapping("/{roleId}")
     public ResponseEntity<Role> updateRole(@PathVariable Long roleId, @RequestBody @Valid RoleRequest request) {
         return ResponseEntity.ok(roleService.updateRole(roleId, request.name(), request.description()));
     }
 
+    @RequiresPermissions("role:delete")
     @DeleteMapping("/{roleId}")
     public ResponseEntity<Void> deleteRole(@PathVariable Long roleId) {
         roleService.deleteRoleById(roleId);

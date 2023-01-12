@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.CommonResultStatus;
+import tech.wetech.admin3.common.authz.RequiresPermissions;
 import tech.wetech.admin3.sys.exception.UserException;
 import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
@@ -36,27 +37,32 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
+    @RequiresPermissions("user:view")
     @GetMapping("/tree")
     public ResponseEntity<List<OrgTreeDTO>> findOrgTree(Long parentId) {
         return ResponseEntity.ok(organizationService.findOrgTree(parentId));
     }
 
+    @RequiresPermissions("user:view")
     @GetMapping("/{organizationId}/users")
-    public ResponseEntity<PageDTO<User>> findOrgUsers(Pageable pageable, String username, User.State state, @PathVariable Long organizationId) {
+    public ResponseEntity<PageDTO<User>> findOrgUsers(Pageable pageable, @RequestParam(required = false) String username, @RequestParam(required = false) User.State state, @PathVariable Long organizationId) {
         Organization organization = organizationService.findOrganization(organizationId);
         return ResponseEntity.ok(userService.findOrgUsers(pageable, username, state, organization));
     }
 
+    @RequiresPermissions("organization:create")
     @PostMapping
     public ResponseEntity<Organization> createOrganization(@RequestBody @Valid OrganizationRequest request) {
         return ResponseEntity.ok(organizationService.createOrganization(request.name(), request.type(), request.parentId()));
     }
 
+    @RequiresPermissions("organization:update")
     @PutMapping("/{organizationId}")
     public ResponseEntity<Organization> updateOrganization(@PathVariable Long organizationId, @RequestBody @Valid OrganizationRequest request) {
         return ResponseEntity.ok(organizationService.updateOrganization(organizationId, request.name()));
     }
 
+    @RequiresPermissions("organization:delete")
     @DeleteMapping("/{organizationId}")
     public ResponseEntity<Void> deleteOrganization(@PathVariable Long organizationId) {
         Organization organization = organizationService.findOrganization(organizationId);

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.Constants;
 import tech.wetech.admin3.common.SessionItemHolder;
+import tech.wetech.admin3.common.authz.RequiresPermissions;
 import tech.wetech.admin3.sys.model.Resource;
 import tech.wetech.admin3.sys.service.ResourceService;
 import tech.wetech.admin3.sys.service.dto.MenuResourceDTO;
@@ -35,21 +36,25 @@ public class ResourceController {
         return ResponseEntity.ok(resourceService.findMenus(userInfo.permissions()));
     }
 
+    @RequiresPermissions("resource:view")
     @GetMapping("/tree")
     public ResponseEntity<List<ResourceTreeDTO>> findResourceTree() {
         return ResponseEntity.ok(resourceService.findResourceTree());
     }
 
+    @RequiresPermissions("resource:create")
     @PostMapping
     public ResponseEntity<Resource> createResource(@RequestBody ResourceRequest request) {
         return ResponseEntity.ok(resourceService.createResource(request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()));
     }
 
+    @RequiresPermissions("resource:update")
     @PutMapping("/{resourceId}")
     public ResponseEntity<Resource> updateResource(@PathVariable Long resourceId, @RequestBody ResourceRequest request) {
         return ResponseEntity.ok(resourceService.updateResource(resourceId, request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()));
     }
 
+    @RequiresPermissions("resource:delete")
     @DeleteMapping("/{resourceId}")
     public ResponseEntity<Void> deleteResource(@PathVariable Long resourceId) {
         resourceService.deleteResourceById(resourceId);

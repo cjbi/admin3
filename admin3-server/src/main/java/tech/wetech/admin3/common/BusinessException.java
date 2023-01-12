@@ -7,6 +7,7 @@ public class BusinessException extends RuntimeException {
     private final ResultStatus status;
 
     public BusinessException(ResultStatus status) {
+        super(status.getMessage());
         this.status = status;
     }
 

@@ -31,6 +31,7 @@ public class ExceptionControllerAdvice {
         put(CommonResultStatus.PARAM_ERROR, HttpStatus.BAD_REQUEST);
         put(CommonResultStatus.RECORD_NOT_EXIST, HttpStatus.BAD_REQUEST);
         put(CommonResultStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
+        put(CommonResultStatus.FORBIDDEN, HttpStatus.FORBIDDEN);
     }};
 
     private final Logger log = LoggerFactory.getLogger(getClass());

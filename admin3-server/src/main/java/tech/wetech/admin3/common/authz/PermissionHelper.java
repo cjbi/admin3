@@ -1,4 +1,4 @@
-package tech.wetech.admin3.sys.model;
+package tech.wetech.admin3.common.authz;
 
 import org.springframework.util.StringUtils;
 import tech.wetech.admin3.common.CollectionUtils;
@@ -13,8 +13,33 @@ import java.util.Set;
  */
 public class PermissionHelper {
 
+
+    public static boolean isPermitted(Set<String> permissions, String[] value, Logical logical) {
+        if (logical == Logical.AND) {
+            boolean allMatch = true;
+            for (String permission : value) {
+                if (!hasPermission(permissions, permission)) {
+                    allMatch = false;
+                    break;
+                }
+            }
+            return allMatch;
+        } else if (logical == Logical.OR) {
+            boolean anyMatch = false;
+            for (String permission : value) {
+                if (hasPermission(permissions, permission)) {
+                    anyMatch = true;
+                    break;
+                }
+            }
+            return anyMatch;
+        }
+        return false;
+    }
+
     /**
      * 判断是否有对应权限
+     *
      * @param permissions
      * @param permission
      * @return
@@ -97,7 +122,7 @@ public class PermissionHelper {
 
 
         public boolean implies(Permission p) {
-      // By default only supports comparisons with other WildcardPermissions
+            // By default only supports comparisons with other WildcardPermissions
             if (!(p instanceof Permission)) {
                 return false;
             }
@@ -107,8 +132,8 @@ public class PermissionHelper {
 
             int i = 0;
             for (Set<String> otherPart : otherParts) {
-            // If this permission has less parts than the other permission, everything after the number of parts contained
-            // in this permission is automatically implied, so return true
+                // If this permission has less parts than the other permission, everything after the number of parts contained
+                // in this permission is automatically implied, so return true
                 if (getParts().size() - 1 < i) {
                     return true;
                 } else {
@@ -119,7 +144,7 @@ public class PermissionHelper {
                     i++;
                 }
             }
-           // If this permission has more parts than the other parts, only imply it if all of the other parts are wildcards
+            // If this permission has more parts than the other parts, only imply it if all of the other parts are wildcards
             for (; i < getParts().size(); i++) {
                 Set<String> part = getParts().get(i);
                 if (!part.contains(WILDCARD_TOKEN)) {
