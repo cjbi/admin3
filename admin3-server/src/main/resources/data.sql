@@ -160,11 +160,9 @@ INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (16, null, '新增资源', null, 'resource:create', 1, null, 6);
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (17, null, '修改资源', null, 'resource:update', 1, null, 6);
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (18, null, '删除资源', null, 'resource:delete', 1, null, 6);
-INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (19, null, '新增组织架构', null, 'organization:create', 1, null, 6);
-INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (20, null, '修改组织架构', null, 'organization:update', 1, null, 6);
-INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (21, null, '删除组织架构', null, 'organization:delete', 1, null, 6);
-
-
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (19, null, '新增组织架构', null, 'organization:create', 1, null, 4);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (20, null, '修改组织架构', null, 'organization:update', 1, null, 4);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (21, null, '删除组织架构', null, 'organization:delete', 1, null, 4);
 
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 1);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 2);
