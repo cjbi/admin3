@@ -1,7 +1,7 @@
 spring:
-    jpa:
-        generate-ddl: true
-        defer-datasource-initialization: true
-        show-sql: true
-        hibernate:
-            ddl-auto: create
+  jpa:
+    generate-ddl: true
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
