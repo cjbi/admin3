@@ -39,6 +39,7 @@ guest  / guest
 ![](doc/image/2.png)
 ![](doc/image/3.png)
 ![](doc/image/4.png)
+![](doc/image/5.png)
 
 
 ## 软件需求
