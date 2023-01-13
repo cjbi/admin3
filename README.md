@@ -6,7 +6,12 @@
 
 **体验地址：**  
 
+
 http://admin3.wetech.tech:8080
+
+备用地址：
+
+https://gitpod.io/#https://github.com/cjbi/admin3
 
 **测试账号：**
 
