@@ -1,0 +1,48 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name:  缓存 Maven 依赖
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: 将 JAR 包拷贝到服务器
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: admin3-server/target/admin3-server-0.0.1-SNAPSHOT.jar
+          remote: /root/github-actions-admin3.jar
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+      - name: 执行启动命令
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          command_timeout: 3m
+          script: |
+            kill `ps -ef | grep admin3|grep -v grep|awk '{print $2}'`
+            cd /root/
+            nohup java -jar -Dserver.port=8082 -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }} github-actions-admin3.jar > /dev/null 2>&1 &
