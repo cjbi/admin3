@@ -15,9 +15,9 @@ COPY gitpod/mysql/client.cnf /etc/mysql/mysql.conf.d/client.cnf
 
 COPY gitpod/mysql/mysql-bashrc-launch.sh /etc/mysql/mysql-bashrc-launch.sh
 
-USER gitpod
-
 RUN echo "/etc/mysql/mysql-bashrc-launch.sh" >> /home/gitpod/.bashrc.d/100-mysql-launch
+
+USER gitpod
 
 RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh && \
     sdk install java 17.0.3-ms && \
