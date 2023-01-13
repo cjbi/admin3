@@ -164,7 +164,6 @@ INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (20, null, '修改组织架构', null, 'organization:update', 1, null, 4);
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (21, null, '删除组织架构', null, 'organization:delete', 1, null, 4);
 
-INSERT INTO role_resource (role_id, resource_id) VALUES (1, 1);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 3);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 4);

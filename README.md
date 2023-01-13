@@ -5,7 +5,7 @@ A Flexible and Efficient Backend Framework for Java
 
 admin / 123456
 
-拥有所有权限，不受权限控制影响
+拥有所有权限
 
 employee / employee 
 
