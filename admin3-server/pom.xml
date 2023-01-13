@@ -15,6 +15,7 @@
     <description>admin3-server</description>
     <properties>
         <java.version>17</java.version>
+        <docker.image-name/>
         <docker.username/>
         <docker.password/>
     </properties>
@@ -98,7 +99,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>cjbi/admin3:latest</name>
+                        <name>${docker.image-name}</name>
                         <publish>true</publish>
                     </image>
                     <docker>

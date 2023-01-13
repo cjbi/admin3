@@ -1,11 +1,9 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Maven Build Image
+name: Maven Test
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -20,11 +18,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Build Image with Maven
+      - name: Build Image Test with Maven
         run: |
-          mvn -B install --file pom.xml -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}
-          cd admin3-server
-          mvn -B spring-boot:build-image -Dmaven.test.skip=true -Ddocker.image-name=cjbi/admin3-native:latest -Ddocker.username=${{ secrets.DOCKER_USERNAME }} -Ddocker.password=${{ secrets.DOCKER_PASSWORD }}
+          mvn -B test --file pom.xml
       - name: Caching Maven Dependencies
         uses: actions/cache@v2
         with:
