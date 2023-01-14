@@ -6,7 +6,7 @@
 
 **体验地址：**  
 
-http://admin3.wetech.tech:8080
+http://metacode.wetech.tech:8082/admin3
 
 备用地址（比较慢）：
 
@@ -29,7 +29,8 @@ guest  / guest
 ## 主要特性
 
 * 未使用任何安全框架，实现了会话管理+权限控制功能，支持请求URL权限拦截，菜单、按钮级别权限控制
-* 支持AOT编译，相较于JIT节省至少50%的内存
+* 会话通过数据库作为二级缓存，即使重启也不会丢失登录状态
+* 支持AOT编译Native镜像，相较于JVM节省至少50%的内存
 * 前端资源支持独立部署+webjars嵌入到后端应用两种形式
 * 使用SpringData JPA进行开发，能够支持多种数据库适配
 
@@ -75,6 +76,16 @@ mvn clean install
 ```shell
 cd admin3-server/target
 nohup java -jar -Dspring.datasource.url=xxx -Dspring.datasource.username=xxx -Dspring.datasource.password=xxx admin3-server-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
+```
+
+- 打包JVM镜像
+```shell
+mvn spring-boot:build-image -Dmaven.test.skip=true -Ddocker.image-name=xxx -Ddocker.username=xxx -Ddocker.password=xxx
+```
+
+- 打包native镜像
+```shell
+ mvn -Pnative spring-boot:build-image -Dmaven.test.skip=true -Ddocker.image-name=xxx -Ddocker.username=xxx -Ddocker.password=xxx
 ```
 
 ### 前端命令
