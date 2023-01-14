@@ -2,6 +2,7 @@ package tech.wetech.admin3.sys.service;
 
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tech.wetech.admin3.common.BusinessException;
 import tech.wetech.admin3.common.CommonResultStatus;
 import tech.wetech.admin3.common.DomainEventPublisher;
@@ -70,6 +71,7 @@ public class ResourceService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Resource createResource(String name, Type type, String url, String icon, String permission, Long parentId) {
         Resource resource = new Resource();
         resource.setName(name);
@@ -83,6 +85,7 @@ public class ResourceService {
         return resource;
     }
 
+    @Transactional
     public Resource updateResource(Long resourceId, String name, Type type, String url, String icon, String permission, Long parentId) {
         Resource resource = findResourceById(resourceId);
         resource.setName(name);
@@ -96,6 +99,7 @@ public class ResourceService {
         return resource;
     }
 
+    @Transactional
     public void deleteResourceById(Long resourceId) {
         Resource resource = findResourceById(resourceId);
         resourceRepository.delete(resource);

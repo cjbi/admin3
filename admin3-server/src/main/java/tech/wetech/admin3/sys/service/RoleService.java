@@ -58,6 +58,7 @@ public class RoleService {
         return role;
     }
 
+    @Transactional
     public Role changeResources(Long roleId, Set<Resource> resources) {
         Role role = findRoleById(roleId);
         role.setResources(resources);
@@ -66,6 +67,7 @@ public class RoleService {
         return role;
     }
 
+    @Transactional
     public Role changeUsers(Long roleId, Set<User> users) {
         Role role = findRoleById(roleId);
         role.setUsers(users);

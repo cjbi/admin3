@@ -6,6 +6,7 @@ import tech.wetech.admin3.common.Constants;
 import tech.wetech.admin3.common.DomainEventPublisher;
 import tech.wetech.admin3.common.SessionItemHolder;
 import tech.wetech.admin3.sys.event.UserLoggedIn;
+import tech.wetech.admin3.sys.event.UserLoggedOut;
 import tech.wetech.admin3.sys.exception.UserException;
 import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.model.UserCredential;
@@ -36,7 +37,7 @@ public class DefaultSessionService implements SessionService {
     @Override
     public UserinfoDTO login(String username, String password) {
         UserCredential credential = userCredentialRepository.findCredential(username, PASSWORD)
-                .orElseThrow(() -> new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确"));
+            .orElseThrow(() -> new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确"));
         if (credential.doCredentialMatch(password)) {
             User user = credential.getUser();
             if (user.isLocked()) {
@@ -57,7 +58,7 @@ public class DefaultSessionService implements SessionService {
     public void logout(String token) {
         UserinfoDTO userinfo = (UserinfoDTO) sessionManager.get(token);
         sessionManager.invalidate(token);
-        DomainEventPublisher.instance().publish(new UserLoggedIn(userinfo));
+        DomainEventPublisher.instance().publish(new UserLoggedOut(userinfo));
     }
 
     @Override
