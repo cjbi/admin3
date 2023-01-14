@@ -1,6 +1,7 @@
 package tech.wetech.admin3.sys.service;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import tech.wetech.admin3.common.CommonResultStatus;
 import tech.wetech.admin3.sys.exception.UserException;
 import tech.wetech.admin3.sys.model.Organization;
@@ -27,6 +28,7 @@ public class OrganizationService {
         return organizationRepository.findById(id).orElseThrow(() -> new UserException(CommonResultStatus.RECORD_NOT_EXIST));
     }
 
+    @Transactional
     public Organization createOrganization(String name, Organization.Type type, Long parentId) {
         Organization organization = new Organization();
         organization.setName(name);
@@ -38,12 +40,14 @@ public class OrganizationService {
         return organization;
     }
 
+    @Transactional
     public Organization updateOrganization(Long id, String name) {
         Organization organization = findOrganization(id);
         organization.setName(name);
         return organizationRepository.save(organization);
     }
 
+    @Transactional
     public void deleteOrganization(Long id) {
         Organization organization = findOrganization(id);
         organizationRepository.delete(organization);
