@@ -45,4 +45,4 @@ jobs:
           script: |
             kill `ps -ef | grep admin3|grep -v grep|awk '{print $2}'`
             cd /root/
-            nohup java -jar -Dserver.port=8082 -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }} github-actions-admin3.jar > /dev/null 2>&1 &
+            nohup java -jar -Dserver.port=8082 -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }} github-actions-admin3.jar > /dev/null 2>&1 &
