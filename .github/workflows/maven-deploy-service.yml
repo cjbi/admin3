@@ -34,15 +34,15 @@ jobs:
           remote: /root/github-actions-admin3.jar
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          privateKey: ${{ secrets.SSH_KEY }}
       - name: 执行启动命令
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
           command_timeout: 3m
           script: |
             kill `ps -ef | grep admin3|grep -v grep|awk '{print $2}'`
             cd /root/
-            nohup java -jar -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }} github-actions-admin3.jar > /dev/null 2>&1 &
+            nohup java -jar -Dserver.port=8082 -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }} github-actions-admin3.jar > /dev/null 2>&1 &
