@@ -2,7 +2,7 @@
 
 ## 项目说明
 
-项目使用最新的技术栈（后端Java17、SpringBoot3.0，前端TypeScript、Vite3、Vue3、Element plus），只提供了用户和权限管理的核心功能，简单高效不臃肿，适合作为基础工程二次定制开发、接私活、源码学习等场景
+项目使用最新的技术栈（后端Java17、SpringBoot3.0，前端TypeScript、Vite3、Vue3、Element Plus），只提供了用户和权限管理的核心功能，简单高效不臃肿，适合作为基础工程二次定制开发、接私活、源码学习等场景
 
 **体验地址：**  
 
