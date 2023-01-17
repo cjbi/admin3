@@ -22,7 +22,7 @@ jobs:
         run: |
           mvn -B install --file pom.xml -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}
           cd admin3-server
-          mvn -B spring-boot:build-image -Dmaven.test.skip=true -Ddocker.image-name=cjbi/admin3:latest -Ddocker.username=${{ secrets.DOCKER_USERNAME }} -Ddocker.password=${{ secrets.DOCKER_PASSWORD }}
+          mvn -B -Dmaven.test.skip=true spring-boot:build-image -Ddocker.image-name=cjbi/admin3:latest -Ddocker.username=${{ secrets.DOCKER_USERNAME }} -Ddocker.password=${{ secrets.DOCKER_PASSWORD }}
       - name: Caching Maven Dependencies
         uses: actions/cache@v2
         with:

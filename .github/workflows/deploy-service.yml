@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B -Dmaven.test.skip=true package --file pom.xml
       - name:  缓存 Maven 依赖
         uses: actions/cache@v2
         with:
