@@ -14,7 +14,7 @@ spring:
     password: 123456
   sql:
     init:
-      data-locations: classpath:data.sql,classpath:token.sql
+      data-locations: classpath:data.sql,classpath:test-data.sql
       mode: always
       continue-on-error: true
   data:
