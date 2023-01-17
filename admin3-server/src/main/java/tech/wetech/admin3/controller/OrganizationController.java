@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.CommonResultStatus;
@@ -53,7 +54,7 @@ public class OrganizationController {
     @RequiresPermissions("organization:create")
     @PostMapping
     public ResponseEntity<Organization> createOrganization(@RequestBody @Valid OrganizationRequest request) {
-        return ResponseEntity.ok(organizationService.createOrganization(request.name(), request.type(), request.parentId()));
+        return new ResponseEntity<>(organizationService.createOrganization(request.name(), request.type(), request.parentId()), HttpStatus.CREATED);
     }
 
     @RequiresPermissions("organization:update")
@@ -70,7 +71,7 @@ public class OrganizationController {
             throw new UserException(CommonResultStatus.FAIL, "节点存在用户，不能删除");
         }
         organizationService.deleteOrganization(organizationId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     record OrganizationRequest(@NotBlank String name, @NotNull Type type, @NotNull Long parentId) {

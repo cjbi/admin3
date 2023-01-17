@@ -3,6 +3,7 @@ package tech.wetech.admin3.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.authz.RequiresPermissions;
@@ -42,12 +43,6 @@ public class RoleController {
     }
 
     @RequiresPermissions("role:view")
-    @GetMapping("/{roleId}")
-    public ResponseEntity<Role> findRole(@PathVariable Long roleId) {
-        return ResponseEntity.ok(roleService.findRoleById(roleId));
-    }
-
-    @RequiresPermissions("role:view")
     @GetMapping("/{roleId}/users")
     public ResponseEntity<PageDTO<User>> findRoleUsers(@PathVariable Long roleId, Pageable pageable) {
         return ResponseEntity.ok(roleService.findRoleUsers(roleId, pageable));
@@ -56,7 +51,7 @@ public class RoleController {
     @RequiresPermissions("role:create")
     @PostMapping
     public ResponseEntity<Role> createRole(@RequestBody @Valid RoleRequest request) {
-        return ResponseEntity.ok(roleService.createRole(request.name(), request.description()));
+        return new ResponseEntity<>(roleService.createRole(request.name(), request.description()), HttpStatus.CREATED);
     }
 
     @RequiresPermissions("role:update")
@@ -83,7 +78,7 @@ public class RoleController {
     @DeleteMapping("/{roleId}")
     public ResponseEntity<Void> deleteRole(@PathVariable Long roleId) {
         roleService.deleteRoleById(roleId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     record RoleUserRequest(Set<Long> userIds) {
@@ -93,7 +88,6 @@ public class RoleController {
     }
 
     record RoleRequest(@NotBlank String name, String description) {
-
     }
 
 }

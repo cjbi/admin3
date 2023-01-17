@@ -1,0 +1,4 @@
+INSERT INTO session (data, expire_time, last_login_time, last_modified_time, token, credential_id) VALUES ('{"token":"<test_case_token>","userId":1,"username":"admin","fullName":"系统管理员","avatar":"avatar.jpg","credential":{"identifier":"admin","type":"PASSWORD"},"permissions":["user:view","organization:delete","user:delete","role:update","resource:create","resource:delete","resource:view","user:update","sys","organization:create","user:create","role:create","role:view","role:delete","resource:update","organization:update","dashboard"]}', '2099-12-31 13:37:14.577747', '2023-01-17 13:37:05.440180', '2023-01-17 13:37:18', '<test_case_token>', 1);
+
+INSERT INTO resource (id,icon, name, parent_ids, permission, type, url, parent_id) VALUES (1001, null,'测试用例更新资源', null, 'test_case_node:update', 1, null, 4);
+INSERT INTO resource (id,icon, name, parent_ids, permission, type, url, parent_id) VALUES (1002, null,'测试用例删除资源', null, 'test_case_node:delete', 1, null, 4);

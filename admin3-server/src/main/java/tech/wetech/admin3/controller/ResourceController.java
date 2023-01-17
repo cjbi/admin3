@@ -3,6 +3,7 @@ package tech.wetech.admin3.controller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.wetech.admin3.common.Constants;
@@ -45,7 +46,7 @@ public class ResourceController {
     @RequiresPermissions("resource:create")
     @PostMapping
     public ResponseEntity<Resource> createResource(@RequestBody ResourceRequest request) {
-        return ResponseEntity.ok(resourceService.createResource(request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()));
+        return new ResponseEntity<>(resourceService.createResource(request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()), HttpStatus.CREATED);
     }
 
     @RequiresPermissions("resource:update")
@@ -58,16 +59,16 @@ public class ResourceController {
     @DeleteMapping("/{resourceId}")
     public ResponseEntity<Void> deleteResource(@PathVariable Long resourceId) {
         resourceService.deleteResourceById(resourceId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 
     record ResourceRequest(@NotBlank String name,
-                                  @NotNull Resource.Type type,
-                                  String url,
-                                  String icon,
-                                  @NotBlank String permission,
-                                  @NotNull Long parentId) {
+                           @NotNull Resource.Type type,
+                           String url,
+                           String icon,
+                           @NotBlank String permission,
+                           @NotNull Long parentId) {
 
     }
 
