@@ -1,4 +1,4 @@
-package tech.wetech.admin3;
+package tech.wetech.admin3.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
