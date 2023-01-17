@@ -15,7 +15,6 @@
     <description>admin3-server</description>
     <properties>
         <java.version>17</java.version>
-        <maven.test.skip>true</maven.test.skip>
         <docker.image-name/>
         <docker.username/>
         <docker.password/>
@@ -110,6 +109,13 @@
                             <url>https://index.docker.io/v2</url>
                         </publishRegistry>
                     </docker>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
         </plugins>

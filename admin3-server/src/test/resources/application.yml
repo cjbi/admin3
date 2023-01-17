@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    generate-ddl: true
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  application:
+    name: admin3
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/admin3_test?characterEncoding=utf8
+    username: root
+    password: 123456
+  sql:
+    init:
+      data-locations: classpath:data.sql,classpath:token.sql
+      mode: always
+      continue-on-error: true
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+server:
+  servlet:
+    context-path: /admin3
