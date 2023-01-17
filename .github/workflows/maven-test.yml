@@ -20,7 +20,7 @@ jobs:
           cache: maven
       - name: Build Image Test with Maven
         run: |
-          mvn -B test --file pom.xml
+          mvn -B test --file pom.xml -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}
       - name: Caching Maven Dependencies
         uses: actions/cache@v2
         with:
