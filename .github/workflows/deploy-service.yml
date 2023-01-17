@@ -6,6 +6,8 @@ name: Deploy To Remote Server
 on:
   push:
     branches: [ main ]
+  schedule:
+    - cron: 30 * * * *
 
 jobs:
   build:
