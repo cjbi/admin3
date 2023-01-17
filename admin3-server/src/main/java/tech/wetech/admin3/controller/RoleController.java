@@ -43,12 +43,6 @@ public class RoleController {
     }
 
     @RequiresPermissions("role:view")
-    @GetMapping("/{roleId}")
-    public ResponseEntity<Role> findRole(@PathVariable Long roleId) {
-        return ResponseEntity.ok(roleService.findRoleById(roleId));
-    }
-
-    @RequiresPermissions("role:view")
     @GetMapping("/{roleId}/users")
     public ResponseEntity<PageDTO<User>> findRoleUsers(@PathVariable Long roleId, Pageable pageable) {
         return ResponseEntity.ok(roleService.findRoleUsers(roleId, pageable));
