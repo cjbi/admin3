@@ -13,19 +13,19 @@ import tech.wetech.admin3.sys.repository.StoredEventRepository;
 @Service
 public class EventStoreService implements EventStore {
 
-    private final StoredEventRepository storedEventRepository;
+  private final StoredEventRepository storedEventRepository;
 
-    public EventStoreService(StoredEventRepository storedEventRepository) {
-        this.storedEventRepository = storedEventRepository;
-    }
+  public EventStoreService(StoredEventRepository storedEventRepository) {
+    this.storedEventRepository = storedEventRepository;
+  }
 
-    @Override
-    public void append(DomainEvent aDomainEvent) {
-        StoredEvent storedEvent = new StoredEvent();
-        storedEvent.setEventBody(JsonUtils.stringify(aDomainEvent));
-        storedEvent.setOccurredOn(aDomainEvent.occurredOn());
-        storedEvent.setTypeName(aDomainEvent.getClass().getTypeName());
-        storedEventRepository.save(storedEvent);
-    }
+  @Override
+  public void append(DomainEvent aDomainEvent) {
+    StoredEvent storedEvent = new StoredEvent();
+    storedEvent.setEventBody(JsonUtils.stringify(aDomainEvent));
+    storedEvent.setOccurredOn(aDomainEvent.occurredOn());
+    storedEvent.setTypeName(aDomainEvent.getClass().getTypeName());
+    storedEventRepository.save(storedEvent);
+  }
 
 }

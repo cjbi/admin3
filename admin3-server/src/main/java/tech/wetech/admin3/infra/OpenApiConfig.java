@@ -17,16 +17,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "Admin3", description = "A Flexible and Efficient Backend Framework for Java", version = "v1"))
 @SecurityScheme(
-        name = "bearerAuth",
-        type = SecuritySchemeType.HTTP,
-        scheme = "bearer"
+  name = "bearerAuth",
+  type = SecuritySchemeType.HTTP,
+  scheme = "bearer"
 )
 public class OpenApiConfig {
 
-    @Bean
-    public OpenAPI getOpenAPI() {
-        return new OpenAPI().components(new Components()
-                .addHeaders("Authorization", new Header().description("Auth header").schema(new StringSchema())));
-    }
+  @Bean
+  public OpenAPI getOpenAPI() {
+    return new OpenAPI().components(new Components()
+      .addHeaders("Authorization", new Header().description("Auth header").schema(new StringSchema())));
+  }
 
 }

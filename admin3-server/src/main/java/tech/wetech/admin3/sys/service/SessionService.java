@@ -9,14 +9,14 @@ import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 @Service
 public interface SessionService {
 
-    UserinfoDTO login(String username, String password);
+  UserinfoDTO login(String username, String password);
 
-    void logout(String token);
+  void logout(String token);
 
-    boolean isLogin(String token);
+  boolean isLogin(String token);
 
-    UserinfoDTO getLoginUserInfo(String token);
+  UserinfoDTO getLoginUserInfo(String token);
 
-    void refresh();
+  void refresh();
 
 }

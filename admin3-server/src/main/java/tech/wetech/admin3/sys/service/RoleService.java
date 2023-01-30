@@ -26,73 +26,73 @@ import java.util.Set;
 @Service
 public class RoleService {
 
-    private final RoleRepository roleRepository;
+  private final RoleRepository roleRepository;
 
-    public RoleService(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+  public RoleService(RoleRepository roleRepository) {
+    this.roleRepository = roleRepository;
+  }
 
-    public List<RoleDTO> findRoles() {
-        return roleRepository.findAll().stream().map(role -> new RoleDTO(
-                        role.getId(),
-                        role.getName(),
-                        role.getDescription(),
-                        role.getAvailable(),
-                        role.getResources().stream().map(Resource::getId).toList())
-                )
-                .toList();
-    }
+  public List<RoleDTO> findRoles() {
+    return roleRepository.findAll().stream().map(role -> new RoleDTO(
+        role.getId(),
+        role.getName(),
+        role.getDescription(),
+        role.getAvailable(),
+        role.getResources().stream().map(Resource::getId).toList())
+      )
+      .toList();
+  }
 
-    public Role findRoleById(Long roleId) {
-        return roleRepository.findById(roleId)
-                .orElseThrow(() -> new BusinessException(CommonResultStatus.RECORD_NOT_EXIST));
-    }
+  public Role findRoleById(Long roleId) {
+    return roleRepository.findById(roleId)
+      .orElseThrow(() -> new BusinessException(CommonResultStatus.RECORD_NOT_EXIST));
+  }
 
-    @Transactional
-    public Role createRole(String name, String description) {
-        Role role = new Role();
-        role.setName(name);
-        role.setDescription(description);
-        role = roleRepository.save(role);
-        DomainEventPublisher.instance().publish(new RoleCreated(role));
-        return role;
-    }
+  @Transactional
+  public Role createRole(String name, String description) {
+    Role role = new Role();
+    role.setName(name);
+    role.setDescription(description);
+    role = roleRepository.save(role);
+    DomainEventPublisher.instance().publish(new RoleCreated(role));
+    return role;
+  }
 
-    public Role changeResources(Long roleId, Set<Resource> resources) {
-        Role role = findRoleById(roleId);
-        role.setResources(resources);
-        role = roleRepository.save(role);
-        DomainEventPublisher.instance().publish(new RoleUpdated(role));
-        return role;
-    }
+  public Role changeResources(Long roleId, Set<Resource> resources) {
+    Role role = findRoleById(roleId);
+    role.setResources(resources);
+    role = roleRepository.save(role);
+    DomainEventPublisher.instance().publish(new RoleUpdated(role));
+    return role;
+  }
 
-    public Role changeUsers(Long roleId, Set<User> users) {
-        Role role = findRoleById(roleId);
-        role.setUsers(users);
-        role = roleRepository.save(role);
-        DomainEventPublisher.instance().publish(new RoleUpdated(role));
-        return role;
-    }
+  public Role changeUsers(Long roleId, Set<User> users) {
+    Role role = findRoleById(roleId);
+    role.setUsers(users);
+    role = roleRepository.save(role);
+    DomainEventPublisher.instance().publish(new RoleUpdated(role));
+    return role;
+  }
 
-    @Transactional
-    public Role updateRole(Long roleId, String name, String description) {
-        Role role = findRoleById(roleId);
-        role.setName(name);
-        role.setDescription(description);
-        role = roleRepository.save(role);
-        DomainEventPublisher.instance().publish(new RoleUpdated(role));
-        return role;
-    }
+  @Transactional
+  public Role updateRole(Long roleId, String name, String description) {
+    Role role = findRoleById(roleId);
+    role.setName(name);
+    role.setDescription(description);
+    role = roleRepository.save(role);
+    DomainEventPublisher.instance().publish(new RoleUpdated(role));
+    return role;
+  }
 
-    @Transactional
-    public void deleteRoleById(Long roleId) {
-        Role role = findRoleById(roleId);
-        roleRepository.delete(role);
-        DomainEventPublisher.instance().publish(new RoleDeleted(role));
-    }
+  @Transactional
+  public void deleteRoleById(Long roleId) {
+    Role role = findRoleById(roleId);
+    roleRepository.delete(role);
+    DomainEventPublisher.instance().publish(new RoleDeleted(role));
+  }
 
-    public PageDTO<User> findRoleUsers(Long roleId, Pageable pageable) {
-        Page<User> page = roleRepository.findRoleUsers(roleId, pageable);
-        return new PageDTO<>(page.getContent(), page.getTotalElements());
-    }
+  public PageDTO<User> findRoleUsers(Long roleId, Pageable pageable) {
+    Page<User> page = roleRepository.findRoleUsers(roleId, pageable);
+    return new PageDTO<>(page.getContent(), page.getTotalElements());
+  }
 }

@@ -22,124 +22,124 @@ import java.util.function.Consumer;
 
 public class DomainEventPublisher {
 
-    private static final ThreadLocal<DomainEventPublisher> instance = ThreadLocal.withInitial(() -> new DomainEventPublisher());
+  private static final ThreadLocal<DomainEventPublisher> instance = ThreadLocal.withInitial(() -> new DomainEventPublisher());
 
-    private boolean publishing;
+  private boolean publishing;
 
-    @SuppressWarnings("rawtypes")
-    private List subscribers;
+  @SuppressWarnings("rawtypes")
+  private List subscribers;
 
-    private DomainEventPublisher() {
-        super();
+  private DomainEventPublisher() {
+    super();
 
+    this.setPublishing(false);
+    this.ensureSubscribersList();
+  }
+
+  public static DomainEventPublisher instance() {
+    return instance.get();
+  }
+
+  public <T> void publish(final T aDomainEvent) {
+    if (!this.isPublishing() && this.hasSubscribers()) {
+
+      try {
+        this.setPublishing(true);
+
+        Class<?> eventType = aDomainEvent.getClass();
+
+        @SuppressWarnings("unchecked")
+        List<DomainEventSubscriber<T>> allSubscribers = this.subscribers();
+
+        for (DomainEventSubscriber<T> subscriber : allSubscribers) {
+          Class<?> subscribedToType = subscriber.subscribedToEventType();
+
+          if (eventType == subscribedToType || subscribedToType == DomainEvent.class) {
+            subscriber.handleEvent(aDomainEvent);
+          }
+        }
+
+      } finally {
         this.setPublishing(false);
-        this.ensureSubscribersList();
+      }
     }
+  }
 
-    public static DomainEventPublisher instance() {
-        return instance.get();
+  public void publishAll(Collection<DomainEvent> aDomainEvents) {
+    for (DomainEvent domainEvent : aDomainEvents) {
+      this.publish(domainEvent);
     }
+  }
 
-    public <T> void publish(final T aDomainEvent) {
-        if (!this.isPublishing() && this.hasSubscribers()) {
-
-            try {
-                this.setPublishing(true);
-
-                Class<?> eventType = aDomainEvent.getClass();
-
-                @SuppressWarnings("unchecked")
-                List<DomainEventSubscriber<T>> allSubscribers = this.subscribers();
-
-                for (DomainEventSubscriber<T> subscriber : allSubscribers) {
-                    Class<?> subscribedToType = subscriber.subscribedToEventType();
-
-                    if (eventType == subscribedToType || subscribedToType == DomainEvent.class) {
-                        subscriber.handleEvent(aDomainEvent);
-                    }
-                }
-
-            } finally {
-                this.setPublishing(false);
-            }
-        }
+  public void reset() {
+    if (!this.isPublishing()) {
+      this.setSubscribers(null);
     }
+  }
 
-    public void publishAll(Collection<DomainEvent> aDomainEvents) {
-        for (DomainEvent domainEvent : aDomainEvents) {
-            this.publish(domainEvent);
-        }
+  @SuppressWarnings("unchecked")
+  public <T> void subscribe(DomainEventSubscriber<T> aSubscriber) {
+    if (!this.isPublishing()) {
+      this.ensureSubscribersList();
+
+      this.subscribers().add(aSubscriber);
     }
+  }
 
-    public void reset() {
-        if (!this.isPublishing()) {
-            this.setSubscribers(null);
-        }
+  public <T> void asyncSubscribe(Class<T> subscribedToEventType, Consumer<T> event) {
+    subscribe(new DomainEventSubscriber<T>() {
+      @Override
+      public void handleEvent(T aDomainEvent) {
+        CompletableFuture.runAsync(() -> event.accept(aDomainEvent));
+      }
+
+      @Override
+      public Class<T> subscribedToEventType() {
+        return subscribedToEventType;
+      }
+    });
+  }
+
+  public <T> void subscribe(Class<T> subscribedToEventType, Consumer<T> event) {
+    subscribe(new DomainEventSubscriber<T>() {
+      @Override
+      public void handleEvent(T aDomainEvent) {
+        event.accept(aDomainEvent);
+      }
+
+      @Override
+      public Class<T> subscribedToEventType() {
+        return subscribedToEventType;
+      }
+    });
+  }
+
+  @SuppressWarnings("rawtypes")
+  private void ensureSubscribersList() {
+    if (!this.hasSubscribers()) {
+      this.setSubscribers(new ArrayList());
     }
+  }
 
-    @SuppressWarnings("unchecked")
-    public <T> void subscribe(DomainEventSubscriber<T> aSubscriber) {
-        if (!this.isPublishing()) {
-            this.ensureSubscribersList();
+  private boolean isPublishing() {
+    return this.publishing;
+  }
 
-            this.subscribers().add(aSubscriber);
-        }
-    }
+  private void setPublishing(boolean aFlag) {
+    this.publishing = aFlag;
+  }
 
-    public <T> void asyncSubscribe(Class<T> subscribedToEventType, Consumer<T> event) {
-        subscribe(new DomainEventSubscriber<T>() {
-            @Override
-            public void handleEvent(T aDomainEvent) {
-                CompletableFuture.runAsync(() -> event.accept(aDomainEvent));
-            }
+  private boolean hasSubscribers() {
+    return this.subscribers() != null;
+  }
 
-            @Override
-            public Class<T> subscribedToEventType() {
-                return subscribedToEventType;
-            }
-        });
-    }
+  @SuppressWarnings("rawtypes")
+  private List subscribers() {
+    return this.subscribers;
+  }
 
-    public <T> void subscribe(Class<T> subscribedToEventType, Consumer<T> event) {
-        subscribe(new DomainEventSubscriber<T>() {
-            @Override
-            public void handleEvent(T aDomainEvent) {
-                event.accept(aDomainEvent);
-            }
-
-            @Override
-            public Class<T> subscribedToEventType() {
-                return subscribedToEventType;
-            }
-        });
-    }
-
-    @SuppressWarnings("rawtypes")
-    private void ensureSubscribersList() {
-        if (!this.hasSubscribers()) {
-            this.setSubscribers(new ArrayList());
-        }
-    }
-
-    private boolean isPublishing() {
-        return this.publishing;
-    }
-
-    private void setPublishing(boolean aFlag) {
-        this.publishing = aFlag;
-    }
-
-    private boolean hasSubscribers() {
-        return this.subscribers() != null;
-    }
-
-    @SuppressWarnings("rawtypes")
-    private List subscribers() {
-        return this.subscribers;
-    }
-
-    @SuppressWarnings("rawtypes")
-    private void setSubscribers(List aSubscriberList) {
-        this.subscribers = aSubscriberList;
-    }
+  @SuppressWarnings("rawtypes")
+  private void setSubscribers(List aSubscriberList) {
+    this.subscribers = aSubscriberList;
+  }
 }

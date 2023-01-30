@@ -15,67 +15,67 @@ import static jakarta.persistence.CascadeType.DETACH;
 @Entity
 public class Role extends EntityBase {
 
-    @Column(unique = true, nullable = false)
-    private String name;
+  @Column(unique = true, nullable = false)
+  private String name;
 
-    private String description;
+  private String description;
 
-    private Boolean available = Boolean.FALSE;
+  private Boolean available = Boolean.FALSE;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = DETACH)
-    @JoinTable(name = "role_resource",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"))
-    private Set<Resource> resources = new LinkedHashSet<>();
+  @ManyToMany(fetch = FetchType.LAZY, cascade = DETACH)
+  @JoinTable(name = "role_resource",
+    joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"))
+  private Set<Resource> resources = new LinkedHashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = DETACH)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<User> users = new LinkedHashSet<>();
+  @ManyToMany(fetch = FetchType.LAZY, cascade = DETACH)
+  @JoinTable(name = "user_role",
+    joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+  private Set<User> users = new LinkedHashSet<>();
 
-    public Role() {
+  public Role() {
 
-    }
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public Boolean getAvailable() {
-        return available;
-    }
+  public Boolean getAvailable() {
+    return available;
+  }
 
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
+  public void setAvailable(Boolean available) {
+    this.available = available;
+  }
 
-    public Set<Resource> getResources() {
-        return resources;
-    }
+  public Set<Resource> getResources() {
+    return resources;
+  }
 
-    public void setResources(Set<Resource> resources) {
-        this.resources = resources;
-    }
+  public void setResources(Set<Resource> resources) {
+    this.resources = resources;
+  }
 
-    public Set<User> getUsers() {
-        return users;
-    }
+  public Set<User> getUsers() {
+    return users;
+  }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+  public void setUsers(Set<User> users) {
+    this.users = users;
+  }
 }

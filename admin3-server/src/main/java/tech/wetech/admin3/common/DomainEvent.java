@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 
 public interface DomainEvent {
 
-    default int eventVersion() {
-        return 1;
-    }
+  default int eventVersion() {
+    return 1;
+  }
 
-    default LocalDateTime occurredOn() {
-        return LocalDateTime.now();
-    }
+  default LocalDateTime occurredOn() {
+    return LocalDateTime.now();
+  }
 }

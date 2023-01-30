@@ -23,63 +23,63 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class EntityBase {
 
-    /**
-     * This identity field has the wrapper class type Long so that an entity which
-     * has not been saved is recognizable by a null identity.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  /**
+   * This identity field has the wrapper class type Long so that an entity which
+   * has not been saved is recognizable by a null identity.
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    /**
-     * Returns the identity of this entity object.
-     *
-     * @return the identity of this entity object
-     */
-    public Long getId() {
-        return id;
-    }
+  /**
+   * Returns the identity of this entity object.
+   *
+   * @return the identity of this entity object
+   */
+  public Long getId() {
+    return id;
+  }
 
-    @Override
-    public boolean equals(final Object object) {
-        if (!(object instanceof EntityBase)) {
-            return false;
-        }
-        if (!getClass().equals(object.getClass())) {
-            return false;
-        }
-        final EntityBase that = (EntityBase) object;
-        _checkIdentity(this);
-        _checkIdentity(that);
-        return this.id.equals(that.getId());
+  @Override
+  public boolean equals(final Object object) {
+    if (!(object instanceof EntityBase)) {
+      return false;
     }
+    if (!getClass().equals(object.getClass())) {
+      return false;
+    }
+    final EntityBase that = (EntityBase) object;
+    _checkIdentity(this);
+    _checkIdentity(that);
+    return this.id.equals(that.getId());
+  }
 
-    /**
-     * Checks the passed entity, if it has an identity. It gets an identity only by
-     * saving.
-     *
-     * @param entity the entity to be checked
-     * @throws IllegalStateException the passed entity does not have the identity
-     *                               attribute set.
-     */
-    private void _checkIdentity(final EntityBase entity) {
-        if (entity.getId() == null) {
-            throw new IllegalStateException("Comparison identity missing in entity: " + entity);
-        }
+  /**
+   * Checks the passed entity, if it has an identity. It gets an identity only by
+   * saving.
+   *
+   * @param entity the entity to be checked
+   * @throws IllegalStateException the passed entity does not have the identity
+   *                               attribute set.
+   */
+  private void _checkIdentity(final EntityBase entity) {
+    if (entity.getId() == null) {
+      throw new IllegalStateException("Comparison identity missing in entity: " + entity);
     }
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getId());
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getId());
+  }
 
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + "<" + getId() + ">";
-    }
+  @Override
+  public String toString() {
+    return this.getClass().getSimpleName() + "<" + getId() + ">";
+  }
 
 }

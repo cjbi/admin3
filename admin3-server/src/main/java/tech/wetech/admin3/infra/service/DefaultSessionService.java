@@ -24,55 +24,55 @@ import static tech.wetech.admin3.sys.model.UserCredential.IdentityType.PASSWORD;
 @Service
 public class DefaultSessionService implements SessionService {
 
-    private final UserCredentialRepository userCredentialRepository;
+  private final UserCredentialRepository userCredentialRepository;
 
-    private final SessionManager sessionManager;
+  private final SessionManager sessionManager;
 
-    public DefaultSessionService(UserCredentialRepository userCredentialRepository, SessionManager sessionManager) {
-        this.userCredentialRepository = userCredentialRepository;
-        this.sessionManager = sessionManager;
+  public DefaultSessionService(UserCredentialRepository userCredentialRepository, SessionManager sessionManager) {
+    this.userCredentialRepository = userCredentialRepository;
+    this.sessionManager = sessionManager;
+  }
+
+
+  @Override
+  public UserinfoDTO login(String username, String password) {
+    UserCredential credential = userCredentialRepository.findCredential(username, PASSWORD)
+      .orElseThrow(() -> new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确"));
+    if (credential.doCredentialMatch(password)) {
+      User user = credential.getUser();
+      if (user.isLocked()) {
+        throw new UserException(CommonResultStatus.UNAUTHORIZED, "用户已经停用，请与管理员联系");
+      }
+      String token = UUID.randomUUID().toString().replace("-", "");
+      UserinfoDTO userinfo = new UserinfoDTO(token, user.getId(), user.getUsername(), user.getFullName(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
+      sessionManager.store(token, credential, userinfo);
+      SessionItemHolder.setItem(Constants.SESSION_CURRENT_USER, userinfo);
+      DomainEventPublisher.instance().publish(new UserLoggedIn(userinfo));
+      return userinfo;
+    } else {
+      throw new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确");
     }
+  }
 
+  @Override
+  public void logout(String token) {
+    UserinfoDTO userinfo = (UserinfoDTO) sessionManager.get(token);
+    sessionManager.invalidate(token);
+    DomainEventPublisher.instance().publish(new UserLoggedOut(userinfo));
+  }
 
-    @Override
-    public UserinfoDTO login(String username, String password) {
-        UserCredential credential = userCredentialRepository.findCredential(username, PASSWORD)
-            .orElseThrow(() -> new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确"));
-        if (credential.doCredentialMatch(password)) {
-            User user = credential.getUser();
-            if (user.isLocked()) {
-                throw new UserException(CommonResultStatus.UNAUTHORIZED, "用户已经停用，请与管理员联系");
-            }
-            String token = UUID.randomUUID().toString().replace("-", "");
-            UserinfoDTO userinfo = new UserinfoDTO(token, user.getId(), user.getUsername(), user.getFullName(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
-            sessionManager.store(token, credential, userinfo);
-            SessionItemHolder.setItem(Constants.SESSION_CURRENT_USER, userinfo);
-            DomainEventPublisher.instance().publish(new UserLoggedIn(userinfo));
-            return userinfo;
-        } else {
-            throw new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确");
-        }
-    }
+  @Override
+  public boolean isLogin(String token) {
+    return sessionManager.get(token) != null;
+  }
 
-    @Override
-    public void logout(String token) {
-        UserinfoDTO userinfo = (UserinfoDTO) sessionManager.get(token);
-        sessionManager.invalidate(token);
-        DomainEventPublisher.instance().publish(new UserLoggedOut(userinfo));
-    }
+  @Override
+  public UserinfoDTO getLoginUserInfo(String token) {
+    return (UserinfoDTO) sessionManager.get(token);
+  }
 
-    @Override
-    public boolean isLogin(String token) {
-        return sessionManager.get(token) != null;
-    }
-
-    @Override
-    public UserinfoDTO getLoginUserInfo(String token) {
-        return (UserinfoDTO) sessionManager.get(token);
-    }
-
-    @Override
-    public void refresh() {
-        sessionManager.refresh();
-    }
+  @Override
+  public void refresh() {
+    sessionManager.refresh();
+  }
 }

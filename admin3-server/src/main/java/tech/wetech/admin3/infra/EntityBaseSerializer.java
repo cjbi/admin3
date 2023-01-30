@@ -24,58 +24,58 @@ import java.util.Map;
  */
 public class EntityBaseSerializer extends StdSerializer<EntityBase> {
 
-    public final static EntityBaseSerializer instance = new EntityBaseSerializer(EntityBase.class);
+  public final static EntityBaseSerializer instance = new EntityBaseSerializer(EntityBase.class);
 
-    private final List<Class<? extends Annotation>> IGNORE_ANNOTATIONS = Arrays.asList(ElementCollection.class, OneToMany.class, OneToOne.class, ManyToOne.class, ManyToMany.class, Embedded.class);
+  private final List<Class<? extends Annotation>> IGNORE_ANNOTATIONS = Arrays.asList(ElementCollection.class, OneToMany.class, OneToOne.class, ManyToOne.class, ManyToMany.class, Embedded.class);
 
-    protected EntityBaseSerializer(Class<EntityBase> t) {
-        super(t);
-    }
+  protected EntityBaseSerializer(Class<EntityBase> t) {
+    super(t);
+  }
 
-    @Override
-    public void serialize(EntityBase value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(invokeGetter(value, value.getClass(), value.getClass().getDeclaredFields()));
-        data.putAll(invokeGetter(value, EntityBase.class, EntityBase.class.getDeclaredFields()));
-        provider.defaultSerializeValue(data, gen);
-    }
+  @Override
+  public void serialize(EntityBase value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    Map<String, Object> data = new HashMap<>();
+    data.putAll(invokeGetter(value, value.getClass(), value.getClass().getDeclaredFields()));
+    data.putAll(invokeGetter(value, EntityBase.class, EntityBase.class.getDeclaredFields()));
+    provider.defaultSerializeValue(data, gen);
+  }
 
-    private Map<String, Object> invokeGetter(EntityBase value, Class<? extends EntityBase> aClass, Field[] declaredFields) {
-        Map<String, Object> data = new HashMap<>();
+  private Map<String, Object> invokeGetter(EntityBase value, Class<? extends EntityBase> aClass, Field[] declaredFields) {
+    Map<String, Object> data = new HashMap<>();
 
-        for (Field declaredField : declaredFields) {
-            boolean flag = false;
-            for (Annotation annotation : declaredField.getAnnotations()) {
-                if (IGNORE_ANNOTATIONS.contains(annotation.annotationType())) {
-                    flag = true;
-                    break;
-                }
+    for (Field declaredField : declaredFields) {
+      boolean flag = false;
+      for (Annotation annotation : declaredField.getAnnotations()) {
+        if (IGNORE_ANNOTATIONS.contains(annotation.annotationType())) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        String fieldName = declaredField.getName();
+        try {
+          String upperCamelCase = toUpperCamelCase(fieldName);
+          String getter = "get" + upperCamelCase;
+          String is = "is" + upperCamelCase;
+          for (Method declaredMethod : aClass.getDeclaredMethods()) {
+            if (getter.equals(declaredMethod.getName()) || is.equals(declaredMethod.getName())) {
+              data.put(fieldName, declaredMethod.invoke(value));
             }
-            if (!flag) {
-                String fieldName = declaredField.getName();
-                try {
-                    String upperCamelCase = toUpperCamelCase(fieldName);
-                    String getter = "get" + upperCamelCase;
-                    String is = "is" + upperCamelCase;
-                    for (Method declaredMethod : aClass.getDeclaredMethods()) {
-                        if (getter.equals(declaredMethod.getName()) || is.equals(declaredMethod.getName())) {
-                            data.put(fieldName, declaredMethod.invoke(value));
-                        }
-                    }
-                } catch (InvocationTargetException | IllegalAccessException ignored) {
-
-                }
-            }
+          }
+        } catch (InvocationTargetException | IllegalAccessException ignored) {
 
         }
-        return data;
-    }
+      }
 
-    private String toUpperCamelCase(String str) {
-        char[] cs = str.toCharArray();
-        cs[0] -= 32;
-        return String.valueOf(cs);
     }
+    return data;
+  }
+
+  private String toUpperCamelCase(String str) {
+    char[] cs = str.toCharArray();
+    cs[0] -= 32;
+    return String.valueOf(cs);
+  }
 
 
 }
