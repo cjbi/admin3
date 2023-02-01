@@ -141,4 +141,22 @@ curl -X 'GET' \
 }
 ```
 
+## 示例
 
+以角色、用户为例：
+
+* 获取单个角色 `GET /roles/{roleId}`
+
+* 获取角色列表 `GET /roles`
+
+* 新增角色 `POST /roles`
+
+* 更新角色 `PUT /roles/{roleId}`
+
+* 删除角色 `DELETE /roles/{roleId}`
+
+* 获取角色下的所有用户 `GET /roles/{roleId}/users`
+
+* 禁用用户 POST `/users/{userId}:disable`
+
+* 启用用户 POST `/users/{userId}:enable`

@@ -47,6 +47,8 @@ guest  / guest
 
 [API参考](doc/api-reference.md)
 
+[权限管理](doc/authority-managerment.md)
+
 
 ## 软件需求
 - JDK 17
