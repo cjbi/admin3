@@ -37,11 +37,11 @@ guest  / guest
 
 ## 项目预览
 
-![](doc/image/1.jpg)
-![](doc/image/2.png)
-![](doc/image/3.png)
-![](doc/image/4.png)
-![](doc/image/5.png)
+![](doc/image/login.jpg)
+![](doc/image/user.png)
+![](doc/image/role_auth.png)
+![](doc/image/role_member.png)
+![](doc/image/permission.png)
 
 
 ## 软件需求
