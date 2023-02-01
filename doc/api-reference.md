@@ -18,13 +18,13 @@ API 的标准方法（也称为“REST 方法”）包括 List、Get、Create、
 
 ### 标准方法
 
-| 标准方法   | HTTP映射                                         | HTTP请求正文 | hTTP响应正文 |
-|--------|------------------------------------------------|----------|----------|
-| List   | GET <collection URL>                           | 无        | 资源*列表    |
-| Get    | GET <collection URL>/<collection_id>           | 无        | 资源*      |
-| Create | POST <collection URL>                          | 资源       | 资源*      |
-| Update | PUT or PATCH <resource URL>/<collection_id>	资源 | 资源       | 资源*      |
-| Delete | DELETE <resource URL>/<collection_id>          | 不适用      |          |
+| 标准方法   | HTTP映射                                        | HTTP请求正文 | hTTP响应正文 |
+|--------|-----------------------------------------------|----------|----------|
+| List   | `GET <collection URL>`                         | 无        | 资源*列表    |
+| Get    | `GET <collection URL>/<collection_id>`          | 无        | 资源*      |
+| Create | `POST <collection URL>`                         | 资源       | 资源*      |
+| Update | `PUT or PATCH <resource URL>/<collection_id>` | 资源       | 资源*      |
+| Delete | `DELETE <resource URL>/<collection_id>`         | 不适用      |          |
 
 ### 自定义方法
 
@@ -45,7 +45,7 @@ API 的标准方法（也称为“REST 方法”）包括 List、Get、Create、
 
 ### 身份认证
 
-**请求登录接口**
+**请求登录接口获得Token**
 
 ```
 curl -X 'POST' \
@@ -56,15 +56,6 @@ curl -X 'POST' \
 "username": "admin",
 "password": "123456"
 }'
-```
-
-**响应**
-
-```json lines
-{
-  "token": "57fdd9e6babc4a0085a321d4b1a48ccf",
-  //...
-}
 ```
 
 **在请求头加入Token**
