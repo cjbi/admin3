@@ -43,6 +43,10 @@ guest  / guest
 ![](doc/image/role_member.png)
 ![](doc/image/permission.png)
 
+## 文档
+
+[API参考](doc/api-reference.md)
+
 
 ## 软件需求
 - JDK 17
