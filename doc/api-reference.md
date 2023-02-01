@@ -37,7 +37,7 @@ API 的标准方法（也称为“REST 方法”）包括 List、Get、Create、
 | BatchGET | :batchGet | GET    | 批量获取多个资源                      |
 | Move     | :move     | POST   | 将资源从一个父级移动到另一个父级              |
 | Search   | :search   | GET    | List 的替代方法，用于获取不符合 List 语义的数据 |
-| Undelete | :search   | GET    | List 的替代方法，用于获取不符合 List 语义的数据 |
+| Undelete | :undelete | POST   | 恢复之前删除的资源 |
 
 注意：上面的情况指的是API名称；HTTP/JSON URI 后缀使用 :lowerCamelCase。
 
