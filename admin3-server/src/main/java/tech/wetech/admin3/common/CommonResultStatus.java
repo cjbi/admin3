@@ -14,7 +14,7 @@ public enum CommonResultStatus implements ResultStatus {
 
   UNAUTHORIZED(1004, "未授权"),
 
-  FORBIDDEN(1005, "无权限"),
+  FORBIDDEN(1005, "禁止访问"),
 
   SERVER_ERROR(-1, "服务器内部错误");
 

@@ -29,7 +29,7 @@ public class ExceptionControllerAdvice {
   private final Map<ResultStatus, HttpStatus> codeMap = new HashMap<>() {{
     put(CommonResultStatus.FAIL, HttpStatus.BAD_REQUEST);
     put(CommonResultStatus.PARAM_ERROR, HttpStatus.BAD_REQUEST);
-    put(CommonResultStatus.RECORD_NOT_EXIST, HttpStatus.BAD_REQUEST);
+    put(CommonResultStatus.RECORD_NOT_EXIST, HttpStatus.NOT_FOUND);
     put(CommonResultStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     put(CommonResultStatus.FORBIDDEN, HttpStatus.FORBIDDEN);
   }};
