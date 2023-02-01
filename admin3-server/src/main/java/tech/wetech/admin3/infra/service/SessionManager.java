@@ -9,11 +9,11 @@ import java.io.Serializable;
  */
 public interface SessionManager {
 
-    void store(String key, UserCredential credential, Serializable value);
+  void store(String key, UserCredential credential, Serializable value);
 
-    void invalidate(String key);
+  void invalidate(String key);
 
-    Object get(String key);
+  Object get(String key);
 
-    void refresh();
+  void refresh();
 }

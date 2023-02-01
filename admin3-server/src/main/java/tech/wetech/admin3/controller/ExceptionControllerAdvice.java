@@ -26,60 +26,60 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
 
-    private final Map<ResultStatus, HttpStatus> codeMap = new HashMap<>() {{
-        put(CommonResultStatus.FAIL, HttpStatus.BAD_REQUEST);
-        put(CommonResultStatus.PARAM_ERROR, HttpStatus.BAD_REQUEST);
-        put(CommonResultStatus.RECORD_NOT_EXIST, HttpStatus.BAD_REQUEST);
-        put(CommonResultStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
-        put(CommonResultStatus.FORBIDDEN, HttpStatus.FORBIDDEN);
-    }};
+  private final Map<ResultStatus, HttpStatus> codeMap = new HashMap<>() {{
+    put(CommonResultStatus.FAIL, HttpStatus.BAD_REQUEST);
+    put(CommonResultStatus.PARAM_ERROR, HttpStatus.BAD_REQUEST);
+    put(CommonResultStatus.RECORD_NOT_EXIST, HttpStatus.NOT_FOUND);
+    put(CommonResultStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
+    put(CommonResultStatus.FORBIDDEN, HttpStatus.FORBIDDEN);
+  }};
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+  private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleDefaultErrorView(Exception ex, HttpServletRequest request) {
-        log.error("Handle exception, message={}, requestUrl={}", ex.getMessage(), request.getRequestURI(), ex);
-        Map<String, Object> body = new HashMap<>();
-        body.put("code", CommonResultStatus.SERVER_ERROR.getCode());
-        body.put("message", ex.getMessage());
-        body.put("success", false);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
-    }
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<Map<String, Object>> handleDefaultErrorView(Exception ex, HttpServletRequest request) {
+    log.error("Handle exception, message={}, requestUrl={}", ex.getMessage(), request.getRequestURI(), ex);
+    Map<String, Object> body = new HashMap<>();
+    body.put("code", CommonResultStatus.SERVER_ERROR.getCode());
+    body.put("message", ex.getMessage());
+    body.put("success", false);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
+  }
 
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<Map<String, Object>> handleBusinessException(BusinessException ex) {
-        Map<String, Object> body = Map.of("code", ex.getStatus().getCode(), "message", ex.getMessage(), "success", false);
-        return ResponseEntity.status(codeMap.getOrDefault(ex.getStatus(), HttpStatus.BAD_REQUEST)).body(body);
-    }
+  @ExceptionHandler(BusinessException.class)
+  public ResponseEntity<Map<String, Object>> handleBusinessException(BusinessException ex) {
+    Map<String, Object> body = Map.of("code", ex.getStatus().getCode(), "message", ex.getMessage(), "success", false);
+    return ResponseEntity.status(codeMap.getOrDefault(ex.getStatus(), HttpStatus.BAD_REQUEST)).body(body);
+  }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(
-            MethodArgumentNotValidException e) {
-        List<String> fieldErrors = e.getBindingResult().getFieldErrors().stream()
-                .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage())
-                .collect(Collectors.toList());
-        Map<String, Object> body = getErrorsMap(fieldErrors);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
-    }
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(
+    MethodArgumentNotValidException e) {
+    List<String> fieldErrors = e.getBindingResult().getFieldErrors().stream()
+      .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage())
+      .collect(Collectors.toList());
+    Map<String, Object> body = getErrorsMap(fieldErrors);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+  }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Map<String, Object>> handleConstraintViolationException(
-            ConstraintViolationException e) {
-        List<String> errors = e.getConstraintViolations().stream()
-                .map(constraintViolation -> constraintViolation.getPropertyPath() + constraintViolation.getMessage())
-                .collect(Collectors.toList());
-        Map<String, Object> body = getErrorsMap(errors);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
-    }
+  @ExceptionHandler(ConstraintViolationException.class)
+  public ResponseEntity<Map<String, Object>> handleConstraintViolationException(
+    ConstraintViolationException e) {
+    List<String> errors = e.getConstraintViolations().stream()
+      .map(constraintViolation -> constraintViolation.getPropertyPath() + constraintViolation.getMessage())
+      .collect(Collectors.toList());
+    Map<String, Object> body = getErrorsMap(errors);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+  }
 
-    private Map<String, Object> getErrorsMap(List<String> fieldErrors) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("code", CommonResultStatus.PARAM_ERROR.getCode());
-        body.put("message", fieldErrors.stream().collect(Collectors.joining(", ")));
-        body.put("errors", fieldErrors);
-        body.put("success", false);
-        return body;
-    }
+  private Map<String, Object> getErrorsMap(List<String> fieldErrors) {
+    Map<String, Object> body = new HashMap<>();
+    body.put("code", CommonResultStatus.PARAM_ERROR.getCode());
+    body.put("message", fieldErrors.stream().collect(Collectors.joining(", ")));
+    body.put("errors", fieldErrors);
+    body.put("success", false);
+    return body;
+  }
 
 
 }

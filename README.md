@@ -37,12 +37,25 @@ guest  / guest
 
 ## 项目预览
 
-![](doc/image/1.jpg)
-![](doc/image/2.png)
-![](doc/image/3.png)
-![](doc/image/4.png)
-![](doc/image/5.png)
+<table>
+    <tr>
+        <td><img src="doc/image/login.jpg"/></td>
+        <td><img src="doc/image/user.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="doc/image/role_auth.png"/></td>
+        <td><img src="doc/image/role_member.png"/></td>
+    </tr>
+    <tr>
+       <td><img src="doc/image/permission.png"/></td>
+    </tr>
+</table>
 
+## 文档
+
+[API参考](doc/api-reference.md)
+
+[权限管理](doc/authority-managerment.md)
 
 ## 软件需求
 - JDK 17

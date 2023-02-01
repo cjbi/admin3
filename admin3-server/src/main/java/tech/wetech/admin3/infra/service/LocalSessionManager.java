@@ -27,88 +27,88 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LocalSessionManager implements SessionManager {
 
-    private static final long EXPIRE_DAYS = 7;
+  private static final long EXPIRE_DAYS = 7;
 
-    private final SessionRepository sessionRepository;
+  private final SessionRepository sessionRepository;
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+  private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final Cache<String, Session> cache = Caffeine.newBuilder()
-            .initialCapacity(100)
-            .expireAfterAccess(EXPIRE_DAYS, TimeUnit.DAYS)
-            .build();
+  private final Cache<String, Session> cache = Caffeine.newBuilder()
+    .initialCapacity(100)
+    .expireAfterAccess(EXPIRE_DAYS, TimeUnit.DAYS)
+    .build();
 
-    private final ScheduledExecutorService sessionCheckExecutor = new ScheduledThreadPoolExecutor(1);
+  private final ScheduledExecutorService sessionCheckExecutor = new ScheduledThreadPoolExecutor(1);
 
-    public LocalSessionManager(SessionRepository sessionRepository) {
-        this.sessionRepository = sessionRepository;
-        checkSession();
-    }
+  public LocalSessionManager(SessionRepository sessionRepository) {
+    this.sessionRepository = sessionRepository;
+    checkSession();
+  }
 
-    private void checkSession() {
-        sessionCheckExecutor.scheduleWithFixedDelay(() -> {
-            try {
-                ConcurrentMap<String, Session> map = cache.asMap();
-                sessionRepository.deleteExpiredSession();
-                map.forEach((key, value) -> {
-                    if (value.isActive()) {
-                        value.setActive(false);
-                        sessionRepository.updateExpireTime(key, value.getExpireTime());
-                    }
-                });
-            } catch (Exception e) {
-                log.error("{}", e.getMessage(), e);
-            }
-        }, 5, 5, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void store(String key, UserCredential credential, Serializable value) {
-        Session currentSession = cache.getIfPresent(key);
-        Session newSession = Session.of(currentSession != null ? currentSession.getId() : null, key, credential, value, getLatestExpireTime());
-        cache.put(key, sessionRepository.save(newSession));
-    }
-
-    private static LocalDateTime getLatestExpireTime() {
-        return LocalDateTime.now().plus(EXPIRE_DAYS, ChronoUnit.DAYS);
-    }
-
-
-    @Override
-    public void invalidate(String key) {
-        Session session = cache.getIfPresent(key);
-        cache.invalidate(key);
-        assert session != null;
-        sessionRepository.delete(session);
-    }
-
-    @Override
-    public Object get(String key) {
-        try {
-            Session session;
-            if ((session = cache.getIfPresent(key)) == null && (session = sessionRepository.findByToken(key).orElse(null)) == null) {
-                return null;
-            }
-            session.setExpireTime(getLatestExpireTime());
-            session.setActive(true);
-            cache.put(key, session);
-            return JsonUtils.parseToObject(session.getData(), UserinfoDTO.class);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
-    }
-
-    @Override
-    @Transactional
-    public void refresh() {
-        sessionRepository.findAllStream().forEach(session -> {
-            UserCredential credential = session.getCredential();
-            User user = credential.getUser();
-            UserinfoDTO userinfo = new UserinfoDTO(session.getToken(), user.getId(), user.getUsername(), user.getFullName(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
-            session.setData(JsonUtils.stringify(userinfo));
-            sessionRepository.saveAndFlush(session);
+  private void checkSession() {
+    sessionCheckExecutor.scheduleWithFixedDelay(() -> {
+      try {
+        ConcurrentMap<String, Session> map = cache.asMap();
+        sessionRepository.deleteExpiredSession();
+        map.forEach((key, value) -> {
+          if (value.isActive()) {
+            value.setActive(false);
+            sessionRepository.updateExpireTime(key, value.getExpireTime());
+          }
         });
-        cache.invalidateAll();
+      } catch (Exception e) {
+        log.error("{}", e.getMessage(), e);
+      }
+    }, 5, 5, TimeUnit.SECONDS);
+  }
+
+  @Override
+  public void store(String key, UserCredential credential, Serializable value) {
+    Session currentSession = cache.getIfPresent(key);
+    Session newSession = Session.of(currentSession != null ? currentSession.getId() : null, key, credential, value, getLatestExpireTime());
+    cache.put(key, sessionRepository.save(newSession));
+  }
+
+  private static LocalDateTime getLatestExpireTime() {
+    return LocalDateTime.now().plus(EXPIRE_DAYS, ChronoUnit.DAYS);
+  }
+
+
+  @Override
+  public void invalidate(String key) {
+    Session session = cache.getIfPresent(key);
+    cache.invalidate(key);
+    assert session != null;
+    sessionRepository.delete(session);
+  }
+
+  @Override
+  public Object get(String key) {
+    try {
+      Session session;
+      if ((session = cache.getIfPresent(key)) == null && (session = sessionRepository.findByToken(key).orElse(null)) == null) {
+        return null;
+      }
+      session.setExpireTime(getLatestExpireTime());
+      session.setActive(true);
+      cache.put(key, session);
+      return JsonUtils.parseToObject(session.getData(), UserinfoDTO.class);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+      return null;
     }
+  }
+
+  @Override
+  @Transactional
+  public void refresh() {
+    sessionRepository.findAllStream().forEach(session -> {
+      UserCredential credential = session.getCredential();
+      User user = credential.getUser();
+      UserinfoDTO userinfo = new UserinfoDTO(session.getToken(), user.getId(), user.getUsername(), user.getFullName(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
+      session.setData(JsonUtils.stringify(userinfo));
+      sessionRepository.saveAndFlush(session);
+    });
+    cache.invalidateAll();
+  }
 }

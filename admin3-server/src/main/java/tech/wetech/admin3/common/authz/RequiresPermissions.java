@@ -29,16 +29,17 @@ import java.util.Set;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequiresPermissions {
 
-    /**
-     * The permission string which will be passed to {@link PermissionHelper#isPermitted(Set, String[], Logical)}
-     * to determine if the user is allowed to invoke the code protected by this annotation.
-     */
-    String[] value();
+  /**
+   * The permission string which will be passed to {@link PermissionHelper#isPermitted(Set, String[], Logical)}
+   * to determine if the user is allowed to invoke the code protected by this annotation.
+   */
+  String[] value();
 
-    /**
-     * The logical operation for the permission checks in case multiple roles are specified. AND is the default
-     * @since 1.1.0
-     */
-    Logical logical() default Logical.AND;
+  /**
+   * The logical operation for the permission checks in case multiple roles are specified. AND is the default
+   *
+   * @since 1.1.0
+   */
+  Logical logical() default Logical.AND;
 
 }

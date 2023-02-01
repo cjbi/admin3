@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
 
-    @Query("from Organization org where org.parent.id=:parentId")
-    List<Organization> findByParentId(Long parentId);
+  @Query("from Organization org where org.parent.id=:parentId")
+  List<Organization> findByParentId(Long parentId);
 }

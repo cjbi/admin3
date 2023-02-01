@@ -7,5 +7,5 @@ package tech.wetech.admin3.common.authz;
  * @author cjbi
  */
 public enum Logical {
-    AND, OR
+  AND, OR
 }

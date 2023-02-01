@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface UserCredentialRepository extends JpaRepository<UserCredential, Long> {
 
-    @Query("from UserCredential authCredential where authCredential.identifier=:identifier and authCredential.identityType=:identityType")
-    Optional<UserCredential> findCredential(String identifier, UserCredential.IdentityType identityType);
+  @Query("from UserCredential authCredential where authCredential.identifier=:identifier and authCredential.identityType=:identityType")
+  Optional<UserCredential> findCredential(String identifier, UserCredential.IdentityType identityType);
 
 }
