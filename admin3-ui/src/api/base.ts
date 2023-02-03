@@ -1,1 +1,1 @@
-export const BASE_URI = '/admin3';
+export const BASE_URI = import.meta.env.VITE_BASE_URI;

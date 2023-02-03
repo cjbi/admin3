@@ -19,6 +19,26 @@ Admin3基于RBAC模型进行权限控制，RBAC 是基于角色的访问控制�
 
   ![](image/test_menu_resourcce.png)
 
+## 权限字符串
+
+权限标识支持Apache Shiro同款的权限字符串规则，字符串通配符权限规则：
+```
+资源标识符:操作:对象实例ID
+```
+
+即对哪个资源的哪个实例可以进行什么操作。 其默认支持通配符权限字符串，
+“:”表示资源/操作/实例的分割；“,”表示操作的分割； “*”表示任意资源/操作/实例。
+
+对权限字符串缺失部分的处理：
+
+如“user:view”等价于“user:view:”；而“organization”等价于“organization:”或者
+“organization::”。可以这么理解，这种方式实现了前缀匹配。
+另外如“user:”可以匹配如“user:delete”、“user:delete”可以匹配如“user:delete:1”、
+“user::1”可以匹配如“user:view:1”、“user”可以匹配“user:view”或“user:view:1”
+等 。即 可 以 匹配所 有， 不加 可 以 进行前 缀匹 配；但 是如“ :view” 不能匹 配
+“system:user:view”，需要使用“::view”，即后缀匹配必须指定前缀（多个冒号就需要
+多个来匹配）。
+
 ## URL权限拦截过滤
 
 可通过后端 @RequiresPermissions 注解进行接口权限过滤，示例如下

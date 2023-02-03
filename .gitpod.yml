@@ -5,7 +5,12 @@ image:
   file: gitpod/.gitpod.Dockerfile
 
 tasks:
-  - init: mvn install -DskipTests=false
+  - init: |
+         mysql -e 'create schema admin3;create schema admin3_test;'
+         export VITE_BASE_URI=
+         mvn install -DskipTests=false -Dspring.datasource.password=
+         cd admin3-server/target
+         java -jar -Dserver.servlet.context-path=/ -Dspring.datasource.password= admin3-server-0.0.1-SNAPSHOT.jar
 
 ports:
   - port: 8080

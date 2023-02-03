@@ -2,6 +2,10 @@ FROM gitpod/workspace-full
 
 USER root
 
+RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh && \
+    sdk install java 17.0.3-ms && \
+    sdk default java 17.0.3-ms"
+
 # Install MySQL
 RUN install-packages mysql-server \
  && mkdir -p /var/run/mysqld /var/log/mysql \
@@ -15,12 +19,10 @@ COPY gitpod/mysql/client.cnf /etc/mysql/mysql.conf.d/client.cnf
 
 COPY gitpod/mysql/mysql-bashrc-launch.sh /etc/mysql/mysql-bashrc-launch.sh
 
-RUN echo "/etc/mysql/mysql-bashrc-launch.sh" >> /home/gitpod/.bashrc.d/100-mysql-launch
+RUN install-packages mysql-server \
+  && chown -R gitpod:gitpod /etc/mysql\
+  && chmod +x /etc/mysql/mysql-bashrc-launch.sh
 
 USER gitpod
 
-RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh && \
-    sdk install java 17.0.3-ms && \
-    sdk default java 17.0.3-ms"
-
-
+RUN echo "/etc/mysql/mysql-bashrc-launch.sh" >> /home/gitpod/.bashrc.d/100-mysql-launch

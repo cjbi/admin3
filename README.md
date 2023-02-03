@@ -8,7 +8,7 @@
 
 http://metacode.wetech.tech:8082/admin3
 
-备用地址（比较慢）：
+**在线部署：**
 
 https://gitpod.io/#https://github.com/cjbi/admin3
 
@@ -55,7 +55,7 @@ guest  / guest
 
 [API参考](doc/api-reference.md)
 
-[权限管理](doc/authority-managerment.md)
+[权限管理](doc/authority-management.md)
 
 ## 软件需求
 - JDK 17
@@ -63,6 +63,8 @@ guest  / guest
 - Maven 3.6.0+
 
 ## 本地部署
+
+> 访问 https://gitpod.io/#https://github.com/cjbi/admin3 在线部署
 
 - 通过git下载源码
 - 创建数据库admin3，数据库编码为UTF-8
