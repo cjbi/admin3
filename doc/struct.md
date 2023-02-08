@@ -43,7 +43,7 @@
 └──src/main/java
     └──tech.wetech.admin3
        ├── controller 
-       │   └── XxxController.java           # 控制器，服务与服务间调用可放在控制层处理，为了确保整个工程高内聚低耦合，不建议将控制器放在业务模块中
+       │   └── XxxController.java           # 控制器，模块与模块间服务调用可放在控制层处理，为了确保整个工程高内聚低耦合，不建议将控制器放在业务模块中
        ├── infra                            # 基础设施，存放一些中间件的配置，以及service层、repository层的一些接口的技术实现
        └── sys                              # sys业务的模块
        └── custombusiness                   # 自定义业务模块，按照业务划分新建包
