@@ -53,9 +53,11 @@ guest  / guest
 
 ## 文档
 
-[API参考](doc/api-reference.md)
-
 [权限管理](doc/authority-management.md)
+
+[目录结构](doc/struct.md)
+
+[API参考](doc/api-reference.md)
 
 ## 软件需求
 - JDK 17
@@ -123,4 +125,4 @@ yarn build
 
 ## 许可证
 
-MIT
+[MIT](LICENSE)
