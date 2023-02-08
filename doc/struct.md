@@ -22,8 +22,8 @@
 │   │   ├── store                  # 全局存储，状态管理
 │   │   ├── utils                  # 工具库
 │   │   ├── views                  # 视图页面
-│   │   ├── App.vue                # 全局视图页面
-│   │   └── main.ts                # 全局 JS
+│   │   ├── App.vue                # Vue 模板入口
+│   │   └── main.ts                # Vue JS 入口
 │   ├── .env                       # 环境变量
 │   ├── index.html                 # 首页
 │   ├── package.json               # Node.js 配置
