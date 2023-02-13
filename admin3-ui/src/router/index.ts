@@ -48,7 +48,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           title: '系统日志',
         },
-        component: () => import(/* webpackChunkName: "dashboard" */ '../views/log.vue'),
+        component: () => import(/* webpackChunkName: "dashboard" */ '../views/log-list.vue'),
       },
       {
         path: '/tabs',
