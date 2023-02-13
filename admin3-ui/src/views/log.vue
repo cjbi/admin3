@@ -19,7 +19,7 @@
         <el-table-column prop="user.username" label="用户" width="120"></el-table-column>
         <el-table-column prop="typeNameLabel" label="操作类型" width="120">
           <template #default="{ row }">
-            <span>{{ typeInfo.find(type => type.value == row?.typeName)?.label }}</span>
+            <span>{{ typeInfo?.find(t => t.value === row.typeName)?.label }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="content" label="说明"></el-table-column>
@@ -48,11 +48,16 @@ import {getEventTypes} from "../api/common";
 
 interface TableItem {
   id: number;
-  name: string;
-  money: string;
-  state: string;
-  date: string;
-  address: string;
+  user: { id: number; username: string; };
+  typeName: string;
+  typeNameLabel?: string;
+  content: string;
+  occurredOn: string;
+}
+
+interface TypeInfo {
+  label: string;
+  value: string;
 }
 
 const query = reactive({
@@ -60,9 +65,11 @@ const query = reactive({
   pageIndex: 1,
   pageSize: 10
 });
+
 const tableData = ref<TableItem[]>([]);
 const pageTotal = ref(0);
-const typeInfo = ref<any>();
+const typeInfo = ref<TypeInfo[]>();
+
 //获取类型
 const getTypeInfo = () => {
   getEventTypes().then(res => {
@@ -102,28 +109,14 @@ const handleCleanLogs = () => {
   // 二次确认删除
   ElMessageBox.confirm('确定要清空所有日志吗？', '提示', {
     type: 'warning'
+  }).then(() => {
+    cleanLogs().then(_ => {
+      ElMessage.success('清空成功');
+      getData();
+    });
   })
-    .then(() => {
-      cleanLogs().then(_ => {
-        ElMessage.success('清空成功');
-        getData();
-      });
-    })
     .catch(() => {
     });
-};
-// 表格编辑时弹窗和保存
-const editVisible = ref(false);
-let form = reactive({
-  name: '',
-  address: ''
-});
-let idx: number = -1;
-const saveEdit = () => {
-  editVisible.value = false;
-  ElMessage.success(`修改第 ${idx + 1} 行成功`);
-  tableData.value[idx].name = form.name;
-  tableData.value[idx].address = form.address;
 };
 </script>
 
