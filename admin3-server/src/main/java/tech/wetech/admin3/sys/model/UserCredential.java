@@ -39,12 +39,6 @@ public class UserCredential extends EntityBase {
   public UserCredential() {
   }
 
-  public UserCredential(String identifier, String credential, IdentityType identityType) {
-    this.identifier = identifier;
-    this.credential = credential;
-    this.identityType = identityType;
-  }
-
   public boolean doCredentialMatch(String credential) {
     try {
       //TODO 未实现其他登录方式
@@ -59,10 +53,6 @@ public class UserCredential extends EntityBase {
 
   public enum IdentityType {
     PASSWORD
-  }
-
-  public enum State {
-    NORMAL, LOCKED
   }
 
   public String getIdentifier() {

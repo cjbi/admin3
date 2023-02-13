@@ -43,11 +43,12 @@ guest  / guest
         <td><img src="doc/image/user.png"/></td>
     </tr>
     <tr>
-        <td><img src="doc/image/role_auth.png"/></td>
-        <td><img src="doc/image/role_member.png"/></td>
+        <td><img src="doc/image/role-auth.png"/></td>
+        <td><img src="doc/image/role-member.png"/></td>
     </tr>
     <tr>
        <td><img src="doc/image/permission.png"/></td>
+       <td><img src="doc/image/log-list.png"/></td>
     </tr>
 </table>
 

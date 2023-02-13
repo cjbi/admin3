@@ -22,6 +22,8 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
+  profiles:
+    include: biz
 server:
   servlet:
     context-path: /admin3

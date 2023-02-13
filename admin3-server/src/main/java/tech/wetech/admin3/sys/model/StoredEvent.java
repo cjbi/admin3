@@ -4,6 +4,7 @@ package tech.wetech.admin3.sys.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToOne;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,8 @@ public class StoredEvent extends EntityBase {
   private String eventBody;
   private LocalDateTime occurredOn;
   private String typeName;
+  @OneToOne
+  private User user;
 
   public String getEventBody() {
     return eventBody;
@@ -42,4 +45,13 @@ public class StoredEvent extends EntityBase {
   public void setTypeName(String typeName) {
     this.typeName = typeName;
   }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
 }
