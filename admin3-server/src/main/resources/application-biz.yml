@@ -1,0 +1,35 @@
+admin3:
+  events:
+    "[tech.wetech.admin3.sys.event.UserLoggedIn]":
+      text: '用户登录'
+      log-template: ' {{userinfo.username}} 登录系统'
+    "[tech.wetech.admin3.sys.event.UserLoggedOut]":
+      text: '退出登录'
+      log-template: ' {{userinfo.username}} 退出登录'
+    "[tech.wetech.admin3.sys.event.UserCreated]":
+      text: '创建用户'
+      log-template: '用户 {{user.username}} 已创建，用户ID：{{user.id}} 用户名：{{user.username}}'
+    "[tech.wetech.admin3.sys.event.UserUpdated]":
+      text: '更新用户'
+      log-template: '用户 {{user.username}} 已更新，用户ID：{{user.id}}，用户名：{{user.username}}'
+    "[tech.wetech.admin3.sys.event.UserDeleted]":
+      text: '删除用户'
+      log-template: '用户 {{user.username}} 已删除，用户ID：{{user.id}}，用户名：{{user.username}}'
+    "[tech.wetech.admin3.sys.event.RoleCreated]":
+      text: '创建角色'
+      log-template: '角色 {{role.name}} 已创建'
+    "[tech.wetech.admin3.sys.event.RoleUpdated]":
+      text: '更新角色'
+      log-template: '角色 {{role.name}} 已更新'
+    "[tech.wetech.admin3.sys.event.RoleDeleted]":
+      text: '删除角色'
+      log-template: '角色 {{role.name}} 已删除'
+    "[tech.wetech.admin3.sys.event.ResourceCreated]":
+      text: '创建资源'
+      log-template: '资源 {{resource.name}} 已创建'
+    "[tech.wetech.admin3.sys.event.ResourceUpdated]":
+      text: '更新资源'
+      log-template: '资源 {{resource.name}} 已更新'
+    "[tech.wetech.admin3.sys.event.ResourceDeleted]":
+      text: '删除资源'
+      log-template: '资源 {{resource.name}} 删除成功'

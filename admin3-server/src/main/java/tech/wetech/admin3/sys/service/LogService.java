@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tech.wetech.admin3.Admin3Properties;
+import tech.wetech.admin3.Admin3Properties.Event;
+import tech.wetech.admin3.common.CollectionUtils;
 import tech.wetech.admin3.common.JsonUtils;
 import tech.wetech.admin3.common.StringUtils;
 import tech.wetech.admin3.sys.model.StoredEvent;
@@ -12,6 +14,7 @@ import tech.wetech.admin3.sys.service.dto.LogDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -29,14 +32,20 @@ public class LogService {
     this.admin3Properties = admin3Properties;
   }
 
-  public PageDTO<LogDTO> findLogs(Pageable pageable) {
-    Map<String, String> templates = admin3Properties.getLogTemplates();
-    Page<StoredEvent> page = storedEventRepository.findByTypeNameInOrderByOccurredOnDesc(templates.keySet(), pageable);
+  public PageDTO<LogDTO> findLogs(Set<String> typeNames, Pageable pageable) {
+    Map<String, Event> eventProps = admin3Properties.getEvents();
+    Page<StoredEvent> page = storedEventRepository.findByTypeNameInOrderByOccurredOnDesc(
+      CollectionUtils.isEmpty(typeNames) ? eventProps.keySet() : typeNames,
+      pageable
+    );
     return new PageDTO<>(page.getContent().stream()
       .map(e -> new LogDTO(e.getId(),
-        StringUtils.simpleRenderTemplate(templates.get(e.getTypeName()), JsonUtils.parseToMap(e.getEventBody())),
-        e.getTypeName(),
-        e.getOccurredOn())
+          StringUtils.simpleRenderTemplate(eventProps.get(e.getTypeName()).getLogTemplate(), JsonUtils.parseToMap(e.getEventBody())),
+          e.getEventBody(),
+          e.getTypeName(),
+          e.getOccurredOn(),
+          e.getUser()
+        )
       )
       .collect(Collectors.toList()), page.getTotalElements());
   }

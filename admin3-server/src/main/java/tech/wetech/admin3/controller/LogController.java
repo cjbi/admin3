@@ -11,6 +11,12 @@ import tech.wetech.admin3.sys.service.LogService;
 import tech.wetech.admin3.sys.service.dto.LogDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
+
 /**
  * @author cjbi
  */
@@ -26,17 +32,21 @@ public class LogController {
   }
 
   @GetMapping
-  public ResponseEntity<PageDTO<LogDTO>> findLogs(Pageable pageable) {
-    return ResponseEntity.ok(logService.findLogs(pageable));
+  public ResponseEntity<PageDTO<LogDTO>> findLogs(Pageable pageable, String typeNames) {
+    Set<String> typeNameSet = ofNullable(typeNames).stream()
+      .flatMap(t -> Arrays.stream(t.split(",")))
+      .collect(Collectors.toSet());
+    return ResponseEntity.ok(logService.findLogs(typeNameSet, pageable));
   }
 
 
   /**
    * 清空日志
+   *
    * @return
    */
   @DeleteMapping
-  public ResponseEntity<Void> cleanLogs(){
+  public ResponseEntity<Void> cleanLogs() {
     logService.cleanLogs();
     return ResponseEntity.noContent().build();
   }
