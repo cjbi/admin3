@@ -81,7 +81,7 @@ Admin3封装了一个非常方便实现按钮级别权限的自定义指令。 v
 ```html
 <template>
     <!-- 校验是否有 user:create 操作权限-->
-    <el-button v-action:user:create>创建用户</-button>
+    <el-button v-action:user:create>创建用户</el-button>
   
     <!-- 校验是否有 user:delete 操作权限 -->
     <el-button v-action:user:delete>删除用户</el-button>
