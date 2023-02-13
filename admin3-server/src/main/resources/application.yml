@@ -25,3 +25,16 @@ spring:
 server:
   servlet:
     context-path: /admin3
+admin3:
+  log-templates:
+    tech.wetech.admin3.sys.event.UserLoggedIn: '{{userinfo.fullName}}登录成功'
+    tech.wetech.admin3.sys.event.UserLoggedOut: '{{userinfo.fullName}}退出登录'
+    tech.wetech.admin3.sys.event.UserCreated: '用户{{user.fullName}}创建成功'
+    tech.wetech.admin3.sys.event.UserUpdated: '用户{{user.fullName}}更新成功'
+    tech.wetech.admin3.sys.event.UserDeleted: '用户{{user.fullName}}删除成功'
+    tech.wetech.admin3.sys.event.RoleCreated: '角色{{role.name}}创建成功'
+    tech.wetech.admin3.sys.event.RoleUpdated: '角色{{role.name}}更新成功'
+    tech.wetech.admin3.sys.event.RoleDeleted: '角色{{role.name}}删除成功'
+    tech.wetech.admin3.sys.event.ResourceCreated: '资源{{resource.name}}创建成功'
+    tech.wetech.admin3.sys.event.ResourceUpdated: '资源{{resource.name}}更新成功'
+    tech.wetech.admin3.sys.event.ResourceDeleted: '资源{{resource.name}}删除成功'
