@@ -14,17 +14,11 @@ https://gitpod.io/#https://github.com/cjbi/admin3
 
 **测试账号：**
 
-admin / 123456
-
-拥有所有权限
-
-employee / employee
-
-拥有部分权限
-
-guest  / guest
-
-拥有查看权限
+| 账号 / 密码             | 说明     |
+|---------------------|--------|
+| admin / 123456      | 拥有所有权限 |
+| employee / employee | 拥有部分权限 |
+| guest / guest       | 拥有查看权限 |
 
 ## 主要特性
 

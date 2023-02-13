@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.wetech.admin3.common.authz.RequiresPermissions;
 import tech.wetech.admin3.sys.service.LogService;
 import tech.wetech.admin3.sys.service.dto.LogDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
@@ -32,6 +33,7 @@ public class LogController {
   }
 
   @GetMapping
+  @RequiresPermissions("log:view")
   public ResponseEntity<PageDTO<LogDTO>> findLogs(Pageable pageable, String typeNames) {
     Set<String> typeNameSet = ofNullable(typeNames).stream()
       .flatMap(t -> Arrays.stream(t.split(",")))
@@ -46,6 +48,7 @@ public class LogController {
    * @return
    */
   @DeleteMapping
+  @RequiresPermissions("log:clean")
   public ResponseEntity<Void> cleanLogs() {
     logService.cleanLogs();
     return ResponseEntity.noContent().build();
