@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="handle-box">
-        <el-select v-model="query.typeNames" placeholder="类型" class="handle-select mr10" style="width: 150px"
+        <el-select v-model="query.typeNames" placeholder="操作类型" class="handle-select mr10" style="width: 150px"
                    @change="handleSelectTypeInfoChange" filterable multiple clearable>
           <el-option
             v-for="item in typeInfo"

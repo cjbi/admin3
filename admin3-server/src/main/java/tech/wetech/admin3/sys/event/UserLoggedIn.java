@@ -6,5 +6,5 @@ import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 /**
  * @author cjbi
  */
-public record UserLoggedIn(UserinfoDTO userinfo) implements DomainEvent {
+public record UserLoggedIn(UserinfoDTO userinfo, String ip) implements DomainEvent {
 }

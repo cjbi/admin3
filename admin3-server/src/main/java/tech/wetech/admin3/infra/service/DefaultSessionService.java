@@ -1,6 +1,9 @@
 package tech.wetech.admin3.infra.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import tech.wetech.admin3.common.CommonResultStatus;
 import tech.wetech.admin3.common.Constants;
 import tech.wetech.admin3.common.DomainEventPublisher;
@@ -47,11 +50,20 @@ public class DefaultSessionService implements SessionService {
       UserinfoDTO userinfo = new UserinfoDTO(token, user.getId(), user.getUsername(), user.getFullName(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
       sessionManager.store(token, credential, userinfo);
       SessionItemHolder.setItem(Constants.SESSION_CURRENT_USER, userinfo);
-      DomainEventPublisher.instance().publish(new UserLoggedIn(userinfo));
+      DomainEventPublisher.instance().publish(new UserLoggedIn(userinfo, getClientIP()));
       return userinfo;
     } else {
       throw new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确");
     }
+  }
+
+  public String getClientIP() {
+    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    String ipAddress = request.getHeader("X-FORWARDED-FOR");
+    if (ipAddress == null) {
+      ipAddress = request.getRemoteAddr();
+    }
+    return ipAddress;
   }
 
   @Override
