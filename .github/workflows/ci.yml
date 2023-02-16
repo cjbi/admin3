@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Generate settings.xml for Maven Builds
+        uses: whelk-io/maven-settings-xml-action@v20
+        with:
+          repositories: '[{ "id": "github", "url": "https://maven.pkg.github.com/metacode-project/metacode-maven-packages", "snapshots": { "enabled" : true } }]'
+          servers: '[{ "id": "github", "username": "cjbi", "password": "${{ secrets.MAVEN_TOKEN }}" }]'
+      - name: Build Image with Maven
+        run: |
+          mvn -B test -Dspring.datasource.url=${{ secrets.DS_JDBC_TEST_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}
+      - name: Caching Maven Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+  push-image:
+    name: Push Docker image
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build Image with Maven
+        run: |
+          cd admin3-ui && mvn -B install
+          cd ../admin3-server
+          mvn -B -Dmaven.test.skip=true spring-boot:build-image -Ddocker.image-name=cjbi/admin3:latest -Ddocker.username=${{ secrets.DOCKER_USERNAME }} -Ddocker.password=${{ secrets.DOCKER_PASSWORD }}
+      - name: Caching Maven Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+  push-native-image:
+    name: Push Docker native image
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build Image with Maven
+        run: |
+          cd admin3-ui && mvn -B install
+          cd ../admin3-server
+          mvn -B -Dmaven.test.skip=true -Pnative spring-boot:build-image -Ddocker.image-name=cjbi/admin3-native:latest -Ddocker.username=${{ secrets.DOCKER_USERNAME }} -Ddocker.password=${{ secrets.DOCKER_PASSWORD }}
+  deploy:
+    name: Deploy to remote server
+    needs: [test, push-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Docker Image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          command_timeout: 10m
+          script: |
+            docker pull cjbi/admin3:latest
+            docker rm -f admin3 || true
+            docker run -p 8082:8080 -e JAVA_OPTS="-Dfile.encoding=UTF-8 -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}" -d --name admin3 cjbi/admin3:latest
+
+
+
