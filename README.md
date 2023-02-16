@@ -71,6 +71,8 @@
 
 - [ ] 首页数据统计
 
+- [ ] 国际化
+
 - [ ] 更多功能请 [Issues](https://github.com/cjbi/admin3/issues) 留言
 
 欢迎参与项目贡献！
