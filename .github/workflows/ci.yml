@@ -16,11 +16,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Generate settings.xml for Maven Builds
-        uses: whelk-io/maven-settings-xml-action@v20
-        with:
-          repositories: '[{ "id": "github", "url": "https://maven.pkg.github.com/metacode-project/metacode-maven-packages", "snapshots": { "enabled" : true } }]'
-          servers: '[{ "id": "github", "username": "cjbi", "password": "${{ secrets.MAVEN_TOKEN }}" }]'
       - name: Build Image with Maven
         run: |
           mvn -B test -Dspring.datasource.url=${{ secrets.DS_JDBC_TEST_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}
