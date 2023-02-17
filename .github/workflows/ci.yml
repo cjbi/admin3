@@ -82,7 +82,7 @@ jobs:
           script: |
             docker pull cjbi/admin3:latest
             docker rm -f admin3 || true
-            docker run -p 8082:8080 -e JAVA_OPTS="-Dfile.encoding=UTF-8 -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}" -d --name admin3 cjbi/admin3:latest
+            docker run -p 8082:8080 -e JAVA_OPTS="-Dfile.encoding=UTF-8 -Duser.timezone=GMT+8 -Dspring.jpa.hibernate.ddl-auto=create -Dspring.datasource.url=${{ secrets.DS_JDBC_URL }} -Dspring.datasource.username=${{ secrets.DS_USERNAME }} -Dspring.datasource.password=${{ secrets.DS_PASSWORD }}" -d --name admin3 cjbi/admin3:latest
 
 
 
