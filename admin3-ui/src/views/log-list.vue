@@ -39,7 +39,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="basetable">
+<script setup lang="ts">
 import {reactive, ref} from 'vue';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import {Delete, Refresh} from '@element-plus/icons-vue';
