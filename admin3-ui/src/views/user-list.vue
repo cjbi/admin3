@@ -227,7 +227,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="users">
+<script setup lang="ts">
 import {reactive, ref} from 'vue';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import {Delete, Edit, Plus, Search} from '@element-plus/icons-vue';

@@ -2,6 +2,7 @@ package tech.wetech.admin3.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class LoginController {
   }
 
   @PostMapping("/login")
-  private ResponseEntity<UserinfoDTO> login(@RequestBody LoginRequest request) {
+  private ResponseEntity<UserinfoDTO> login(@RequestBody @Valid LoginRequest request) {
     return ResponseEntity.ok(sessionService.login(request.username(), request.password()));
   }
 

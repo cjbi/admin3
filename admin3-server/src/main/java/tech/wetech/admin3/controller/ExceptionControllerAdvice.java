@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,7 +16,6 @@ import tech.wetech.admin3.common.CommonResultStatus;
 import tech.wetech.admin3.common.ResultStatus;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -53,29 +53,37 @@ public class ExceptionControllerAdvice {
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(
-    MethodArgumentNotValidException e) {
-    List<String> fieldErrors = e.getBindingResult().getFieldErrors().stream()
-      .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage())
-      .collect(Collectors.toList());
-    Map<String, Object> body = getErrorsMap(fieldErrors);
+  public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    Map<String, String> errors = new HashMap<>();
+    e.getBindingResult().getAllErrors().forEach((error) -> {
+      String fieldName = ((FieldError) error).getField();
+      String errorMessage = error.getDefaultMessage();
+      errors.put(fieldName, errorMessage);
+    });
+    Map<String, Object> body = getErrorsMap(errors);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<Map<String, Object>> handleConstraintViolationException(
     ConstraintViolationException e) {
-    List<String> errors = e.getConstraintViolations().stream()
-      .map(constraintViolation -> constraintViolation.getPropertyPath() + constraintViolation.getMessage())
-      .collect(Collectors.toList());
+    Map<String, String> errors = new HashMap<>();
+    e.getConstraintViolations().forEach(error -> {
+      String property = error.getPropertyPath().toString();
+      String errorMessage = error.getMessage();
+      errors.put(property, errorMessage);
+    });
     Map<String, Object> body = getErrorsMap(errors);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
   }
 
-  private Map<String, Object> getErrorsMap(List<String> fieldErrors) {
+  private Map<String, Object> getErrorsMap(Map<String, String> fieldErrors) {
     Map<String, Object> body = new HashMap<>();
     body.put("code", CommonResultStatus.PARAM_ERROR.getCode());
-    body.put("message", fieldErrors.stream().collect(Collectors.joining(", ")));
+    body.put("message", fieldErrors.entrySet().stream()
+      .map(m -> m.getKey() + " " + m.getValue())
+      .collect(Collectors.joining(", "))
+    );
     body.put("errors", fieldErrors);
     body.put("success", false);
     return body;

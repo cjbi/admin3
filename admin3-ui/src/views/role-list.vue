@@ -189,7 +189,7 @@
     </el-dialog>
   </div>
 </template>
-<script setup lang="ts" name="roles">
+<script setup lang="ts">
 import {reactive, ref} from "vue";
 import {
     changeResources,

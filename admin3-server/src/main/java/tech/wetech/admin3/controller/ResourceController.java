@@ -1,6 +1,7 @@
 package tech.wetech.admin3.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
@@ -45,13 +46,13 @@ public class ResourceController {
 
   @RequiresPermissions("resource:create")
   @PostMapping
-  public ResponseEntity<Resource> createResource(@RequestBody ResourceRequest request) {
+  public ResponseEntity<Resource> createResource(@RequestBody @Valid ResourceRequest request) {
     return new ResponseEntity<>(resourceService.createResource(request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()), HttpStatus.CREATED);
   }
 
   @RequiresPermissions("resource:update")
   @PutMapping("/{resourceId}")
-  public ResponseEntity<Resource> updateResource(@PathVariable Long resourceId, @RequestBody ResourceRequest request) {
+  public ResponseEntity<Resource> updateResource(@PathVariable Long resourceId, @RequestBody @Valid ResourceRequest request) {
     return ResponseEntity.ok(resourceService.updateResource(resourceId, request.name(), request.type(), request.url(), request.icon(), request.permission(), request.parentId()));
   }
 
