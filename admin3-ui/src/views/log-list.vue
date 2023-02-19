@@ -12,7 +12,7 @@
           />
         </el-select>
         <el-button type="primary" :icon="Refresh" @click="handleRefresh">刷新日志</el-button>
-        <el-button type="danger" :icon="Delete" @click="handleCleanLogs">清空日志</el-button>
+        <el-button type="danger" :icon="Delete" @click="handleCleanLogs" v-action:log:clean>清空日志</el-button>
       </div>
       <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
