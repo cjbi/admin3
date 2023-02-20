@@ -16,6 +16,7 @@ import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.service.OrganizationService;
 import tech.wetech.admin3.sys.service.UserService;
 import tech.wetech.admin3.sys.service.dto.OrgTreeDTO;
+import tech.wetech.admin3.sys.service.dto.OrgUserDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class OrganizationController {
 
   @RequiresPermissions("user:view")
   @GetMapping("/{organizationId}/users")
-  public ResponseEntity<PageDTO<User>> findOrgUsers(Pageable pageable, @RequestParam(required = false) String username, @RequestParam(required = false) User.State state, @PathVariable Long organizationId) {
+  public ResponseEntity<PageDTO<OrgUserDTO>> findOrgUsers(Pageable pageable, @RequestParam(required = false) String username, @RequestParam(required = false) User.State state, @PathVariable Long organizationId) {
     Organization organization = organizationService.findOrganization(organizationId);
     return ResponseEntity.ok(userService.findOrgUsers(pageable, username, state, organization));
   }

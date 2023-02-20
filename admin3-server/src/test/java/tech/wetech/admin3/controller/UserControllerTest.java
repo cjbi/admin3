@@ -80,16 +80,16 @@ public class UserControllerTest {
   }
 
   @Test
-  void testLockUser() throws Exception {
-    mvc.perform(post("/users/{userId}:lock", 302)
+  void testDisableUser() throws Exception {
+    mvc.perform(post("/users/{userId}:disable", 302)
         .header(TOKEN_HEADER_NAME, TOKEN)
       )
       .andExpect(status().isOk());
   }
 
   @Test
-  void testUnlockUser() throws Exception {
-    mvc.perform(post("/users/{userId}:unlock", 302)
+  void testEnableUser() throws Exception {
+    mvc.perform(post("/users/{userId}:enable", 302)
         .header(TOKEN_HEADER_NAME, TOKEN)
       )
       .andExpect(status().isOk());

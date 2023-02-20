@@ -52,15 +52,15 @@ public class UserController {
   }
 
   @RequiresPermissions("user:update")
-  @PostMapping("/{userId}:lock")
-  public ResponseEntity<User> lockUser(@PathVariable Long userId) {
-    return ResponseEntity.ok(userService.lockUser(userId));
+  @PostMapping("/{userId}:disable")
+  public ResponseEntity<User> disableUser(@PathVariable Long userId) {
+    return ResponseEntity.ok(userService.disableUser(userId));
   }
 
   @RequiresPermissions("user:update")
-  @PostMapping("/{userId}:unlock")
-  public ResponseEntity<User> unlockUser(@PathVariable Long userId) {
-    return ResponseEntity.ok(userService.unlockUser(userId));
+  @PostMapping("/{userId}:enable")
+  public ResponseEntity<User> enableUser(@PathVariable Long userId) {
+    return ResponseEntity.ok(userService.enableUser(userId));
   }
 
   @RequiresPermissions("user:delete")

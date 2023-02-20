@@ -11,11 +11,11 @@
           </el-button>
           <div style="margin-top: 16px">
             <div
-                class="role-item"
-                :class="{ 'role-item-active': item.id === activeRoleId }"
-                v-for="(item, index) in roleList"
-                :key="index"
-                @click="handleRoleChange(item)"
+              class="role-item"
+              :class="{ 'role-item-active': item.id === activeRoleId }"
+              v-for="(item, index) in roleList"
+              :key="index"
+              @click="handleRoleChange(item)"
             >
               <div>
                 <div>{{ item.name }}</div>
@@ -74,24 +74,32 @@
                 <el-table-column label="头像" align="center">
                   <template #default="scope">
                     <el-image
-                        class="table-td-thumb"
-                        :src="scope.row.avatar"
-                        :z-index="10"
-                        :preview-src-list="[scope.row.avatar]"
-                        preview-teleported
+                      class="table-td-thumb"
+                      :src="scope.row.avatar"
+                      :z-index="10"
+                      :preview-src-list="[scope.row.avatar]"
+                      preview-teleported
                     >
                     </el-image>
+                  </template>
+                </el-table-column>
+                <el-table-column label="拥有的角色">
+                  <template #default="scope">
+                    <sppan v-for="(role, index) in scope.row?.roles">
+                      <template v-if="index > 0">, </template>
+                      {{ role.name }}
+                    </sppan>
                   </template>
                 </el-table-column>
               </el-table>
               <div class="pagination">
                 <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="userQuery.pageIndex"
-                    :page-size="userQuery.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
+                  background
+                  layout="total, prev, pager, next"
+                  :current-page="userQuery.pageIndex"
+                  :page-size="userQuery.pageSize"
+                  :total="pageTotal"
+                  @current-change="handlePageChange"
                 ></el-pagination>
               </div>
             </el-tab-pane>
@@ -104,9 +112,9 @@
                   <el-col :span="18" :style="{fontWeight:'bold'}">{{ menu.name }}</el-col>
                   <el-col :span="6" :style="{textAlign:'right'}">
                     <el-switch
-                        size="small"
-                        v-model="menu.enabled"
-                        @change="onChangeSwitch($event,menu)"/>
+                      size="small"
+                      v-model="menu.enabled"
+                      @change="onChangeSwitch($event,menu)"/>
                   </el-col>
                 </el-row>
                 <el-divider type="horizontal" :style="{margin: '5px'}"/>
@@ -116,10 +124,10 @@
                   </el-col>
                   <el-col :xl="20" :lg="20">
                     <el-checkbox
-                        :disabled="!menu.enabled"
-                        v-model="checkbox.checkedAll"
-                        :indeterminate="checkbox.indeterminate"
-                        @change="onChangeCheckAll($event,checkbox)"
+                      :disabled="!menu.enabled"
+                      v-model="checkbox.checkedAll"
+                      :indeterminate="checkbox.indeterminate"
+                      @change="onChangeCheckAll($event,checkbox)"
                     >全选
                     </el-checkbox>
                     <el-checkbox-group :disabled="!menu.enabled" v-model="checkbox.selected"
@@ -140,14 +148,14 @@
 
     <!-- 组织架构选择弹出框 -->
     <OrgSelect
-        append-to-body
-        v-if="isOrgSelectShow"
-        :visible="isOrgSelectShow"
-        filterUser="true"
-        :tab-type="'org'"
-        :mode="'multiple'"
-        @on-cancel="handleOrgSelectCancel"
-        @on-submit="handleOrgSelectSubmit"
+      append-to-body
+      v-if="isOrgSelectShow"
+      :visible="isOrgSelectShow"
+      filterUser="true"
+      :tab-type="'org'"
+      :mode="'multiple'"
+      @on-cancel="handleOrgSelectCancel"
+      @on-submit="handleOrgSelectSubmit"
     />
 
     <!-- 新增弹出框 -->
@@ -192,13 +200,13 @@
 <script setup lang="ts">
 import {reactive, ref} from "vue";
 import {
-    changeResources,
-    changeUsers,
-    createRole,
-    deleteRole,
-    getRoleList,
-    getRoleUserList,
-    updateRole
+  changeResources,
+  changeUsers,
+  createRole,
+  deleteRole,
+  getRoleList,
+  getRoleUserList,
+  updateRole
 } from "../api/role";
 import {ElMessage, ElMessageBox, TabsPaneContext} from "element-plus";
 import {getResourceTree as reqResourceTree} from "../api/resource";
@@ -253,6 +261,7 @@ interface UserTableItem {
   fullName: string;
   gender: string;
   state: string;
+  roles: { id: number, name: string }
 }
 
 const roleList = ref<RoleInterface[]>([]);
