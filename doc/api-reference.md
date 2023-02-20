@@ -121,10 +121,10 @@ curl -X 'GET' \
 
 ```json
 {
-  "code": 1003,
-  "message": "记录不存在",
+  "code": 1002,
+  "message": "参数非法",
   "data": {},
-  "errors": [{"name":"不能为空"}]
+  "errors": [{"username":"不能为空"}]
 }
 ```
 
