@@ -15,6 +15,7 @@ import tech.wetech.admin3.sys.service.RoleService;
 import tech.wetech.admin3.sys.service.UserService;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 import tech.wetech.admin3.sys.service.dto.RoleDTO;
+import tech.wetech.admin3.sys.service.dto.RoleUserDTO;
 
 import java.util.List;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class RoleController {
 
   @RequiresPermissions("role:view")
   @GetMapping("/{roleId}/users")
-  public ResponseEntity<PageDTO<User>> findRoleUsers(@PathVariable Long roleId, Pageable pageable) {
+  public ResponseEntity<PageDTO<RoleUserDTO>> findRoleUsers(@PathVariable Long roleId, Pageable pageable) {
     return ResponseEntity.ok(roleService.findRoleUsers(roleId, pageable));
   }
 

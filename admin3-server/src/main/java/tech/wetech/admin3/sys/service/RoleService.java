@@ -16,9 +16,11 @@ import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.repository.RoleRepository;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 import tech.wetech.admin3.sys.service.dto.RoleDTO;
+import tech.wetech.admin3.sys.service.dto.RoleUserDTO;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author cjbi
@@ -91,8 +93,11 @@ public class RoleService {
     DomainEventPublisher.instance().publish(new RoleDeleted(role));
   }
 
-  public PageDTO<User> findRoleUsers(Long roleId, Pageable pageable) {
+  public PageDTO<RoleUserDTO> findRoleUsers(Long roleId, Pageable pageable) {
     Page<User> page = roleRepository.findRoleUsers(roleId, pageable);
-    return new PageDTO<>(page.getContent(), page.getTotalElements());
+    return new PageDTO<>(page.getContent().stream()
+      .map(u -> new RoleUserDTO(u.getId(), u.getFullName(), u.getFullName(), u.getAvatar(), u.getGender(), u.getState(), u.getRoles(), u.getCreatedTime()))
+      .collect(Collectors.toList()),
+      page.getTotalElements());
   }
 }

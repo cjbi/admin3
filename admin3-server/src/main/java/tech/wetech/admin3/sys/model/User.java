@@ -47,6 +47,17 @@ public class User extends EntityBase {
   @OneToOne(fetch = LAZY)
   private Organization organization;
 
+  public String getOrgFullName() {
+    return concatOrgName(getOrganization());
+  }
+
+  private String concatOrgName(Organization org) {
+    if (org.getParent() != null) {
+      return concatOrgName(org.getParent()).concat("-").concat(org.getName());
+    }
+    return org.getName();
+  }
+
   @PrePersist
   protected void onCreate() {
     this.createdTime = LocalDateTime.now();

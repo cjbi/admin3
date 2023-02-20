@@ -32,16 +32,16 @@ export function deleteUser(userId: number) {
     });
 }
 
-export function lockUser(userId: number) {
+export function disableUser(userId: number) {
     return request({
-        url: `${BASE_URI}/users/${userId}:lock`,
+        url: `${BASE_URI}/users/${userId}:disable`,
         method: 'post'
     });
 }
 
-export function unlockUser(userId: number) {
+export function enableUser(userId: number) {
     return request({
-        url: `${BASE_URI}/users/${userId}:unlock`,
+        url: `${BASE_URI}/users/${userId}:enable`,
         method: 'post'
     });
 }
