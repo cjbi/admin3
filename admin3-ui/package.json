@@ -11,6 +11,7 @@
 		"@element-plus/icons-vue": "^2.0.9",
 		"axios": "^0.27.2",
 		"element-plus": "^2.2.14",
+		"lodash": "^4.17.21",
 		"md-editor-v3": "^2.2.1",
 		"pinia": "^2.0.20",
 		"vue": "^3.2.37",

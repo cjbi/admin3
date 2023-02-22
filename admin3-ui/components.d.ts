@@ -43,6 +43,7 @@ declare module '@vue/runtime-core' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
+    ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     Header: typeof import('./src/components/header.vue')['default']
     OrgSelect: typeof import('./src/components/OrgSelect.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
