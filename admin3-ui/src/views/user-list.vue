@@ -5,7 +5,14 @@
         <el-col :xl="6" :lg="6" style="border-right: 1px solid #dcdfe6;">
           <div style="padding-right: 10px">
             <div style="margin-bottom: 24px; font-weight: 700">组织架构</div>
-            <el-input :prefix-icon="Search" placeholder="请输入搜索内容"></el-input>
+            <el-tree-select 
+              placeholder="请输入搜索内容"
+              v-model="orgSearchKey"
+              :data="selectableTree"
+              filterable
+              check-strictly
+              @node-click="handleNodeSelected"
+            />
             <el-divider></el-divider>
             <el-tree
               :data="treeData"
@@ -254,6 +261,7 @@ import {
   getOrganizationUserList,
   updateOrganization
 } from "../api/organization";
+import cloneDeep from 'lodash/cloneDeep';
 
 interface OrgTreeNode {
   name: string
@@ -261,6 +269,12 @@ interface OrgTreeNode {
   children?: OrgTreeNode[]
   type: OrgTypeEum
   isLeaf?: boolean
+}
+
+interface OrgSelectableTreeNode extends Partial<Omit<OrgTreeNode, 'children'>> {
+  label: string
+  value: number
+  children?: OrgSelectableTreeNode[] | OrgTreeNode[]
 }
 
 enum OrgTypeEum {
@@ -271,9 +285,10 @@ enum OrgTypeEum {
 const rootNode = {name: '根节点', id: 1, type: OrgTypeEum.DEPART, children: []};
 
 const treeData = ref<OrgTreeNode[]>([rootNode]);
-
+const orgSearchKey = ref('');
 const defaultExpandedKeys = ref<number[]>([1]);
 const selectedNode = ref<OrgTreeNode>(rootNode);
+const selectableTree = ref<OrgSelectableTreeNode[]>([]);
 
 const handleNodeSelected = (node: OrgTreeNode) => {
   selectedNode.value = node;
@@ -288,8 +303,13 @@ const reqAllNodes = async () => {
     parentId: 1
   })
   treeData.value[0].children = res.data;
+
+  const cloneTreeData = cloneDeep(treeData.value);
+  convertOrgTree(cloneTreeData);
+  selectableTree.value = cloneTreeData as any;
 }
 reqAllNodes();
+
 
 class Org {
   id = 0;
@@ -326,7 +346,24 @@ const saveAddOrgNode = async () => {
   await createOrganization(orgForm);
   addOrgDialogVisible.value = false;
   await reqAllNodes();
+}
 
+/**
+ * @desc 转换数组对象的键值对 el-tree => el-tree-select
+ */
+const convertOrgTree = (orgTreeNode: Partial<(OrgTreeNode & {value: number, label: string})>[]) => {
+  if (!orgTreeNode.length) {
+    return;
+  }
+
+  for (let org of orgTreeNode) {
+    org.value = org.id as number;
+    org.label = org.name as string;
+
+    if (org.children?.length) {
+      convertOrgTree(org.children);
+    }
+  }
 }
 
 const saveUpdateOrgNode = async () => {
@@ -348,7 +385,6 @@ const saveDeleteOrgNode = async (data: OrgTreeNode) => {
   });
 
 }
-
 
 interface TableItem {
   id: number;
