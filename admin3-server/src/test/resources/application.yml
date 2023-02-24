@@ -5,19 +5,19 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate.auto_quote_keyword: true
   application:
     name: admin3
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/admin3_test?characterEncoding=utf8
-    username: root
-    password: 123456
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
   sql:
     init:
       encoding: utf8
-      data-locations: classpath:data.sql,classpath:test-data.sql
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
       mode: always
-      continue-on-error: true
   data:
     web:
       pageable:
