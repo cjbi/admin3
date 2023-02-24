@@ -178,10 +178,11 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, ref, watchEffect} from 'vue'
+import {computed, defineComponent, PropType, reactive, ref, watchEffect} from 'vue'
 import {Search} from '@element-plus/icons-vue'
 import {ElTree} from 'element-plus'
 import {getOrganizationTree, getOrganizationUserList} from "../api/organization";
+import { getRoleUserList,} from "../api/role";
 
 export enum OrgTypeEum {
   DEPART = 'DEPARTMENT',
@@ -236,6 +237,15 @@ export type CheckedStatus = {
   halfCheckedKeys: number[]
 }
 
+interface UserTableItem {
+  id: number;
+  userName: string;
+  fullName: string;
+  gender: string;
+  state: string;
+  roles: { id: number, name: string }
+}
+
 export default defineComponent({
   name: 'OrgSelect',
   props: {
@@ -265,12 +275,17 @@ export default defineComponent({
       type: Array as PropType<any[]>,
       default: () => [],
     },
+    // 已选择的角色id 回显角色下的所有人
+    activeRoleId: {
+      type: Number,
+      default: 0
+    }
   },
   emits: ['on-submit', 'on-cancel', 'change'],
   setup(props, {emit}) {
     const orgTreeRef = ref<typeof ElTree>(),
         roleTreeRef = ref<typeof ElTree>()
-
+    const selectedUserIds = ref<number[]> ([])
     const activeTabName = ref<TabType>(props.tabType === TabType.ALL ? TabType.ORG : props.tabType)
     const orgSearchVal = ref(''),
         roleSearchVal = ref('')
@@ -280,6 +295,11 @@ export default defineComponent({
         singleSelectedRoleId = ref<number | null>(null)
     const selectedOrgNames = computed(() => selectedOrg.value.map((i) => i.name))
     const selectedRoleNames = computed(() => selectedRole.value.map((i) => i.name))
+    const userQuery = reactive({
+      pageIndex: 1,
+      pageSize: 1000
+    });
+    const selectedUsers = ref<UserTableItem[]>([]);
 
     const orgList = ref<OrgTreeNode[]>([rootNode])
     const reqOrgList = async () => {
@@ -290,6 +310,17 @@ export default defineComponent({
     }
     reqOrgList()
 
+    const getUserData = (roleId: number) => {
+      getRoleUserList(roleId, {
+        page: userQuery.pageIndex,
+        size: userQuery.pageSize,
+      }).then(res => {
+        selectedUsers.value = res.data.list;
+        selectedUserIds.value = selectedUsers.value.map(i => i.id)
+      });
+    }
+
+    getUserData(props.activeRoleId);
 
     const selectedNode = ref<OrgTreeNode | null>(null)
     const handleNodeClick = (data: OrgTreeNode) => {
@@ -333,9 +364,10 @@ export default defineComponent({
     const selectedUserId = ref<number | null>(
         props.selectedUsers[0]?.userId || props.selectedUsers[0]?.id || null,
     )
-    const selectedUserIds = ref<number[]>(
-        props.selectedUsers.filter(Boolean).map((i) => i.id || i.useId),
-    )
+    // const selectedUserIds = ref<number[]>(
+    //     props.selectedUsers.filter(Boolean).map((i) => i.id || i.useId),
+    // )
+
     const reqUserList = async () => {
       const res = await getOrganizationUserList(selectedNode.value?.id || 1, {
         page: 1,

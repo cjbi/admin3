@@ -158,6 +158,7 @@
       append-to-body
       v-if="isOrgSelectShow"
       :visible="isOrgSelectShow"
+      :activeRoleId="activeRoleId"
       filterUser="true"
       :tab-type="'org'"
       :mode="'multiple'"
