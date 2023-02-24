@@ -5,6 +5,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate.globally_quoted_identifiers: true
+      hibernate.auto_quote_keyword: true
   application:
     name: admin3
   datasource:
