@@ -18,7 +18,6 @@ spring:
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
       mode: always
-      continue-on-error: false
   data:
     web:
       pageable:
