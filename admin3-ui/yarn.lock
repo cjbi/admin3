@@ -978,9 +978,9 @@ unimport@^1.0.1:
     strip-literal "^1.0.0"
     unplugin "^1.0.1"
 
-unplugin-auto-import@^0.11.2:
+unplugin-auto-import@^0.11.5:
   version "0.11.5"
-  resolved "https://registry.npmmirror.com/unplugin-auto-import/-/unplugin-auto-import-0.11.5.tgz#84c27e5f230bc1fc9004c162a39b81fcf89da740"
+  resolved "https://registry.yarnpkg.com/unplugin-auto-import/-/unplugin-auto-import-0.11.5.tgz#84c27e5f230bc1fc9004c162a39b81fcf89da740"
   integrity sha512-nvbL2AQwLRR8wbHpJ6L1EBVNmjN045RSedTa4NtsGRkSQFXkI1iKHs4dTqJwcKZsnFrZOAKtLPiN1/oQTObLZw==
   dependencies:
     "@antfu/utils" "^0.7.0"
@@ -990,9 +990,9 @@ unplugin-auto-import@^0.11.2:
     unimport "^1.0.1"
     unplugin "^1.0.0"
 
-unplugin-vue-components@^0.22.4:
+unplugin-vue-components@^0.22.12:
   version "0.22.12"
-  resolved "https://registry.npmmirror.com/unplugin-vue-components/-/unplugin-vue-components-0.22.12.tgz#39013f77be72d32df9d6ca1599e592a484015612"
+  resolved "https://registry.yarnpkg.com/unplugin-vue-components/-/unplugin-vue-components-0.22.12.tgz#39013f77be72d32df9d6ca1599e592a484015612"
   integrity sha512-FxyzsuBvMCYPIk+8cgscGBQ345tvwVu+qY5IhE++eorkyvA4Z1TiD/HCiim+Kbqozl10i4K+z+NCa2WO2jexRA==
   dependencies:
     "@antfu/utils" "^0.7.2"
