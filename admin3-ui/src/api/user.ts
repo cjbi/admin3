@@ -9,7 +9,7 @@ export function getUserList(data: { page: number; size: number; username?: strin
     });
 };
 
-export function createUser(data: { username: string; fullName: string; gender: string; avatar: string; }) {
+export function createUser(data: { username: string; gender: string; avatar: string; }) {
     return request({
         url: `${BASE_URI}/users`,
         method: 'post',
@@ -17,7 +17,7 @@ export function createUser(data: { username: string; fullName: string; gender: s
     });
 }
 
-export function updateUser(userId: number, data: { username: string; fullName: string; gender: string; avatar: string; }) {
+export function updateUser(userId: number, data: { username: string; gender: string; avatar: string; }) {
     return request({
         url: `${BASE_URI}/users/${userId}`,
         method: 'put',
