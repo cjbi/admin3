@@ -102,7 +102,7 @@
       <!-- <div v-if="filterUser" class="center">
         <el-radio-group v-model="selectedUserId">
           <el-radio v-for="(item, index) in userList" :key="index" :label="item.id">{{
-            item.fullName
+            item.username
           }}</el-radio>
         </el-radio-group>
       </div> -->
@@ -122,7 +122,7 @@
             >
             <el-checkbox-group v-model="selectedUserIds" @change="handleChange">
               <el-checkbox v-for="(item, index) in userList" :key="index" :label="item.id">
-                {{ item.fullName }}
+                {{ item.username }}
               </el-checkbox>
             </el-checkbox-group>
           </div>
@@ -144,7 +144,7 @@
           <div v-if="filterUser">
             <el-radio-group v-model="selectedUserId" @change="handleChange">
               <el-radio v-for="(item, index) in userList" :key="index" :label="item.id">
-                {{ item.fullName }}
+                {{ item.username }}
               </el-radio>
             </el-radio-group>
           </div>
@@ -193,7 +193,7 @@ export interface OrgTreeNode {
   name: string
   id: number
   children?: OrgTreeNode[]
-  leader?: { fullname: string; userId: number }
+  leader?: { username: string; userId: number }
   type?: OrgTypeEum
   isLeaf?: boolean
   parent?: OrgTreeNode
@@ -240,7 +240,7 @@ export type CheckedStatus = {
 interface UserTableItem {
   id: number;
   userName: string;
-  fullName: string;
+  username: string;
   gender: string;
   state: string;
   roles: { id: number, name: string }
@@ -359,7 +359,7 @@ export default defineComponent({
     const userList = ref<any[]>(
         props.selectedUsers
             .filter(Boolean)
-            .map((i) => ({...i, name: i.fullName, id: i.id || i.userId})),
+            .map((i) => ({...i, name: i.username, id: i.id || i.userId})),
     )
     const selectedUserId = ref<number | null>(
         props.selectedUsers[0]?.userId || props.selectedUsers[0]?.id || null,
@@ -399,11 +399,11 @@ export default defineComponent({
         if (props.mode === ModeType.MULT) {
           selected = userList.value
               .filter((i) => selectedUserIds.value.includes(i.id))
-              .map((i) => ({...i, name: i.fullName}))
+              .map((i) => ({...i, name: i.username}))
         } else {
           selected = userList.value.find((i) => i.id === selectedUserId.value)
           if (selected) {
-            selected.name = selected.fullName
+            selected.name = selected.username
           }
         }
       } else {

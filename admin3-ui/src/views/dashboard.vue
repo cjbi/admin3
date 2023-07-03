@@ -7,7 +7,7 @@
             <el-avatar :size="120" :src="userinfo.avatar"/>
             <div class="user-info-cont">
               <div class="user-info-name">{{ userinfo.username }}</div>
-              <div>{{ userinfo.fullName }}</div>
+              <div>hello world</div>
             </div>
           </div>
           <div class="user-info-list">

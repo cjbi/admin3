@@ -42,7 +42,6 @@ public class UserControllerTest {
         .content("""
           {
             "username": "admin3_so_good",
-            "fullName": "Admin3后台管理系统",
             "gender": "MALE",
             "avatar": "https://picsum.photos/id/237/100",
             "organizationId": 1
@@ -60,7 +59,6 @@ public class UserControllerTest {
         .header(TOKEN_HEADER_NAME, TOKEN)
         .content("""
           {
-            "fullName": "张三",
             "gender": "FEMALE",
             "avatar": "https://picsum.photos/id/237/100",
             "organizationId": 1

@@ -11,7 +11,6 @@ import java.util.Set;
  */
 public record RoleUserDTO(Long id,
                           String username,
-                          String fullName,
                           String avatar,
                           User.Gender gender,
                           User.State state,

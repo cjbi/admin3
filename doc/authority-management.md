@@ -47,7 +47,7 @@ Admin3基于RBAC模型进行权限控制，RBAC 是基于角色的访问控制�
 @PutMapping("/{userId}")
 public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserRequest request) {
   Organization organization = organizationService.findOrganization(request.organizationId());
-  return ResponseEntity.ok(userService.updateUser(userId, request.fullName(), request.avatar(), request.gender(), User.State.NORMAL, organization));
+  return ResponseEntity.ok(userService.updateUser(userId, request.avatar(), request.gender(), User.State.NORMAL, organization));
 }
 ```
 

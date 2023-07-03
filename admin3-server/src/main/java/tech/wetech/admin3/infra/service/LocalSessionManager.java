@@ -105,7 +105,7 @@ public class LocalSessionManager implements SessionManager {
     sessionRepository.findAllStream().forEach(session -> {
       UserCredential credential = session.getCredential();
       User user = credential.getUser();
-      UserinfoDTO userinfo = new UserinfoDTO(session.getToken(), user.getId(), user.getUsername(), user.getFullName(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
+      UserinfoDTO userinfo = new UserinfoDTO(session.getToken(), user.getId(), user.getUsername(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
       session.setData(JsonUtils.stringify(userinfo));
       sessionRepository.saveAndFlush(session);
     });

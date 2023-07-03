@@ -21,9 +21,6 @@ public class User extends EntityBase {
   @Column(nullable = false, unique = true)
   private String username;
 
-  @Column(nullable = false)
-  private String fullName;
-
   private String avatar;
 
   @Column(nullable = false)
@@ -95,14 +92,6 @@ public class User extends EntityBase {
 
   public void setUsername(String username) {
     this.username = username;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
   }
 
   public String getAvatar() {

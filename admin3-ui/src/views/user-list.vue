@@ -5,14 +5,6 @@
         <el-col :xl="6" :lg="6" style="border-right: 1px solid #dcdfe6;">
           <div style="padding-right: 10px">
             <div style="margin-bottom: 24px; font-weight: 700">组织架构</div>
-            <el-tree-select 
-              placeholder="请输入搜索内容"
-              v-model="orgSearchKey"
-              :data="selectableTree"
-              filterable
-              check-strictly
-              @node-click="handleNodeSelected"
-            />
             <el-divider></el-divider>
             <el-tree
               :data="treeData"
@@ -74,7 +66,6 @@
             <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
               <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
               <el-table-column prop="username" label="用户名"></el-table-column>
-              <el-table-column prop="fullName" label="全名"></el-table-column>
               <el-table-column prop="gender" label="性别">
                 <template #default="{ row }">
                   <span>{{ row.gender === 'MALE' ? '男' : '女' }}</span>
@@ -202,9 +193,6 @@
         <el-form-item label="用户名">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
-        <el-form-item label="全名">
-          <el-input v-model="form.fullName"></el-input>
-        </el-form-item>
         <el-form-item label="性别">
           <el-radio-group v-model="form.gender">
             <el-radio label="MALE">男</el-radio>
@@ -228,9 +216,6 @@
         <el-input v-model="form.avatar" hidden="hidden" v-show="false"></el-input>
         <el-form-item label="用户名">
           <el-input v-model="form.username" disabled></el-input>
-        </el-form-item>
-        <el-form-item label="全名">
-          <el-input v-model="form.fullName"></el-input>
         </el-form-item>
         <el-form-item label="性别">
           <el-radio-group v-model="form.gender">
@@ -285,10 +270,8 @@ enum OrgTypeEum {
 const rootNode = {name: '根节点', id: 1, type: OrgTypeEum.DEPART, children: []};
 
 const treeData = ref<OrgTreeNode[]>([rootNode]);
-const orgSearchKey = ref('');
 const defaultExpandedKeys = ref<number[]>([1]);
 const selectedNode = ref<OrgTreeNode>(rootNode);
-const selectableTree = ref<OrgSelectableTreeNode[]>([]);
 
 const handleNodeSelected = (node: OrgTreeNode) => {
   selectedNode.value = node;
@@ -306,7 +289,6 @@ const reqAllNodes = async () => {
 
   const cloneTreeData = cloneDeep(treeData.value);
   convertOrgTree(cloneTreeData);
-  selectableTree.value = cloneTreeData as any;
 }
 reqAllNodes();
 
@@ -389,7 +371,6 @@ const saveDeleteOrgNode = async (data: OrgTreeNode) => {
 interface TableItem {
   id: number;
   username: string;
-  fullName: string;
   gender: string;
   avatar: string;
   state: string;
@@ -453,7 +434,6 @@ const editVisible = ref(false);
 
 class User {
   username = '';
-  fullName = '';
   gender = 'MALE';
   avatar = '';
   organizationId = 1;
@@ -474,7 +454,6 @@ const saveAdd = () => {
 const handleEdit = (index: number, row: any) => {
   id = row.id;
   form.username = row.username;
-  form.fullName = row.fullName;
   form.gender = row.gender;
   form.avatar = row.avatar;
   editVisible.value = true;

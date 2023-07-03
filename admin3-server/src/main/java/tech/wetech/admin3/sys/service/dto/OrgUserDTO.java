@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
  */
 public record OrgUserDTO(Long id,
                          String username,
-                         String fullName,
                          String avatar,
                          User.Gender gender,
                          User.State state,

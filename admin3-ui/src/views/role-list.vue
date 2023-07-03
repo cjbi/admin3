@@ -4,14 +4,6 @@
       <el-row :gutter="20" style="height: 100%">
         <el-col :xl="4" :lg="4" style="border-right: 1px solid #dcdfe6">
           <div style="margin-bottom: 24px; font-weight: 700">角色管理</div>
-          <el-tree-select 
-            placeholder="请输入搜索内容"
-            v-model="roleSearchKey"
-            :data="selectableRoleList"
-            filterable
-            check-strictly
-            @node-click="handleRoleSelected"
-          />
           <el-divider></el-divider>
           <el-button @click="addVisible = true;Object.assign(form, new Role());" type="primary" link
                      v-action:role:create>新建角色
@@ -72,7 +64,6 @@
                         header-cell-class-name="table-header">
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="username" label="用户名"></el-table-column>
-                <el-table-column prop="fullName" label="全名"></el-table-column>
                 <el-table-column prop="gender" label="性别">
                   <template #default="{ row }">
                     <span>{{ row.gender === 'MALE' ? '男' : '女' }}</span>
@@ -219,7 +210,7 @@ import {
 import {ElMessage, ElMessageBox, TabsPaneContext} from "element-plus";
 import {getResourceTree as reqResourceTree} from "../api/resource";
 import {Delete, Edit} from '@element-plus/icons-vue';
-import {OrgSelectedData} from "../components/OrgSelect.vue";
+import OrgSelect, {OrgSelectedData} from "../components/OrgSelect.vue";
 
 const isOrgSelectShow = ref(false)
 
@@ -266,7 +257,6 @@ interface Permission {
 interface UserTableItem {
   id: number;
   userName: string;
-  fullName: string;
   gender: string;
   state: string;
   roles: { id: number, name: string }
@@ -279,8 +269,6 @@ interface RoleSelectable extends RoleInterface {
 
 const roleList = ref<RoleInterface[]>([]);
 const activeRoleId = ref<number>(1);
-const roleSearchKey = ref('');
-const selectableRoleList = ref<RoleSelectable[]>([]);
 
 
 const reqRoleList = async () => {
@@ -288,35 +276,12 @@ const reqRoleList = async () => {
     const { data, } = await getRoleList();
     roleList.value = data;
     getResourceTree(); // 获取权限列表
-    getRoleTreeSelectList(); // 生成角色选择下拉列表
   } catch (error) {
     ElMessage.error(error as Error);
   }
 };
 
 reqRoleList();
-
-/**
- * @desc 获取角色可选择下拉列表数据
- */
-const getRoleTreeSelectList = () => {
-  const _selectableRoleList = roleList.value.map(item=> ({
-    ...item, 
-    value: item.id, 
-    label: item.name
-  }));
-  selectableRoleList.value = _selectableRoleList;
-};
-
-/**
- * 
- * @param 处理角色选择
- */
-const handleRoleSelected = (node: RoleSelectable) => {
-  activeRoleId.value = node.id;
-  getUserData(node.id);
-  handlePermission(); // 控制权限回显
-};
 
 const handleRoleChange = (role: RoleInterface) => {
   activeRoleId.value = role.id;

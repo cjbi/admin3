@@ -41,14 +41,14 @@ public class UserController {
   @PostMapping
   public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest request) {
     Organization organization = organizationService.findOrganization(request.organizationId());
-    return new ResponseEntity<>(userService.createUser(request.username(), request.fullName(), request.avatar(), request.gender(), User.State.NORMAL, organization), HttpStatus.CREATED);
+    return new ResponseEntity<>(userService.createUser(request.username(), request.avatar(), request.gender(), User.State.NORMAL, organization), HttpStatus.CREATED);
   }
 
   @RequiresPermissions("user:update")
   @PutMapping("/{userId}")
   public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserRequest request) {
     Organization organization = organizationService.findOrganization(request.organizationId());
-    return ResponseEntity.ok(userService.updateUser(userId, request.fullName(), request.avatar(), request.gender(), User.State.NORMAL, organization));
+    return ResponseEntity.ok(userService.updateUser(userId, request.avatar(), request.gender(), User.State.NORMAL, organization));
   }
 
   @RequiresPermissions("user:update")
@@ -70,11 +70,11 @@ public class UserController {
     return ResponseEntity.noContent().build();
   }
 
-  record CreateUserRequest(@NotBlank String username, @NotBlank String fullName, @NotNull User.Gender gender,
+  record CreateUserRequest(@NotBlank String username, @NotNull User.Gender gender,
                            @NotBlank String avatar, Long organizationId) {
   }
 
-  record UpdateUserRequest(@NotBlank String fullName, @NotNull User.Gender gender,
+  record UpdateUserRequest(@NotNull User.Gender gender,
                            @NotBlank String avatar, Long organizationId) {
   }
 

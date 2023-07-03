@@ -15,7 +15,7 @@
 								<i class="el-icon-lx-camerafill"></i>
 							</span>
             </div>
-            <div class="info-name">{{ fullName }}</div>
+            <div class="info-name">{{ username }}</div>
             <div class="info-desc">不可能！我的代码怎么可能会有bug！</div>
           </div>
         </el-card>
@@ -29,7 +29,6 @@
           </template>
           <el-form label-width="90px">
             <el-form-item label="用户名："> {{ username }}</el-form-item>
-            <el-form-item label="全名："> {{ fullName }}</el-form-item>
             <el-form-item label="旧密码：">
               <el-input type="password" v-model="form.old"></el-input>
             </el-form-item>
@@ -85,7 +84,6 @@ const onSubmit = () => {
 const basicStore = useBasicStore();
 const userinfo = basicStore.userinfo;
 const username = ref(userinfo.username);
-const fullName = ref(userinfo.fullName);
 const avatarImg = ref(userinfo.avatar);
 const imgSrc = ref('');
 const cropImg = ref('');

@@ -6,7 +6,6 @@ interface UserStore {
         token: string;
         userId: number | null;
         username: string;
-        fullName: string;
         avatar: string;
         credential: { identifier: string, identityType: IdentityType };
         permissions: [];
@@ -23,7 +22,6 @@ export const useBasicStore = defineStore('basic', {
             token: localStorage.getItem("token"),
             userId: null,
             username: '',
-            fullName: '',
             avatar: '',
             credential: {},
             permissions: []

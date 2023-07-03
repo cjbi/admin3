@@ -37,10 +37,9 @@ public class UserService {
   }
 
   @Transactional
-  public User createUser(String username, String fullName, String avatar, User.Gender gender, User.State state, Organization organization) {
+  public User createUser(String username, String avatar, User.Gender gender, User.State state, Organization organization) {
     User user = new User();
     user.setUsername(username);
-    user.setFullName(fullName);
     user.setAvatar(avatar);
     user.setGender(gender);
     user.setState(state);
@@ -63,7 +62,7 @@ public class UserService {
   public PageDTO<OrgUserDTO> findOrgUsers(Pageable pageable, String username, User.State state, Organization organization) {
     Page<User> page = userRepository.findOrgUsers(pageable, username, state, organization, organization.makeSelfAsParentIds());
     return new PageDTO<>(page.getContent().stream().map(u ->
-        new OrgUserDTO(u.getId(), u.getUsername(), u.getFullName(), u.getAvatar(), u.getGender(), u.getState(), u.getOrgFullName(), u.getCreatedTime()))
+        new OrgUserDTO(u.getId(), u.getUsername(), u.getAvatar(), u.getGender(), u.getState(), u.getOrgFullName(), u.getCreatedTime()))
       .collect(Collectors.toList()), page.getTotalElements());
   }
 
@@ -74,9 +73,8 @@ public class UserService {
 
 
   @Transactional
-  public User updateUser(Long userId, String fullName, String avatar, User.Gender gender, User.State state, Organization organization) {
+  public User updateUser(Long userId, String avatar, User.Gender gender, User.State state, Organization organization) {
     User user = findUserById(userId);
-    user.setFullName(fullName);
     user.setAvatar(avatar);
     user.setGender(gender);
     user.setState(state);

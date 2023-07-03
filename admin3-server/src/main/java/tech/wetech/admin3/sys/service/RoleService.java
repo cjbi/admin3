@@ -96,7 +96,7 @@ public class RoleService {
   public PageDTO<RoleUserDTO> findRoleUsers(Long roleId, Pageable pageable) {
     Page<User> page = roleRepository.findRoleUsers(roleId, pageable);
     return new PageDTO<>(page.getContent().stream()
-      .map(u -> new RoleUserDTO(u.getId(), u.getFullName(), u.getFullName(), u.getAvatar(), u.getGender(), u.getState(), u.getRoles(), u.getCreatedTime()))
+      .map(u -> new RoleUserDTO(u.getId(), u.getUsername(), u.getAvatar(), u.getGender(), u.getState(), u.getRoles(), u.getCreatedTime()))
       .collect(Collectors.toList()),
       page.getTotalElements());
   }

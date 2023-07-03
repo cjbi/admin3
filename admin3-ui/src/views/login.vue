@@ -6,7 +6,7 @@
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="username">
             <template #prepend>
-              <el-button :icon="User"></el-button>
+              <el-button :icon="User" disabled></el-button>
             </template>
           </el-input>
         </el-form-item>
@@ -18,7 +18,7 @@
               @keyup.enter="submitForm(login)"
           >
             <template #prepend>
-              <el-button :icon="Lock"></el-button>
+              <el-button :icon="Lock" disabled></el-button>
             </template>
           </el-input>
         </el-form-item>

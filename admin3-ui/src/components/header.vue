@@ -56,7 +56,7 @@ import {useBasicStore} from "../store/basic";
 
 const userinfoStore = useBasicStore();
 const userinfo = userinfoStore.userinfo;
-const username: string | null = userinfo.fullName;
+const username: string | null = userinfo.username;
 const avatar: string | null = userinfo.avatar;
 const message: number = 2;
 
