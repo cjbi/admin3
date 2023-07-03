@@ -75,7 +75,7 @@
                       class="table-td-thumb"
                       :src="scope.row.avatar"
                       :z-index="10"
-                      :preview-src-list="[scope.row.avatar]"
+                      :preview-src-list="[scope?.row?.avatar]"
                       preview-teleported
                     >
                     </el-image>
@@ -150,9 +150,6 @@
       v-if="isOrgSelectShow"
       :visible="isOrgSelectShow"
       :activeRoleId="activeRoleId"
-      filterUser="true"
-      :tab-type="'org'"
-      :mode="'multiple'"
       @on-cancel="handleOrgSelectCancel"
       @on-submit="handleOrgSelectSubmit"
     />

@@ -218,17 +218,10 @@ export enum TabType {
   ALL = 'all',
 }
 
-export type OrgSubmitData = {
-  selected: any
-  type: 'org' | 'role' | 'user'
-}
-
 export type OrgSelectedData = {
   type: 'org' | 'role' | 'user'
   selected: Record<string, any> | Record<string, any>[]
 }
-
-// tabType -> mode -> filterUser
 
 export type CheckedStatus = {
   checkedNodes: OrgTreeNode[]
@@ -257,7 +250,7 @@ export default defineComponent({
     tabType: {
       type: String as PropType<TabType>,
       required: false,
-      default: TabType.ALL,
+      default: TabType.ORG,
     },
     mode: {
       type: String as PropType<ModeType>,
@@ -268,7 +261,7 @@ export default defineComponent({
     filterUser: {
       type: Boolean,
       required: false,
-      default: false,
+      default: true,
     },
     // filterUser=true时使用
     selectedUsers: {
