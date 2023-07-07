@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import jakarta.persistence.*;
-import tech.wetech.admin3.sys.model.EntityBase;
+import tech.wetech.admin3.sys.model.BaseEntity;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -22,25 +22,25 @@ import java.util.Map;
  * @author cjbi
  * @date 2022/9/16
  */
-public class EntityBaseSerializer extends StdSerializer<EntityBase> {
+public class EntityBaseSerializer extends StdSerializer<BaseEntity> {
 
-  public final static EntityBaseSerializer instance = new EntityBaseSerializer(EntityBase.class);
+  public final static EntityBaseSerializer instance = new EntityBaseSerializer(BaseEntity.class);
 
   private final List<Class<? extends Annotation>> IGNORE_ANNOTATIONS = Arrays.asList(ElementCollection.class, OneToMany.class, OneToOne.class, ManyToOne.class, ManyToMany.class, Embedded.class);
 
-  protected EntityBaseSerializer(Class<EntityBase> t) {
+  protected EntityBaseSerializer(Class<BaseEntity> t) {
     super(t);
   }
 
   @Override
-  public void serialize(EntityBase value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+  public void serialize(BaseEntity value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     Map<String, Object> data = new HashMap<>();
     data.putAll(invokeGetter(value, value.getClass(), value.getClass().getDeclaredFields()));
-    data.putAll(invokeGetter(value, EntityBase.class, EntityBase.class.getDeclaredFields()));
+    data.putAll(invokeGetter(value, BaseEntity.class, BaseEntity.class.getDeclaredFields()));
     provider.defaultSerializeValue(data, gen);
   }
 
-  private Map<String, Object> invokeGetter(EntityBase value, Class<? extends EntityBase> aClass, Field[] declaredFields) {
+  private Map<String, Object> invokeGetter(BaseEntity value, Class<? extends BaseEntity> aClass, Field[] declaredFields) {
     Map<String, Object> data = new HashMap<>();
 
     for (Field declaredField : declaredFields) {

@@ -13,7 +13,7 @@ import static jakarta.persistence.CascadeType.DETACH;
  * @author cjbi
  */
 @Entity
-public class Role extends EntityBase {
+public class Role extends BaseEntity {
 
   @Column(unique = true, nullable = false)
   private String name;

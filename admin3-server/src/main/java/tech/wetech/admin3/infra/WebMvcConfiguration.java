@@ -32,6 +32,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     InterceptorRegistration loginInterceptor = registry.addInterceptor(new AuthInterceptor(sessionService));
     loginInterceptor.addPathPatterns("/**");
     loginInterceptor.excludePathPatterns(
+      "/storage/fetch/**",
+      "/storage/download/**",
       "/login",
       "/swagger-ui.html",
       "/swagger-ui/**",

@@ -16,7 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
  * @author cjbi
  */
 @Entity
-public class User extends EntityBase {
+public class User extends BaseEntity {
 
   @Column(nullable = false, unique = true)
   private String username;

@@ -21,7 +21,7 @@ import java.util.Objects;
  * @since 2017-03-06
  */
 @MappedSuperclass
-public abstract class EntityBase {
+public abstract class BaseEntity {
 
   /**
    * This identity field has the wrapper class type Long so that an entity which
@@ -46,13 +46,13 @@ public abstract class EntityBase {
 
   @Override
   public boolean equals(final Object object) {
-    if (!(object instanceof EntityBase)) {
+    if (!(object instanceof BaseEntity)) {
       return false;
     }
     if (!getClass().equals(object.getClass())) {
       return false;
     }
-    final EntityBase that = (EntityBase) object;
+    final BaseEntity that = (BaseEntity) object;
     _checkIdentity(this);
     _checkIdentity(that);
     return this.id.equals(that.getId());
@@ -66,7 +66,7 @@ public abstract class EntityBase {
    * @throws IllegalStateException the passed entity does not have the identity
    *                               attribute set.
    */
-  private void _checkIdentity(final EntityBase entity) {
+  private void _checkIdentity(final BaseEntity entity) {
     if (entity.getId() == null) {
       throw new IllegalStateException("Comparison identity missing in entity: " + entity);
     }

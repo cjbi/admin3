@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author cjbi
  */
 @Entity
-public class StoredEvent extends EntityBase {
+public class StoredEvent extends BaseEntity {
 
   @Lob
   @Column(length = Integer.MAX_VALUE)

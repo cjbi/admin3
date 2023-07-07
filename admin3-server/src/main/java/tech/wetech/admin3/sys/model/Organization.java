@@ -9,7 +9,7 @@ import java.util.Set;
  * @author cjbi
  */
 @Entity
-public class Organization extends EntityBase {
+public class Organization extends BaseEntity {
 
   @Column(nullable = false)
   private String name;

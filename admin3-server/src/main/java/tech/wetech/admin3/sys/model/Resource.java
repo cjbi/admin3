@@ -11,7 +11,7 @@ import java.util.Set;
  * @author cjbi
  */
 @Entity
-public class Resource extends EntityBase {
+public class Resource extends BaseEntity {
 
   private String name;
 
