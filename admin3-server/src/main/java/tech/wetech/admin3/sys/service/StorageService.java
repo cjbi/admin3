@@ -1,8 +1,8 @@
 package tech.wetech.admin3.sys.service;
 
 import org.springframework.core.io.Resource;
-import tech.wetech.admin3.sys.model.storage.StorageConfig;
-import tech.wetech.admin3.sys.model.storage.StorageFile;
+import tech.wetech.admin3.sys.model.StorageConfig;
+import tech.wetech.admin3.sys.model.StorageFile;
 
 import java.io.InputStream;
 import java.util.List;
@@ -14,11 +14,15 @@ public interface StorageService {
 
   List<StorageConfig> findConfigList();
 
-  StorageConfig createConfig(StorageConfig storageConfig);
+  StorageConfig getConfig(Long id);
 
-  StorageConfig updateConfig(StorageConfig storageConfig);
+  StorageConfig createConfig(String name, StorageConfig.Type type, String accessKey, String endpoint, String bucketName, String address, String storagePath);
+
+  StorageConfig updateConfig(Long id, String name, StorageConfig.Type type, String accessKey, String endpoint, String bucketName, String address, String storagePath);
 
   void deleteConfig(StorageConfig storageConfig);
+
+  void markAsDefault(StorageConfig storageConfig);
 
   String store(InputStream inputStream, long contentLength, String contentType, String filename);
 

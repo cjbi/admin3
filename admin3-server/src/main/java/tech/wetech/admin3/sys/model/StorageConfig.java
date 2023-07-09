@@ -1,8 +1,13 @@
-package tech.wetech.admin3.sys.model.storage;
+package tech.wetech.admin3.sys.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import tech.wetech.admin3.sys.model.BaseEntity;
+import jakarta.persistence.PrePersist;
+import tech.wetech.admin3.common.Constants;
+import tech.wetech.admin3.common.SessionItemHolder;
+import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
+
+import java.time.LocalDateTime;
 
 /**
  * @author cjbi
@@ -15,7 +20,7 @@ public class StorageConfig extends BaseEntity {
   private Type type;
 
   @Column(name = "is_default")
-  private boolean aDefault;
+  private Boolean isDefault;
 
   private String accessKey;
 
@@ -29,10 +34,20 @@ public class StorageConfig extends BaseEntity {
 
   private String storagePath;
 
-  public enum Type {
-    LOCAL, S3
+  private String createUser;
+
+  private LocalDateTime createTime;
+
+  @PrePersist
+  protected void onCreate() {
+    createTime = LocalDateTime.now();
+    UserinfoDTO userInfo = (UserinfoDTO) SessionItemHolder.getItem(Constants.SESSION_CURRENT_USER);
+    createUser = userInfo.username();
   }
 
+  public enum Type {
+    LOCAL, S3, OSS, OBS
+  }
 
   public String getName() {
     return name;
@@ -43,11 +58,15 @@ public class StorageConfig extends BaseEntity {
   }
 
   public boolean isDefault() {
-    return aDefault;
+    return isDefault;
   }
 
-  public void setDefault(boolean aDefault) {
-    this.aDefault = aDefault;
+  public Boolean getIsDefault() {
+    return isDefault;
+  }
+
+  public void setIsDefault(Boolean aDefault) {
+    isDefault = aDefault;
   }
 
   public Type getType() {
@@ -104,5 +123,21 @@ public class StorageConfig extends BaseEntity {
 
   public void setStoragePath(String storagePath) {
     this.storagePath = storagePath;
+  }
+
+  public String getCreateUser() {
+    return createUser;
+  }
+
+  public void setCreateUser(String createUser) {
+    this.createUser = createUser;
+  }
+
+  public LocalDateTime getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(LocalDateTime createTime) {
+    this.createTime = createTime;
   }
 }

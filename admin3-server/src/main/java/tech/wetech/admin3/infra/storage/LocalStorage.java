@@ -4,7 +4,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import tech.wetech.admin3.common.BusinessException;
 import tech.wetech.admin3.common.CommonResultStatus;
-import tech.wetech.admin3.sys.model.storage.StorageConfig;
+import tech.wetech.admin3.sys.model.StorageConfig;
 
 import java.io.File;
 import java.io.IOException;

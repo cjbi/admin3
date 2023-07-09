@@ -1,7 +1,7 @@
 package tech.wetech.admin3.infra.storage;
 
 import org.springframework.core.io.Resource;
-import tech.wetech.admin3.sys.model.storage.StorageConfig;
+import tech.wetech.admin3.sys.model.StorageConfig;
 
 import java.io.File;
 import java.io.InputStream;

@@ -1,9 +1,10 @@
 package tech.wetech.admin3.sys.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import tech.wetech.admin3.sys.model.storage.StorageConfig;
+import tech.wetech.admin3.sys.model.StorageConfig;
 
 /**
  * @author cjbi
@@ -11,7 +12,7 @@ import tech.wetech.admin3.sys.model.storage.StorageConfig;
 @Repository
 public interface StorageConfigRepository extends JpaRepository<StorageConfig, Long> {
 
-  @Query("from StorageConfig where aDefault=true")
+  @Query("from StorageConfig where isDefault=true")
   StorageConfig getDefaultConfig();
 
 }

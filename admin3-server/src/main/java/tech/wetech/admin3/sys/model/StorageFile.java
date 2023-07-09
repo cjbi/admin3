@@ -1,9 +1,8 @@
-package tech.wetech.admin3.sys.model.storage;
+package tech.wetech.admin3.sys.model;
 
 import jakarta.persistence.*;
 import tech.wetech.admin3.common.Constants;
 import tech.wetech.admin3.common.SessionItemHolder;
-import tech.wetech.admin3.sys.model.BaseEntity;
 import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 
 import java.time.LocalDateTime;

@@ -7,10 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tech.wetech.admin3.sys.model.storage.StorageFile;
+import tech.wetech.admin3.sys.model.StorageConfig;
+import tech.wetech.admin3.sys.model.StorageFile;
 import tech.wetech.admin3.sys.service.StorageService;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author cjbi
@@ -24,6 +26,55 @@ public class StorageController {
 
   public StorageController(StorageService storageService) {
     this.storageService = storageService;
+  }
+
+  @GetMapping("/configs")
+  public ResponseEntity<List<StorageConfig>> findConfigList() {
+    List<StorageConfig> configList = storageService.findConfigList();
+    return ResponseEntity.ok(configList);
+  }
+
+  @PostMapping("/configs")
+  public ResponseEntity<StorageConfig> createStorageConfig(@RequestBody StorageConfigRequest request) {
+    StorageConfig config = storageService.createConfig(
+      request.name(),
+      request.type(),
+      request.accessKey(),
+      request.endpoint(),
+      request.bucketName(),
+      request.address(),
+      request.storagePath()
+    );
+    return ResponseEntity.ok(config);
+  }
+
+  @PutMapping("/configs/{id}")
+  public ResponseEntity<StorageConfig> updateStorageConfig(@PathVariable("id") Long id, @RequestBody StorageConfigRequest request) {
+    StorageConfig config = storageService.updateConfig(
+      id,
+      request.name(),
+      request.type(),
+      request.accessKey(),
+      request.endpoint(),
+      request.bucketName(),
+      request.address(),
+      request.storagePath()
+    );
+    return ResponseEntity.ok(config);
+  }
+
+  @DeleteMapping("/configs/{id}")
+  public ResponseEntity<Void> deleteStorageConfig(@PathVariable Long id) {
+    StorageConfig config = storageService.getConfig(id);
+    storageService.deleteConfig(config);
+    return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping("/configs/{id}:markAsDefault")
+  public ResponseEntity<Void> markAsDefaultStorageConfig(@PathVariable Long id) {
+    StorageConfig config = storageService.getConfig(id);
+    storageService.markAsDefault(config);
+    return ResponseEntity.noContent().build();
   }
 
   @PostMapping("/upload")
@@ -42,6 +93,9 @@ public class StorageController {
       return ResponseEntity.badRequest().build();
     }
     StorageFile storageFile = storageService.getByKey(key);
+    if (storageFile == null) {
+      return ResponseEntity.notFound().build();
+    }
     String type = storageFile.getType();
     MediaType mediaType = MediaType.parseMediaType(type);
     Resource resource = storageService.loadAsResource(key);
@@ -60,6 +114,9 @@ public class StorageController {
       return ResponseEntity.badRequest().build();
     }
     StorageFile storageFile = storageService.getByKey(key);
+    if (storageFile == null) {
+      return ResponseEntity.notFound().build();
+    }
     String type = storageFile.getType();
     MediaType mediaType = MediaType.parseMediaType(type);
     Resource file = storageService.loadAsResource(key);
@@ -79,8 +136,18 @@ public class StorageController {
     return ResponseEntity.noContent().build();
   }
 
-  record UploadResponse(String url) {
+  record StorageConfigRequest(String name,
+                              StorageConfig.Type type,
+                              String accessKey,
+                              String endpoint,
+                              String bucketName,
+                              String address,
+                              String storagePath
+  ) {
 
+  }
+
+  record UploadResponse(String url) {
   }
 
 }
