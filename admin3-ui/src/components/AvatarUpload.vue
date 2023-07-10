@@ -35,8 +35,8 @@ import {upload} from "../api/storage";
 const props = defineProps(['imgSrc']);
 const emits = defineEmits(['onSelect']);
 
-const avatarImg = ref(props.imgSrc);
-const cropImg = ref(props.imgSrc);
+const avatarImg = ref(props.imgSrc || undefined);
+const cropImg = ref(props.imgSrc || undefined);
 const dialogVisible = ref(false);
 const cropper: any = ref();
 const imgFile: any = ref();

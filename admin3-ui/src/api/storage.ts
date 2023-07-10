@@ -11,8 +11,9 @@ export function getStorageConfigList() {
 export function createStorageConfig(data: {
   name: string;
   type: string;
-  accessKey?: string,
   endpoint?: string,
+  accessKey?: string,
+  secretKey?: string,
   bucketName?: string,
   address?: string,
   storagePath?: string
@@ -27,8 +28,9 @@ export function createStorageConfig(data: {
 export function updateStorageConfig(id: number, data: {
   name: string;
   type: string;
-  accessKey?: string,
   endpoint?: string,
+  accessKey?: string,
+  secretKey?: string,
   bucketName?: string,
   address?: string,
   storagePath?: string

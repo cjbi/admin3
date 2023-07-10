@@ -8,8 +8,8 @@
         </el-button>
       </div>
       <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="名称" width="120"></el-table-column>
+        <el-table-column prop="storageId" label="标识" align="center"></el-table-column>
         <el-table-column prop="type" label="类型" width="120">
           <template #default="{ row }">
             <el-tag class="ml-2" type="success">{{ row.type }}</el-tag>
@@ -73,7 +73,7 @@
           <el-input v-model="form.secretKey"/>
         </el-form-item>
         <el-form-item label="访问域名">
-          <el-input v-model="form.address"/>
+          <el-input v-model="form.address" placeholder="不填写，则使用产商地址（本地存储除外）"/>
         </el-form-item>
         <el-form-item label="存储目录">
           <el-input v-model="form.storagePath" placeholder="不填写，默认存储到 files 目录下"/>
@@ -142,15 +142,15 @@ import {
   updateStorageConfig
 } from "../api/storage";
 import {ElMessage, ElMessageBox} from "element-plus";
-import {deleteRole} from "../api/role";
 
 interface Storage {
   id?: number | null;
+  storageId?: string | null;
   name: string;
   type: string;
+  endpoint?: string;
   accessKey?: string;
   secretKey?: string;
-  endpoint?: string;
   bucketName?: string;
   isDefault?: boolean;
   address?: string;

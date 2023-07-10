@@ -227,9 +227,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="头像">
-          <el-form-item label="头像">
-            <AvatarUpload :img-src="form.avatar" @on-select="onAvatarSelect"/>
-          </el-form-item>
+          <AvatarUpload :img-src="form.avatar" @on-select="onAvatarSelect"/>
         </el-form-item>
       </el-form>
       <template #footer>
