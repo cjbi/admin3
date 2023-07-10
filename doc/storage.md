@@ -7,7 +7,7 @@ Admin3 已实现阿里云OSS、华为云OBS、MinIO 等符合 S3 标准的所有
 1. 在`系统管理>对象存储` 页面新增对象存储
 
    > 访问域名不填写，则返回对象存储厂商地址，不使用代理，代理路径为 `${domain}/admin3/storage/fetch/`，${domain} 根据实际外网地址配置
-   > 存储路径不配置默认为 `files`
+   > 存储目录不配置默认为 `files`
 
    ![](image/storage.png)
 
