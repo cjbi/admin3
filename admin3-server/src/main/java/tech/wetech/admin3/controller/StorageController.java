@@ -125,7 +125,7 @@ public class StorageController {
     }
     return ResponseEntity.ok().contentType(mediaType)
       .header(HttpHeaders.CONTENT_DISPOSITION,
-        "attachment; filename=\"" + file.getFilename() + "\"")
+        "attachment; filename=\"" + storageFile.getName() + "\"")
       .body(file);
   }
 

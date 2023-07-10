@@ -21,7 +21,7 @@
         <el-table-column prop="storagePath" label="存储目录"></el-table-column>
         <el-table-column prop="isDefault" label="默认对象存储">
           <template #default="{ row }">
-            <el-tag effect="dark" link v-if="row.isDefault">默认使用</el-tag>
+            <el-tag effect="dark" link v-if="row.isDefault" v-action:storage:markAsDefault>默认使用</el-tag>
             <el-popconfirm title="设为默认?" v-else @confirm="handleMarkAsDefaultConfig(row)">
               <template #reference>
                 <el-button link>设为默认</el-button>
@@ -37,13 +37,9 @@
               <el-button text :icon="Edit" @click="handleEdit(scope.row)" v-action:storage:update>
                 编辑
               </el-button>
-              <el-popconfirm title="确定删除?" @confirm="handleDelete(scope.row)">
-                <template #reference>
-                  <el-button text :icon="Delete" class="red" v-action:storage:delete>
-                    删除
-                  </el-button>
-                </template>
-              </el-popconfirm>
+              <el-button text :icon="Delete" class="red" @click="handleDelete(scope.row)" v-action:storage:delete>
+                删除
+              </el-button>
             </el-button-group>
           </template>
         </el-table-column>
@@ -145,7 +141,8 @@ import {
   markAsDefaultConfig,
   updateStorageConfig
 } from "../api/storage";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
+import {deleteRole} from "../api/role";
 
 interface Storage {
   id?: number | null;
@@ -209,10 +206,16 @@ const handleEdit = (record: any) => {
 }
 
 const handleDelete = (record: any) => {
-  deleteStorageConfig(record.id).then(res => {
-    getData();
-    ElMessage.success('删除成功');
-  })
+  ElMessageBox.confirm('确定要删除吗？', '提示', {
+    type: 'warning'
+  }).then(() => {
+    deleteStorageConfig(record.id).then(res => {
+      getData();
+      ElMessage.success('删除成功');
+    });
+  }).catch(() => {
+  });
+
 }
 
 

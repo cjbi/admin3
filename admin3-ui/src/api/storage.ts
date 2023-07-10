@@ -24,7 +24,7 @@ export function createStorageConfig(data: {
   });
 }
 
-export function updateStorageConfig(id: number,data: {
+export function updateStorageConfig(id: number, data: {
   name: string;
   type: string;
   accessKey?: string,
@@ -51,6 +51,15 @@ export function markAsDefaultConfig(id: number) {
   return request({
     url: `${BASE_URI}/storage/configs/${id}:markAsDefault`,
     method: 'post',
+  });
+}
+
+export function upload(data: any) {
+  return request({
+    url: `${BASE_URI}/storage/upload`,
+    headers: {'Content-Type': 'multipart/form-data'},
+    method: 'post',
+    data: data
   });
 }
 
