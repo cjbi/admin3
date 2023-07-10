@@ -29,14 +29,14 @@
 <script setup lang="ts">
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {upload} from "../api/storage";
 
 const props = defineProps(['imgSrc']);
 const emits = defineEmits(['onSelect']);
+const avatarImg = ref('avatar.jpg');
+const cropImg = ref('avatar.jpg');
 
-const avatarImg = ref(props.imgSrc || 'avatar.jpg');
-const cropImg = ref(props.imgSrc || 'avatar.jpg');
 const dialogVisible = ref(false);
 const cropper: any = ref();
 const showDialog = () => {
@@ -59,7 +59,13 @@ const setImage = (e: any) => {
 const cropImage = () => {
   cropImg.value = cropper.value.getCroppedCanvas().toDataURL();
 }
-
+watch(() => props.imgSrc, () => {
+  avatarImg.value = props.imgSrc;
+  cropImg.value = props.imgSrc;
+}, {
+  deep: true,
+  immediate: true
+});
 const saveAvatar = () => {
   avatarImg.value = cropImg.value;
   dialogVisible.value = false;
