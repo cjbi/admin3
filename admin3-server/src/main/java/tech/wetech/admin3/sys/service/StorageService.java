@@ -24,7 +24,7 @@ public interface StorageService {
 
   void markAsDefault(StorageConfig storageConfig);
 
-  String store(InputStream inputStream, long contentLength, String contentType, String filename);
+  String store(String storageId, InputStream inputStream, long contentLength, String contentType, String filename);
 
   void delete(String key);
 

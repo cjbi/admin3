@@ -81,9 +81,10 @@ public class StorageController {
   }
 
   @PostMapping("/upload")
-  public ResponseEntity<UploadResponse> upload(MultipartFile file) throws IOException {
+  public ResponseEntity<UploadResponse> upload(@RequestParam(value = "storageId", required = false) String storageId,
+                                               @RequestParam("file") MultipartFile file) throws IOException {
     String originalFilename = file.getOriginalFilename();
-    String url = storageService.store(file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
+    String url = storageService.store(storageId, file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
     return ResponseEntity.ok(new UploadResponse(url));
   }
 

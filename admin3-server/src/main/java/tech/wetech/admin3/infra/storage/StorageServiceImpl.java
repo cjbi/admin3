@@ -101,9 +101,14 @@ public class StorageServiceImpl implements StorageService {
 
   @Override
   @Transactional
-  public String store(InputStream inputStream, long contentLength, String contentType, String filename) {
+  public String store(String storageId, InputStream inputStream, long contentLength, String contentType, String filename) {
     String key = generateKey(filename);
-    Storage storage = getStorage();
+    Storage storage;
+    if (storageId != null) {
+      storage = getStorage(storageId);
+    } else {
+      storage = getStorage();
+    }
     storage.store(inputStream, contentLength, contentType, key);
     String url = getStorage().getUrl(key);
     StorageFile storageFile = new StorageFile();
