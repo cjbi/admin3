@@ -60,6 +60,7 @@
             <el-radio-button label="LOCAL">本地</el-radio-button>
           </el-radio-group>
         </el-form-item>
+        <el-alert title="以下所有输入都支持环境变量，使用语法为 {{VARIABLE_NAME}}" show-icon center :closable="false" style="margin-bottom: 18px"/>
         <el-form-item label="Endpoint" v-if="form.type!=='LOCAL'">
           <el-input v-model="form.endpoint" placeholder="对象存储资源的Endpoint"/>
         </el-form-item>
@@ -101,6 +102,7 @@
             <el-radio-button label="LOCAL">本地</el-radio-button>
           </el-radio-group>
         </el-form-item>
+        <el-alert title="以下所有输入都支持环境变量，使用语法为 {{VARIABLE_NAME}}" show-icon center :closable="false" style="margin-bottom: 18px"/>
         <el-form-item label="Endpoint" v-if="form.type!=='LOCAL'">
           <el-input v-model="form.endpoint" placeholder="对象存储资源的Endpoint"/>
         </el-form-item>

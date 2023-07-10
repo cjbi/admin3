@@ -5,9 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
 import tech.wetech.admin3.common.Constants;
 import tech.wetech.admin3.common.SessionItemHolder;
+import tech.wetech.admin3.common.StringUtils;
 import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author cjbi
@@ -135,6 +138,7 @@ public class StorageConfig extends BaseEntity {
     this.storagePath = storagePath;
   }
 
+
   public String getCreateUser() {
     return createUser;
   }
@@ -150,4 +154,36 @@ public class StorageConfig extends BaseEntity {
   public void setCreateTime(LocalDateTime createTime) {
     this.createTime = createTime;
   }
+
+  public String getAccessKeyWithEnv() {
+    return renderTemplate(accessKey);
+  }
+
+  public String getSecretKeyWithEnv() {
+    return renderTemplate(secretKey);
+  }
+
+  public String getEndpointWithEnv() {
+    return renderTemplate(endpoint);
+  }
+
+  public String getBucketNameWithEnv() {
+    return renderTemplate(bucketName);
+  }
+
+  public String getAddressWithEnv() {
+    return renderTemplate(address);
+  }
+
+  public String getStoragePathWithEnv() {
+    return renderTemplate(storagePath);
+  }
+
+  private String renderTemplate(String template) {
+    Map<Object, Object> attributes = new HashMap<>();
+    attributes.putAll(System.getenv());
+    attributes.putAll(System.getProperties());
+    return StringUtils.simpleRenderTemplate(template, attributes);
+  }
+
 }

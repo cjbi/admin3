@@ -24,7 +24,7 @@ public class LocalStorage implements Storage {
   public LocalStorage(StorageConfig config) {
     this.config = config;
 
-    this.rootLocation = Paths.get(config.getStoragePath());
+    this.rootLocation = Paths.get(config.getStoragePathWithEnv());
     try {
       Files.createDirectories(rootLocation);
     } catch (IOException e) {
@@ -79,6 +79,6 @@ public class LocalStorage implements Storage {
 
   @Override
   public String getUrl(String keyName) {
-    return config.getAddress() + keyName;
+    return config.getAddressWithEnv() + keyName;
   }
 }

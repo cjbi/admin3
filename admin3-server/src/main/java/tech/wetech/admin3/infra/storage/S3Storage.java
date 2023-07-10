@@ -38,7 +38,7 @@ public class S3Storage implements Storage {
   @Override
   public void store(InputStream inputStream, long contentLength, String contentType, String filename) {
     AmazonS3 s3client = getS3Client();
-    String bucketName = config.getBucketName();
+    String bucketName = config.getSecretKeyWithEnv();
     if (!s3client.doesBucketExistV2(bucketName)) {
       s3client.createBucket(bucketName);
     }
@@ -71,11 +71,11 @@ public class S3Storage implements Storage {
   }
 
   private AmazonS3 getS3Client() {
-    AWSCredentials awsCredentials = new BasicAWSCredentials(config.getAccessKey(), config.getSecretKey());
+    AWSCredentials awsCredentials = new BasicAWSCredentials(config.getAccessKeyWithEnv(), config.getSecretKeyWithEnv());
     AWSCredentialsProvider awsCredentialsProvider = new AWSStaticCredentialsProvider(awsCredentials);
     ClientConfiguration clientConfiguration = new ClientConfiguration();
     AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(
-      config.getEndpoint(), null);
+      config.getEndpointWithEnv(), null);
     return AmazonS3Client.builder()
       .withEndpointConfiguration(endpointConfiguration)
       .withClientConfiguration(clientConfiguration)
@@ -87,7 +87,7 @@ public class S3Storage implements Storage {
 
   @Override
   public Resource loadAsResource(String filename) {
-    String bucketName = config.getBucketName();
+    String bucketName = config.getBucketNameWithEnv();
     AmazonS3 amazonS3 = getS3Client();
     S3Object s3Object = amazonS3.getObject(bucketName, filename);
     InputStream is = s3Object.getObjectContent();
@@ -96,17 +96,17 @@ public class S3Storage implements Storage {
 
   @Override
   public void delete(String filename) {
-    String bucketName = config.getBucketName();
+    String bucketName = config.getBucketNameWithEnv();
     AmazonS3 amazonS3 = getS3Client();
     amazonS3.deleteObject(bucketName, filename);
   }
 
   @Override
   public String getUrl(String filename) {
-    if (config.getAddress() != null) {
-      return config.getAddress() + filename;
+    if (config.getAddressWithEnv() != null) {
+      return config.getAddressWithEnv() + filename;
     }
-    String bucketName = config.getBucketName();
+    String bucketName = config.getBucketNameWithEnv();
     return getS3Client().getUrl(bucketName, filename).toString();
   }
 }

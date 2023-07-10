@@ -6,12 +6,15 @@ Admin3 已实现阿里云OSS、华为云OBS、MinIO 等符合 S3 标准的所有
 
 1. 在`系统管理>对象存储` 页面新增对象存储
 
-   > 访问域名不填写，则返回对象存储厂商地址，不使用代理，代理路径为 `${domain}/admin3/storage/fetch/`，${domain} 根据实际外网地址配置
-   > 存储目录不配置默认为 `files`
+   > 访问域名不填写，则返回对象存储厂商地址，不使用代理，代理路径为 `{{domain}}/admin3/storage/fetch/`，{{domain}} 根据实际外网地址配置 <br>
+   > 存储目录不配置默认为 `files` <br>
+   > 支持读取系统环境变量和JDK配置作为配置参数，使用语法为 {{VARIABLE_NAME}}
 
    ![](image/storage.png)
 
 2. 设置为默认存储位置
+
+   > 也可以在上传时指定 storageId 来选择目标存储位置，多个对象存储可同时使用互不影响
 
    ![img.png](image/mark-as-default.png)
 

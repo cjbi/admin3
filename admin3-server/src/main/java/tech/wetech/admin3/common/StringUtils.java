@@ -19,6 +19,25 @@ public class StringUtils {
     return sb.toString();
   }
 
+  public static boolean isEmpty(Object str) {
+    return str == null || "".equals(str);
+  }
+
+  public static boolean isBlank(String str) {
+    int strLen;
+    if (str != null && (strLen = str.length()) != 0) {
+      for (int i = 0; i < strLen; ++i) {
+        // 判断字符是否为空格、制表符、tab
+        if (!Character.isWhitespace(str.charAt(i))) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return true;
+    }
+  }
+
   /**
    * 实现简单版本 mustache 风格的模板渲染，支持<b>{{key}}<b/>格式的模板内容
    *
@@ -27,6 +46,9 @@ public class StringUtils {
    * @return 渲染结果
    */
   public static String simpleRenderTemplate(String template, Map<?, ?> attributes) {
+    if (isBlank(template)) {
+      return template;
+    }
     int length = template.length();
     for (int i = 0; i < length; i++) {
       if (template.charAt(i) == '{') {
