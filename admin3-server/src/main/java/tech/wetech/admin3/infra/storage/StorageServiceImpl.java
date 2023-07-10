@@ -45,10 +45,10 @@ public class StorageServiceImpl implements StorageService {
   @Override
   @Transactional
   public StorageConfig createConfig(String name, StorageConfig.Type type, String endpoint, String accessKey, String secretKey, String bucketName, String address, String storagePath) {
-    return storageConfigRepository.save(buildConfig(null, name, type, endpoint, bucketName, accessKey, secretKey, address));
+    return storageConfigRepository.save(buildConfig(null, name, type, endpoint, bucketName, accessKey, secretKey, address, storagePath));
   }
 
-  private StorageConfig buildConfig(Long id, String name, StorageConfig.Type type, String endpoint, String bucketName, String accessKey, String secretKey, String address) {
+  private StorageConfig buildConfig(Long id, String name, StorageConfig.Type type, String endpoint, String bucketName, String accessKey, String secretKey, String address, String storagePath) {
     StorageConfig storageConfig;
     if (id != null) {
       storageConfig = getConfig(id);
@@ -64,14 +64,14 @@ public class StorageServiceImpl implements StorageService {
     storageConfig.setEndpoint(endpoint);
     storageConfig.setBucketName(bucketName);
     storageConfig.setAddress(address);
-    storageConfig.setStoragePath(endpoint);
+    storageConfig.setStoragePath(storagePath);
     return storageConfig;
   }
 
   @Override
   @Transactional
   public StorageConfig updateConfig(Long id, String name, StorageConfig.Type type, String endpoint, String accessKey, String secretKey, String bucketName, String address, String storagePath) {
-    return storageConfigRepository.save(buildConfig(id, name, type, endpoint, bucketName, accessKey, secretKey, address));
+    return storageConfigRepository.save(buildConfig(id, name, type, endpoint, bucketName, accessKey, secretKey, address, storagePath));
   }
 
   @Override
