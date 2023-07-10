@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author cjbi
  */
 @Entity
-public class Session extends EntityBase {
+public class Session extends BaseEntity {
 
   @Column(nullable = false)
   private String token;

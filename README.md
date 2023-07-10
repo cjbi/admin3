@@ -12,6 +12,7 @@
 * 前端资源支持独立部署+webjars嵌入到后端应用两种形式
 * 持久层使用SpringData JPA进行开发，能够支持多种数据库适配
 * 所有的接口都有端到端的测试用例覆盖，有代码变动都会全量跑一遍测试用例，保证功能绝对可用
+* 统一对象存储封装，实现应用和上传文件位置隔离，支持本地上传&所有符合S3标准(阿里云、华为云、七牛云MinIO等)的对象存储方案
 
 ## 在线体验
 
@@ -38,6 +39,9 @@
        <td><img src="doc/image/permission.png"/></td>
        <td><img src="doc/image/log-list.png"/></td>
     </tr>
+    <tr>
+       <td><img src="doc/image/storage.png"/></td>
+    </tr>
 </table>
 
 ## 技术文档
@@ -48,9 +52,12 @@
 
 - [API 参考](doc/api-reference.md)
 
+- [对象存储](doc/storage.md)
+
 - [常用命令](doc/command.md)
 
 ## 软件需求
+
 - JDK 17
 - MySQL 8.0
 - Maven 3.6.0+
@@ -67,9 +74,7 @@
 
 - [x] 操作日志
 
-- [ ] 文件上传（常用第三方对象存储服务统一封装），支持修改用户头像
-
-- [ ] 首页数据统计
+- [x] 文件上传（常用第三方对象存储服务统一封装），支持修改用户头像
 
 - [ ] 国际化
 

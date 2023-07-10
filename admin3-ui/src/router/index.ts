@@ -51,6 +51,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import(/* webpackChunkName: "dashboard" */ '../views/log-list.vue'),
       },
       {
+        path: '/storage',
+        name: 'storage',
+        meta: {
+          title: '对象存储',
+        },
+        component: () => import(/* webpackChunkName: "dashboard" */ '../views/storage-list.vue'),
+      },
+      {
         path: '/tabs',
         name: 'tabs',
         meta: {

@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
  * @author cjbi
  */
 @Entity
-public class UserCredential extends EntityBase {
+public class UserCredential extends BaseEntity {
 
   /**
    * 标识（手机号 邮箱 用户名或第三方应用的唯一标识）

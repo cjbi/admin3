@@ -199,6 +199,9 @@
             <el-radio label="FEMALE">女</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="头像">
+          <AvatarUpload :img-src="form.avatar" @on-select="onAvatarSelect"/>
+        </el-form-item>
       </el-form>
       <template #footer>
 				<span class="dialog-footer">
@@ -222,6 +225,9 @@
             <el-radio label="MALE">男</el-radio>
             <el-radio label="FEMALE">女</el-radio>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item label="头像">
+          <AvatarUpload :img-src="form.avatar" @on-select="onAvatarSelect"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -247,6 +253,7 @@ import {
   updateOrganization
 } from "../api/organization";
 import cloneDeep from 'lodash/cloneDeep';
+import AvatarUpload from "../components/AvatarUpload.vue";
 
 interface OrgTreeNode {
   name: string
@@ -333,7 +340,7 @@ const saveAddOrgNode = async () => {
 /**
  * @desc 转换数组对象的键值对 el-tree => el-tree-select
  */
-const convertOrgTree = (orgTreeNode: Partial<(OrgTreeNode & {value: number, label: string})>[]) => {
+const convertOrgTree = (orgTreeNode: Partial<(OrgTreeNode & { value: number, label: string })>[]) => {
   if (!orgTreeNode.length) {
     return;
   }
@@ -443,7 +450,6 @@ let id: number = 0;
 let form = reactive(new User());
 
 const saveAdd = () => {
-  form.avatar = 'https://picsum.photos/id/237/100';
   form.organizationId = selectedNode.value.id;
   createUser(form).then(res => {
     getUserData();
@@ -461,6 +467,7 @@ const handleEdit = (index: number, row: any) => {
 const saveEdit = () => {
   editVisible.value = false;
   form.organizationId = selectedNode.value.id;
+  console.log(form);
   updateUser(id, form).then(res => {
     getUserData();
     ElMessage.success(`修改成功`);
@@ -478,7 +485,9 @@ const handleEnable = (row: any) => {
     ElMessage.success(`启用成功`);
   });
 }
-
+const onAvatarSelect = (imgUrl: string) => {
+  form.avatar = imgUrl;
+}
 
 </script>
 
