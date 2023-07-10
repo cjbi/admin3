@@ -52,6 +52,8 @@
 
 - [API 参考](doc/api-reference.md)
 
+- [对象存储](doc/storage.md)
+
 - [常用命令](doc/command.md)
 
 ## 软件需求
