@@ -161,7 +161,7 @@ interface Storage {
 
 class StorageImpl implements Storage {
   id = null;
-  endpoint = 'http://oss-cn-hangzhou.aliyuncs.com';
+  endpoint = 'oss-cn-shanghai.aliyuncs.com';
   name = '';
   type = 'OSS';
   storagePath = 'files';
@@ -222,10 +222,10 @@ const handleDelete = (record: any) => {
 const handleTypeChange = () => {
   switch (form.type) {
     case 'OSS':
-      Object.assign(form, {endpoint: 'http://oss-cn-hangzhou.aliyuncs.com'});
+      Object.assign(form, {endpoint: 'oss-cn-shanghai.aliyuncs.com'});
       break;
     case 'OBS':
-      Object.assign(form, {endpoint: 'https://obs.cn-north-4.myhuaweicloud.com'});
+      Object.assign(form, {endpoint: 'obs.cn-north-4.myhuaweicloud.com'});
       break;
     default:
       Object.assign(form, {endpoint: ''})
