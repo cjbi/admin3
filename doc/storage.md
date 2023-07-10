@@ -45,17 +45,17 @@ Content-Type: multipart/form-data
 
 POST /storage/fetch/{key:.+}
 
-Content-Type: application/octet-stream
+响应头
 
-返回二进制流
+Content-Type: application/octet-stream
 
 ## 下载文件
 
 POST /storage/download/{key:.+}
 
+响应头
 
 Content-Type: application/octet-stream
 
 Content-Disposition: "attachment; filename=\"" + file.getFilename() + "\""
 
-返回二进制流
