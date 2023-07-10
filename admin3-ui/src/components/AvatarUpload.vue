@@ -39,7 +39,6 @@ const avatarImg = ref(props.imgSrc || undefined);
 const cropImg = ref(props.imgSrc || undefined);
 const dialogVisible = ref(false);
 const cropper: any = ref();
-const imgFile: any = ref();
 const showDialog = () => {
   dialogVisible.value = true;
 }
@@ -49,7 +48,6 @@ const setImage = (e: any) => {
   if (!file.type.includes('image/')) {
     return;
   }
-  imgFile.value = file;
   const reader = new FileReader();
   reader.onload = (event: any) => {
     dialogVisible.value = true;
@@ -65,9 +63,14 @@ const cropImage = () => {
 const saveAvatar = () => {
   avatarImg.value = cropImg.value;
   dialogVisible.value = false;
-  upload({file: imgFile.value}).then(res => {
-    emits('onSelect', res.data?.url);
-  })
+  fetch(cropImg.value)
+    .then(response => response.blob())
+    .then(blob => {
+      const file = new File([blob], "avatar.png", {type: blob.type})
+      upload({files: file}).then(res => {
+        emits('onSelect', res.data[0]?.url);
+      })
+    });
 };
 
 </script>

@@ -56,7 +56,7 @@ export function markAsDefaultConfig(id: number) {
   });
 }
 
-export function upload(data: any) {
+export function upload(data: { storageId?: string, files: any }) {
   return request({
     url: `${BASE_URI}/storage/upload`,
     headers: {'Content-Type': 'multipart/form-data'},

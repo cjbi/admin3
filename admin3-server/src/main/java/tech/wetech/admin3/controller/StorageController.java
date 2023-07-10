@@ -13,6 +13,7 @@ import tech.wetech.admin3.sys.model.StorageFile;
 import tech.wetech.admin3.sys.service.StorageService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,11 +82,15 @@ public class StorageController {
   }
 
   @PostMapping("/upload")
-  public ResponseEntity<UploadResponse> upload(@RequestParam(value = "storageId", required = false) String storageId,
-                                               @RequestParam("file") MultipartFile file) throws IOException {
-    String originalFilename = file.getOriginalFilename();
-    String url = storageService.store(storageId, file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
-    return ResponseEntity.ok(new UploadResponse(url));
+  public ResponseEntity<List<UploadResponse>> upload(@RequestParam(value = "storageId", required = false) String storageId,
+                                                     @RequestParam("files") MultipartFile[] files) throws IOException {
+    List<UploadResponse> responses = new ArrayList<>();
+    for (MultipartFile file : files) {
+      String originalFilename = file.getOriginalFilename();
+      String url = storageService.store(storageId, file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
+      responses.add(new UploadResponse(url));
+    }
+    return ResponseEntity.ok(responses);
   }
 
   @GetMapping("/fetch/{key:.+}")
