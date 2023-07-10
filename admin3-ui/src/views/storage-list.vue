@@ -73,7 +73,7 @@
           <el-input v-model="form.secretKey"/>
         </el-form-item>
         <el-form-item label="访问域名">
-          <el-input v-model="form.address" placeholder="不填写，则使用产商地址（本地存储除外）"/>
+          <el-input v-model="form.address" placeholder="不填写，则使用厂商地址（本地存储除外）"/>
         </el-form-item>
         <el-form-item label="存储目录">
           <el-input v-model="form.storagePath" placeholder="不填写，默认存储到 files 目录下"/>

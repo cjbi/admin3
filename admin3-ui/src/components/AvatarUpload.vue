@@ -35,8 +35,8 @@ import {upload} from "../api/storage";
 const props = defineProps(['imgSrc']);
 const emits = defineEmits(['onSelect']);
 
-const avatarImg = ref(props.imgSrc || undefined);
-const cropImg = ref(props.imgSrc || undefined);
+const avatarImg = ref(props.imgSrc || 'avatar.jpg');
+const cropImg = ref(props.imgSrc || 'avatar.jpg');
 const dialogVisible = ref(false);
 const cropper: any = ref();
 const showDialog = () => {
@@ -69,7 +69,8 @@ const saveAvatar = () => {
       const file = new File([blob], "avatar.png", {type: blob.type})
       upload({files: file}).then(res => {
         emits('onSelect', res.data[0]?.url);
-      })
+
+      });
     });
 };
 
