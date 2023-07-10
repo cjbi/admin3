@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="bucketName" label="Bucket名称"></el-table-column>
         <el-table-column prop="endpoint" label="Endpoint"></el-table-column>
-        <el-table-column prop="address" label="访问域名"></el-table-column>
+        <el-table-column prop="address" label="访问地址"></el-table-column>
         <el-table-column prop="storagePath" label="存储目录"></el-table-column>
         <el-table-column prop="isDefault" label="默认对象存储">
           <template #default="{ row }">
@@ -73,7 +73,7 @@
         <el-form-item label="SecretKey" v-if="form.type!=='LOCAL'">
           <el-input v-model="form.secretKey"/>
         </el-form-item>
-        <el-form-item label="访问域名">
+        <el-form-item label="访问地址">
           <el-input v-model="form.address" placeholder="不填写，则使用厂商地址（本地存储除外）"/>
         </el-form-item>
         <el-form-item label="存储目录">
@@ -115,7 +115,7 @@
         <el-form-item label="SecretKey" v-if="form.type!=='LOCAL'">
           <el-input v-model="form.secretKey"/>
         </el-form-item>
-        <el-form-item label="访问域名">
+        <el-form-item label="访问地址">
           <el-input v-model="form.address"/>
         </el-form-item>
         <el-form-item label="存储目录">
