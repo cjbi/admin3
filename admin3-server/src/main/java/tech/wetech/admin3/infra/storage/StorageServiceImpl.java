@@ -3,6 +3,7 @@ package tech.wetech.admin3.infra.storage;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tech.wetech.admin3.common.NanoId;
 import tech.wetech.admin3.common.StringUtils;
 import tech.wetech.admin3.sys.exception.StorageException;
 import tech.wetech.admin3.sys.model.StorageConfig;
@@ -43,18 +44,23 @@ public class StorageServiceImpl implements StorageService {
 
   @Override
   @Transactional
-  public StorageConfig createConfig(String name, StorageConfig.Type type, String accessKey, String endpoint, String bucketName, String address, String storagePath) {
-    return storageConfigRepository.save(buildConfig(null, name, type, accessKey, endpoint, bucketName, address));
+  public StorageConfig createConfig(String name, StorageConfig.Type type, String endpoint, String accessKey, String secretKey, String bucketName, String address, String storagePath) {
+    return storageConfigRepository.save(buildConfig(null, name, type, endpoint, bucketName, accessKey, secretKey, address));
   }
 
-  private StorageConfig buildConfig(Long id, String name, StorageConfig.Type type, String accessKey, String endpoint, String bucketName, String address) {
-    StorageConfig storageConfig = new StorageConfig();
-    storageConfig.setId(id);
+  private StorageConfig buildConfig(Long id, String name, StorageConfig.Type type, String endpoint, String bucketName, String accessKey, String secretKey, String address) {
+    StorageConfig storageConfig;
+    if (id != null) {
+      storageConfig = getConfig(id);
+      storageConfig.setId(id);
+    } else {
+      storageConfig = new StorageConfig();
+      storageConfig.setStorageId(NanoId.randomNanoId());
+    }
     storageConfig.setName(name);
-    storageConfig.setIsDefault(false);
     storageConfig.setType(type);
-    storageConfig.setAccessKey(name);
-    storageConfig.setSecretKey(accessKey);
+    storageConfig.setAccessKey(accessKey);
+    storageConfig.setSecretKey(secretKey);
     storageConfig.setEndpoint(endpoint);
     storageConfig.setBucketName(bucketName);
     storageConfig.setAddress(address);
@@ -64,8 +70,8 @@ public class StorageServiceImpl implements StorageService {
 
   @Override
   @Transactional
-  public StorageConfig updateConfig(Long id, String name, StorageConfig.Type type, String accessKey, String endpoint, String bucketName, String address, String storagePath) {
-    return storageConfigRepository.save(buildConfig(id, name, type, accessKey, endpoint, bucketName, address));
+  public StorageConfig updateConfig(Long id, String name, StorageConfig.Type type, String endpoint, String accessKey, String secretKey, String bucketName, String address, String storagePath) {
+    return storageConfigRepository.save(buildConfig(id, name, type, endpoint, bucketName, accessKey, secretKey, address));
   }
 
   @Override
@@ -106,6 +112,7 @@ public class StorageServiceImpl implements StorageService {
     storageFile.setType(contentType);
     storageFile.setSize(contentLength);
     storageFile.setUrl(url);
+    storageFile.setStorageId(storage.getId());
     storageFileRepository.save(storageFile);
     return url;
   }
@@ -113,6 +120,14 @@ public class StorageServiceImpl implements StorageService {
 
   private Storage getStorage() {
     StorageConfig config = storageConfigRepository.getDefaultConfig();
+    if (config.getType() == StorageConfig.Type.LOCAL) {
+      return new LocalStorage(config);
+    }
+    return new S3Storage(config);
+  }
+
+  private Storage getStorage(String storageId) {
+    StorageConfig config = storageConfigRepository.getByStorageId(storageId);
     if (config.getType() == StorageConfig.Type.LOCAL) {
       return new LocalStorage(config);
     }
@@ -146,7 +161,9 @@ public class StorageServiceImpl implements StorageService {
 
   @Override
   public Resource loadAsResource(String key) {
-    return getStorage().loadAsResource(key);
+    StorageFile file = storageFileRepository.getByKey(key);
+    Storage storage = getStorage(file.getStorageId());
+    return storage.loadAsResource(key);
   }
 
 }

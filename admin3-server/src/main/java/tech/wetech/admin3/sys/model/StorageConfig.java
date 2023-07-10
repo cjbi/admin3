@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Entity
 public class StorageConfig extends BaseEntity {
 
+  private String storageId;
+
   private String name;
 
   private Type type;
@@ -49,6 +51,14 @@ public class StorageConfig extends BaseEntity {
     LOCAL, S3, OSS, OBS
   }
 
+  public String getStorageId() {
+    return storageId;
+  }
+
+  public void setStorageId(String storageId) {
+    this.storageId = storageId;
+  }
+
   public String getName() {
     return name;
   }
@@ -58,7 +68,7 @@ public class StorageConfig extends BaseEntity {
   }
 
   public boolean isDefault() {
-    return isDefault;
+    return isDefault != null && isDefault;
   }
 
   public Boolean getIsDefault() {

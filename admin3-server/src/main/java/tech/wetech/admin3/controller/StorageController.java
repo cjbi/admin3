@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tech.wetech.admin3.sys.model.StorageConfig;
+import tech.wetech.admin3.sys.model.StorageConfig.Type;
 import tech.wetech.admin3.sys.model.StorageFile;
 import tech.wetech.admin3.sys.service.StorageService;
 
@@ -39,8 +40,9 @@ public class StorageController {
     StorageConfig config = storageService.createConfig(
       request.name(),
       request.type(),
-      request.accessKey(),
       request.endpoint(),
+      request.accessKey(),
+      request.secretKey(),
       request.bucketName(),
       request.address(),
       request.storagePath()
@@ -54,8 +56,9 @@ public class StorageController {
       id,
       request.name(),
       request.type(),
-      request.accessKey(),
       request.endpoint(),
+      request.accessKey(),
+      request.secretKey(),
       request.bucketName(),
       request.address(),
       request.storagePath()
@@ -137,9 +140,10 @@ public class StorageController {
   }
 
   record StorageConfigRequest(String name,
-                              StorageConfig.Type type,
-                              String accessKey,
+                              Type type,
                               String endpoint,
+                              String accessKey,
+                              String secretKey,
                               String bucketName,
                               String address,
                               String storagePath

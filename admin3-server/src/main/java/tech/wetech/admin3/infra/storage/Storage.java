@@ -3,28 +3,24 @@ package tech.wetech.admin3.infra.storage;
 
 import org.springframework.core.io.Resource;
 
-import java.io.File;
 import java.io.InputStream;
-import java.nio.file.Path;
-import java.util.stream.Stream;
 
 /**
  * @author cjbi
  */
 public interface Storage {
+
+  String getId();
+
   /**
    * 存储一个文件对象
    *
    * @param inputStream   文件输入流
    * @param contentLength 文件长度
    * @param contentType   文件类型
-   * @param keyName       文件名
+   * @param filename      文件名
    */
-  void store(InputStream inputStream, long contentLength, String contentType, String keyName);
-
-  Stream<Path> getAll();
-
-  File getFile(String filename);
+  void store(InputStream inputStream, long contentLength, String contentType, String filename);
 
   Resource loadAsResource(String filename);
 

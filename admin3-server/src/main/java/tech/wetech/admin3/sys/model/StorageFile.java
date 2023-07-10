@@ -44,6 +44,8 @@ public class StorageFile extends BaseEntity {
 
   private LocalDateTime createTime;
 
+  private String storageId;
+
   @PrePersist
   protected void onCreate() {
     createTime = LocalDateTime.now();
@@ -105,5 +107,13 @@ public class StorageFile extends BaseEntity {
 
   public void setCreateTime(LocalDateTime createTime) {
     this.createTime = createTime;
+  }
+
+  public String getStorageId() {
+    return storageId;
+  }
+
+  public void setStorageId(String storageId) {
+    this.storageId = storageId;
   }
 }
