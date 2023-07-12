@@ -89,11 +89,7 @@ public class StorageServiceImpl implements StorageService {
     storageConfig.setIsDefault(true);
     List<StorageConfig> configList = findConfigList();
     for (StorageConfig record : configList) {
-      if (record.equals(storageConfig)) {
-        record.setIsDefault(true);
-      } else {
-        record.setIsDefault(false);
-      }
+      record.setIsDefault(record.equals(storageConfig));
     }
     storageConfigRepository.saveAll(configList);
   }

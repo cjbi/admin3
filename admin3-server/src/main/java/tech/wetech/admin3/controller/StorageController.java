@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tech.wetech.admin3.common.authz.RequiresPermissions;
 import tech.wetech.admin3.sys.model.StorageConfig;
 import tech.wetech.admin3.sys.model.StorageConfig.Type;
 import tech.wetech.admin3.sys.model.StorageFile;
@@ -31,12 +32,14 @@ public class StorageController {
   }
 
   @GetMapping("/configs")
+  @RequiresPermissions("storage:view")
   public ResponseEntity<List<StorageConfig>> findConfigList() {
     List<StorageConfig> configList = storageService.findConfigList();
     return ResponseEntity.ok(configList);
   }
 
   @PostMapping("/configs")
+  @RequiresPermissions("storage:create")
   public ResponseEntity<StorageConfig> createStorageConfig(@RequestBody StorageConfigRequest request) {
     StorageConfig config = storageService.createConfig(
       request.name(),
@@ -52,6 +55,7 @@ public class StorageController {
   }
 
   @PutMapping("/configs/{id}")
+  @RequiresPermissions("storage:update")
   public ResponseEntity<StorageConfig> updateStorageConfig(@PathVariable("id") Long id, @RequestBody StorageConfigRequest request) {
     StorageConfig config = storageService.updateConfig(
       id,
@@ -68,6 +72,7 @@ public class StorageController {
   }
 
   @DeleteMapping("/configs/{id}")
+  @RequiresPermissions("storage:delete")
   public ResponseEntity<Void> deleteStorageConfig(@PathVariable Long id) {
     StorageConfig config = storageService.getConfig(id);
     storageService.deleteConfig(config);
@@ -75,6 +80,7 @@ public class StorageController {
   }
 
   @PostMapping("/configs/{id}:markAsDefault")
+  @RequiresPermissions("storage:markAsDefault")
   public ResponseEntity<Void> markAsDefaultStorageConfig(@PathVariable Long id) {
     StorageConfig config = storageService.getConfig(id);
     storageService.markAsDefault(config);
