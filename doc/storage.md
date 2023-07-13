@@ -29,7 +29,7 @@ Content-Type: multipart/form-data
 
 | 名称        | 说明                 |
 |-----------|--------------------|
-| files     | 二进制，支持多个文件         |
+| files     | 多个 File 文件      |
 | storageId | 即对象存储标识，指定上传位置，非必填，不填则默认位置 |
 
 返回
