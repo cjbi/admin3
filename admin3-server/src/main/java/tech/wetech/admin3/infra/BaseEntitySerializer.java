@@ -22,13 +22,13 @@ import java.util.Map;
  * @author cjbi
  * @date 2022/9/16
  */
-public class EntityBaseSerializer extends StdSerializer<BaseEntity> {
+public class BaseEntitySerializer extends StdSerializer<BaseEntity> {
 
-  public final static EntityBaseSerializer instance = new EntityBaseSerializer(BaseEntity.class);
+  public final static BaseEntitySerializer instance = new BaseEntitySerializer(BaseEntity.class);
 
   private final List<Class<? extends Annotation>> IGNORE_ANNOTATIONS = Arrays.asList(ElementCollection.class, OneToMany.class, OneToOne.class, ManyToOne.class, ManyToMany.class, Embedded.class);
 
-  protected EntityBaseSerializer(Class<BaseEntity> t) {
+  protected BaseEntitySerializer(Class<BaseEntity> t) {
     super(t);
   }
 
