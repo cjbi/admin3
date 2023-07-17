@@ -3,8 +3,13 @@ package tech.wetech.admin3.infra.storage;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tech.wetech.admin3.common.DomainEventPublisher;
 import tech.wetech.admin3.common.NanoId;
 import tech.wetech.admin3.common.StringUtils;
+import tech.wetech.admin3.sys.event.StorageConfigCreated;
+import tech.wetech.admin3.sys.event.StorageConfigDeleted;
+import tech.wetech.admin3.sys.event.StorageConfigMarkedAsDefault;
+import tech.wetech.admin3.sys.event.StorageConfigUpdated;
 import tech.wetech.admin3.sys.exception.StorageException;
 import tech.wetech.admin3.sys.model.StorageConfig;
 import tech.wetech.admin3.sys.model.StorageFile;
@@ -45,7 +50,9 @@ public class StorageServiceImpl implements StorageService {
   @Override
   @Transactional
   public StorageConfig createConfig(String name, StorageConfig.Type type, String endpoint, String accessKey, String secretKey, String bucketName, String address, String storagePath) {
-    return storageConfigRepository.save(buildConfig(null, name, type, endpoint, bucketName, accessKey, secretKey, address, storagePath));
+    StorageConfig config = storageConfigRepository.save(buildConfig(null, name, type, endpoint, bucketName, accessKey, secretKey, address, storagePath));
+    DomainEventPublisher.instance().publish(new StorageConfigCreated(config));
+    return config;
   }
 
   private StorageConfig buildConfig(Long id, String name, StorageConfig.Type type, String endpoint, String bucketName, String accessKey, String secretKey, String address, String storagePath) {
@@ -71,7 +78,9 @@ public class StorageServiceImpl implements StorageService {
   @Override
   @Transactional
   public StorageConfig updateConfig(Long id, String name, StorageConfig.Type type, String endpoint, String accessKey, String secretKey, String bucketName, String address, String storagePath) {
-    return storageConfigRepository.save(buildConfig(id, name, type, endpoint, bucketName, accessKey, secretKey, address, storagePath));
+    StorageConfig config = storageConfigRepository.save(buildConfig(id, name, type, endpoint, bucketName, accessKey, secretKey, address, storagePath));
+    DomainEventPublisher.instance().publish(new StorageConfigUpdated(config));
+    return config;
   }
 
   @Override
@@ -81,6 +90,7 @@ public class StorageServiceImpl implements StorageService {
       throw new StorageException(FAIL, "不能删除默认配置");
     }
     storageConfigRepository.delete(storageConfig);
+    DomainEventPublisher.instance().publish(new StorageConfigDeleted(storageConfig));
   }
 
   @Override
@@ -92,6 +102,7 @@ public class StorageServiceImpl implements StorageService {
       record.setIsDefault(record.equals(storageConfig));
     }
     storageConfigRepository.saveAll(configList);
+    DomainEventPublisher.instance().publish(new StorageConfigMarkedAsDefault(storageConfig));
   }
 
 

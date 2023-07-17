@@ -1,7 +1,7 @@
 package tech.wetech.admin3.common.authz;
 
-import org.springframework.util.StringUtils;
 import tech.wetech.admin3.common.CollectionUtils;
+import tech.wetech.admin3.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

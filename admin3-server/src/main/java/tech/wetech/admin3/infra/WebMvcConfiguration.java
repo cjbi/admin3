@@ -62,7 +62,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
     return builder -> {
       //jpa entity serializers
-      builder.serializers(EntityBaseSerializer.instance);
+      builder.serializers(BaseEntitySerializer.instance);
 
       //datetime formatter
       DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

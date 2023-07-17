@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import tech.wetech.admin3.infra.EntityBaseSerializer;
+import tech.wetech.admin3.infra.BaseEntitySerializer;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,7 +34,7 @@ public class JsonUtils {
     builder.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     builder.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
     SimpleModule module = new SimpleModule();
-    module.addSerializer(EntityBaseSerializer.instance);
+    module.addSerializer(BaseEntitySerializer.instance);
     builder.addModule(module);
     JSON = builder.build();
   }

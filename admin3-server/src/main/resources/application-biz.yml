@@ -42,3 +42,15 @@ admin3:
     "[tech.wetech.admin3.sys.event.ResourceDeleted]":
       text: '删除资源'
       log-template: '资源 {{resource.name}} 删除成功'
+    "[tech.wetech.admin3.sys.event.StorageConfigCreated]":
+      text: '创建对象存储配置'
+      log-template: '对象存储配置 {{config.storageId}} 已创建'
+    "[tech.wetech.admin3.sys.event.StorageConfigUpdated]":
+      text: '更新对象存储'
+      log-template: '对象存储配置 {{config.storageId}} 已更新'
+    "[tech.wetech.admin3.sys.event.StorageConfigDeleted]":
+      text: '删除对象存储配置'
+      log-template: '对象存储配置 {{config.storageId}} 删除成功'
+    "[tech.wetech.admin3.sys.event.StorageConfigMarkedAsDefault]":
+      text: '标记默认对象存储位置'
+      log-template: '对象存储配置 {{config.storageId}} 已标记为默认存储位置'

@@ -28,33 +28,33 @@
 
 <table>
     <tr>
-        <td><img src="doc/image/login.jpg"/></td>
-        <td><img src="doc/image/user.png"/></td>
+        <td><img src="docs/image/login.jpg"/></td>
+        <td><img src="docs/image/user.png"/></td>
     </tr>
     <tr>
-        <td><img src="doc/image/role-auth.png"/></td>
-        <td><img src="doc/image/role-member.png"/></td>
+        <td><img src="docs/image/role-auth.png"/></td>
+        <td><img src="docs/image/role-member.png"/></td>
     </tr>
     <tr>
-       <td><img src="doc/image/permission.png"/></td>
-       <td><img src="doc/image/log-list.png"/></td>
+       <td><img src="docs/image/permission.png"/></td>
+       <td><img src="docs/image/log-list.png"/></td>
     </tr>
     <tr>
-       <td><img src="doc/image/storage.png"/></td>
+       <td><img src="docs/image/storage.png"/></td>
     </tr>
 </table>
 
 ## 技术文档
 
-- [权限管理](doc/authority-management.md)
+- [权限管理](docs/authority-management.md)
 
-- [目录结构](doc/struct.md)
+- [目录结构](docs/struct.md)
 
-- [API 参考](doc/api-reference.md)
+- [API 参考](docs/api-reference.md)
 
-- [对象存储](doc/storage.md)
+- [对象存储](docs/storage.md)
 
-- [常用命令](doc/command.md)
+- [常用命令](docs/command.md)
 
 ## 软件需求
 

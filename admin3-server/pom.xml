@@ -28,7 +28,14 @@
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-s3</artifactId>
-      <version>1.12.501</version>
+      <version>1.12.506</version>
+      <exclusions>
+        <!--see: https://github.com/spring-projects/spring-framework/issues/30406 -->
+        <exclusion>
+          <artifactId>commons-logging</artifactId>
+          <groupId>commons-logging</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>

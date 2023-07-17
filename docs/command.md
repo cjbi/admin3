@@ -29,6 +29,15 @@ mvn spring-boot:build-image -Dmaven.test.skip=true -Ddocker.image-name=xxx -Ddoc
  mvn -Pnative spring-boot:build-image -Dmaven.test.skip=true -Ddocker.image-name=xxx -Ddocker.username=xxx -Ddocker.password=xxx
 ```
 
+- 本机测试native镜像
+
+> 注意：本机需要安装 [graalvm](https://www.graalvm.org/latest/docs/getting-started/)
+
+```shell
+mvn clean -X package -Pnative,nativeTest
+```
+
+
 ## 前端命令
 
 - 安装依赖
