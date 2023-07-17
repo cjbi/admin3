@@ -3,6 +3,7 @@ package tech.wetech.admin3.controller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class StorageController {
       request.address(),
       request.storagePath()
     );
-    return ResponseEntity.ok(config);
+    return new ResponseEntity<>(config, HttpStatus.CREATED);
   }
 
   @PutMapping("/configs/{id}")

@@ -130,6 +130,7 @@ INSERT INTO user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO user_role (user_id, role_id) VALUES (2, 2);
 INSERT INTO user_role (user_id, role_id) VALUES (3, 4);
 INSERT INTO user_role (user_id, role_id) VALUES (202, 2);
+INSERT INTO user_role (user_id, role_id) VALUES (203, 1);
 INSERT INTO user_role (user_id, role_id) VALUES (203, 3);
 INSERT INTO user_role (user_id, role_id) VALUES (204, 3);
 INSERT INTO user_role (user_id, role_id) VALUES (205, 3);
@@ -140,6 +141,7 @@ INSERT INTO user_role (user_id, role_id) VALUES (209, 3);
 INSERT INTO user_role (user_id, role_id) VALUES (210, 3);
 INSERT INTO user_role (user_id, role_id) VALUES (211, 3);
 INSERT INTO user_role (user_id, role_id) VALUES (212, 3);
+INSERT INTO user_role (user_id, role_id) VALUES (302, 2);
 
 
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (1, null, '根节点', null, '*', null, null, null);
@@ -166,6 +168,12 @@ INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (22, 'Timer', '操作日志', null, 'log:view', 0, '/logs', 3);
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (23, null, '清空日志', null, 'log:clean', 1, null, 22);
 INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (24, null, '查看日志', null, 'log:view', 1, null, 22);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (25, 'Files', '对象存储', null, 'storage:view', 0, '/storage', 3);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (26, null, '查看对象存储', null, 'storage:view', 1, null, 25);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (27, null, '新增对象存储', null, 'storage:create', 1, null, 25);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (28, null, '更新对象存储', null, 'storage:update', 1, null, 25);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (29, null, '删除对象存储', null, 'storage:delete', 1, null, 25);
+INSERT INTO resource (id, icon, name, parent_ids, permission, type, url, parent_id) VALUES (30, null, '设置默认存储', null, 'storage:markAsDefault', 1, null, 25);
 
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 3);
@@ -190,6 +198,12 @@ INSERT INTO role_resource (role_id, resource_id) VALUES (1, 21);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 22);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 23);
 INSERT INTO role_resource (role_id, resource_id) VALUES (1, 24);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 25);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 26);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 27);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 28);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 29);
+INSERT INTO role_resource (role_id, resource_id) VALUES (1, 30);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 3);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 6);
@@ -197,6 +211,15 @@ INSERT INTO role_resource (role_id, resource_id) VALUES (2, 15);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 16);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 17);
 INSERT INTO role_resource (role_id, resource_id) VALUES (2, 18);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 22);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 23);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 24);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 25);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 26);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 27);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 28);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 29);
+INSERT INTO role_resource (role_id, resource_id) VALUES (2, 30);
 INSERT INTO role_resource (role_id, resource_id) VALUES (3, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (4, 2);
 INSERT INTO role_resource (role_id, resource_id) VALUES (4, 3);
@@ -208,13 +231,15 @@ INSERT INTO role_resource (role_id, resource_id) VALUES (4, 11);
 INSERT INTO role_resource (role_id, resource_id) VALUES (4, 15);
 
 
-INSERT INTO session (data, expire_time, last_login_time, last_modified_time, token, credential_id) VALUES ('{"token":"<test_case_token>","userId":1,"username":"admin","avatar":"avatar.jpg","credential":{"identifier":"admin","type":"PASSWORD"},"permissions":["user:view","organization:delete","user:delete","role:update","resource:create","resource:delete","resource:view","user:update","sys","organization:create","user:create","role:create","role:view","role:delete","resource:update","organization:update","dashboard","log:view","log:clean"]}', '2099-12-31 13:37:14.577747', '2023-01-17 13:37:05.440180', '2023-01-17 13:37:18', '<test_case_token>', 1);
+INSERT INTO session (data, expire_time, last_login_time, last_modified_time, token, credential_id) VALUES ('{"token":"<test_case_token>","userId":1,"username":"admin","avatar":"avatar.jpg","credential":{"identifier":"admin","type":"PASSWORD"},"permissions":["user:view","organization:delete","user:delete","role:update","resource:create","resource:delete","resource:view","user:update","sys","organization:create","user:create","role:create","role:view","role:delete","resource:update","organization:update","dashboard","log:view","log:clean","storage:view","storage:create","storage:update","storage:delete","storage:markAsDefault"]}', '2099-12-31 13:37:14.577747', '2023-01-17 13:37:05.440180', '2023-01-17 13:37:18', '<test_case_token>', 1);
 
 INSERT INTO resource (id,icon, name, parent_ids, permission, type, url, parent_id) VALUES (1001, null,'测试用例更新资源', null, 'test_case_node:update', 1, null, 4);
 INSERT INTO resource (id,icon, name, parent_ids, permission, type, url, parent_id) VALUES (1002, null,'测试用例删除资源', null, 'test_case_node:delete', 1, null, 4);
 
 INSERT INTO stored_event (event_body, occurred_on, type_name, "user_id") VALUES ('{"userinfo":{"token":"9d9a7eeb30eb40cb91e8b10195494c33","userId":3,"username":"guest","avatar":"avatar.jpg","credential":{"identifier":"guest","type":"PASSWORD"},"permissions":["user:view","role:view","resource:view","sys","dashboard"]}}', '2023-02-13 20:48:27.180466', 'tech.wetech.admin3.sys.event.UserLoggedOut', 3);
 INSERT INTO stored_event (event_body, occurred_on, type_name, "user_id") VALUES ('{"userinfo":{"token":"174bbc32509d423fb8271ea3daa8cc1c","userId":1,"username":"admin","avatar":"avatar.jpg","credential":{"identifier":"admin","type":"PASSWORD"},"permissions":["user:view","organization:delete","user:delete","role:update","log:view","resource:create","resource:delete","resource:view","user:update","sys","organization:create","log:clean","user:create","role:create","role:view","role:delete","resource:update","organization:update","dashboard"]}}', '2023-02-13 20:48:31.208472', 'tech.wetech.admin3.sys.event.UserLoggedIn', 1);
+
+INSERT INTO storage_config (type, id, is_default, name, address, storage_path, access_key, bucket_name, endpoint, secret_key, create_time, create_user, storage_id) VALUES (0, 1, true, '本地', 'storage/fetch/', 'files', null, null, null, null, '2023-07-10 17:00:48.000000', 'admin', 'SsIPzgpd9rFgxJhe3yUxk');
 
 -- 开启表约束检查
 SET REFERENTIAL_INTEGRITY TRUE;
