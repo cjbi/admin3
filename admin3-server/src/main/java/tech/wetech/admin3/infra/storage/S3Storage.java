@@ -38,7 +38,7 @@ public class S3Storage implements Storage {
   @Override
   public void store(InputStream inputStream, long contentLength, String contentType, String filename) {
     AmazonS3 s3client = getS3Client();
-    String bucketName = config.getSecretKeyWithEnv();
+    String bucketName = config.getBucketNameWithEnv();
     if (!s3client.doesBucketExistV2(bucketName)) {
       s3client.createBucket(bucketName);
     }
