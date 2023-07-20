@@ -162,8 +162,9 @@ public class StorageServiceImpl implements StorageService {
 
   @Override
   public void delete(String key) {
-    getStorage().delete(key);
-    storageFileRepository.deleteByKey(key);
+    StorageFile storageFile = storageFileRepository.getByKey(key);
+    getStorage(storageFile.getStorageId()).delete(key);
+    storageFileRepository.delete(storageFile);
   }
 
   @Override
