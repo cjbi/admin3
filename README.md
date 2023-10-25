@@ -20,7 +20,7 @@
 - employee / employee (拥有部分权限)
 - guest / guest (拥有查看权限)
 
-演示地址： http://metacode.wetech.tech:8082/admin3
+演示地址： https://admin3.wetech.tech
 
 在线部署： https://gitpod.io/#https://github.com/cjbi/admin3
 
