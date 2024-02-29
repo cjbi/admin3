@@ -3,6 +3,7 @@ package tech.wetech.admin3.sys.service;
 import org.springframework.core.io.Resource;
 import tech.wetech.admin3.sys.model.StorageConfig;
 import tech.wetech.admin3.sys.model.StorageFile;
+import tech.wetech.admin3.sys.service.dto.StorageFileDTO;
 
 import java.io.InputStream;
 import java.util.List;
@@ -24,7 +25,7 @@ public interface StorageService {
 
   void markAsDefault(StorageConfig storageConfig);
 
-  String store(String storageId, InputStream inputStream, long contentLength, String contentType, String filename);
+  StorageFileDTO store(String storageId, InputStream inputStream, long contentLength, String contentType, String filename);
 
   void delete(String key);
 

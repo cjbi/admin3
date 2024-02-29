@@ -1,23 +1,14 @@
-package tech.wetech.admin3.sys.model;
+package tech.wetech.admin3.sys.service.dto;
 
-import jakarta.persistence.*;
-import tech.wetech.admin3.common.Constants;
-import tech.wetech.admin3.common.SessionItemHolder;
-import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
+import tech.wetech.admin3.sys.model.StorageFile;
 
 import java.time.LocalDateTime;
 
 /**
  * @author cjbi
  */
-@Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"key"})})
-public class StorageFile extends BaseEntity {
+public class StorageFileDTO extends StorageFile {
 
-  /**
-   * 文件的唯一索引
-   */
-  @Column(name = "`key`")
   private String key;
 
   /**
@@ -41,66 +32,83 @@ public class StorageFile extends BaseEntity {
 
   private String storageId;
 
-  @PrePersist
-  protected void onCreate() {
-    createTime = LocalDateTime.now();
-    UserinfoDTO userInfo = (UserinfoDTO) SessionItemHolder.getItem(Constants.SESSION_CURRENT_USER);
-    createUser = userInfo.username();
-  }
+  private String url;
 
+  @Override
   public String getKey() {
     return key;
   }
 
+  @Override
   public void setKey(String key) {
     this.key = key;
   }
 
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public void setName(String name) {
     this.name = name;
   }
 
+  @Override
   public String getType() {
     return type;
   }
 
+  @Override
   public void setType(String type) {
     this.type = type;
   }
 
+  @Override
   public Long getSize() {
     return size;
   }
 
+  @Override
   public void setSize(Long size) {
     this.size = size;
   }
 
+  @Override
   public String getCreateUser() {
     return createUser;
   }
 
+  @Override
   public void setCreateUser(String createUser) {
     this.createUser = createUser;
   }
 
+  @Override
   public LocalDateTime getCreateTime() {
     return createTime;
   }
 
+  @Override
   public void setCreateTime(LocalDateTime createTime) {
     this.createTime = createTime;
   }
 
+  @Override
   public String getStorageId() {
     return storageId;
   }
 
+  @Override
   public void setStorageId(String storageId) {
     this.storageId = storageId;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
   }
 }

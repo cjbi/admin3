@@ -13,6 +13,7 @@ import tech.wetech.admin3.sys.model.StorageConfig;
 import tech.wetech.admin3.sys.model.StorageConfig.Type;
 import tech.wetech.admin3.sys.model.StorageFile;
 import tech.wetech.admin3.sys.service.StorageService;
+import tech.wetech.admin3.sys.service.dto.StorageFileDTO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,13 +90,13 @@ public class StorageController {
   }
 
   @PostMapping("/upload")
-  public ResponseEntity<List<UploadResponse>> upload(@RequestParam(value = "storageId", required = false) String storageId,
+  public ResponseEntity<List<StorageFileDTO>> upload(@RequestParam(value = "storageId", required = false) String storageId,
                                                      @RequestParam("files") MultipartFile[] files) throws IOException {
-    List<UploadResponse> responses = new ArrayList<>();
+    List<StorageFileDTO> responses = new ArrayList<>();
     for (MultipartFile file : files) {
       String originalFilename = file.getOriginalFilename();
-      String url = storageService.store(storageId, file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
-      responses.add(new UploadResponse(url));
+      StorageFileDTO storageFile = storageService.store(storageId, file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
+      responses.add(storageFile);
     }
     return ResponseEntity.ok(responses);
   }
@@ -162,9 +163,6 @@ public class StorageController {
                               String storagePath
   ) {
 
-  }
-
-  record UploadResponse(String url) {
   }
 
 }

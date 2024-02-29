@@ -16,7 +16,7 @@ public class Session extends BaseEntity {
 
   @Column(nullable = false)
   private String token;
-  @OneToOne
+  @ManyToOne
   private UserCredential credential;
   @Column(nullable = false)
   private LocalDateTime expireTime;

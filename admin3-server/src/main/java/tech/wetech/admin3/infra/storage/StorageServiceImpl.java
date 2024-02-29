@@ -1,11 +1,12 @@
 package tech.wetech.admin3.infra.storage;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.wetech.admin3.common.DomainEventPublisher;
 import tech.wetech.admin3.common.NanoId;
-import tech.wetech.admin3.common.StringUtils;
 import tech.wetech.admin3.sys.event.StorageConfigCreated;
 import tech.wetech.admin3.sys.event.StorageConfigDeleted;
 import tech.wetech.admin3.sys.event.StorageConfigMarkedAsDefault;
@@ -16,9 +17,11 @@ import tech.wetech.admin3.sys.model.StorageFile;
 import tech.wetech.admin3.sys.repository.StorageConfigRepository;
 import tech.wetech.admin3.sys.repository.StorageFileRepository;
 import tech.wetech.admin3.sys.service.StorageService;
+import tech.wetech.admin3.sys.service.dto.StorageFileDTO;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Random;
 
 import static tech.wetech.admin3.common.CommonResultStatus.FAIL;
 
@@ -108,7 +111,7 @@ public class StorageServiceImpl implements StorageService {
 
   @Override
   @Transactional
-  public String store(String storageId, InputStream inputStream, long contentLength, String contentType, String filename) {
+  public StorageFileDTO store(String storageId, InputStream inputStream, long contentLength, String contentType, String filename) {
     String key = generateKey(filename);
     Storage storage;
     if (storageId != null) {
@@ -117,16 +120,18 @@ public class StorageServiceImpl implements StorageService {
       storage = getStorage();
     }
     storage.store(inputStream, contentLength, contentType, key);
-    String url = getStorage().getUrl(key);
     StorageFile storageFile = new StorageFile();
     storageFile.setKey(key);
     storageFile.setName(filename);
     storageFile.setType(contentType);
     storageFile.setSize(contentLength);
-    storageFile.setUrl(url);
     storageFile.setStorageId(storage.getId());
-    storageFileRepository.save(storageFile);
-    return url;
+    storageFile = storageFileRepository.save(storageFile);
+    String url = storage.getUrl(key);
+    StorageFileDTO dto = new StorageFileDTO();
+    BeanUtils.copyProperties(storageFile, dto);
+    dto.setUrl(url);
+    return dto;
   }
 
 
@@ -147,17 +152,24 @@ public class StorageServiceImpl implements StorageService {
   }
 
   private String generateKey(String filename) {
-    int index = filename.lastIndexOf('.');
-    String suffix = filename.substring(index);
-
     String key = null;
     StorageFile storageFile = null;
-
     do {
-      key = StringUtils.getRandomString(20) + suffix;
+      key = getRandomString(5) + "_" + filename;
       storageFile = storageFileRepository.getByKey(key);
     } while (storageFile != null);
     return key;
+  }
+
+  public String getRandomString(Integer num) {
+    String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+    Random random = new Random();
+    StringBuffer sb = new StringBuffer();
+    for (int i = 0; i < num; i++) {
+      int number = random.nextInt(base.length());
+      sb.append(base.charAt(number));
+    }
+    return sb.toString();
   }
 
   @Override
@@ -176,7 +188,8 @@ public class StorageServiceImpl implements StorageService {
   public Resource loadAsResource(String key) {
     StorageFile file = storageFileRepository.getByKey(key);
     Storage storage = getStorage(file.getStorageId());
-    return storage.loadAsResource(key);
+    InputStream is = storage.getFileContent(key);
+    return new InputStreamResource(is);
   }
 
 }

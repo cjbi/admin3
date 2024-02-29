@@ -4,7 +4,7 @@ package tech.wetech.admin3.sys.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +19,7 @@ public class StoredEvent extends BaseEntity {
   private String eventBody;
   private LocalDateTime occurredOn;
   private String typeName;
-  @OneToOne
+  @ManyToOne
   private User user;
 
   public String getEventBody() {
