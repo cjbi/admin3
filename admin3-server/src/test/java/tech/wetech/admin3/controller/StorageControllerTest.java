@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import tech.wetech.admin3.AbstractIntegrationTest;
 import tech.wetech.admin3.common.JsonUtils;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ import static tech.wetech.admin3.Constants.TOKEN_HEADER_NAME;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-public class StorageControllerTest {
+public class StorageControllerTest extends AbstractIntegrationTest {
 
   @Autowired
   private MockMvc mvc;

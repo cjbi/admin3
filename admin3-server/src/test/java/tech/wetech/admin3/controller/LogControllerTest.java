@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import tech.wetech.admin3.AbstractIntegrationTest;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -23,7 +24,7 @@ import static tech.wetech.admin3.Constants.TOKEN_HEADER_NAME;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureMockMvc
-public class LogControllerTest {
+public class LogControllerTest extends AbstractIntegrationTest {
 
   @Autowired
   private MockMvc mvc;

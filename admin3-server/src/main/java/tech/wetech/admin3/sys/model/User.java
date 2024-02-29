@@ -41,7 +41,7 @@ public class User extends BaseEntity {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "id", orphanRemoval = true)
   private Set<UserCredential> credentials = new LinkedHashSet<>();
 
-  @OneToOne(fetch = LAZY)
+  @ManyToOne(fetch = LAZY)
   private Organization organization;
 
   public String getOrgFullName() {

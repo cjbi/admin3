@@ -2,6 +2,7 @@ package tech.wetech.admin3.sys.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import tech.wetech.admin3.common.BusinessException;
 import tech.wetech.admin3.common.CommonResultStatus;
@@ -32,7 +33,7 @@ public class UserCredential extends BaseEntity {
    */
   private IdentityType identityType;
 
-  @OneToOne
+  @ManyToOne
   private User user;
 
 

@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import tech.wetech.admin3.AbstractIntegrationTest;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.core.Is.is;
@@ -19,7 +20,7 @@ import static tech.wetech.admin3.Constants.TOKEN_HEADER_NAME;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserControllerTest extends AbstractIntegrationTest {
 
   @Autowired
   private MockMvc mvc;

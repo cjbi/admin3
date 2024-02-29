@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import tech.wetech.admin3.AbstractIntegrationTest;
 import tech.wetech.admin3.common.JsonUtils;
 
 import static org.hamcrest.core.Is.is;
@@ -20,7 +21,7 @@ import static tech.wetech.admin3.Constants.TOKEN_HEADER_NAME;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginControllerTest {
+public class LoginControllerTest extends AbstractIntegrationTest {
 
   @Autowired
   private MockMvc mvc;
