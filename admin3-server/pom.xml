@@ -25,22 +25,10 @@
       <artifactId>admin3-ui</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
-   <!-- <dependency>
+   <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>s3</artifactId>
       <version>2.17.290</version>
-    </dependency>-->
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-s3</artifactId>
-      <version>1.12.506</version>
-      <exclusions>
-        <!--see: https://github.com/spring-projects/spring-framework/issues/30406 -->
-        <exclusion>
-          <artifactId>commons-logging</artifactId>
-          <groupId>commons-logging</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>

@@ -1,8 +1,6 @@
 package tech.wetech.admin3.infra.storage;
 
 
-import org.springframework.core.io.Resource;
-
 import java.io.InputStream;
 
 /**
@@ -22,7 +20,7 @@ public interface Storage {
    */
   void store(InputStream inputStream, long contentLength, String contentType, String filename);
 
-  Resource loadAsResource(String filename);
+  InputStream getFileContent(String filename);
 
   void delete(String filename);
 

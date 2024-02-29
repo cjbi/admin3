@@ -1,27 +1,25 @@
 package tech.wetech.admin3.infra.storage;
 
-import com.amazonaws.ClientConfiguration;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
-import com.amazonaws.services.s3.model.S3Object;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.awscore.exception.AwsServiceException;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import tech.wetech.admin3.sys.model.StorageConfig;
 
 import java.io.InputStream;
+import java.net.URI;
 
 /**
  * @author cjbi
  */
 public class S3Storage implements Storage {
+
+  private final Logger log = LoggerFactory.getLogger(S3Storage.class);
 
   private final StorageConfig config;
 
@@ -29,20 +27,16 @@ public class S3Storage implements Storage {
     this.config = config;
   }
 
-
-  @Override
-  public String getId() {
-    return config.getStorageId();
-  }
-
-  @Override
-  public void store(InputStream inputStream, long contentLength, String contentType, String filename) {
-    AmazonS3 s3client = getS3Client();
-    String bucketName = config.getBucketNameWithEnv();
-    if (!s3client.doesBucketExistV2(bucketName)) {
-      s3client.createBucket(bucketName);
-    }
-    putObject(bucketName, filename, inputStream, contentLength, contentType);
+  private S3Client getS3Client() {
+    return S3Client.builder()
+      .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(config.getAccessKey(), config.getSecretKey())))
+      .region(Region.AWS_GLOBAL)
+      .endpointOverride(URI.create(config.getEndpoint()))
+      .serviceConfiguration(config -> config
+        .pathStyleAccessEnabled(true)
+        .chunkedEncodingEnabled(false)
+      )
+      .build();
   }
 
   /**
@@ -50,63 +44,84 @@ public class S3Storage implements Storage {
    *
    * @param bucketName  bucket名称
    * @param objectName  文件名称
-   * @param stream      文件流
-   * @param size        大小
-   * @param contextType 类型
+   * @param is      文件流
+   * @param contentType 类型
+   * @param contentLength 大小
    * @see <a href= "http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutObject">AWS
    * API Documentation</a>
    */
-  public PutObjectResult putObject(String bucketName, String objectName, InputStream stream, long size,
-                                   String contextType) {
-    AmazonS3 amazonS3 = getS3Client();
-    ObjectMetadata objectMetadata = new ObjectMetadata();
-    objectMetadata.setContentLength(size);
-    objectMetadata.setContentType(contextType);
-    PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, stream, objectMetadata);
-    // Setting the read limit value to one byte greater than the size of stream will
-    // reliably avoid a ResetException
-    putObjectRequest.getRequestClientOptions().setReadLimit(Long.valueOf(size).intValue() + 1);
-    return amazonS3.putObject(putObjectRequest);
-
-  }
-
-  private AmazonS3 getS3Client() {
-    AWSCredentials awsCredentials = new BasicAWSCredentials(config.getAccessKeyWithEnv(), config.getSecretKeyWithEnv());
-    AWSCredentialsProvider awsCredentialsProvider = new AWSStaticCredentialsProvider(awsCredentials);
-    ClientConfiguration clientConfiguration = new ClientConfiguration();
-    AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(
-      config.getEndpointWithEnv(), null);
-    return AmazonS3Client.builder()
-      .withEndpointConfiguration(endpointConfiguration)
-      .withClientConfiguration(clientConfiguration)
-      .withCredentials(awsCredentialsProvider)
-      .disableChunkedEncoding()
-      .withPathStyleAccessEnabled(false)
-      .build();
+  public PutObjectResponse putObject(String bucketName, String objectName, InputStream is,
+                                     String contentType, long contentLength) {
+    try (S3Client s3Client = getS3Client()) {
+      return s3Client.putObject(
+        req -> req.bucket(bucketName).key(objectName).contentType(contentType),
+        RequestBody.fromInputStream(is, contentLength)
+      );
+    }
   }
 
   @Override
-  public Resource loadAsResource(String filename) {
-    String bucketName = config.getBucketNameWithEnv();
-    AmazonS3 amazonS3 = getS3Client();
-    S3Object s3Object = amazonS3.getObject(bucketName, filename);
-    InputStream is = s3Object.getObjectContent();
-    return new InputStreamResource(is);
+  public String getId() {
+    return config.getStorageId();
+  }
+
+  @Override
+  public void store(InputStream inputStream, long contentLength, String contentType, String keyName) {
+    String bucketName = config.getBucketName();
+
+    if (!doesBucketExist(bucketName)) {
+      createBucket(bucketName);
+    }
+    putObject(bucketName, keyName, inputStream, contentType, contentLength);
+  }
+
+  private void createBucket(String bucketName) {
+    try (S3Client s3Client = getS3Client()) {
+      s3Client.createBucket(req -> req.bucket(bucketName));
+    }
+  }
+
+  private boolean doesBucketExist(String bucketName) {
+    try (S3Client s3Client = getS3Client()) {
+      s3Client.headBucket(req -> req.bucket(bucketName));
+      return true;
+    } catch (AwsServiceException ex) {
+      if (ex.statusCode() == 404 | ex.statusCode() == 403 || ex.statusCode() == 301) {
+        return false;
+      }
+      throw ex;
+    } catch (Exception ex) {
+      log.error("Cannot check access", ex);
+      throw ex;
+    }
+  }
+
+  @Override
+  public InputStream getFileContent(String filename) {
+    String bucketName = config.getBucketName();
+    try (S3Client s3Client = getS3Client()) {
+      return s3Client.getObject(req -> req.bucket(bucketName).key(filename));
+    }
   }
 
   @Override
   public void delete(String filename) {
-    String bucketName = config.getBucketNameWithEnv();
-    AmazonS3 amazonS3 = getS3Client();
-    amazonS3.deleteObject(bucketName, filename);
+    String bucketName = config.getBucketName();
+    S3Client s3Client = getS3Client();
+    s3Client.deleteObject(req -> req.bucket(bucketName).key(filename));
+    s3Client.close();
   }
 
   @Override
   public String getUrl(String filename) {
-    if (config.getAddressWithEnv() != null) {
-      return config.getAddressWithEnv() + filename;
+    if (config.getAddress() != null) {
+      return config.getAddress() + filename;
     }
-    String bucketName = config.getBucketNameWithEnv();
-    return getS3Client().getUrl(bucketName, filename).toString();
+    String bucketName = config.getBucketName();
+    try (S3Client s3Client = getS3Client()) {
+      return s3Client.utilities()
+        .getUrl(req -> req.bucket(bucketName).key(filename)).toString();
+    }
   }
+
 }

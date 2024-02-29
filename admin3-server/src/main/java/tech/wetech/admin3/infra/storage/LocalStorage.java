@@ -4,8 +4,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import tech.wetech.admin3.sys.model.StorageConfig;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,18 +50,15 @@ public class LocalStorage implements Storage {
     return rootLocation.resolve(filename);
   }
 
-  @Override
-  public Resource loadAsResource(String filename) {
+  public InputStream getFileContent(String filename) {
     try {
-      Path file = get(filename);
-      Resource resource = new UrlResource(file.toUri());
-      if (resource.exists() || resource.isReadable()) {
-        return resource;
-      } else {
+      Path path = get(filename);
+      File file = path.toFile();
+      if (!file.exists()) {
         return null;
       }
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
+      return new FileInputStream(path.toFile());
+    } catch (FileNotFoundException e) {
       return null;
     }
   }

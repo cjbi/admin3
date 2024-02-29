@@ -1,5 +1,6 @@
 package tech.wetech.admin3.infra.storage;
 
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -176,7 +177,8 @@ public class StorageServiceImpl implements StorageService {
   public Resource loadAsResource(String key) {
     StorageFile file = storageFileRepository.getByKey(key);
     Storage storage = getStorage(file.getStorageId());
-    return storage.loadAsResource(key);
+    InputStream is = storage.getFileContent(key);
+    return new InputStreamResource(is);
   }
 
 }
