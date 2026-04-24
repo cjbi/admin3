@@ -13,5 +13,6 @@ public record OrgUserDTO(Long id,
                          User.Gender gender,
                          User.State state,
                          String orgFullName,
-                         LocalDateTime createdTime) {
+                         LocalDateTime createdTime,
+                         LocalDateTime lastLoginTime) {
 }

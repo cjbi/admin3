@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import tech.wetech.admin3.sys.model.Organization;
 import tech.wetech.admin3.sys.model.User;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -23,8 +24,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     from User user where (user.organization=:organization or user.organization.parentIds like concat(:orgParentIds, '%'))
     and (:username is null or user.username=:username)
     and (:state is null or user.state=:state)
+    and (:lastLoginTimeStart is null or user.lastLoginTime >= :lastLoginTimeStart)
+    and (:lastLoginTimeEnd is null or user.lastLoginTime <= :lastLoginTimeEnd)
     """)
-  Page<User> findOrgUsers(Pageable pageable, String username, User.State state, Organization organization, String orgParentIds);
+  Page<User> findOrgUsers(Pageable pageable, String username, User.State state, Organization organization, String orgParentIds, LocalDateTime lastLoginTimeStart, LocalDateTime lastLoginTimeEnd);
 
   @Query("select count(user.id) from User user where user.organization=:organization or user.organization.parentIds like concat(:orgParentIds, '%')")
   long countOrgUsers(Organization organization, String orgParentIds);

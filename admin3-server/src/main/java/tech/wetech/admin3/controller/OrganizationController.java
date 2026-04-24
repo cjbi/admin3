@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import tech.wetech.admin3.sys.service.dto.OrgTreeDTO;
 import tech.wetech.admin3.sys.service.dto.OrgUserDTO;
 import tech.wetech.admin3.sys.service.dto.PageDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static tech.wetech.admin3.sys.model.Organization.Type;
@@ -47,9 +50,9 @@ public class OrganizationController {
 
   @RequiresPermissions("user:view")
   @GetMapping("/{organizationId}/users")
-  public ResponseEntity<PageDTO<OrgUserDTO>> findOrgUsers(Pageable pageable, @RequestParam(required = false) String username, @RequestParam(required = false) User.State state, @PathVariable Long organizationId) {
+  public ResponseEntity<PageDTO<OrgUserDTO>> findOrgUsers(@SortDefault(sort = "lastLoginTime", direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(required = false) String username, @RequestParam(required = false) User.State state, @RequestParam(required = false) LocalDateTime lastLoginTimeStart, @RequestParam(required = false) LocalDateTime lastLoginTimeEnd, @PathVariable Long organizationId) {
     Organization organization = organizationService.findOrganization(organizationId);
-    return ResponseEntity.ok(userService.findOrgUsers(pageable, username, state, organization));
+    return ResponseEntity.ok(userService.findOrgUsers(pageable, username, state, organization, lastLoginTimeStart, lastLoginTimeEnd));
   }
 
   @RequiresPermissions("organization:create")
