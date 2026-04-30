@@ -2,6 +2,7 @@ package tech.wetech.admin3.infra.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import tech.wetech.admin3.common.CommonResultStatus;
@@ -14,9 +15,11 @@ import tech.wetech.admin3.sys.exception.UserException;
 import tech.wetech.admin3.sys.model.User;
 import tech.wetech.admin3.sys.model.UserCredential;
 import tech.wetech.admin3.sys.repository.UserCredentialRepository;
+import tech.wetech.admin3.sys.repository.UserRepository;
 import tech.wetech.admin3.sys.service.SessionService;
 import tech.wetech.admin3.sys.service.dto.UserinfoDTO;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static tech.wetech.admin3.sys.model.UserCredential.IdentityType.PASSWORD;
@@ -29,15 +32,19 @@ public class DefaultSessionService implements SessionService {
 
   private final UserCredentialRepository userCredentialRepository;
 
+  private final UserRepository userRepository;
+
   private final SessionManager sessionManager;
 
-  public DefaultSessionService(UserCredentialRepository userCredentialRepository, SessionManager sessionManager) {
+  public DefaultSessionService(UserCredentialRepository userCredentialRepository, UserRepository userRepository, SessionManager sessionManager) {
     this.userCredentialRepository = userCredentialRepository;
+    this.userRepository = userRepository;
     this.sessionManager = sessionManager;
   }
 
 
   @Override
+  @Transactional
   public UserinfoDTO login(String username, String password) {
     UserCredential credential = userCredentialRepository.findCredential(username, PASSWORD)
       .orElseThrow(() -> new UserException(CommonResultStatus.UNAUTHORIZED, "密码不正确"));
@@ -46,6 +53,8 @@ public class DefaultSessionService implements SessionService {
       if (user.isLocked()) {
         throw new UserException(CommonResultStatus.UNAUTHORIZED, "用户已经停用，请与管理员联系");
       }
+      user.setLastLoginTime(LocalDateTime.now());
+      userRepository.save(user);
       String token = UUID.randomUUID().toString().replace("-", "");
       UserinfoDTO userinfo = new UserinfoDTO(token, user.getId(), user.getUsername(), user.getAvatar(), new UserinfoDTO.Credential(credential.getIdentifier(), credential.getIdentityType()), user.findPermissions());
       sessionManager.store(token, credential, userinfo);

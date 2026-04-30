@@ -58,6 +58,22 @@
                 <el-option key="1" label="正常" value="NORMAL"></el-option>
                 <el-option key="2" label="锁定" value="LOCKED"></el-option>
               </el-select>
+              <el-date-picker
+                v-model="query.lastLoginTimeStart"
+                type="datetime"
+                placeholder="最后登录时间开始"
+                class="handle-select mr10"
+                clearable
+                value-format="YYYY-MM-DD HH:mm:ss"
+              ></el-date-picker>
+              <el-date-picker
+                v-model="query.lastLoginTimeEnd"
+                type="datetime"
+                placeholder="最后登录时间结束"
+                class="handle-select mr10"
+                clearable
+                value-format="YYYY-MM-DD HH:mm:ss"
+              ></el-date-picker>
               <el-button type="primary" :icon="Search" @click="handleSearch">搜索</el-button>
               <el-button type="primary" :icon="Plus" @click="addVisible = true;Object.assign(form, new User())"
                          v-action:user:create>新增
@@ -94,6 +110,7 @@
               </el-table-column>
 
               <el-table-column prop="createdTime" label="注册时间"></el-table-column>
+              <el-table-column prop="lastLoginTime" label="最后登录时间"></el-table-column>
               <el-table-column prop="orgFullName" label="所属组织"></el-table-column>
               <el-table-column label="操作" width="300" fixed="right">
                 <template #default="scope">
@@ -382,12 +399,15 @@ interface TableItem {
   avatar: string;
   state: string;
   createdTime: string;
+  lastLoginTime: string;
   orgFullName: string;
 }
 
 const query = reactive({
   username: '',
   state: '',
+  lastLoginTimeStart: '',
+  lastLoginTimeEnd: '',
   pageIndex: 1,
   pageSize: 10
 });
@@ -400,6 +420,8 @@ const getUserData = () => {
     size: query.pageSize,
     username: query.username || undefined,
     state: query.state || undefined,
+    lastLoginTimeStart: query.lastLoginTimeStart || undefined,
+    lastLoginTimeEnd: query.lastLoginTimeEnd || undefined,
   }).then(res => {
     tableData.value = res.data.list;
     pageTotal.value = res.data.total;

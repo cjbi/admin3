@@ -32,6 +32,9 @@ public class User extends BaseEntity {
   @Column
   private LocalDateTime createdTime;
 
+  @Column
+  private LocalDateTime lastLoginTime;
+
   @ManyToMany(fetch = LAZY, cascade = CascadeType.DETACH)
   @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -124,6 +127,14 @@ public class User extends BaseEntity {
 
   public void setCreatedTime(LocalDateTime createdTime) {
     this.createdTime = createdTime;
+  }
+
+  public LocalDateTime getLastLoginTime() {
+    return lastLoginTime;
+  }
+
+  public void setLastLoginTime(LocalDateTime lastLoginTime) {
+    this.lastLoginTime = lastLoginTime;
   }
 
   public Set<Role> getRoles() {

@@ -59,10 +59,10 @@ public class UserService {
       .orElseThrow(() -> new BusinessException(RECORD_NOT_EXIST));
   }
 
-  public PageDTO<OrgUserDTO> findOrgUsers(Pageable pageable, String username, User.State state, Organization organization) {
-    Page<User> page = userRepository.findOrgUsers(pageable, username, state, organization, organization.makeSelfAsParentIds());
+  public PageDTO<OrgUserDTO> findOrgUsers(Pageable pageable, String username, User.State state, Organization organization, LocalDateTime lastLoginTimeStart, LocalDateTime lastLoginTimeEnd) {
+    Page<User> page = userRepository.findOrgUsers(pageable, username, state, organization, organization.makeSelfAsParentIds(), lastLoginTimeStart, lastLoginTimeEnd);
     return new PageDTO<>(page.getContent().stream().map(u ->
-        new OrgUserDTO(u.getId(), u.getUsername(), u.getAvatar(), u.getGender(), u.getState(), u.getOrgFullName(), u.getCreatedTime()))
+        new OrgUserDTO(u.getId(), u.getUsername(), u.getAvatar(), u.getGender(), u.getState(), u.getOrgFullName(), u.getCreatedTime(), u.getLastLoginTime()))
       .collect(Collectors.toList()), page.getTotalElements());
   }
 
